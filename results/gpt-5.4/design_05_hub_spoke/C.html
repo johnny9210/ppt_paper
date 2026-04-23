@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #020817;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: "Inter", "Pretendard", "Noto Sans KR", sans-serif;
+  }
+
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    color: #e6fffb;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(74,247,227,0.18), transparent 32%),
+      linear-gradient(180deg, #081433, #030B1F);
+  }
+
+  .slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.22;
+    pointer-events: none;
+  }
+
+  .slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, transparent 0 14%, rgba(74,247,227,0.12) 14.2%, transparent 14.4%) no-repeat,
+      linear-gradient(90deg, transparent 0 14%, rgba(74,247,227,0.12) 14.2%, transparent 14.4%) no-repeat,
+      linear-gradient(90deg, transparent 0 14%, rgba(74,247,227,0.12) 14.2%, transparent 14.4%) no-repeat,
+      linear-gradient(90deg, transparent 85.6%, rgba(74,247,227,0.12) 85.8%, transparent 86%) no-repeat,
+      linear-gradient(90deg, transparent 85.6%, rgba(74,247,227,0.12) 85.8%, transparent 86%) no-repeat,
+      linear-gradient(90deg, transparent 85.6%, rgba(74,247,227,0.12) 85.8%, transparent 86%) no-repeat;
+    background-size:
+      100% 120px, 100% 120px, 100% 120px,
+      100% 120px, 100% 120px, 100% 120px;
+    background-position:
+      0 120px, 0 295px, 0 470px,
+      0 120px, 0 295px, 0 470px;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .ambient {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,247,227,0.15), transparent 70%);
+    filter: blur(60px);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .ambient.center { left: 490px; top: 210px; }
+  .ambient.left { left: 180px; top: 180px; opacity: 0.6; }
+  .ambient.right { right: 180px; top: 180px; opacity: 0.6; }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 22px;
+    transform: translateX(-50%);
+    z-index: 3;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #f0fffd;
+    text-shadow: 0 0 18px rgba(99,247,231,0.25);
+  }
+
+  .connector {
+    position: absolute;
+    z-index: 1;
+    height: 14px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(67,230,225,0.9), rgba(105,255,214,0.9));
+    box-shadow: 0 0 20px rgba(99,247,231, 0.3), 0 0 60px rgba(99,247,231, 0.1);
+  }
+  .connector::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.28) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.4;
+  }
+
+  .conn-l1 { left: 340px; top: 185px; width: 250px; transform: rotate(18deg); }
+  .conn-l2 { left: 320px; top: 353px; width: 260px; }
+  .conn-l3 { left: 340px; top: 520px; width: 250px; transform: rotate(-18deg); }
+
+  .conn-r1 { right: 340px; top: 185px; width: 250px; transform: rotate(-18deg); }
+  .conn-r2 { right: 320px; top: 353px; width: 260px; }
+  .conn-r3 { right: 340px; top: 520px; width: 250px; transform: rotate(18deg); }
+
+  .hub {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(74,247,227,0.18), rgba(4,19,43,0.82) 58%, rgba(3,11,31,0.96) 100%);
+    border: 4px solid rgba(106,247,232,0.8);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.12),
+      0 0 20px rgba(99,247,231, 0.3), 0 0 60px rgba(99,247,231, 0.1);
+  }
+
+  .hub-badge {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(16, 185, 129, 0.06);
+    border: 3px solid rgba(106,247,232,0.85);
+    box-shadow: 0 0 20px rgba(99,247,231, 0.3), 0 0 60px rgba(99,247,231, 0.1);
+    font-size: 44px;
+    margin-bottom: 14px;
+  }
+
+  .hub-title {
+    z-index: 3;
+    font-size: 26px;
+    font-weight: 800;
+    color: #f7fffe;
+    text-shadow: 0 0 14px rgba(99,247,231,0.25);
+  }
+
+  .spoke {
+    position: absolute;
+    z-index: 2;
+    width: 292px;
+    height: 146px;
+    padding: 22px 22px 18px 22px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.12),
+      0 0 20px rgba(99,247,231, 0.3), 0 0 60px rgba(99,247,231, 0.1);
+  }
+
+  .spoke::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.10), transparent 40%),
+      linear-gradient(315deg, transparent 60%, rgba(99,247,231,0.10));
+    pointer-events: none;
+  }
+
+  .left-1 { left: 56px; top: 86px; }
+  .left-2 { left: 56px; top: 310px; }
+  .left-3 { left: 56px; top: 534px; width: 322px; }
+
+  .right-1 { right: 56px; top: 86px; }
+  .right-2 { right: 56px; top: 310px; }
+  .right-3 { right: 56px; top: 534px; width: 322px; }
+
+  .badge {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    z-index: 4;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(64, 229, 231, 0.08);
+    border: 3px solid rgba(106,247,232,0.85);
+    box-shadow: 0 0 20px rgba(99,247,231, 0.3), 0 0 60px rgba(99,247,231, 0.1);
+    font-size: 34px;
+  }
+
+  .content {
+    position: absolute;
+    left: 108px;
+    top: 24px;
+    right: 20px;
+    z-index: 3;
+  }
+
+  .line {
+    width: 48px;
+    height: 4px;
+    border-radius: 2px;
+    background: #63f7e7;
+    margin-bottom: 10px;
+    box-shadow: 0 0 20px rgba(99,247,231, 0.3), 0 0 60px rgba(99,247,231, 0.1);
+  }
+
+  .spoke-title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #f5fffe;
+    margin-bottom: 8px;
+  }
+
+  .spoke-desc {
+    font-size: 14px;
+    line-height: 1.45;
+    color: rgba(225, 255, 251, 0.82);
+    max-width: 170px;
+  }
+</style>
+
+<div class="slide">
+  <div class="ambient center"></div>
+  <div class="ambient left"></div>
+  <div class="ambient right"></div>
+
+  <div class="title">마이크로서비스 아키텍처</div>
+
+  <div class="connector conn-l1"></div>
+  <div class="connector conn-l2"></div>
+  <div class="connector conn-l3"></div>
+  <div class="connector conn-r1"></div>
+  <div class="connector conn-r2"></div>
+  <div class="connector conn-r3"></div>
+
+  <div class="hub">
+    <div class="hub-badge">🌐</div>
+    <div class="hub-title">API Gateway</div>
+  </div>
+
+  <div class="spoke left-1">
+    <div class="badge">☁️</div>
+    <div class="content">
+      <div class="line"></div>
+      <div class="spoke-title">클라우드 스토리지</div>
+      <div class="spoke-desc">S3, MinIO 기반 객체 저장소</div>
+    </div>
+  </div>
+
+  <div class="spoke right-1">
+    <div class="badge">📡</div>
+    <div class="content">
+      <div class="line"></div>
+      <div class="spoke-title">실시간 스트리밍</div>
+      <div class="spoke-desc">Kafka 이벤트 브로커</div>
+    </div>
+  </div>
+
+  <div class="spoke left-2">
+    <div class="badge">🗄️</div>
+    <div class="content">
+      <div class="line"></div>
+      <div class="spoke-title">데이터베이스</div>
+      <div class="spoke-desc">PostgreSQL + MongoDB</div>
+    </div>
+  </div>
+
+  <div class="spoke right-2">
+    <div class="badge">🔒</div>
+    <div class="content">
+      <div class="line"></div>
+      <div class="spoke-title">인증/보안</div>
+      <div class="spoke-desc">OAuth2 + JWT 토큰</div>
+    </div>
+  </div>
+
+  <div class="spoke left-3">
+    <div class="badge">🤖</div>
+    <div class="content">
+      <div class="line"></div>
+      <div class="spoke-title">AI 서비스</div>
+      <div class="spoke-desc">LLM 추론 엔진</div>
+    </div>
+  </div>
+
+  <div class="spoke right-3">
+    <div class="badge">🌍</div>
+    <div class="content">
+      <div class="line"></div>
+      <div class="spoke-title">CDN/Edge</div>
+      <div class="spoke-desc">글로벌 콘텐츠 배포</div>
+    </div>
+  </div>
+</div></div></body></html>

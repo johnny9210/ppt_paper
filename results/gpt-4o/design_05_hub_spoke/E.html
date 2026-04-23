@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_05_hub_spoke" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+  .design_05_hub_spoke-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0F172A, #3B82F6);
+    overflow: hidden;
+  }
+
+  .design_05_hub_spoke-bg::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle, #60A5FA 10%, transparent 10.5%);
+    background-size: 10% 10%;
+    opacity: 0.1;
+    z-index: 0;
+  }
+
+  .design_05_hub_spoke-bg .circle {
+    width: 30%;
+    height: 30%;
+    top: 35%;
+    left: 35%;
+    background: radial-gradient(circle, #60A5FA, #0F172A);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .design_05_hub_spoke-bg .line {
+    width: 1px;
+    height: 20%;
+    background-color: #60A5FA;
+    z-index: 2;
+  }
+
+  .design_05_hub_spoke-bg .line.vertical {
+    left: 49.5%;
+  }
+
+  .design_05_hub_spoke-bg .line.horizontal {
+    top: 49.5%;
+  }
+
+  .design_05_hub_spoke-bg .line.left {
+    transform: rotate(90deg);
+  }
+
+  .design_05_hub_spoke-bg .line.right {
+    transform: rotate(-90deg);
+  }
+</style>
+
+<div class="design_05_hub_spoke-bg">
+  <div class="circle"></div>
+  <div class="line vertical top" style="top: 15%;"></div>
+  <div class="line vertical bottom" style="bottom: 15%;"></div>
+  <div class="line horizontal left" style="left: 15%;"></div>
+  <div class="line horizontal right" style="right: 15%;"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:10;"><style>
+  .design_05_hub_spoke-cards {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+  .top-left-card,
+  .top-right-card,
+  .bottom-left-card,
+  .bottom-right-card,
+  .bottom-center-card {
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #E2E8F0;
+    z-index: 10;
+  }
+  .top-left-card {
+    top: 10%;
+    left: 20%;
+  }
+  .top-right-card {
+    top: 10%;
+    right: 20%;
+  }
+  .bottom-left-card {
+    bottom: 20%;
+    left: 15%;
+  }
+  .bottom-right-card {
+    bottom: 20%;
+    right: 15%;
+  }
+  .bottom-center-card {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+</style>
+
+<div class="design_05_hub_spoke-cards">
+  <div class="top-left-card"></div>
+  <div class="top-right-card"></div>
+  <div class="bottom-left-card"></div>
+  <div class="bottom-right-card"></div>
+  <div class="bottom-center-card"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+  .design_05_hub_spoke-content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+  }
+
+  .design_05_hub_spoke-content h1 {
+    position: absolute;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #F1F5F9;
+    line-height: 1.6;
+  }
+
+  .design_05_hub_spoke-content .tag {
+    position: absolute;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    background-color: rgba(0,0,0,0.5); /* Ensuring text readability */
+    color: #F1F5F9;
+  }
+
+  /* Title */
+  .title {
+    left: 10%; /* Example coordinate */
+    top: 5%; /* Example coordinate */
+  }
+
+  /* Hub */
+  .hub {
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%);
+    color: #3B82F6;
+  }
+
+  /* Spokes */
+  .spoke1 {
+    left: 20%;
+    top: 20%;
+    color: #60A5FA;
+  }
+
+  .spoke2 {
+    left: 80%;
+    top: 20%;
+    color: #60A5FA;
+  }
+
+  .spoke3 {
+    left: 20%;
+    bottom: 20%;
+    color: #60A5FA;
+  }
+
+  .spoke4 {
+    left: 80%;
+    bottom: 20%;
+    color: #60A5FA;
+  }
+
+  .spoke5 {
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    color: #60A5FA;
+  }
+</style>
+
+<div class="design_05_hub_spoke-content">
+  <h1 class="title">마이크로서비스 아키텍처</h1>
+  
+  <div class="tag hub">
+    🌐 API Gateway
+  </div>
+  
+  <div class="tag spoke1">
+    ☁️ 클라우드 스토리지<br>
+    S3, MinIO 기반 객체 저장소
+  </div>
+  
+  <div class="tag spoke2">
+    📡 실시간 스트리밍<br>
+    Kafka 이벤트 브로커
+  </div>
+  
+  <div class="tag spoke3">
+    🗄️ 데이터베이스<br>
+    PostgreSQL + MongoDB
+  </div>
+  
+  <div class="tag spoke4">
+    🔒 인증/보안<br>
+    OAuth2 + JWT 토큰
+  </div>
+  
+  <div class="tag spoke5">
+    🤖 AI 서비스<br>
+    LLM 추론 엔진
+  </div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><style>
+  .design_05_hub_spoke-icons {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 35;
+  }
+  
+  .central-element {
+    width: 10%;
+    height: 10%;
+    border-radius: 50%;
+    background-color: #3B82F6;
+    top: 45%;
+    left: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .card {
+    width: 8%;
+    height: 8%;
+    border-radius: 50%;
+    background-color: #60A5FA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .top-left-card {
+    top: 10%;
+    left: 20%;
+  }
+  
+  .top-right-card {
+    top: 10%;
+    left: 70%;
+  }
+  
+  .bottom-left-card {
+    top: 70%;
+    left: 20%;
+  }
+  
+  .bottom-right-card {
+    top: 70%;
+    left: 70%;
+  }
+  
+  .bottom-center-card {
+    top: 80%;
+    left: 45%;
+  }
+  
+  .accent-line {
+    background-color: #60A5FA;
+    border-radius: 2px;
+  }
+  
+  .line-top-left {
+    width: 22%;
+    height: 2px;
+    top: 35%;
+    left: 34%;
+  }
+  
+  .line-top-right {
+    width: 22%;
+    height: 2px;
+    top: 35%;
+    left: 44%;
+  }
+  
+  .line-bottom-left {
+    width: 22%;
+    height: 2px;
+    top: 55%;
+    left: 34%;
+  }
+  
+  .line-bottom-right {
+    width: 22%;
+    height: 2px;
+    top: 55%;
+    left: 44%;
+  }
+  
+  .line-bottom-center {
+    width: 2px;
+    height: 14%;
+    top: 50%;
+    left: 49%;
+  }
+</style>
+
+<div class="design_05_hub_spoke-icons">
+  <div class="central-element">
+    <i class="fas fa-hub"></i>
+  </div>
+  <div class="card top-left-card">
+    <i class="fas fa-cloud"></i>
+  </div>
+  <div class="card top-right-card">
+    <i class="fas fa-satellite-dish"></i>
+  </div>
+  <div class="card bottom-left-card">
+    <i class="fas fa-database"></i>
+  </div>
+  <div class="card bottom-right-card">
+    <i class="fas fa-lock"></i>
+  </div>
+  <div class="card bottom-center-card">
+    <i class="fas fa-microchip"></i>
+  </div>
+  <div class="accent-line line-top-left"></div>
+  <div class="accent-line line-top-right"></div>
+  <div class="accent-line line-bottom-left"></div>
+  <div class="accent-line line-bottom-right"></div>
+  <div class="accent-line line-bottom-center"></div>
+</div></div>
+</div></div>
+</body></html>

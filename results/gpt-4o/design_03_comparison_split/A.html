@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .container {
+    display: flex;
+    width: 1280px;
+    height: 720px;
+    background-color: #000;
+    position: relative;
+  }
+
+  .title {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 32px;
+  }
+
+  .panel {
+    width: 50%;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+
+  .panel.left {
+    background-color: #0a1533;
+    border-right: 2px solid #1a1f62;
+    color: #00ccff;
+  }
+
+  .panel.right {
+    background-color: #1a0a33;
+    color: #ff00ff;
+  }
+
+  .label {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  .icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .vs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    background: linear-gradient(145deg, #00ccff, #ff00ff);
+  }
+</style>
+
+<div class="container">
+  <div class="title">온프레미스 vs 클라우드 네이티브</div>
+  
+  <div class="panel left">
+    <div class="label">온프레미스</div>
+    <div class="item">
+      <div class="icon">⚙️</div>
+      <div class="text">초기 투자비용 높음</div>
+    </div>
+    <div class="item">
+      <div class="icon">☁️</div>
+      <div class="text">확장에 수주~수개월 소요</div>
+    </div>
+    <div class="item">
+      <div class="icon">🔒</div>
+      <div class="text">보안 직접 관리 필요</div>
+    </div>
+    <div class="item">
+      <div class="icon">🔍</div>
+      <div class="text">유지보수 인력 상시 필요</div>
+    </div>
+  </div>
+  
+  <div class="panel right">
+    <div class="label">클라우드 네이티브</div>
+    <div class="item">
+      <div class="icon">⚡</div>
+      <div class="text">사용량 기반 과금</div>
+    </div>
+    <div class="item">
+      <div class="icon">🖥️</div>
+      <div class="text">분 단위 자동 스케일링</div>
+    </div>
+    <div class="item">
+      <div class="icon">🔒</div>
+      <div class="text">관리형 보안 서비스</div>
+    </div>
+    <div class="item">
+      <div class="icon">🎯</div>
+      <div class="text">인프라 자동화로 인력 절감</div>
+    </div>
+  </div>
+  
+  <div class="vs">VS</div>
+</div></div>
+</body></html>

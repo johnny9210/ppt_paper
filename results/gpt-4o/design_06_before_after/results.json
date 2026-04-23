@@ -1,0 +1,52 @@
+{
+  "A": {
+    "CCR": 1.0,
+    "LOA": 0.0,
+    "LOA_levels": 0,
+    "CSS": 2,
+    "Colors": 9,
+    "IIR": 1.0,
+    "time": 10.5,
+    "chars": 2999
+  },
+  "B": {
+    "CCR": 0.0,
+    "LOA": 0.0,
+    "LOA_levels": 0,
+    "CSS": 8,
+    "Colors": 8,
+    "IIR": 1.0,
+    "time": 12.0,
+    "chars": 2343
+  },
+  "C": {
+    "CCR": 0.0,
+    "LOA": 0.0,
+    "LOA_levels": 0,
+    "CSS": 6,
+    "Colors": 8,
+    "IIR": 1.0,
+    "time": 15.8,
+    "chars": 2337
+  },
+  "E": {
+    "CCR": 1.0,
+    "LOA": 1.0,
+    "LOA_levels": 4,
+    "CSS": 8,
+    "Colors": 10,
+    "IIR": 1.0,
+    "time": 21.8,
+    "chars": 5100
+  },
+  "F": {
+    "CCR": 1.0,
+    "LOA": 0.5,
+    "LOA_levels": 4,
+    "CSS": 14,
+    "Colors": 25,
+    "IIR": 1.0,
+    "time": 51.3,
+    "chars": 6187
+  }
+}

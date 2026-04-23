@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at 50% 50%, #0F172A, #1E293B);
+    position: relative;
+    font-family: Arial, sans-serif;
+  }
+
+  .ambient-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+  }
+
+  .dot-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 1;
+  }
+
+  .card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    width: 240px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .accent-line {
+    width: 48px;
+    height: 4px;
+    border-radius: 2px;
+    background: #D4AF37;
+    position: absolute;
+    z-index: 3;
+  }
+
+  .icon-badge-rounded {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFD700;
+    margin-bottom: 10px;
+  }
+
+  .icon-badge-rounded i {
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .strategic {
+    top: 60px;
+    left: 520px;
+  }
+
+  .tactical1 {
+    top: 240px;
+    left: 330px;
+  }
+
+  .tactical2 {
+    top: 240px;
+    left: 710px;
+  }
+
+  .operational1 {
+    top: 420px;
+    left: 160px;
+  }
+
+  .operational2 {
+    top: 420px;
+    left: 520px;
+  }
+
+  .operational3 {
+    top: 420px;
+    left: 880px;
+  }
+</style>
+
+<div class="ambient-glow" style="top: 360px; left: 640px;"></div>
+<div class="dot-pattern"></div>
+
+<div class="card strategic">
+  <div class="icon-badge-rounded"><i class="fas fa-crown"></i></div>
+  <div>데이터 전략</div>
+  <div style="font-size: 12px; text-align: center;">경영진 주도 데이터 비전 및 정책 수립</div>
+</div>
+
+<div class="card tactical1">
+  <div class="icon-badge-rounded"><i class="fas fa-clipboard-list"></i></div>
+  <div>품질 관리</div>
+  <div style="font-size: 12px; text-align: center;">데이터 표준화 및 품질 모니터링</div>
+</div>
+
+<div class="card tactical2">
+  <div class="icon-badge-rounded"><i class="fas fa-lock"></i></div>
+  <div>보안 통제</div>
+  <div style="font-size: 12px; text-align: center;">접근 권한 및 개인정보 보호</div>
+</div>
+
+<div class="card operational1">
+  <div class="icon-badge-rounded"><i class="fas fa-folder"></i></div>
+  <div>수집</div>
+  <div style="font-size: 12px; text-align: center;">원천 데이터 통합</div>
+</div>
+
+<div class="card operational2">
+  <div class="icon-badge-rounded"><i class="fas fa-cogs"></i></div>
+  <div>처리</div>
+  <div style="font-size: 12px; text-align: center;">ETL 파이프라인</div>
+</div>
+
+<div class="card operational3">
+  <div class="icon-badge-rounded"><i class="fas fa-chart-line"></i></div>
+  <div>분석</div>
+  <div style="font-size: 12px; text-align: center;">BI 대시보드 운영</div>
+</div>
+
+<div class="accent-line" style="top: 200px; left: 472px;"></div>
+<div class="accent-line" style="top: 200px; left: 852px;"></div>
+<div class="accent-line" style="top: 380px; left: 290px;"></div>
+<div class="accent-line" style="top: 380px; left: 650px;"></div>
+<div class="accent-line" style="top: 380px; left: 1010px;"></div></div>
+</body></html>

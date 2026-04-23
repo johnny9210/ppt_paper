@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_04_pyramid" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><div class="design_04_pyramid-bg"></div>
+
+<style>
+  .design_04_pyramid-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, #1b1f33 0%, rgba(0, 0, 0, 0.8) 100%),
+                radial-gradient(circle at 5% 5%, rgba(255, 238, 88, 0.6) 0%, transparent 50%),
+                radial-gradient(circle at 95% 95%, rgba(255, 238, 88, 0.6) 0%, transparent 50%);
+  }
+
+  .design_04_pyramid-bg::before {
+    content: '';
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    width: 96%;
+    height: 96%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+  }
+</style></div>
+    <div style="position:absolute;inset:0;z-index:10;"><style>
+  .design_04_pyramid-cards {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .design_04_pyramid-cards .card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .card.gold {
+    border: 2px solid #ffd700;
+  }
+
+  .card.silver {
+    border: 2px solid #c0c0c0;
+  }
+
+  .card.bronze {
+    border: 2px solid #cd7f32;
+  }
+
+  #card_1 {
+    left: 45%;
+    top: 5%;
+    width: 10%;
+    height: 15%;
+  }
+
+  #card_2 {
+    left: 30%;
+    top: 25%;
+    width: 15%;
+    height: 10%;
+  }
+
+  #card_3 {
+    left: 55%;
+    top: 25%;
+    width: 15%;
+    height: 10%;
+  }
+
+  #card_4 {
+    left: 25%;
+    top: 40%;
+    width: 15%;
+    height: 10%;
+  }
+
+  #card_5 {
+    left: 50%;
+    top: 40%;
+    width: 15%;
+    height: 10%;
+  }
+</style>
+
+<div class="design_04_pyramid-cards">
+  <div id="card_1" class="card gold"></div>
+  <div id="card_2" class="card silver"></div>
+  <div id="card_3" class="card silver"></div>
+  <div id="card_4" class="card bronze"></div>
+  <div id="card_5" class="card bronze"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+.design_04_pyramid-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
+
+.design_04_pyramid-content .title {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+  color: #f8fbff;
+}
+
+.design_04_pyramid-content .card1, 
+.design_04_pyramid-content .card2, 
+.design_04_pyramid-content .card3, 
+.design_04_pyramid-content .card4, 
+.design_04_pyramid-content .card5 {
+  position: absolute;
+  overflow: hidden;
+}
+
+.design_04_pyramid-content .card1 {
+  left: 47%;
+  top: 7%;
+  width: 6%;
+  height: 11%;
+}
+
+.design_04_pyramid-content .card2 {
+  left: 32%;
+  top: 27%;
+  width: 11%;
+  height: 6%;
+}
+
+.design_04_pyramid-content .card3 {
+  left: 57%;
+  top: 27%;
+  width: 11%;
+  height: 6%;
+}
+
+.design_04_pyramid-content .card4 {
+  left: 27%;
+  top: 42%;
+  width: 11%;
+  height: 6%;
+}
+
+.design_04_pyramid-content .card5 {
+  left: 52%;
+  top: 42%;
+  width: 11%;
+  height: 6%;
+}
+
+.design_04_pyramid-content .card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.design_04_pyramid-content .card-description {
+  font-size: 0.85rem;
+  color: rgba(148, 163, 184, 0.9);
+  line-height: 1.55;
+}
+
+.design_04_pyramid-content .icon {
+  display: inline;
+}
+</style>
+
+<div class="design_04_pyramid-content">
+  <div class="title">데이터 거버넌스 프레임워크</div>
+
+  <div class="card1">
+    <div class="card-title">
+      <span class="icon">👑</span> 데이터 전략
+    </div>
+    <div class="card-description">경영진 주도 데이터 비전 및 정책 수립</div>
+  </div>
+
+  <div class="card2">
+    <div class="card-title">
+      <span class="icon">📋</span> 품질 관리
+    </div>
+    <div class="card-description">데이터 표준화 및 품질 모니터링</div>
+  </div>
+  
+  <div class="card3">
+    <div class="card-title">
+      <span class="icon">🔐</span> 보안 통제
+    </div>
+    <div class="card-description">접근 권한 및 개인정보 보호</div>
+  </div>
+
+  <div class="card4">
+    <div class="card-title">
+      <span class="icon">🗄️</span> 수집
+    </div>
+    <div class="card-description">원천 데이터 통합</div>
+  </div>
+  
+  <div class="card5">
+    <div class="card-title">
+      <span class="icon">⚙️</span> 처리
+    </div>
+    <div class="card-description">ETL 파이프라인</div>
+  </div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><style>
+  .design_04_pyramid-icons {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+  }
+
+  .design_04_pyramid-icons .icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.1));
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.2);
+    position: absolute;
+    left: 47%; /* Based on content_area left in percentages */
+    top: 6%; /* Based on content_area top in percentages */
+    transform: translate(-50%, -50%);
+  }
+
+  .design_04_pyramid-icons .icon-badge i {
+    font-size: 1.2rem;
+    color: #60A5FA;
+  }
+
+  .design_04_pyramid-icons .accent-line {
+    width: 48px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #3B82F6, rgba(59, 130, 246, 0));
+    position: absolute;
+    left: 50%;
+    top: 18%;
+    transform: translateX(-50%);
+  }
+
+  .design_04_pyramid-icons .separator {
+    width: 80%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+  }
+
+  .design_04_pyramid-icons .glow-node {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #60A5FA;
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+  }
+
+  .design_04_pyramid-icons .decorative-bar {
+    height: 4px;
+    background: linear-gradient(90deg, #3B82F6, #60A5FA);
+    border-radius: 2px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80%;
+    transform: translateX(-50%);
+  }
+</style>
+
+<div class="design_04_pyramid-icons">
+  <div class="icon-badge">
+    <i class="fas fa-shield-halved"></i>
+  </div>
+  <div class="accent-line"></div>
+  <div class="separator"></div>
+  <div class="glow-node"></div>
+  <div class="decorative-bar"></div>
+</div></div>
+</div></div>
+</body></html>

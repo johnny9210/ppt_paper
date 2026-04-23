@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: radial-gradient(circle at 50% 50%, rgba(15,23,42,0.75), rgba(30,41,59,1));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+  }
+  .card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    width: 300px;
+    padding: 20px;
+    color: white;
+    z-index: 2;
+  }
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1);
+    z-index: 3;
+  }
+  .icon-badge-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.2);
+    margin-bottom: 10px;
+  }
+  .accent-line {
+    width: 48px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.5);
+    margin: 20px 0;
+  }
+  .ambient-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+    filter: blur(60px);
+    z-index: 1;
+    left: 48%;
+    top: 50%;
+  }
+  .layer-stack {
+    position: relative;
+  }
+</style>
+
+<div class="container">
+  <div class="card">
+    <h3>도입 전</h3>
+    <div class="accent-line"></div>
+    <div>
+      <div class="icon-badge-circle">📝</div>
+      <h4>수작업 보고서 작성</h4>
+      <p>주 8시간 소요</p>
+    </div>
+    <div>
+      <div class="icon-badge-circle">🔍</div>
+      <h4>수동 데이터 검색</h4>
+      <p>건당 30분</p>
+    </div>
+    <div>
+      <div class="icon-badge-circle">📞</div>
+      <h4>전화/이메일 응대</h4>
+      <p>평균 응답 4시간</p>
+    </div>
+  </div>
+
+  <div class="ambient-glow neon-glow"></div>
+  <div class="card">
+    <h3>도입 후</h3>
+    <div class="accent-line"></div>
+    <div>
+      <div class="icon-badge-circle">🤖</div>
+      <h4>자동 보고서 생성</h4>
+      <p>주 30분으로 단축</p>
+    </div>
+    <div>
+      <div class="icon-badge-circle">⚡</div>
+      <h4>RAG 기반 즉시 검색</h4>
+      <p>건당 5초</p>
+    </div>
+    <div>
+      <div class="icon-badge-circle">💬</div>
+      <h4>AI 챗봇 자동 응대</h4>
+      <p>평균 응답 10초</p>
+    </div>
+  </div>
+</div></div>
+</body></html>

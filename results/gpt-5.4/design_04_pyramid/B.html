@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #111; font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto;
+    overflow: hidden;
+    color: #f6f1e7;
+    background:
+      radial-gradient(220px 420px at 3% 58%, rgba(255,188,73,0.28) 0%, rgba(255,188,73,0.12) 22%, rgba(255,188,73,0.03) 40%, rgba(255,188,73,0) 72%),
+      radial-gradient(360px 260px at 50% 82%, rgba(255,180,72,0.30) 0%, rgba(255,180,72,0.12) 26%, rgba(255,180,72,0.03) 48%, rgba(255,180,72,0) 74%),
+      radial-gradient(280px 280px at 50% 38%, rgba(255,198,112,0.24) 0%, rgba(255,198,112,0.10) 30%, rgba(255,198,112,0.03) 50%, rgba(255,198,112,0) 72%),
+      radial-gradient(380px 420px at 86% 48%, rgba(0,72,255,0.20) 0%, rgba(0,72,255,0.08) 28%, rgba(0,72,255,0.02) 46%, rgba(0,72,255,0) 72%),
+      radial-gradient(680px 620px at 48% 42%, rgba(255,214,140,0.10) 0%, rgba(255,214,140,0.03) 42%, rgba(255,214,140,0) 76%),
+      linear-gradient(90deg, #09111f 0%, #171f34 34%, #24282f 52%, #101f47 74%, #151618 100%);
+  }
+
+  /* z=0 background geometric pattern */
+  .geo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(60deg, transparent 0 49.3%, rgba(225,185,108,0.28) 49.5%, transparent 49.8%) 820px 10px / 180px 180px repeat,
+      linear-gradient(-60deg, transparent 0 49.3%, rgba(225,185,108,0.24) 49.5%, transparent 49.8%) 820px 10px / 180px 180px repeat,
+      linear-gradient(0deg, transparent 0 49.25%, rgba(225,185,108,0.16) 49.5%, transparent 49.75%) 820px 10px / 180px 180px repeat,
+      linear-gradient(60deg, transparent 0 49.5%, rgba(225,185,108,0.14) 49.7%, transparent 49.9%) -80px 450px / 220px 220px no-repeat,
+      linear-gradient(-60deg, transparent 0 49.5%, rgba(225,185,108,0.14) 49.7%, transparent 49.9%) -80px 450px / 220px 220px no-repeat;
+    opacity: 0.95;
+    filter: drop-shadow(0 0 8px rgba(255, 200, 120, 0.06));
+  }
+
+  /* z=1 decorative border */
+  .frame, .frame::before {
+    position: absolute;
+    inset: 12px;
+    border: 2px solid rgba(223, 177, 89, 0.62);
+    z-index: 1;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 218, 142, 0.06),
+      0 0 18px rgba(255, 194, 82, 0.08);
+  }
+  .frame::before {
+    content: "";
+    inset: 10px;
+    border-width: 1px;
+    border-color: rgba(223, 177, 89, 0.5);
+  }
+
+  /* z=2 title */
+  .header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 28px;
+    z-index: 2;
+    text-align: center;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #f6e8c7;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.15),
+      0 0 16px rgba(255,205,112,0.22);
+  }
+
+  /* z=3 connector lines */
+  .connectors {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .line {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(221,177,89,0.18), rgba(255,222,160,0.76), rgba(221,177,89,0.18));
+    box-shadow:
+      0 0 8px rgba(255,214,135,0.35),
+      0 0 18px rgba(255,214,135,0.12);
+    border-radius: 4px;
+  }
+  .line.v { width: 2px; }
+  .line.h { height: 2px; }
+
+  /* z=4 ambient flares around joints */
+  .flare {
+    position: absolute;
+    z-index: 4;
+    border-radius: 999px;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255,225,160,0.95) 0%, rgba(255,205,112,0.45) 28%, rgba(255,205,112,0.12) 52%, rgba(255,205,112,0) 74%);
+    filter: blur(1px);
+  }
+
+  /* z=5 cards */
+  .card {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 14px;
+    z-index: 5;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.09) 18%, rgba(255,255,255,0.04) 42%, rgba(255,255,255,0.08) 100%);
+    border: 1px solid rgba(255,255,255,0.28);
+    box-shadow:
+      0 14px 30px rgba(0,0,0,0.34),
+      0 3px 10px rgba(0,0,0,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.45),
+      inset 0 -1px 0 rgba(255,255,255,0.12),
+      0 0 18px rgba(255,214,135,0.08);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.22) 0 15%, rgba(255,255,255,0.08) 16% 34%, rgba(255,255,255,0) 35% 100%);
+    pointer-events: none;
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -4px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,214,135,0.62) 0%, rgba(255,214,135,0.24) 35%, rgba(255,214,135,0) 72%);
+    filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .card .topbar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 28px;
+    border-radius: 14px 14px 0 0;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.35),
+      inset 0 -1px 0 rgba(80,50,20,0.18);
+  }
+
+  .silver .topbar {
+    background: linear-gradient(180deg, #e8ecef 0%, #bcc3ca 42%, #8f98a4 70%, #d2d8de 100%);
+  }
+  .gold .topbar {
+    background: linear-gradient(180deg, #f3d58e 0%, #d3a84e 40%, #9e7427 70%, #f0d080 100%);
+  }
+  .copper .topbar {
+    background: linear-gradient(180deg, #e3b087 0%, #bb7d4d 40%, #8b5734 70%, #d7a37a 100%);
+  }
+
+  .card .content {
+    position: absolute;
+    inset: 34px 22px 18px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    z-index: 2;
+  }
+
+  .level {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,235,198,0.78);
+  }
+  .emoji {
+    font-size: 30px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18));
+  }
+  .card h2, .card h3 {
+    margin: 0;
+    color: #fff7e7;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.18), 0 0 12px rgba(255,215,130,0.12);
+  }
+  .card h2 { font-size: 26px; font-weight: 800; }
+  .card h3 { font-size: 22px; font-weight: 800; }
+  .card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(248,245,238,0.9);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.12);
+  }
+
+  /* decorative internal streaks/patterns */
+  .streaks {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  .mid .streaks {
+    background:
+      linear-gradient(145deg, transparent 0 34%, rgba(255,255,255,0.46) 35%, transparent 36%) 32px 54px / 180px 140px no-repeat,
+      linear-gradient(145deg, transparent 0 54%, rgba(255,212,120,0.34) 55%, transparent 56%) 98px 60px / 220px 150px no-repeat,
+      radial-gradient(circle at 46% 48%, rgba(255,216,128,0.28) 0 1px, transparent 3px) no-repeat;
+  }
+  .bottom .streaks {
+    background:
+      linear-gradient(90deg, transparent 0 36%, rgba(220,184,112,0.28) 36% 37%, transparent 37% 43%, rgba(220,184,112,0.22) 43% 44%, transparent 44% 100%) 0 26px / 160px 18px repeat-x,
+      linear-gradient(135deg, transparent 0 58%, rgba(220,184,112,0.20) 58% 59%, transparent 59%) 0 0 / 120px 80px repeat;
+    opacity: 0.55;
+  }
+
+  /* positioning */
+  .top-card   { left: 495px; top: 84px;  width: 270px; height: 165px; }
+  .mid-left   { left: 320px; top: 294px; width: 285px; height: 165px; }
+  .mid-right  { left: 655px; top: 294px; width: 285px; height: 165px; }
+  .bot-left   { left: 108px; top: 500px; width: 312px; height: 162px; }
+  .bot-mid    { left: 475px; top: 500px; width: 312px; height: 162px; }
+  .bot-right  { left: 842px; top: 500px; width: 312px; height: 162px; }
+
+  /* top card special icon emphasis */
+  .top-card .content {
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .top-card .emoji {
+    font-size: 42px;
+    text-shadow: 0 0 18px rgba(255,216,128,0.22);
+  }
+
+  /* subtle card tinting */
+  .silver { background-color: rgba(216, 224, 234, 0.14); }
+  .gold   { background-color: rgba(229, 199, 124, 0.16); }
+  .copper { background-color: rgba(210, 153, 116, 0.14); }
+
+  /* content spacing for lower cards */
+  .bottom .content { justify-content: flex-start; padding-top: 4px; }
+  .bottom .emoji { font-size: 28px; }
+  .mid .emoji { font-size: 28px; }
+
+  /* additional subtle side glows */
+  .side-glow-left,
+  .side-glow-right,
+  .center-glow {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 999px;
+    filter: blur(18px);
+  }
+  .side-glow-left {
+    left: -60px; top: 90px; width: 180px; height: 520px;
+    background: radial-gradient(circle, rgba(255,184,72,0.34) 0%, rgba(255,184,72,0.12) 34%, rgba(255,184,72,0) 70%);
+  }
+  .side-glow-right {
+    right: -40px; top: 120px; width: 140px; height: 480px;
+    background: radial-gradient(circle, rgba(255,192,96,0.18) 0%, rgba(255,192,96,0.06) 34%, rgba(255,192,96,0) 72%);
+  }
+  .center-glow {
+    left: 420px; top: 150px; width: 430px; height: 470px;
+    background: radial-gradient(circle, rgba(255,211,129,0.22) 0%, rgba(255,211,129,0.09) 34%, rgba(255,211,129,0) 74%);
+  }
+</style>
+
+<div class="slide">
+  <div class="geo"></div>
+  <div class="frame"></div>
+
+  <div class="side-glow-left"></div>
+  <div class="side-glow-right"></div>
+  <div class="center-glow"></div>
+
+  <div class="header">
+    <h1>데이터 거버넌스 프레임워크</h1>
+  </div>
+
+  <div class="connectors">
+    <!-- top to middle -->
+    <div class="line v" style="left:630px; top:249px; height:20px;"></div>
+    <div class="line h" style="left:460px; top:269px; width:340px;"></div>
+    <div class="line v" style="left:460px; top:269px; height:25px;"></div>
+    <div class="line v" style="left:800px; top:269px; height:25px;"></div>
+
+    <!-- middle to bottom -->
+    <div class="line v" style="left:460px; top:459px; height:20px;"></div>
+    <div class="line v" style="left:800px; top:459px; height:20px;"></div>
+    <div class="line h" style="left:252px; top:479px; width:757px;"></div>
+    <div class="line v" style="left:252px; top:479px; height:21px;"></div>
+    <div class="line v" style="left:631px; top:479px; height:21px;"></div>
+    <div class="line v" style="left:1009px; top:479px; height:21px;"></div>
+
+    <!-- flares -->
+    <div class="flare" style="left:614px; top:250px; width:34px; height:34px;"></div>
+    <div class="flare" style="left:443px; top:280px; width:30px; height:30px;"></div>
+    <div class="flare" style="left:783px; top:280px; width:30px; height:30px;"></div>
+    <div class="flare" style="left:236px; top:463px; width:32px; height:32px;"></div>
+    <div class="flare" style="left:615px; top:463px; width:32px; height:32px;"></div>
+    <div class="flare" style="left:993px; top:463px; width:32px; height:32px;"></div>
+  </div>
+
+  <div class="card gold top-card">
+    <div class="topbar"></div>
+    <div class="streaks"></div>
+    <div class="content">
+      <div class="level">Strategic</div>
+      <div class="emoji">👑</div>
+      <h2>데이터 전략</h2>
+      <p>경영진 주도 데이터 비전 및 정책 수립</p>
+    </div>
+  </div>
+
+  <div class="card silver mid mid-left">
+    <div class="topbar"></div>
+    <div class="streaks"></div>
+    <div class="content">
+      <div class="level">Tactical</div>
+      <div class="emoji">📋</div>
+      <h3>품질 관리</h3>
+      <p>데이터 표준화 및 품질 모니터링</p>
+    </div>
+  </div>
+
+  <div class="card silver mid mid-right">
+    <div class="topbar"></div>
+    <div class="streaks"></div>
+    <div class="content">
+      <div class="level">Tactical</div>
+      <div class="emoji">🔐</div>
+      <h3>보안 통제</h3>
+      <p>접근 권한 및 개인정보 보호</p>
+    </div>
+  </div>
+
+  <div class="card copper bottom bot-left">
+    <div class="topbar"></div>
+    <div class="streaks"></div>
+    <div class="content">
+      <div class="level">Operational</div>
+      <div class="emoji">🗄️</div>
+      <h3>수집</h3>
+      <p>원천 데이터 통합</p>
+    </div>
+  </div>
+
+  <div class="card copper bottom bot-mid">
+    <div class="topbar"></div>
+    <div class="streaks"></div>
+    <div class="content">
+      <div class="level">Operational</div>
+      <div class="emoji">⚙️</div>
+      <h3>처리</h3>
+      <p>ETL 파이프라인</p>
+    </div>
+  </div>
+
+  <div class="card copper bottom bot-right">
+    <div class="topbar"></div>
+    <div class="streaks"></div>
+    <div class="content">
+      <div class="level">Operational</div>
+      <div class="emoji">📈</div>
+      <h3>분석</h3>
+      <p>BI 대시보드 운영</p>
+    </div>
+  </div>
+</div></div></body></html>

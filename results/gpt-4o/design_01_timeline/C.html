@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0F172A, #1E293B);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+  }
+  .ambient-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+    filter: blur(60px);
+  }
+  .ambient-glow:nth-child(1) {top: 10%; left: 20%;}
+  .ambient-glow:nth-child(2) {top: 20%; right: 15%;}
+  .ambient-glow:nth-child(3) {bottom: 15%; left: 60%;}
+  
+  .accent-line {
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1280px;
+    height: 4px;
+    border-radius: 2px;
+    background: #00F;
+  }
+  .neon-glow {
+    position: absolute;
+    top: 160px;
+    left: calc(25% * var(--step) - 12.5%);
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #00F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 30px;
+    box-shadow: 0 0 20px rgba(0,0,255, 0.3), 0 0 60px rgba(0,0,255, 0.1);
+    z-index: 2;
+  }
+  .card {
+    position: absolute;
+    top: 250px;
+    width: 250px;
+    height: 180px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    z-index: 1;
+  }
+  .card-content {
+    padding: 20px;
+    color: #fff;
+  }
+  .card-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .card-description {
+    font-size: 16px;
+  }
+  .card:nth-child(4) {left: 10%; z-index: 1;}
+  .card:nth-child(5) {left: 40%; z-index: 1;}
+  .card:nth-child(6) {left: 70%; z-index: 1;}
+
+</style>
+<div class="container">
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow"></div>
+  <div class="accent-line"></div>
+
+  <div class="neon-glow" style="--step: 1;"><span>📊</span></div>
+  <div class="neon-glow" style="--step: 2;"><span>🏗️</span></div>
+  <div class="neon-glow" style="--step: 3;"><span>🔄</span></div>
+  <div class="neon-glow" style="--step: 4;"><span>🚀</span></div>
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">현황 진단</div>
+      <div class="card-description">레거시 시스템 분석 및 디지털 성숙도 평가</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">기반 구축</div>
+      <div class="card-description">클라우드 마이그레이션 및 API 플랫폼 설계</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">프로세스 혁신</div>
+      <div class="card-description">업무 자동화 및 데이터 기반 의사결정 체계 도입</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

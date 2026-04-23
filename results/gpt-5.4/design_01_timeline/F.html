@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_01_timeline" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+.design_01_timeline-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(59,130,246,0.18) 0%, rgba(59,130,246,0.08) 18%, rgba(15,23,42,0) 42%),
+    radial-gradient(circle at 28% 18%, rgba(96,165,250,0.18) 0%, rgba(96,165,250,0.08) 10%, rgba(15,23,42,0) 24%),
+    radial-gradient(circle at 72% 18%, rgba(168,85,247,0.18) 0%, rgba(168,85,247,0.08) 10%, rgba(15,23,42,0) 24%),
+    radial-gradient(circle at 12% 58%, rgba(34,211,238,0.12) 0%, rgba(34,211,238,0.05) 9%, rgba(15,23,42,0) 24%),
+    radial-gradient(circle at 86% 60%, rgba(217,70,239,0.10) 0%, rgba(217,70,239,0.04) 10%, rgba(15,23,42,0) 24%),
+    linear-gradient(180deg, #07104a 0%, #0b1f61 22%, #102b6f 45%, #0e235d 62%, #091744 78%, #040a23 100%);
+  z-index:0;
+}
+
+.design_01_timeline-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(120,190,255,0.13) 1px, rgba(15,23,42,0) 1px),
+    linear-gradient(90deg, rgba(120,190,255,0.13) 1px, rgba(15,23,42,0) 1px);
+  background-size: 5.8% 9.2%, 5.8% 9.2%;
+  opacity:0.48;
+  z-index:1;
+}
+
+.design_01_timeline-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(7,16,74,0) 0%, rgba(7,16,74,0.08) 55%, rgba(3,8,28,0.55) 100%),
+    radial-gradient(circle at 50% 96%, rgba(96,165,250,0.18) 0%, rgba(15,23,42,0) 34%),
+    radial-gradient(circle at 50% 2%, rgba(12,24,72,0.55) 0%, rgba(15,23,42,0) 26%);
+  z-index:2;
+}
+
+.design_01_timeline-bg .floor-glow{
+  position:absolute;
+  left:28%;
+  top:73%;
+  width:44%;
+  height:12%;
+  background:radial-gradient(ellipse at center, rgba(34,211,238,0.34) 0%, rgba(96,165,250,0.16) 34%, rgba(15,23,42,0) 78%);
+  opacity:0.9;
+  z-index:3;
+}
+
+.design_01_timeline-bg .floor-grid{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:34%;
+  background:
+    linear-gradient(rgba(120,190,255,0.17) 1px, rgba(15,23,42,0) 1px),
+    linear-gradient(90deg, rgba(120,190,255,0.17) 1px, rgba(15,23,42,0) 1px);
+  background-size: 7% 18%, 7% 18%;
+  transform:perspective(800px) rotateX(72deg);
+  transform-origin:bottom center;
+  opacity:0.7;
+  z-index:4;
+}
+
+.design_01_timeline-bg .horizon-line{
+  position:absolute;
+  left:0;
+  top:77%;
+  width:100%;
+  height:0.35%;
+  background:linear-gradient(90deg, rgba(34,211,238,0.10) 0%, rgba(96,165,250,0.5) 20%, rgba(34,211,238,0.7) 50%, rgba(96,165,250,0.5) 80%, rgba(34,211,238,0.10) 100%);
+  z-index:5;
+}
+
+.design_01_timeline-bg .beam{
+  position:absolute;
+  left:-2%;
+  top:34%;
+  width:104%;
+  height:3.1%;
+  background:
+    linear-gradient(90deg,
+      rgba(34,211,238,0.95) 0%,
+      rgba(120,255,255,0.9) 18%,
+      rgba(214,147,255,0.88) 40%,
+      rgba(120,255,255,0.88) 62%,
+      rgba(214,147,255,0.92) 84%,
+      rgba(168,85,247,0.98) 100%);
+  opacity:0.95;
+  z-index:6;
+}
+
+.design_01_timeline-bg .beam-glow{
+  position:absolute;
+  left:-3%;
+  top:32.4%;
+  width:106%;
+  height:6.5%;
+  background:
+    linear-gradient(90deg,
+      rgba(34,211,238,0.26) 0%,
+      rgba(120,255,255,0.34) 20%,
+      rgba(214,147,255,0.26) 45%,
+      rgba(120,255,255,0.28) 65%,
+      rgba(214,147,255,0.34) 85%,
+      rgba(168,85,247,0.28) 100%);
+  filter:blur(8px);
+  z-index:5;
+}
+
+.design_01_timeline-bg .star{
+  position:absolute;
+  border-radius:50%;
+  z-index:7;
+}
+
+.design_01_timeline-bg .star::before,
+.design_01_timeline-bg .star::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(150,220,255,0.95);
+  border-radius:999px;
+}
+
+.design_01_timeline-bg .star::before{ width:260%; height:10%; }
+.design_01_timeline-bg .star::after{ width:10%; height:260%; }
+
+.design_01_timeline-bg .s1{ left:10.7%; top:24.4%; width:0.5%; height:0.5%; background:rgba(96,165,250,0.9); opacity:0.9; }
+.design_01_timeline-bg .s2{ left:28.8%; top:13.5%; width:0.7%; height:0.7%; background:rgba(34,211,238,0.9); opacity:0.85; }
+.design_01_timeline-bg .s3{ left:39.1%; top:14.1%; width:0.45%; height:0.45%; background:rgba(255,255,255,0.95); opacity:0.95; }
+.design_01_timeline-bg .s4{ left:49.8%; top:4.8%; width:0.42%; height:0.42%; background:rgba(96,165,250,0.95); opacity:0.9; }
+.design_01_timeline-bg .s5{ left:60.9%; top:13.9%; width:0.45%; height:0.45%; background:rgba(255,255,255,0.92); opacity:0.9; }
+.design_01_timeline-bg .s6{ left:73.2%; top:14.3%; width:0.55%; height:0.55%; background:rgba(217,70,239,0.95); opacity:0.9; }
+.design_01_timeline-bg .s7{ left:89.1%; top:24.2%; width:0.42%; height:0.42%; background:rgba(96,165,250,0.95); opacity:0.95; }
+.design_01_timeline-bg .s8{ left:49.7%; top:35.8%; width:0.42%; height:0.42%; background:rgba(120,240,255,0.95); opacity:0.85; }
+.design_01_timeline-bg .s9{ left:71.7%; top:39.5%; width:0.45%; height:0.45%; background:rgba(255,255,255,0.9); opacity:0.75; }
+.design_01_timeline-bg .s10{ left:49.8%; top:85.4%; width:0.5%; height:0.5%; background:rgba(150,220,255,0.95); opacity:0.95; }
+.design_01_timeline-bg .s11{ left:21.1%; top:90.1%; width:0.42%; height:0.42%; background:rgba(120,240,255,0.88); opacity:0.8; }
+.design_01_timeline-bg .s12{ left:81.0%; top:88.0%; width:0.42%; height:0.42%; background:rgba(217,70,239,0.9); opacity:0.85; }
+
+.design_01_timeline-bg .orb{
+  position:absolute;
+  border-radius:50%;
+  z-index:8;
+}
+
+.design_01_timeline-bg .orb.cyan-big{
+  left:24.5%;
+  top:10%;
+  width:8%;
+  height:12%;
+  background:radial-gradient(circle at center, rgba(90,255,255,0.95) 0%, rgba(34,211,238,0.45) 28%, rgba(34,211,238,0.18) 48%, rgba(15,23,42,0) 76%);
+  opacity:0.9;
+}
+
+.design_01_timeline-bg .orb.purple-big{
+  left:68.5%;
+  top:10%;
+  width:8%;
+  height:12%;
+  background:radial-gradient(circle at center, rgba(236,72,255,0.88) 0%, rgba(168,85,247,0.42) 28%, rgba(168,85,247,0.18) 48%, rgba(15,23,42,0) 76%);
+  opacity:0.88;
+}
+
+.design_01_timeline-bg .orb.left-mid{
+  left:5.5%;
+  top:53%;
+  width:6%;
+  height:10%;
+  background:radial-gradient(circle at center, rgba(34,211,238,0.55) 0%, rgba(34,211,238,0.2) 36%, rgba(15,23,42,0) 72%);
+  opacity:0.8;
+}
+
+.design_01_timeline-bg .orb.center-magenta{
+  left:50.5%;
+  top:54%;
+  width:5%;
+  height:9%;
+  background:radial-gradient(circle at center, rgba(236,72,255,0.36) 0%, rgba(236,72,255,0.12) 40%, rgba(15,23,42,0) 74%);
+  opacity:0.75;
+}
+
+.design_01_timeline-bg .dust{
+  position:absolute;
+  width:18%;
+  height:4%;
+  z-index:7;
+  opacity:0.65;
+  background:
+    radial-gradient(circle at 6% 50%, rgba(120,240,255,0.8) 0%, rgba(120,240,255,0.45) 8%, rgba(15,23,42,0) 18%),
+    radial-gradient(circle at 16% 35%, rgba(214,147,255,0.7) 0%, rgba(214,147,255,0.35) 7%, rgba(15,23,42,0) 16%),
+    radial-gradient(circle at 28% 58%, rgba(120,240,255,0.75) 0%, rgba(120,240,255,0.38) 6%, rgba(15,23,42,0) 15%),
+    radial-gradient(circle at 42% 42%, rgba(214,147,255,0.72) 0%, rgba(214,147,255,0.35) 6%, rgba(15,23,42,0) 14%),
+    radial-gradient(circle at 58% 60%, rgba(120,240,255,0.7) 0%, rgba(120,240,255,0.34) 5%, rgba(15,23,42,0) 13%),
+    radial-gradient(circle at 72% 40%, rgba(214,147,255,0.7) 0%, rgba(214,147,255,0.34) 5%, rgba(15,23,42,0) 13%),
+    radial-gradient(circle at 86% 55%, rgba(120,240,255,0.72) 0%, rgba(120,240,255,0.34) 5%, rgba(15,23,42,0) 13%);
+}
+
+.design_01_timeline-bg .dust.left{ left:6%; top:35.5%; }
+.design_01_timeline-bg .dust.mid{ left:43%; top:35.7%; width:14%; }
+.design_01_timeline-bg .dust.right{ right:6%; top:35.2%; }
+
+.design_01_timeline-bg .vignette{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(15,23,42,0) 56%, rgba(3,8,28,0.16) 74%, rgba(1,3,16,0.42) 100%);
+  z-index:9;
+}
+</style>
+
+<div class="design_01_timeline-bg">
+  <div class="floor-glow"></div>
+  <div class="floor-grid"></div>
+  <div class="horizon-line"></div>
+
+  <div class="beam-glow"></div>
+  <div class="beam"></div>
+
+  <div class="orb cyan-big"></div>
+  <div class="orb purple-big"></div>
+  <div class="orb left-mid"></div>
+  <div class="orb center-magenta"></div>
+
+  <div class="dust left"></div>
+  <div class="dust mid"></div>
+  <div class="dust right"></div>
+
+  <div class="star s1"></div>
+  <div class="star s2"></div>
+  <div class="star s3"></div>
+  <div class="star s4"></div>
+  <div class="star s5"></div>
+  <div class="star s6"></div>
+  <div class="star s7"></div>
+  <div class="star s8"></div>
+  <div class="star s9"></div>
+  <div class="star s10"></div>
+  <div class="star s11"></div>
+  <div class="star s12"></div>
+
+  <div class="vignette"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:10;">json
+[
+  {"card_id":"card_1","left":9.8,"top":47.2,"width":15.2,"height":33.8,"padding":2.5,"content_area":{"left":12.3,"top":49.7,"width":10.2,"height":28.8}},
+  {"card_id":"card_2","left":31.8,"top":47.2,"width":15.2,"height":33.8,"padding":2.5,"content_area":{"left":34.3,"top":49.7,"width":10.2,"height":28.8}},
+  {"card_id":"card_3","left":53.8,"top":47.2,"width":15.2,"height":33.8,"padding":2.5,"content_area":{"left":56.3,"top":49.7,"width":10.2,"height":28.8}},
+  {"card_id":"card_4","left":75.8,"top":47.2,"width":15.2,"height":33.8,"padding":2.5,"content_area":{"left":78.3,"top":49.7,"width":10.2,"height":28.8}}
+]</div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+.design_01_timeline-content{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+  color:#F1F5F9;
+}
+.design_01_timeline-content *{
+  position:absolute;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+.design_01_timeline-content .main-title{
+  left:9.8%;
+  top:11.2%;
+  width:44%;
+  height:7%;
+  font-size:2.55rem;
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:-0.03em;
+  color:#f8fbff;
+  text-shadow:0 4px 20px rgba(0,0,0,0.28);
+  z-index:28;
+  white-space:nowrap;
+}
+.design_01_timeline-content .sub-title{
+  left:9.9%;
+  top:19.1%;
+  width:34%;
+  height:3.8%;
+  font-size:1.08rem;
+  line-height:1.25;
+  font-weight:400;
+  letter-spacing:0.01em;
+  color:rgba(226,232,240,0.88);
+  z-index:27;
+  white-space:nowrap;
+}
+.design_01_timeline-content .step{
+  width:10.2%;
+  height:28.8%;
+  z-index:24;
+}
+.design_01_timeline-content .step-no{
+  left:0%;
+  top:0%;
+  width:100%;
+  height:14%;
+  font-size:1.18rem;
+  line-height:1.1;
+  font-weight:700;
+  color:#3B82F6;
+  letter-spacing:0.01em;
+  z-index:26;
+  white-space:nowrap;
+}
+.design_01_timeline-content .step-title{
+  left:0%;
+  top:18%;
+  width:100%;
+  height:22%;
+  font-size:1.02rem;
+  line-height:1.22;
+  font-weight:700;
+  color:#e2e8f0;
+  z-index:26;
+}
+.design_01_timeline-content .step-desc{
+  left:0%;
+  top:43%;
+  width:100%;
+  height:57%;
+  font-size:0.82rem;
+  line-height:1.42;
+  font-weight:400;
+  color:rgba(148,163,184,0.9);
+  z-index:25;
+}
+</style>
+
+<div class="design_01_timeline-content">
+  <div class="main-title">디지털 전환 로드맵 2025</div>
+  <div class="sub-title">4단계 전환 마일스톤과 핵심 목표</div>
+
+  <div class="step" style="left:12.3%; top:49.7%;">
+    <div class="step-no">01&nbsp;&nbsp;📊</div>
+    <div class="step-title">현황 진단</div>
+    <div class="step-desc">레거시 시스템 분석 및 디지털 성숙도 평가</div>
+  </div>
+
+  <div class="step" style="left:34.3%; top:49.7%;">
+    <div class="step-no">02&nbsp;&nbsp;🏗️</div>
+    <div class="step-title">기반 구축</div>
+    <div class="step-desc">클라우드 마이그레이션 및 API 플랫폼 설계</div>
+  </div>
+
+  <div class="step" style="left:56.3%; top:49.7%;">
+    <div class="step-no">03&nbsp;&nbsp;🔄</div>
+    <div class="step-title">프로세스 혁신</div>
+    <div class="step-desc">업무 자동화 및 데이터 기반 의사결정 체계 도입</div>
+  </div>
+
+  <div class="step" style="left:78.3%; top:49.7%;">
+    <div class="step-no">04&nbsp;&nbsp;🚀</div>
+    <div class="step-title">스케일업</div>
+    <div class="step-desc">AI/ML 적용 확대 및 전사 디지털 문화 정착</div>
+  </div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><style>
+.design_01_timeline-icons{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:30;
+}
+.design_01_timeline-icons *{
+  position:absolute;
+  box-sizing:border-box;
+}
+
+.design_01_timeline-icons .badge{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg, rgba(59,130,246,0.20), rgba(96,165,250,0.10));
+  box-shadow:0 0 16px rgba(59,130,246,0.20);
+  z-index:31;
+}
+.design_01_timeline-icons .badge i{
+  position:static;
+  font-size:1.2rem;
+  color:#60A5FA;
+}
+
+.design_01_timeline-icons .accent-line{
+  width:48px;
+  height:3px;
+  border-radius:2px;
+  background:linear-gradient(90deg, #3B82F6, rgba(59,130,246,0));
+  z-index:32;
+}
+
+.design_01_timeline-icons .divider{
+  width:80%;
+  height:1px;
+  background:rgba(255,255,255,0.08);
+  z-index:33;
+}
+
+.design_01_timeline-icons .glow-node{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#60A5FA;
+  box-shadow:0 0 12px rgba(96,165,250,0.4);
+  z-index:34;
+}
+
+.design_01_timeline-icons .decor-bar{
+  height:4px;
+  background:linear-gradient(90deg, #3B82F6, #60A5FA);
+  border-radius:2px;
+  z-index:35;
+}
+</style>
+
+<div class="design_01_timeline-icons">
+  <div class="badge" style="left:13.7%; top:52.2%;">
+    <i class="fas fa-shield-halved"></i>
+  </div>
+  <div class="accent-line" style="left:13.7%; top:63.4%;"></div>
+  <div class="divider" style="left:11.3%; top:68.2%;"></div>
+  <div class="decor-bar" style="left:13.7%; top:71.0%; width:6.2%;"></div>
+  <div class="decor-bar" style="left:13.7%; top:74.0%; width:4.6%; opacity:0.85;"></div>
+  <div class="glow-node" style="left:20.0%; top:62.8%;"></div>
+
+  <div class="badge" style="left:35.7%; top:52.2%;">
+    <i class="fas fa-bolt"></i>
+  </div>
+  <div class="accent-line" style="left:35.7%; top:63.4%;"></div>
+  <div class="divider" style="left:33.3%; top:68.2%;"></div>
+  <div class="decor-bar" style="left:35.7%; top:71.0%; width:6.2%;"></div>
+  <div class="decor-bar" style="left:35.7%; top:74.0%; width:4.6%; opacity:0.85;"></div>
+  <div class="glow-node" style="left:42.0%; top:62.8%;"></div>
+
+  <div class="badge" style="left:57.7%; top:52.2%;">
+    <i class="fas fa-chart-line"></i>
+  </div>
+  <div class="accent-line" style="left:57.7%; top:63.4%;"></div>
+  <div class="divider" style="left:55.3%; top:68.2%;"></div>
+  <div class="decor-bar" style="left:57.7%; top:71.0%; width:6.2%;"></div>
+  <div class="decor-bar" style="left:57.7%; top:74.0%; width:4.6%; opacity:0.85;"></div>
+  <div class="glow-node" style="left:64.0%; top:62.8%;"></div>
+
+  <div class="badge" style="left:79.7%; top:52.2%;">
+    <i class="fas fa-lock"></i>
+  </div>
+  <div class="accent-line" style="left:79.7%; top:63.4%;"></div>
+  <div class="divider" style="left:77.3%; top:68.2%;"></div>
+  <div class="decor-bar" style="left:79.7%; top:71.0%; width:6.2%;"></div>
+  <div class="decor-bar" style="left:79.7%; top:74.0%; width:4.6%; opacity:0.85;"></div>
+  <div class="glow-node" style="left:86.0%; top:62.8%;"></div>
+</div></div>
+</div></div></body></html>

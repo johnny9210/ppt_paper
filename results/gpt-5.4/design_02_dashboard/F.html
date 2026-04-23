@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_02_dashboard" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+  .design_02_dashboard-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:
+      linear-gradient(180deg,
+        rgba(8,26,64,0.00) 0%,
+        rgba(7,27,66,0.20) 56%,
+        rgba(4,15,47,0.42) 100%
+      ),
+      linear-gradient(90deg,
+        rgba(3,16,49,0.96) 0%,
+        rgba(1,8,33,1.00) 34%,
+        rgba(2,14,52,0.98) 67%,
+        rgba(1,16,45,0.94) 100%
+      ),
+      radial-gradient(ellipse 34.38% 20.83% at 49.92% 7.92%,
+        rgba(60,224,242,0.34) 0%,
+        rgba(24,112,176,0.18) 42%,
+        rgba(2,12,43,0.00) 100%
+      ),
+      #020C2B;
+    z-index:0;
+  }
+
+  .design_02_dashboard-bg > div{
+    position:absolute;
+  }
+
+  /* subtle vertical texture */
+  .design_02_dashboard-bg .noise{
+    inset:0;
+    z-index:1;
+    opacity:.11;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.010) 0px,
+        rgba(255,255,255,0.004) 1px,
+        rgba(2,12,43,0.00) 3px,
+        rgba(2,12,43,0.00) 18px
+      ),
+      repeating-linear-gradient(
+        95deg,
+        rgba(73,166,255,0.012) 0px,
+        rgba(2,12,43,0.00) 14px,
+        rgba(57,215,230,0.008) 28px,
+        rgba(2,12,43,0.00) 42px
+      );
+  }
+
+  /* top center halo */
+  .design_02_dashboard-bg .halo-top{
+    left:28.13%;
+    top:0%;
+    width:43.75%;
+    height:24.72%;
+    z-index:2;
+    opacity:.18;
+    filter:blur(70px);
+    background:radial-gradient(ellipse at center,
+      rgba(60,220,240,0.75) 0%,
+      rgba(60,220,240,0.26) 46%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  /* left panel glow */
+  .design_02_dashboard-bg .glow-left-panel{
+    left:0%;
+    top:17.78%;
+    width:29.38%;
+    height:82.22%;
+    z-index:2;
+    opacity:.12;
+    filter:blur(42px);
+    background:radial-gradient(ellipse at 20% 45%,
+      rgba(43,191,227,0.95) 0%,
+      rgba(43,191,227,0.36) 42%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  /* right bottom glow */
+  .design_02_dashboard-bg .glow-right-panel{
+    left:90.31%;
+    top:66.11%;
+    width:9.69%;
+    height:33.89%;
+    z-index:2;
+    opacity:.12;
+    filter:blur(34px);
+    background:radial-gradient(ellipse at 60% 60%,
+      rgba(43,217,232,0.95) 0%,
+      rgba(43,217,232,0.30) 44%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  /* floating radial glows */
+  .design_02_dashboard-bg .glow-top-core{
+    left:38.28%;
+    top:-3.22%;
+    width:23.44%;
+    height:21.44%;
+    z-index:3;
+    opacity:.22;
+    background:radial-gradient(circle at center,
+      rgba(106,244,255,0.85) 0%,
+      rgba(106,244,255,0.24) 40%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  .design_02_dashboard-bg .glow-left-card{
+    left:10.15%;
+    top:34.10%;
+    width:18.76%;
+    height:18.76%;
+    z-index:3;
+    opacity:.10;
+    background:radial-gradient(circle at center,
+      rgba(102,223,255,0.78) 0%,
+      rgba(102,223,255,0.18) 46%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  .design_02_dashboard-bg .glow-center-card{
+    left:40.46%;
+    top:34.10%;
+    width:18.76%;
+    height:18.76%;
+    z-index:3;
+    opacity:.10;
+    background:radial-gradient(circle at center,
+      rgba(102,223,255,0.78) 0%,
+      rgba(102,223,255,0.18) 46%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  .design_02_dashboard-bg .glow-right-card{
+    left:70.93%;
+    top:34.10%;
+    width:18.76%;
+    height:18.76%;
+    z-index:3;
+    opacity:.10;
+    background:radial-gradient(circle at center,
+      rgba(102,240,232,0.78) 0%,
+      rgba(102,240,232,0.18) 46%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  .design_02_dashboard-bg .glow-chart{
+    left:26.56%;
+    top:56.37%;
+    width:45.31%;
+    height:45.31%;
+    z-index:3;
+    opacity:.10;
+    background:radial-gradient(circle at center,
+      rgba(92,220,247,0.74) 0%,
+      rgba(92,220,247,0.16) 48%,
+      rgba(2,12,43,0.00) 100%
+    );
+  }
+
+  /* top neon bars */
+  .design_02_dashboard-bg .bar-left{
+    left:0%;
+    top:15.14%;
+    width:31.88%;
+    height:2.92%;
+    z-index:4;
+    border-radius:0 30px 30px 0;
+    border-top:2px solid rgba(70,221,240,.95);
+    border-bottom:2px solid rgba(70,221,240,.75);
+    box-shadow:0 0 10px rgba(70,221,240,.35), inset 0 0 10px rgba(255,255,255,.06);
+    background:
+      linear-gradient(180deg,
+        rgba(96,220,236,0.18) 0%,
+        rgba(96,220,236,0.08) 100%
+      );
+  }
+
+  .design_02_dashboard-bg .bar-left:after{
+    content:"";
+    position:absolute;
+    right:-3.4%;
+    top:-2px;
+    width:16%;
+    height:100%;
+    border-top:2px solid rgba(70,221,240,.95);
+    border-right:2px solid rgba(70,221,240,.95);
+    border-radius:0 26px 26px 0;
+    transform:skewX(38deg);
+    opacity:.9;
+  }
+
+  .design_02_dashboard-bg .bar-center{
+    left:31.95%;
+    top:16.67%;
+    width:37.03%;
+    height:1.53%;
+    z-index:4;
+    border-radius:20px;
+    background:
+      linear-gradient(90deg,
+        rgba(73,166,255,0.90) 0%,
+        rgba(70,221,240,0.92) 50%,
+        rgba(70,221,240,0.90) 100%
+      );
+    box-shadow:0 0 8px rgba(70,221,240,.40), 0 0 16px rgba(73,166,255,.18);
+  }
+
+  .design_02_dashboard-bg .bar-center:before,
+  .design_02_dashboard-bg .bar-center:after{
+    content:"";
+    position:absolute;
+    top:-70%;
+    width:4.2%;
+    height:240%;
+    border-bottom:2px solid rgba(70,221,240,.92);
+  }
+
+  .design_02_dashboard-bg .bar-center:before{
+    left:-1.6%;
+    border-left:2px solid rgba(70,221,240,.92);
+    border-radius:0 0 0 22px;
+    transform:skewX(-38deg);
+  }
+
+  .design_02_dashboard-bg .bar-center:after{
+    right:-1.6%;
+    border-right:2px solid rgba(70,221,240,.92);
+    border-radius:0 0 22px 0;
+    transform:skewX(38deg);
+  }
+
+  .design_02_dashboard-bg .bar-right{
+    left:69.06%;
+    top:15.42%;
+    width:30.94%;
+    height:2.64%;
+    z-index:4;
+    border-radius:30px 0 0 30px;
+    border-top:2px solid rgba(70,221,240,.95);
+    border-bottom:2px solid rgba(70,221,240,.75);
+    box-shadow:0 0 10px rgba(70,221,240,.35), inset 0 0 10px rgba(255,255,255,.06);
+    background:
+      linear-gradient(180deg,
+        rgba(96,220,236,0.18) 0%,
+        rgba(96,220,236,0.08) 100%
+      );
+  }
+
+  .design_02_dashboard-bg .bar-right:before{
+    content:"";
+    position:absolute;
+    left:-3.4%;
+    top:-2px;
+    width:16%;
+    height:100%;
+    border-top:2px solid rgba(70,221,240,.95);
+    border-left:2px solid rgba(70,221,240,.95);
+    border-radius:26px 0 0 26px;
+    transform:skewX(-38deg);
+    opacity:.9;
+  }
+
+  /* dot patterns */
+  .design_02_dashboard-bg .dots-left-top{
+    left:0%;
+    top:16.53%;
+    width:22.66%;
+    height:28.33%;
+    z-index:5;
+    opacity:.9;
+    background-image:radial-gradient(circle, rgba(118,210,238,0.18) 1.5px, rgba(2,12,43,0.00) 1.6px);
+    background-size:10px 10px;
+  }
+
+  .design_02_dashboard-bg .dots-left-bottom{
+    left:0%;
+    top:77.22%;
+    width:29.22%;
+    height:22.78%;
+    z-index:5;
+    opacity:.75;
+    background-image:radial-gradient(circle, rgba(118,210,238,0.10) 1.5px, rgba(2,12,43,0.00) 1.6px);
+    background-size:10px 10px;
+  }
+
+  .design_02_dashboard-bg .dots-right-bottom{
+    left:92.34%;
+    top:77.08%;
+    width:7.66%;
+    height:22.92%;
+    z-index:5;
+    opacity:.75;
+    background-image:radial-gradient(circle, rgba(118,210,238,0.10) 1.5px, rgba(2,12,43,0.00) 1.6px);
+    background-size:10px 10px;
+  }
+
+  /* edge vignette */
+  .design_02_dashboard-bg .vignette{
+    inset:0;
+    z-index:6;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(2,12,43,0.00) 58%,
+        rgba(1,7,24,0.14) 82%,
+        rgba(0,0,0,0.28) 100%
+      );
+    pointer-events:none;
+  }
+</style>
+
+<div class="design_02_dashboard-bg">
+  <div class="noise"></div>
+
+  <div class="halo-top"></div>
+  <div class="glow-left-panel"></div>
+  <div class="glow-right-panel"></div>
+
+  <div class="glow-top-core"></div>
+  <div class="glow-left-card"></div>
+  <div class="glow-center-card"></div>
+  <div class="glow-right-card"></div>
+  <div class="glow-chart"></div>
+
+  <div class="bar-left"></div>
+  <div class="bar-center"></div>
+  <div class="bar-right"></div>
+
+  <div class="dots-left-top"></div>
+  <div class="dots-left-bottom"></div>
+  <div class="dots-right-bottom"></div>
+
+  <div class="vignette"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:10;">json
+[
+  {"card_id":"card_1","left":8.05,"top":32.92,"width":27.58,"height":25.97,"padding":3,"content_area":{"left":11.05,"top":35.92,"width":21.58,"height":19.97}},
+  {"card_id":"card_2","left":39.92,"top":32.92,"width":27.42,"height":25.97,"padding":3,"content_area":{"left":42.92,"top":35.92,"width":21.42,"height":19.97}},
+  {"card_id":"card_3","left":71.48,"top":32.92,"width":27.58,"height":25.97,"padding":3,"content_area":{"left":74.48,"top":35.92,"width":21.58,"height":19.97}},
+  {"card_id":"card_4","left":8.05,"top":68.89,"width":84.84,"height":34.72,"padding":3,"content_area":{"left":11.05,"top":71.89,"width":78.84,"height":28.72}}
+]</div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+.design_02_dashboard-content{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color:#F1F5F9;
+}
+.design_02_dashboard-content *{
+  position:absolute;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+
+.design_02_dashboard-content .main-title{
+  left:21.8%;
+  top:6.4%;
+  width:56.4%;
+  height:8.6%;
+  font-size:2.38rem;
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-0.03em;
+  color:#f8fbff;
+  text-align:center;
+  text-shadow:0 4px 20px rgba(0,0,0,0.28);
+  z-index:29;
+  white-space:nowrap;
+}
+
+.design_02_dashboard-content .metric-title{
+  font-size:1.02rem;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:0.01em;
+  color:#E2E8F0;
+  z-index:24;
+  white-space:nowrap;
+}
+
+.design_02_dashboard-content .metric-value{
+  font-size:2.45rem;
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-0.02em;
+  color:#F8FAFC;
+  text-shadow:0 4px 20px rgba(0,0,0,0.24);
+  z-index:25;
+  white-space:nowrap;
+}
+
+.design_02_dashboard-content .metric-change{
+  font-size:0.9rem;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:0.06em;
+  color:#60A5FA;
+  z-index:24;
+  white-space:nowrap;
+}
+
+.design_02_dashboard-content .chart-title{
+  font-size:1.08rem;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:0.01em;
+  color:#E2E8F0;
+  z-index:23;
+  white-space:nowrap;
+}
+</style>
+
+<div class="design_02_dashboard-content">
+  <div class="main-title">Q4 2025 비즈니스 성과 대시보드</div>
+
+  <div class="metric-title" style="left:11.05%; top:35.92%; width:21.58%; height:5.6%; z-index:24;">💰 매출</div>
+  <div class="metric-value" style="left:12.20%; top:42.00%; width:18.90%; height:8.60%; z-index:25;">₩128억</div>
+  <div class="metric-change" style="left:14.75%; top:51.65%; width:12.90%; height:3.60%; text-align:center; z-index:24;">+23% YoY</div>
+
+  <div class="metric-title" style="left:42.92%; top:35.92%; width:21.42%; height:5.6%; z-index:24;">👥 활성 사용자</div>
+  <div class="metric-value" style="left:45.15%; top:42.00%; width:16.80%; height:8.60%; z-index:25;">2.4M</div>
+  <div class="metric-change" style="left:47.55%; top:51.65%; width:12.10%; height:3.60%; text-align:center; z-index:24;">+15% MoM</div>
+
+  <div class="metric-title" style="left:74.48%; top:35.92%; width:21.58%; height:5.6%; z-index:24;">⭐ 고객 만족도</div>
+  <div class="metric-value" style="left:75.55%; top:42.00%; width:19.20%; height:8.60%; z-index:25;">4.7/5.0</div>
+  <div class="metric-change" style="left:81.10%; top:51.65%; width:7.80%; height:3.60%; text-align:center; z-index:24;">+0.3</div>
+
+  <div class="chart-title" style="left:11.05%; top:71.89%; width:24%; height:4.6%; z-index:23;">월별 매출 추이</div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><style>
+.design_02_dashboard-icons{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:30;
+  pointer-events:none;
+}
+
+.design_02_dashboard-icons .el{
+  position:absolute;
+  box-sizing:border-box;
+}
+
+/* icon badges */
+.design_02_dashboard-icons .badge{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg, rgba(59,130,246,0.22), rgba(96,165,250,0.10));
+  border:1px solid rgba(160,220,255,0.35);
+  box-shadow:
+    0 0 16px rgba(59,130,246,0.22),
+    inset 0 0 14px rgba(255,255,255,0.08);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  z-index:31;
+}
+.design_02_dashboard-icons .badge i{
+  font-size:1.2rem;
+  line-height:1;
+  color:#60A5FA;
+  text-shadow:0 0 10px rgba(96,165,250,0.35);
+}
+.design_02_dashboard-icons .badge.center i{ color:#67e8f9; }
+.design_02_dashboard-icons .badge.right i{ color:#5eead4; }
+
+/* small glow pills under values */
+.design_02_dashboard-icons .pill{
+  height:3.19%;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(91,221,246,0.78), rgba(91,221,246,0.20));
+  filter:blur(0.2px);
+  box-shadow:0 0 12px rgba(91,221,246,0.28);
+  opacity:.9;
+  z-index:32;
+}
+.design_02_dashboard-icons .pill::after{
+  content:"";
+  position:absolute;
+  inset:28% 6%;
+  border-radius:999px;
+  background:rgba(255,255,255,0.10);
+}
+.design_02_dashboard-icons .pill.center,
+.design_02_dashboard-icons .pill.right{
+  background:linear-gradient(90deg, rgba(87,233,231,0.78), rgba(87,233,231,0.20));
+  box-shadow:0 0 12px rgba(87,233,231,0.28);
+}
+
+/* chart area */
+.design_02_dashboard-icons .chart{
+  z-index:33;
+}
+.design_02_dashboard-icons .grid-line{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:1px;
+  background:rgba(173,220,255,0.18);
+}
+.design_02_dashboard-icons .grid-v{
+  position:absolute;
+  top:0;
+  width:1px;
+  height:100%;
+  background:rgba(173,220,255,0.12);
+}
+.design_02_dashboard-icons .axis-x{
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:1px;
+  background:rgba(173,220,255,0.28);
+}
+.design_02_dashboard-icons .axis-y{
+  position:absolute;
+  left:0;
+  top:0;
+  width:1px;
+  height:100%;
+  background:rgba(173,220,255,0.28);
+}
+
+.design_02_dashboard-icons svg{
+  position:absolute;
+  overflow:visible;
+}
+
+.design_02_dashboard-icons .series1 path{
+  stroke:#3EDFE7;
+  stroke-width:3;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 0 4px rgba(62,223,231,0.28));
+}
+.design_02_dashboard-icons .series2 path{
+  stroke:#45A9FF;
+  stroke-width:3;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 0 4px rgba(69,169,255,0.28));
+}
+.design_02_dashboard-icons .series3 path{
+  stroke:#53D6F5;
+  stroke-width:2.5;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.8;
+  filter:drop-shadow(0 0 4px rgba(83,214,245,0.20));
+}
+
+/* subtle chart nodes */
+.design_02_dashboard-icons .node{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#60A5FA;
+  box-shadow:0 0 12px rgba(96,165,250,0.4);
+  z-index:34;
+}
+.design_02_dashboard-icons .node.cyan{
+  background:#53D6F5;
+  box-shadow:0 0 12px rgba(83,214,245,0.4);
+}
+</style>
+
+<div class="design_02_dashboard-icons">
+  <!-- top icon badges -->
+  <div class="el badge left" style="left:16.80%; top:25.14%;">
+    <i class="fas fa-arrow-trend-up"></i>
+  </div>
+  <div class="el badge center" style="left:47.73%; top:25.14%;">
+    <i class="fas fa-user"></i>
+  </div>
+  <div class="el badge right" style="left:78.98%; top:25.14%;">
+    <i class="fas fa-cloud-arrow-up"></i>
+  </div>
+
+  <!-- glow pills -->
+  <div class="el pill left" style="left:16.02%; top:52.92%; width:11.80%;"></div>
+  <div class="el pill center" style="left:46.95%; top:52.92%; width:11.64%;"></div>
+  <div class="el pill right" style="left:78.44%; top:52.92%; width:11.64%;"></div>
+
+  <!-- chart grid -->
+  <div class="el chart" style="left:11.17%; top:72.92%; width:79.14%; height:21.39%;">
+    <div class="axis-y"></div>
+    <div class="axis-x"></div>
+
+    <div class="grid-line" style="top:20%;"></div>
+    <div class="grid-line" style="top:40%;"></div>
+    <div class="grid-line" style="top:60%;"></div>
+    <div class="grid-line" style="top:80%;"></div>
+
+    <div class="grid-v" style="left:16.66%;"></div>
+    <div class="grid-v" style="left:33.32%;"></div>
+    <div class="grid-v" style="left:49.98%;"></div>
+    <div class="grid-v" style="left:66.64%;"></div>
+    <div class="grid-v" style="left:83.30%;"></div>
+  </div>
+
+  <!-- chart lines -->
+  <svg class="el series1" style="left:12.11%; top:77.08%; width:77.03%; height:16.81%; z-index:35;" viewBox="0 0 986 121" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,88 C70,85 92,86 128,78 C168,70 185,50 220,46 C260,40 285,66 325,74 C372,83 399,38 440,30 C486,20 513,61 554,67 C606,74 630,22 681,18 C738,14 759,48 812,56 C872,65 915,28 986,10" />
+  </svg>
+
+  <svg class="el series2" style="left:12.11%; top:78.19%; width:77.19%; height:15.69%; z-index:36;" viewBox="0 0 988 113" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,74 C48,68 88,56 126,58 C173,61 194,88 242,92 C286,95 322,64 362,56 C404,47 437,60 476,71 C523,84 558,96 606,82 C649,69 688,26 734,23 C785,20 820,57 869,64 C919,71 948,52 988,35" />
+  </svg>
+
+  <svg class="el series3" style="left:12.11%; top:80.14%; width:77.03%; height:13.47%; z-index:37;" viewBox="0 0 986 97" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,62 C54,65 95,72 140,68 C188,64 212,44 255,39 C297,34 336,42 382,49 C426,56 451,74 498,73 C547,72 573,52 619,40 C670,27 710,20 760,24 C814,29 839,57 887,60 C929,63 956,52 986,46" />
+  </svg>
+
+  <!-- subtle chart glow nodes -->
+  <div class="el node cyan" style="left:34.6%; top:80.8%;"></div>
+  <div class="el node" style="left:58.9%; top:82.6%;"></div>
+  <div class="el node cyan" style="left:83.2%; top:77.8%;"></div>
+</div></div>
+</div></div></body></html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_02_dashboard" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+.design_02_dashboard-bg{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#0F172A;
+  z-index:0;
+}
+.design_02_dashboard-bg > div{
+  position:absolute;
+}
+.design_02_dashboard-bg .bg-grid{
+  inset:0;
+  z-index:0;
+  background:
+    linear-gradient(to right, #1E293B 1px, #0F172A 1px),
+    linear-gradient(to bottom, #1E293B 1px, #0F172A 1px);
+  background-size: 6.25% 100%, 100% 11.111%;
+  opacity:0.32;
+}
+.design_02_dashboard-bg .radial-top-right{
+  left:62%;
+  top:-8%;
+  width:42%;
+  height:42%;
+  z-index:1;
+  border-radius:50%;
+  background:radial-gradient(circle, #60A5FA 0%, #3B82F6 38%, #1D4ED8 62%, #0F172A 100%);
+  opacity:0.18;
+}
+.design_02_dashboard-bg .radial-bottom-left{
+  left:-10%;
+  top:68%;
+  width:34%;
+  height:34%;
+  z-index:1;
+  border-radius:50%;
+  background:radial-gradient(circle, #60A5FA 0%, #3B82F6 40%, #1D4ED8 66%, #0F172A 100%);
+  opacity:0.12;
+}
+.design_02_dashboard-bg .ring-right{
+  left:74%;
+  top:10%;
+  width:18%;
+  height:18%;
+  z-index:2;
+  border-radius:50%;
+  border:1px solid #60A5FA;
+  opacity:0.18;
+}
+.design_02_dashboard-bg .ring-right::before{
+  content:"";
+  position:absolute;
+  inset:12%;
+  border-radius:50%;
+  border:1px solid #3B82F6;
+  opacity:0.55;
+}
+.design_02_dashboard-bg .ring-left{
+  left:6%;
+  top:78%;
+  width:14%;
+  height:14%;
+  z-index:2;
+  border-radius:50%;
+  border:1px solid #3B82F6;
+  opacity:0.14;
+}
+.design_02_dashboard-bg .diag-line-1{
+  left:66%;
+  top:16%;
+  width:22%;
+  height:0.22%;
+  z-index:3;
+  background:#60A5FA;
+  opacity:0.18;
+  transform:rotate(32deg);
+  transform-origin:left center;
+}
+.design_02_dashboard-bg .diag-line-2{
+  left:10%;
+  top:74%;
+  width:16%;
+  height:0.18%;
+  z-index:3;
+  background:#3B82F6;
+  opacity:0.14;
+  transform:rotate(-28deg);
+  transform-origin:left center;
+}
+.design_02_dashboard-bg .dot-col-1{
+  left:92%;
+  top:18%;
+  width:0.5%;
+  height:0.9%;
+  z-index:4;
+  border-radius:50%;
+  background:#60A5FA;
+  opacity:0.45;
+  box-shadow:
+    0 2.2vh 0 #60A5FA,
+    0 4.4vh 0 #60A5FA;
+}
+.design_02_dashboard-bg .dot-row-1{
+  left:8%;
+  top:14%;
+  width:0.5%;
+  height:0.9%;
+  z-index:4;
+  border-radius:50%;
+  background:#3B82F6;
+  opacity:0.22;
+  box-shadow:
+    1.2vw 0 0 #3B82F6,
+    2.4vw 0 0 #3B82F6;
+}
+.design_02_dashboard-bg .corner-line-top{
+  left:0%;
+  top:0%;
+  width:18%;
+  height:18%;
+  z-index:2;
+  border-left:1px solid #3B82F6;
+  border-top:1px solid #3B82F6;
+  opacity:0.14;
+}
+.design_02_dashboard-bg .corner-line-bottom{
+  right:0%;
+  bottom:0%;
+  width:20%;
+  height:20%;
+  z-index:2;
+  border-right:1px solid #60A5FA;
+  border-bottom:1px solid #60A5FA;
+  opacity:0.14;
+}
+</style>
+
+<div class="design_02_dashboard-bg">
+  <div class="bg-grid"></div>
+  <div class="radial-top-right"></div>
+  <div class="radial-bottom-left"></div>
+  <div class="ring-right"></div>
+  <div class="ring-left"></div>
+  <div class="diag-line-1"></div>
+  <div class="diag-line-2"></div>
+  <div class="dot-col-1"></div>
+  <div class="dot-row-1"></div>
+  <div class="corner-line-top"></div>
+  <div class="corner-line-bottom"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:10;"><style>
+.design_02_dashboard-cards{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+}
+.design_02_dashboard-cards > div{
+  position:absolute;
+  box-sizing:border-box;
+}
+.design_02_dashboard-cards .glass{
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px;
+}
+.design_02_dashboard-cards .card{
+  background:#fff;
+  border-radius:16px;
+  border:1px solid #E2E8F0;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.design_02_dashboard-cards .primary-outline{
+  border:1px solid rgba(59,130,246,0.22);
+}
+.design_02_dashboard-cards .accent-outline{
+  border:1px solid rgba(96,165,250,0.24);
+}
+</style>
+
+<div class="design_02_dashboard-cards">
+  <div class="glass primary-outline" style="z-index:10; left:6%; top:10%; width:88%; height:80%;"></div>
+  <div class="card" style="z-index:11; left:10%; top:16%; width:24%; height:22%;"></div>
+  <div class="card" style="z-index:12; left:38%; top:16%; width:24%; height:22%;"></div>
+  <div class="card" style="z-index:13; left:66%; top:16%; width:24%; height:22%;"></div>
+  <div class="glass accent-outline" style="z-index:14; left:10%; top:42%; width:38%; height:20%;"></div>
+  <div class="card" style="z-index:15; left:52%; top:42%; width:38%; height:20%;"></div>
+  <div class="card" style="z-index:16; left:10%; top:66%; width:24%; height:14%;"></div>
+  <div class="glass primary-outline" style="z-index:17; left:38%; top:66%; width:24%; height:14%;"></div>
+  <div class="card" style="z-index:18; left:66%; top:66%; width:24%; height:14%;"></div>
+  <div class="glass accent-outline" style="z-index:19; left:72%; top:8%; width:18%; height:8%;"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+  .design_02_dashboard-content{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    color:#F1F5F9;
+    font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+    z-index:20;
+  }
+
+  .design_02_dashboard-content *{
+    position:absolute;
+    box-sizing:border-box;
+  }
+
+  .design_02_dashboard-content .title{
+    left:6%;
+    top:7%;
+    width:42%;
+    font-size:2rem;
+    font-weight:800;
+    line-height:1.25;
+    letter-spacing:-0.02em;
+    color:#F1F5F9;
+    z-index:21;
+  }
+
+  .design_02_dashboard-content .metric{
+    width:18%;
+    color:#F1F5F9;
+    line-height:1.6;
+    z-index:22;
+  }
+
+  .design_02_dashboard-content .metric-1{ left:7%; top:24%; }
+  .design_02_dashboard-content .metric-2{ left:28.5%; top:24%; }
+  .design_02_dashboard-content .metric-3{ left:50%; top:24%; }
+
+  .design_02_dashboard-content .metric-emoji{
+    left:0;
+    top:0;
+    font-size:1.15rem;
+    line-height:1;
+    z-index:23;
+  }
+
+  .design_02_dashboard-content .metric-title{
+    left:0;
+    top:7%;
+    font-size:0.95rem;
+    font-weight:700;
+    color:#60A5FA;
+    white-space:nowrap;
+    z-index:24;
+  }
+
+  .design_02_dashboard-content .metric-value{
+    left:0;
+    top:18%;
+    font-size:2rem;
+    font-weight:800;
+    line-height:1.2;
+    color:#F1F5F9;
+    white-space:nowrap;
+    z-index:25;
+  }
+
+  .design_02_dashboard-content .metric-change{
+    left:0;
+    top:46%;
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:12px;
+    font-size:0.75rem;
+    font-weight:700;
+    line-height:1.2;
+    color:#F1F5F9;
+    background:rgba(59,130,246,0.18);
+    border:1px solid rgba(96,165,250,0.45);
+    white-space:nowrap;
+    z-index:26;
+  }
+
+  .design_02_dashboard-content .chart-title{
+    left:7%;
+    top:61%;
+    font-size:1.05rem;
+    font-weight:700;
+    line-height:1.6;
+    color:#F1F5F9;
+    z-index:27;
+  }
+</style>
+
+<div class="design_02_dashboard-content">
+  <div class="title">Q4 2025 비즈니스 성과 대시보드</div>
+
+  <div class="metric metric-1">
+    <div class="metric-emoji">💰</div>
+    <div class="metric-title">매출</div>
+    <div class="metric-value">₩128억</div>
+    <div class="metric-change">+23% YoY</div>
+  </div>
+
+  <div class="metric metric-2">
+    <div class="metric-emoji">👥</div>
+    <div class="metric-title">활성 사용자</div>
+    <div class="metric-value">2.4M</div>
+    <div class="metric-change">+15% MoM</div>
+  </div>
+
+  <div class="metric metric-3">
+    <div class="metric-emoji">⭐</div>
+    <div class="metric-title">고객 만족도</div>
+    <div class="metric-value">4.7/5.0</div>
+    <div class="metric-change">+0.3</div>
+  </div>
+
+  <div class="chart-title">월별 매출 추이</div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><style>
+.design_02_dashboard-icons{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  z-index:30;
+  pointer-events:none;
+}
+.design_02_dashboard-icons > *{
+  position:absolute;
+}
+
+.design_02_dashboard-icons .badge{
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ffffff;
+  background:#3B82F6;
+  z-index:31;
+}
+
+.design_02_dashboard-icons .badge.accent{
+  background:#60A5FA;
+}
+
+.design_02_dashboard-icons .badge i{
+  font-size:1.5vw;
+  line-height:1;
+}
+
+.design_02_dashboard-icons .line{
+  background:#60A5FA;
+  border-radius:2px;
+  z-index:32;
+}
+
+.design_02_dashboard-icons .line.primary{
+  background:#3B82F6;
+}
+
+.design_02_dashboard-icons .dot{
+  width:0.7%;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  background:#60A5FA;
+  z-index:33;
+}
+
+.design_02_dashboard-icons .emoji{
+  z-index:34;
+  font-size:1.6vw;
+  line-height:1;
+}
+</style>
+
+<div class="design_02_dashboard-icons">
+  <div class="badge" style="left:8%; top:12%; width:4.8%; height:4.8%;"><i class="fas fa-chart-line"></i></div>
+  <div class="badge accent" style="left:86%; top:14%; width:4.6%; height:4.6%;"><i class="fas fa-bolt"></i></div>
+  <div class="badge" style="left:89%; top:79%; width:4.8%; height:4.8%;"><i class="fas fa-cog"></i></div>
+
+  <div class="line" style="left:14%; top:16.5%; width:5.5%; height:0.5%;"></div>
+  <div class="line primary" style="left:80.5%; top:18%; width:4.8%; height:0.5%;"></div>
+  <div class="line" style="left:83.5%; top:85.5%; width:4.6%; height:0.5%;"></div>
+
+  <div class="dot" style="left:20%; top:78%;"></div>
+  <div class="dot" style="left:22.5%; top:78%;"></div>
+  <div class="dot" style="left:25%; top:78%;"></div>
+
+  <div class="emoji" style="left:10.5%; top:83%;">📊</div>
+</div></div>
+</div></div></body></html>

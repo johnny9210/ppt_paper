@@ -1,0 +1,176 @@
+{
+  "style": {
+    "primary_color": "#3B82F6",
+    "accent_color": "#60A5FA",
+    "background": "#0F172A",
+    "text_color": "#F1F5F9"
+  },
+  "slides": [
+    {
+      "id": "design_01_timeline",
+      "type": "timeline",
+      "content": {
+        "title": "디지털 전환 로드맵 2025",
+        "description": "4단계 전환 마일스톤과 핵심 목표",
+        "items": [
+          {"step": 1, "emoji": "📊", "title": "현황 진단", "description": "레거시 시스템 분석 및 디지털 성숙도 평가"},
+          {"step": 2, "emoji": "🏗️", "title": "기반 구축", "description": "클라우드 마이그레이션 및 API 플랫폼 설계"},
+          {"step": 3, "emoji": "🔄", "title": "프로세스 혁신", "description": "업무 자동화 및 데이터 기반 의사결정 체계 도입"},
+          {"step": 4, "emoji": "🚀", "title": "스케일업", "description": "AI/ML 적용 확대 및 전사 디지털 문화 정착"}
+        ]
+      }
+    },
+    {
+      "id": "design_02_dashboard",
+      "type": "dashboard",
+      "content": {
+        "title": "Q4 2025 비즈니스 성과 대시보드",
+        "metrics": [
+          {"emoji": "💰", "title": "매출", "value": "₩128억", "change": "+23% YoY"},
+          {"emoji": "👥", "title": "활성 사용자", "value": "2.4M", "change": "+15% MoM"},
+          {"emoji": "⭐", "title": "고객 만족도", "value": "4.7/5.0", "change": "+0.3"}
+        ],
+        "chart_title": "월별 매출 추이"
+      }
+    },
+    {
+      "id": "design_03_comparison_split",
+      "type": "comparison",
+      "content": {
+        "title": "온프레미스 vs 클라우드 네이티브",
+        "left": {
+          "label": "온프레미스",
+          "items": [
+            "초기 투자비용 높음",
+            "확장에 수주~수개월 소요",
+            "보안 직접 관리 필요",
+            "유지보수 인력 상시 필요"
+          ]
+        },
+        "right": {
+          "label": "클라우드 네이티브",
+          "items": [
+            "사용량 기반 과금",
+            "분 단위 자동 스케일링",
+            "관리형 보안 서비스",
+            "인프라 자동화로 인력 절감"
+          ]
+        }
+      }
+    },
+    {
+      "id": "design_04_pyramid",
+      "type": "pyramid",
+      "content": {
+        "title": "데이터 거버넌스 프레임워크",
+        "tiers": [
+          {"level": "Strategic", "emoji": "👑", "title": "데이터 전략", "description": "경영진 주도 데이터 비전 및 정책 수립"},
+          {"level": "Tactical", "items": [
+            {"emoji": "📋", "title": "품질 관리", "description": "데이터 표준화 및 품질 모니터링"},
+            {"emoji": "🔐", "title": "보안 통제", "description": "접근 권한 및 개인정보 보호"}
+          ]},
+          {"level": "Operational", "items": [
+            {"emoji": "🗄️", "title": "수집", "description": "원천 데이터 통합"},
+            {"emoji": "⚙️", "title": "처리", "description": "ETL 파이프라인"},
+            {"emoji": "📈", "title": "분석", "description": "BI 대시보드 운영"}
+          ]}
+        ]
+      }
+    },
+    {
+      "id": "design_05_hub_spoke",
+      "type": "hub_spoke",
+      "content": {
+        "title": "마이크로서비스 아키텍처",
+        "hub": {"emoji": "🌐", "title": "API Gateway"},
+        "spokes": [
+          {"emoji": "☁️", "title": "클라우드 스토리지", "description": "S3, MinIO 기반 객체 저장소"},
+          {"emoji": "📡", "title": "실시간 스트리밍", "description": "Kafka 이벤트 브로커"},
+          {"emoji": "🗄️", "title": "데이터베이스", "description": "PostgreSQL + MongoDB"},
+          {"emoji": "🔒", "title": "인증/보안", "description": "OAuth2 + JWT 토큰"},
+          {"emoji": "🤖", "title": "AI 서비스", "description": "LLM 추론 엔진"},
+          {"emoji": "🌍", "title": "CDN/Edge", "description": "글로벌 콘텐츠 배포"}
+        ]
+      }
+    },
+    {
+      "id": "design_06_before_after",
+      "type": "before_after",
+      "content": {
+        "title": "AI 도입 전후 업무 효율성 비교",
+        "before": {
+          "label": "도입 전",
+          "items": [
+            {"emoji": "📝", "title": "수작업 보고서 작성", "description": "주 8시간 소요"},
+            {"emoji": "🔍", "title": "수동 데이터 검색", "description": "건당 30분"},
+            {"emoji": "📞", "title": "전화/이메일 응대", "description": "평균 응답 4시간"}
+          ]
+        },
+        "after": {
+          "label": "도입 후",
+          "items": [
+            {"emoji": "🤖", "title": "자동 보고서 생성", "description": "주 30분으로 단축"},
+            {"emoji": "⚡", "title": "RAG 기반 즉시 검색", "description": "건당 5초"},
+            {"emoji": "💬", "title": "AI 챗봇 자동 응대", "description": "평균 응답 10초"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "design_07_feature_grid",
+      "type": "feature_grid",
+      "content": {
+        "title": "플랫폼 핵심 기능",
+        "features": [
+          {"emoji": "💬", "title": "AI 채팅", "description": "멀티턴 대화형 AI 어시스턴트", "tag": "Core"},
+          {"emoji": "🔄", "title": "워크플로우", "description": "노코드 업무 자동화 빌더", "tag": "Automation"},
+          {"emoji": "📄", "title": "문서 처리", "description": "PDF/엑셀 자동 분석 및 요약", "tag": "RAG"},
+          {"emoji": "📊", "title": "데이터 분석", "description": "자연어 SQL 변환 및 시각화", "tag": "Analytics"},
+          {"emoji": "🎨", "title": "PPT 생성", "description": "AI 기반 프레젠테이션 자동 생성", "tag": "Creative"},
+          {"emoji": "🔗", "title": "API 연동", "description": "외부 시스템 MCP 연결", "tag": "Integration"}
+        ]
+      }
+    },
+    {
+      "id": "design_08_roadmap",
+      "type": "roadmap",
+      "content": {
+        "title": "2025 제품 로드맵",
+        "phases": [
+          {"phase": "Q1", "emoji": "🎯", "title": "MVP 출시", "description": "핵심 기능 3종 런칭"},
+          {"phase": "Q2", "emoji": "📈", "title": "성장 가속", "description": "사용자 1만명 돌파 목표"},
+          {"phase": "Q3", "emoji": "🌏", "title": "글로벌 확장", "description": "일본·동남아 시장 진출"},
+          {"phase": "Q4", "emoji": "🏆", "title": "엔터프라이즈", "description": "대기업 맞춤 솔루션 출시"},
+          {"phase": "2026", "emoji": "🚀", "title": "플랫폼화", "description": "3rd party 앱 마켓플레이스"}
+        ]
+      }
+    },
+    {
+      "id": "design_09_layered_stack",
+      "type": "layered_stack",
+      "content": {
+        "title": "시스템 아키텍처 스택",
+        "layers": [
+          {"level": 1, "emoji": "🎨", "title": "프레젠테이션 계층", "description": "React + Ant Design UI"},
+          {"level": 2, "emoji": "⚡", "title": "API 계층", "description": "Express Gateway + Moleculer"},
+          {"level": 3, "emoji": "🧠", "title": "서비스 계층", "description": "FastAPI + LangGraph AI 에이전트"},
+          {"level": 4, "emoji": "💾", "title": "인프라 계층", "description": "MongoDB + OpenSearch + Redis + MinIO"}
+        ]
+      }
+    },
+    {
+      "id": "design_10_stats_hero",
+      "type": "stats_hero",
+      "content": {
+        "title": "2025년 성과 하이라이트",
+        "hero": {"value": "300%", "label": "생산성 향상"},
+        "stats": [
+          {"emoji": "🏢", "value": "150+", "label": "도입 기업"},
+          {"emoji": "👤", "value": "50K+", "label": "월간 활성 사용자"},
+          {"emoji": "📄", "value": "2M+", "label": "처리 문서 수"},
+          {"emoji": "⏱️", "value": "99.9%", "label": "서비스 가동률"}
+        ]
+      }
+    }
+  ]
+}

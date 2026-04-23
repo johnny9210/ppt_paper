@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #0F172A, #1E293B);
+    font-family: Arial, sans-serif;
+    color: white;
+    width: 1280px;
+    height: 720px;
+    position: relative;
+  }
+
+  .layer {
+    position: absolute;
+    width: 80%;
+    height: 120px;
+    left: 10%;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0,255,255, 0.3), 0 0 60px rgba(0,255,255, 0.1);
+  }
+
+  .layer:nth-child(1) { top: 60px; z-index: 2; }
+  .layer:nth-child(2) { top: 200px; z-index: 2; }
+  .layer:nth-child(3) { top: 340px; z-index: 2; }
+  .layer:nth-child(4) { top: 480px; z-index: 2; }
+
+  .accent {
+    width: 48px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.5);
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(72,187,255,0.15), transparent 70%);
+    filter: blur(60px);
+    z-index: 1;
+    left: 40%;
+    top: 20%;
+  }
+
+  .content {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    font-size: 1.2em;
+  }
+  
+  .content .title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  .emoji {
+    font-size: 2em;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+</style>
+
+<div class="glow"></div>
+
+<div class="layer">
+  <div class="content">
+    <span class="emoji">🎨</span>
+    <div class="title">프레젠테이션 계층</div>
+    <div class="description">React + Ant Design UI</div>
+  </div>
+  <div class="accent"></div>
+</div>
+
+<div class="layer">
+  <div class="content">
+    <span class="emoji">⚡</span>
+    <div class="title">API 계층</div>
+    <div class="description">Express Gateway + Moleculer</div>
+  </div>
+  <div class="accent"></div>
+</div>
+
+<div class="layer">
+  <div class="content">
+    <span class="emoji">🧠</span>
+    <div class="title">서비스 계층</div>
+    <div class="description">FastAPI + LangGraph AI 에이전트</div>
+  </div>
+  <div class="accent"></div>
+</div>
+
+<div class="layer">
+  <div class="content">
+    <span class="emoji">💾</span>
+    <div class="title">인프라 계층</div>
+    <div class="description">MongoDB + OpenSearch + Redis + MinIO</div>
+  </div>
+  <div class="accent"></div>
+</div></div>
+</body></html>

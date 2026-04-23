@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_05_hub_spoke" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+.design_05_hub_spoke-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(22,213,234,0.34) 0%,
+      rgba(10,45,116,0.22) 28%,
+      rgba(4,24,79,0.55) 56%,
+      rgba(0,11,67,1) 100%
+    );
+  z-index:0;
+}
+
+.design_05_hub_spoke-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,
+      rgba(28,199,216,0) 0%,
+      rgba(28,199,216,0.06) 48%,
+      rgba(28,199,216,0.10) 50%,
+      rgba(28,199,216,0.06) 52%,
+      rgba(28,199,216,0) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(28,199,216,0) 0%,
+      rgba(28,199,216,0.03) 48%,
+      rgba(28,199,216,0.08) 50%,
+      rgba(28,199,216,0.03) 52%,
+      rgba(28,199,216,0) 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(28,199,216,0) 0px,
+      rgba(28,199,216,0) 74px,
+      rgba(28,199,216,0.025) 74px,
+      rgba(28,199,216,0.025) 75px,
+      rgba(28,199,216,0) 75px,
+      rgba(28,199,216,0) 150px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(28,199,216,0) 0px,
+      rgba(28,199,216,0) 82px,
+      rgba(28,199,216,0.018) 82px,
+      rgba(28,199,216,0.018) 83px,
+      rgba(28,199,216,0) 83px,
+      rgba(28,199,216,0) 166px
+    );
+  opacity:.35;
+  z-index:1;
+  pointer-events:none;
+}
+
+.design_05_hub_spoke-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(201,255,249,0.18) 0%, rgba(201,255,249,0.10) 1.2%, rgba(201,255,249,0) 3.8%),
+    radial-gradient(circle at 50% 50%, rgba(22,213,234,0.26) 0%, rgba(22,213,234,0.10) 10%, rgba(22,213,234,0) 18%),
+    radial-gradient(circle at 27.8% 50%, rgba(22,213,234,0.20) 0%, rgba(22,213,234,0.08) 35%, rgba(22,213,234,0) 70%),
+    radial-gradient(circle at 72% 50%, rgba(107,240,213,0.20) 0%, rgba(107,240,213,0.08) 35%, rgba(107,240,213,0) 70%);
+  z-index:2;
+  pointer-events:none;
+}
+
+.design_05_hub_spoke-bg .bg-band{
+  position:absolute;
+  left:5%;
+  top:45.6%;
+  width:90%;
+  height:8.9%;
+  border-radius:999px;
+  background:linear-gradient(90deg,
+    rgba(22,213,234,0.00) 0%,
+    rgba(22,213,234,0.10) 16%,
+    rgba(22,213,234,0.18) 50%,
+    rgba(107,240,213,0.12) 84%,
+    rgba(107,240,213,0.00) 100%
+  );
+  filter:blur(26px);
+  opacity:.9;
+  z-index:3;
+}
+
+.design_05_hub_spoke-bg .vignette-left{
+  position:absolute;
+  left:1.5%;
+  top:0%;
+  width:31%;
+  height:38%;
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,
+    rgba(0,16,63,0.34) 0%,
+    rgba(0,16,63,0.22) 48%,
+    rgba(0,16,63,0) 100%
+  );
+  filter:blur(42px);
+  z-index:4;
+}
+
+.design_05_hub_spoke-bg .vignette-right{
+  position:absolute;
+  left:68%;
+  top:0%;
+  width:30%;
+  height:38%;
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,
+    rgba(0,16,63,0.32) 0%,
+    rgba(0,16,63,0.18) 48%,
+    rgba(0,16,63,0) 100%
+  );
+  filter:blur(42px);
+  z-index:4;
+}
+
+.design_05_hub_spoke-bg .central-halo{
+  position:absolute;
+  left:40.2%;
+  top:33.8%;
+  width:19.6%;
+  height:34.8%;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(22,213,234,0.23) 0%,
+    rgba(22,213,234,0.10) 45%,
+    rgba(22,213,234,0) 100%
+  );
+  filter:blur(36px);
+  z-index:5;
+}
+
+.design_05_hub_spoke-bg .circuit{
+  position:absolute;
+  inset:0;
+  z-index:6;
+  opacity:.18;
+  pointer-events:none;
+}
+
+.design_05_hub_spoke-bg .circuit i{
+  position:absolute;
+  display:block;
+  background:#1CC7D8;
+  border-radius:2px;
+}
+
+.design_05_hub_spoke-bg .circuit .v1{left:49.8%; top:0%; width:1px; height:37%;}
+.design_05_hub_spoke-bg .circuit .v2{left:46.2%; top:0%; width:1px; height:32%;}
+.design_05_hub_spoke-bg .circuit .v3{left:53.4%; top:0%; width:1px; height:32%;}
+.design_05_hub_spoke-bg .circuit .v4{left:42.8%; top:0%; width:1px; height:25%;}
+.design_05_hub_spoke-bg .circuit .v5{left:56.8%; top:0%; width:1px; height:25%;}
+.design_05_hub_spoke-bg .circuit .vb1{left:49.8%; top:63%; width:1px; height:37%;}
+.design_05_hub_spoke-bg .circuit .vb2{left:46.2%; top:68%; width:1px; height:32%;}
+.design_05_hub_spoke-bg .circuit .vb3{left:53.4%; top:68%; width:1px; height:32%;}
+.design_05_hub_spoke-bg .circuit .vb4{left:42.8%; top:75%; width:1px; height:25%;}
+.design_05_hub_spoke-bg .circuit .vb5{left:56.8%; top:75%; width:1px; height:25%;}
+
+.design_05_hub_spoke-bg .circuit .h1{left:28%; top:49.9%; width:16%; height:1px;}
+.design_05_hub_spoke-bg .circuit .h2{left:56%; top:49.9%; width:16%; height:1px;}
+.design_05_hub_spoke-bg .circuit .h3{left:22%; top:44%; width:19%; height:1px;}
+.design_05_hub_spoke-bg .circuit .h4{left:59%; top:44%; width:19%; height:1px;}
+.design_05_hub_spoke-bg .circuit .h5{left:22%; top:56%; width:19%; height:1px;}
+.design_05_hub_spoke-bg .circuit .h6{left:59%; top:56%; width:19%; height:1px;}
+
+.design_05_hub_spoke-bg .circuit .a1{left:44%; top:18%; width:6%; height:1px; transform:rotate(35deg); transform-origin:left center;}
+.design_05_hub_spoke-bg .circuit .a2{left:50%; top:18%; width:6%; height:1px; transform:rotate(-35deg); transform-origin:left center;}
+.design_05_hub_spoke-bg .circuit .a3{left:44%; top:80%; width:6%; height:1px; transform:rotate(-35deg); transform-origin:left center;}
+.design_05_hub_spoke-bg .circuit .a4{left:50%; top:80%; width:6%; height:1px; transform:rotate(35deg); transform-origin:left center;}
+
+.design_05_hub_spoke-bg .circuit .n1,
+.design_05_hub_spoke-bg .circuit .n2,
+.design_05_hub_spoke-bg .circuit .n3,
+.design_05_hub_spoke-bg .circuit .n4,
+.design_05_hub_spoke-bg .circuit .n5,
+.design_05_hub_spoke-bg .circuit .n6,
+.design_05_hub_spoke-bg .circuit .n7,
+.design_05_hub_spoke-bg .circuit .n8{
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:rgba(28,199,216,0.9);
+}
+
+.design_05_hub_spoke-bg .circuit .n1{left:49.65%; top:16%;}
+.design_05_hub_spoke-bg .circuit .n2{left:46.05%; top:22%;}
+.design_05_hub_spoke-bg .circuit .n3{left:53.25%; top:22%;}
+.design_05_hub_spoke-bg .circuit .n4{left:42.65%; top:30%;}
+.design_05_hub_spoke-bg .circuit .n5{left:56.65%; top:30%;}
+.design_05_hub_spoke-bg .circuit .n6{left:42.65%; top:70%;}
+.design_05_hub_spoke-bg .circuit .n7{left:56.65%; top:70%;}
+.design_05_hub_spoke-bg .circuit .n8{left:49.65%; top:84%;}
+
+.design_05_hub_spoke-bg .grain{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.025) 0 0.7px, rgba(255,255,255,0) 0.8px),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.020) 0 0.7px, rgba(255,255,255,0) 0.8px);
+  background-size:120px 120px, 160px 160px;
+  opacity:.3;
+  z-index:7;
+  pointer-events:none;
+}
+
+.design_05_hub_spoke-bg .soft-bottom{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-8%;
+  height:28%;
+  background:radial-gradient(ellipse at center,
+    rgba(0,11,67,0) 0%,
+    rgba(0,11,67,0.08) 50%,
+    rgba(0,11,67,0.28) 100%
+  );
+  z-index:8;
+}
+
+.design_05_hub_spoke-bg .edge-fade{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,0.03);
+  z-index:9;
+  pointer-events:none;
+}
+</style>
+
+<div class="design_05_hub_spoke-bg">
+  <div class="bg-band"></div>
+  <div class="vignette-left"></div>
+  <div class="vignette-right"></div>
+  <div class="central-halo"></div>
+
+  <div class="circuit">
+    <i class="v1"></i><i class="v2"></i><i class="v3"></i><i class="v4"></i><i class="v5"></i>
+    <i class="vb1"></i><i class="vb2"></i><i class="vb3"></i><i class="vb4"></i><i class="vb5"></i>
+    <i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i><i class="h6"></i>
+    <i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i>
+    <i class="n1"></i><i class="n2"></i><i class="n3"></i><i class="n4"></i>
+    <i class="n5"></i><i class="n6"></i><i class="n7"></i><i class="n8"></i>
+  </div>
+
+  <div class="grain"></div>
+  <div class="soft-bottom"></div>
+  <div class="edge-fade"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:10;">json
+[
+  {"card_id":"card_lt","left":8.75,"top":9.72,"width":23.83,"height":23.19,"padding":3,"content_area":{"left":11.75,"top":12.72,"width":17.83,"height":17.19}},
+  {"card_id":"card_lm","left":4.38,"top":37.08,"width":23.67,"height":23.19,"padding":3,"content_area":{"left":7.38,"top":40.08,"width":17.67,"height":17.19}},
+  {"card_id":"card_lb","left":8.75,"top":68.06,"width":23.83,"height":23.19,"padding":3,"content_area":{"left":11.75,"top":71.06,"width":17.83,"height":17.19}},
+  {"card_id":"card_rt","left":68.98,"top":9.72,"width":23.98,"height":23.19,"padding":3,"content_area":{"left":71.98,"top":12.72,"width":17.98,"height":17.19}},
+  {"card_id":"card_rm","left":71.17,"top":37.08,"width":23.67,"height":23.19,"padding":3,"content_area":{"left":74.17,"top":40.08,"width":17.67,"height":17.19}},
+  {"card_id":"card_rb","left":68.98,"top":68.06,"width":23.98,"height":23.19,"padding":3,"content_area":{"left":71.98,"top":71.06,"width":17.98,"height":17.19}}
+]</div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+.design_05_hub_spoke-content{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color:#F1F5F9;
+  z-index:20;
+}
+.design_05_hub_spoke-content *{
+  position:absolute;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+
+.design_05_hub_spoke-content .main-title{
+  left:6.4%;
+  top:4.8%;
+  width:32%;
+  height:6.5%;
+  z-index:29;
+  font-size:2.35rem;
+  font-weight:800;
+  letter-spacing:-0.03em;
+  line-height:1.05;
+  color:#f8fbff;
+  text-shadow:0 4px 20px rgba(0,0,0,0.28);
+  white-space:nowrap;
+}
+
+.design_05_hub_spoke-content .hub-title{
+  left:42.2%;
+  top:42.9%;
+  width:15.6%;
+  height:6.8%;
+  z-index:28;
+  text-align:center;
+  font-size:1.65rem;
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  color:#F1F5F9;
+  text-shadow:0 4px 18px rgba(0,0,0,0.28);
+}
+
+.design_05_hub_spoke-content .hub-emoji{
+  left:47.2%;
+  top:38.2%;
+  width:5.2%;
+  height:4.8%;
+  z-index:27;
+  text-align:center;
+  font-size:1.45rem;
+  line-height:1;
+  filter:saturate(0.95) brightness(1.05);
+}
+
+.design_05_hub_spoke-content .card{
+  z-index:24;
+}
+
+.design_05_hub_spoke-content .card-title{
+  left:0;
+  top:0;
+  width:100%;
+  height:31%;
+  font-size:1.02rem;
+  font-weight:700;
+  line-height:1.2;
+  color:#e2e8f0;
+  letter-spacing:-0.01em;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.design_05_hub_spoke-content .card-desc{
+  left:0;
+  top:34%;
+  width:100%;
+  height:66%;
+  font-size:0.84rem;
+  font-weight:400;
+  line-height:1.42;
+  color:rgba(226,232,240,0.82);
+  letter-spacing:0.002em;
+  display:block;
+}
+
+.design_05_hub_spoke-content .emoji{
+  color:#60A5FA;
+  margin-right:.26em;
+}
+</style>
+
+<div class="design_05_hub_spoke-content">
+  <div class="main-title">마이크로서비스 아키텍처</div>
+
+  <div class="hub-emoji">🌐</div>
+  <div class="hub-title">API Gateway</div>
+
+  <div class="card" style="left:11.75%; top:12.72%; width:17.83%; height:17.19%; z-index:24;">
+    <div class="card-title"><span class="emoji">☁️</span>클라우드 스토리지</div>
+    <div class="card-desc">S3, MinIO 기반 객체 저장소</div>
+  </div>
+
+  <div class="card" style="left:7.38%; top:40.08%; width:17.67%; height:17.19%; z-index:24;">
+    <div class="card-title"><span class="emoji">📡</span>실시간 스트리밍</div>
+    <div class="card-desc">Kafka 이벤트 브로커</div>
+  </div>
+
+  <div class="card" style="left:11.75%; top:71.06%; width:17.83%; height:17.19%; z-index:24;">
+    <div class="card-title"><span class="emoji">🗄️</span>데이터베이스</div>
+    <div class="card-desc">PostgreSQL + MongoDB</div>
+  </div>
+
+  <div class="card" style="left:71.98%; top:12.72%; width:17.98%; height:17.19%; z-index:24;">
+    <div class="card-title"><span class="emoji">🔒</span>인증/보안</div>
+    <div class="card-desc">OAuth2 + JWT 토큰</div>
+  </div>
+
+  <div class="card" style="left:74.17%; top:40.08%; width:17.67%; height:17.19%; z-index:24;">
+    <div class="card-title"><span class="emoji">🤖</span>AI 서비스</div>
+    <div class="card-desc">LLM 추론 엔진</div>
+  </div>
+
+  <div class="card" style="left:71.98%; top:71.06%; width:17.98%; height:17.19%; z-index:24;">
+    <div class="card-title"><span class="emoji">🌍</span>CDN/Edge</div>
+    <div class="card-desc">글로벌 콘텐츠 배포</div>
+  </div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><style>
+.design_05_hub_spoke-icons{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:30;
+  pointer-events:none;
+  --primary:#16D5EA;
+  --accent:#6BF0D5;
+  --bg0:rgba(22,213,234,0);
+  --bg1:rgba(107,240,213,0);
+  --hub-bg:rgba(10,26,78,0.82);
+  font-family:"Font Awesome 6 Free","Font Awesome 5 Free",sans-serif;
+}
+.design_05_hub_spoke-icons > *{position:absolute; box-sizing:border-box;}
+
+/* center hub */
+.design_05_hub_spoke-icons .hub{
+  left:40.94%;
+  top:36.11%;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(107,240,213,0.14), rgba(10,26,78,0.82) 62%);
+  border:2px solid rgba(102,242,231,0.9);
+  box-shadow:0 0 36px rgba(22,213,234,0.6), inset 0 0 14px rgba(107,240,213,0.24);
+  z-index:39;
+}
+.design_05_hub_spoke-icons .hub::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:50%;
+  border:2px solid rgba(102,242,231,0.42);
+}
+.design_05_hub_spoke-icons .hub .node{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(201,255,249,0.95) 0%, rgba(102,242,231,0.95) 58%, rgba(22,213,234,0.35) 100%);
+  box-shadow:0 0 14px rgba(22,213,234,0.55);
+}
+.design_05_hub_spoke-icons .hub .node.center{left:91px; top:91px; width:18px; height:18px;}
+.design_05_hub_spoke-icons .hub .node.tl{left:58px; top:57px; width:14px; height:14px;}
+.design_05_hub_spoke-icons .hub .node.tr{left:128px; top:62px; width:14px; height:14px;}
+.design_05_hub_spoke-icons .hub .node.bl{left:66px; top:128px; width:14px; height:14px;}
+.design_05_hub_spoke-icons .hub .node.br{left:128px; top:128px; width:14px; height:14px;}
+.design_05_hub_spoke-icons .hub .line{
+  position:absolute;
+  height:2px;
+  background:linear-gradient(90deg, rgba(22,213,234,0.2), rgba(102,242,231,0.95), rgba(22,213,234,0.2));
+  transform-origin:left center;
+  border-radius:2px;
+  box-shadow:0 0 10px rgba(22,213,234,0.32);
+}
+.design_05_hub_spoke-icons .hub .l1{left:69px; top:69px; width:35px; transform:rotate(35deg);}
+.design_05_hub_spoke-icons .hub .l2{left:100px; top:70px; width:36px; transform:rotate(-28deg);}
+.design_05_hub_spoke-icons .hub .l3{left:76px; top:122px; width:32px; transform:rotate(-38deg);}
+.design_05_hub_spoke-icons .hub .l4{left:101px; top:101px; width:34px; transform:rotate(38deg);}
+.design_05_hub_spoke-icons .hub .l5{left:76px; top:100px; width:50px; transform:rotate(0deg);}
+
+/* connector common */
+.design_05_hub_spoke-icons .connector{
+  z-index:34;
+}
+.design_05_hub_spoke-icons .connector .seg{
+  position:absolute;
+  height:3px;
+  border-radius:2px;
+}
+.design_05_hub_spoke-icons .connector .seg.v{
+  width:3px;
+  height:100%;
+}
+.design_05_hub_spoke-icons .connector .node{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+}
+.design_05_hub_spoke-icons .connector.left .seg,
+.design_05_hub_spoke-icons .connector.left .seg.v{
+  background:linear-gradient(90deg, rgba(22,213,234,0.92), rgba(22,213,234,0.55));
+  box-shadow:0 0 12px rgba(22,213,234,0.34);
+}
+.design_05_hub_spoke-icons .connector.right .seg,
+.design_05_hub_spoke-icons .connector.right .seg.v{
+  background:linear-gradient(90deg, rgba(107,240,213,0.55), rgba(107,240,213,0.96));
+  box-shadow:0 0 12px rgba(107,240,213,0.34);
+}
+.design_05_hub_spoke-icons .connector.left .node{
+  background:#16D5EA;
+  box-shadow:0 0 12px rgba(22,213,234,0.45);
+}
+.design_05_hub_spoke-icons .connector.right .node{
+  background:#6BF0D5;
+  box-shadow:0 0 12px rgba(107,240,213,0.45);
+}
+
+/* left top */
+.design_05_hub_spoke-icons .lt-conn{left:31.33%; top:22.92%; width:12.97%; height:10.56%;}
+.design_05_hub_spoke-icons .lt-conn .h1{left:0; top:0; width:58%; height:3px;}
+.design_05_hub_spoke-icons .lt-conn .v1{left:58%; top:0; width:3px; height:55%;}
+.design_05_hub_spoke-icons .lt-conn .h2{left:58%; top:55%; width:42%; height:3px;}
+.design_05_hub_spoke-icons .lt-conn .node{left:0; top:-2px;}
+
+/* left middle */
+.design_05_hub_spoke-icons .lm-conn{left:27.97%; top:48.75%; width:15.63%; height:3.06%;}
+.design_05_hub_spoke-icons .lm-conn .h1{left:0; top:50%; width:100%; height:3px; transform:translateY(-50%);}
+.design_05_hub_spoke-icons .lm-conn .node{left:0; top:50%; transform:translateY(-50%);}
+
+/* left bottom */
+.design_05_hub_spoke-icons .lb-conn{left:31.33%; top:65.97%; width:12.97%; height:10.83%;}
+.design_05_hub_spoke-icons .lb-conn .h1{left:0; bottom:0; width:58%; height:3px;}
+.design_05_hub_spoke-icons .lb-conn .v1{left:58%; bottom:45%; width:3px; height:55%;}
+.design_05_hub_spoke-icons .lb-conn .h2{left:58%; top:0; width:42%; height:3px;}
+.design_05_hub_spoke-icons .lb-conn .node{left:0; bottom:-2px;}
+
+/* right top */
+.design_05_hub_spoke-icons .rt-conn{left:56.48%; top:22.92%; width:13.13%; height:10.56%;}
+.design_05_hub_spoke-icons .rt-conn .h1{right:0; top:0; width:58%; height:3px;}
+.design_05_hub_spoke-icons .rt-conn .v1{left:0; top:0; width:3px; height:55%;}
+.design_05_hub_spoke-icons .rt-conn .h2{left:0; top:55%; width:42%; height:3px;}
+.design_05_hub_spoke-icons .rt-conn .node{right:0; top:-2px;}
+
+/* right middle */
+.design_05_hub_spoke-icons .rm-conn{left:56.41%; top:48.75%; width:15.94%; height:3.06%;}
+.design_05_hub_spoke-icons .rm-conn .h1{left:0; top:50%; width:100%; height:3px; transform:translateY(-50%);}
+.design_05_hub_spoke-icons .rm-conn .node{right:0; top:50%; transform:translateY(-50%);}
+
+/* right bottom */
+.design_05_hub_spoke-icons .rb-conn{left:56.48%; top:65.97%; width:13.13%; height:10.83%;}
+.design_05_hub_spoke-icons .rb-conn .h1{right:0; bottom:0; width:58%; height:3px;}
+.design_05_hub_spoke-icons .rb-conn .v1{left:0; bottom:45%; width:3px; height:55%;}
+.design_05_hub_spoke-icons .rb-conn .h2{left:0; top:0; width:42%; height:3px;}
+.design_05_hub_spoke-icons .rb-conn .node{right:0; bottom:-2px;}
+
+/* icon badges */
+.design_05_hub_spoke-icons .icon-badge{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#66F2E7;
+  background:radial-gradient(circle, rgba(22,213,234,0.12) 0%, rgba(22,213,234,0.05) 46%, rgba(22,213,234,0) 72%);
+  box-shadow:0 0 18px rgba(22,213,234,0.55);
+  z-index:36;
+}
+.design_05_hub_spoke-icons .icon-badge.right{
+  box-shadow:0 0 18px rgba(107,240,213,0.5);
+  background:radial-gradient(circle, rgba(107,240,213,0.12) 0%, rgba(107,240,213,0.05) 46%, rgba(107,240,213,0) 72%);
+}
+.design_05_hub_spoke-icons .icon-badge .ring{
+  position:absolute;
+  inset:16px;
+  border-radius:50%;
+  border:1.5px solid rgba(102,242,231,0.34);
+}
+.design_05_hub_spoke-icons .icon-badge.right .ring{
+  border-color:rgba(107,240,213,0.34);
+}
+.design_05_hub_spoke-icons .icon-badge i{
+  font-size:46px;
+  font-style:normal;
+  line-height:1;
+  color:#66F2E7;
+  text-shadow:0 0 12px rgba(22,213,234,0.4);
+}
+.design_05_hub_spoke-icons .icon-badge.right i{
+  text-shadow:0 0 12px rgba(107,240,213,0.4);
+}
+
+/* positions */
+.design_05_hub_spoke-icons .icon-cloud{left:20.31%; top:12.92%;}
+.design_05_hub_spoke-icons .icon-database{left:16.41%; top:40.28%;}
+.design_05_hub_spoke-icons .icon-chip{left:20.31%; top:71.11%;}
+.design_05_hub_spoke-icons .icon-satellite{left:74.06%; top:12.92%;}
+.design_05_hub_spoke-icons .icon-security{left:78.20%; top:40.28%;}
+.design_05_hub_spoke-icons .icon-network{left:74.06%; top:71.11%;}
+
+/* inner svg-like icon drawing fallback using text symbols sizing */
+.design_05_hub_spoke-icons .mini-line{
+  position:absolute;
+  left:31px;
+  right:31px;
+  bottom:20px;
+  height:3px;
+  border-radius:2px;
+  background:linear-gradient(90deg, rgba(22,213,234,0.9), rgba(22,213,234,0));
+}
+.design_05_hub_spoke-icons .icon-badge.right .mini-line{
+  background:linear-gradient(90deg, rgba(107,240,213,0.9), rgba(107,240,213,0));
+}
+</style>
+
+<div class="design_05_hub_spoke-icons">
+  <div class="connector left lt-conn">
+    <div class="seg h1"></div>
+    <div class="seg v1"></div>
+    <div class="seg h2"></div>
+    <div class="node"></div>
+  </div>
+
+  <div class="connector left lm-conn">
+    <div class="seg h1"></div>
+    <div class="node"></div>
+  </div>
+
+  <div class="connector left lb-conn">
+    <div class="seg h1"></div>
+    <div class="seg v1"></div>
+    <div class="seg h2"></div>
+    <div class="node"></div>
+  </div>
+
+  <div class="connector right rt-conn">
+    <div class="seg h1"></div>
+    <div class="seg v1"></div>
+    <div class="seg h2"></div>
+    <div class="node"></div>
+  </div>
+
+  <div class="connector right rm-conn">
+    <div class="seg h1"></div>
+    <div class="node"></div>
+  </div>
+
+  <div class="connector right rb-conn">
+    <div class="seg h1"></div>
+    <div class="seg v1"></div>
+    <div class="seg h2"></div>
+    <div class="node"></div>
+  </div>
+
+  <div class="hub">
+    <div class="node center"></div>
+    <div class="node tl"></div>
+    <div class="node tr"></div>
+    <div class="node bl"></div>
+    <div class="node br"></div>
+    <div class="line l1"></div>
+    <div class="line l2"></div>
+    <div class="line l3"></div>
+    <div class="line l4"></div>
+    <div class="line l5"></div>
+  </div>
+
+  <div class="icon-badge icon-cloud">
+    <div class="ring"></div>
+    <i class="fas fa-cloud-arrow-down"></i>
+    <div class="mini-line"></div>
+  </div>
+
+  <div class="icon-badge icon-database">
+    <div class="ring"></div>
+    <i class="fas fa-database"></i>
+    <div class="mini-line"></div>
+  </div>
+
+  <div class="icon-badge icon-chip">
+    <div class="ring"></div>
+    <i class="fas fa-microchip"></i>
+    <div class="mini-line"></div>
+  </div>
+
+  <div class="icon-badge right icon-satellite">
+    <div class="ring"></div>
+    <i class="fas fa-satellite-dish"></i>
+    <div class="mini-line"></div>
+  </div>
+
+  <div class="icon-badge right icon-security">
+    <div class="ring"></div>
+    <i class="fas fa-shield-halved"></i>
+    <div class="mini-line"></div>
+  </div>
+
+  <div class="icon-badge right icon-network">
+    <div class="ring"></div>
+    <i class="fas fa-circle-nodes"></i>
+    <div class="mini-line"></div>
+  </div>
+</div></div>
+</div></div></body></html>

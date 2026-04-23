@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0a0f24;
+    margin: 0;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+    width: 1280px;
+    height: 720px;
+  }
+  .hub, .spoke {
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid #00ffc8;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #00ffc8;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    box-shadow: 0 0 10px #00ffc8;
+  }
+  .hub {
+    grid-column: span 2;
+    text-align: center;
+  }
+  .title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .emoji {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  .description {
+    font-size: 18px;
+    text-align: center;
+  }
+</style>
+
+<div class="container">
+  <div class="hub">
+    <div class="emoji">🌐</div>
+    <div class="title">API Gateway</div>
+    <div class="description">마이크로서비스 아키텍처</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">☁️</div>
+    <div class="title">클라우드 스토리지</div>
+    <div class="description">S3, MinIO 기반 객체 저장소</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">📡</div>
+    <div class="title">실시간 스트리밍</div>
+    <div class="description">Kafka 이벤트 브로커</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🗄️</div>
+    <div class="title">데이터베이스</div>
+    <div class="description">PostgreSQL + MongoDB</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🔒</div>
+    <div class="title">인증/보안</div>
+    <div class="description">OAuth2 + JWT 토큰</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🤖</div>
+    <div class="title">AI 서비스</div>
+    <div class="description">LLM 추론 엔진</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🌍</div>
+    <div class="title">CDN/Edge</div>
+    <div class="description">글로벌 콘텐츠 배포</div>
+  </div>
+</div></div>
+</body></html>

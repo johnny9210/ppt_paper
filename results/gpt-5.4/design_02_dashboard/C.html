@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #020817; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: "Inter", "Pretendard", "Noto Sans KR", sans-serif; }
+
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    color: #eaf7ff;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(57,215,255,0.18), transparent 38%),
+      radial-gradient(circle at 85% 95%, rgba(45,212,191,0.14), transparent 30%),
+      radial-gradient(circle at 15% 20%, rgba(59,130,246,0.12), transparent 28%),
+      linear-gradient(180deg, #04101f 0%, #020817 100%);
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(57,215,255,0.15), transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+  }
+  .bg-glow.g1 { top: -40px; left: 350px; }
+  .bg-glow.g2 { right: -40px; bottom: -20px; background: radial-gradient(circle, rgba(45,212,191,0.15), transparent 70%); }
+  .bg-glow.g3 { left: -80px; top: 120px; background: radial-gradient(circle, rgba(59,130,246,0.12), transparent 70%); }
+
+  .dots {
+    position: absolute;
+    z-index: 1;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.7;
+  }
+  .dots.left { left: 0; top: 110px; width: 240px; height: 430px; }
+  .dots.right { right: 0; bottom: 0; width: 210px; height: 170px; }
+
+  .header {
+    position: relative;
+    z-index: 3;
+    padding-top: 40px;
+    text-align: center;
+  }
+  .title {
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #f6fbff;
+    text-shadow: 0 2px 10px rgba(255,255,255,0.12);
+  }
+
+  .top-line-wrap {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    height: 32px;
+    z-index: 1;
+  }
+  .top-line-left,
+  .top-line-center,
+  .top-line-right {
+    position: absolute;
+    height: 4px;
+    border-radius: 2px;
+    background: #59f0ff;
+    box-shadow: 0 0 20px rgba(89,240,255,0.3), 0 0 60px rgba(89,240,255,0.1);
+  }
+  .top-line-left { left: 0; top: 12px; width: 420px; }
+  .top-line-center { left: 445px; top: 20px; width: 490px; }
+  .top-line-right { right: 0; top: 12px; width: 330px; }
+  .curve-left,
+  .curve-right {
+    position: absolute;
+    width: 42px;
+    height: 22px;
+    border: 3px solid #59f0ff;
+    border-top: none;
+    background: transparent;
+    box-shadow: 0 0 20px rgba(89,240,255,0.3), 0 0 60px rgba(89,240,255,0.1);
+  }
+  .curve-left {
+    left: 405px;
+    top: 1px;
+    border-right: none;
+    border-bottom-left-radius: 24px;
+  }
+  .curve-right {
+    left: 935px;
+    top: 1px;
+    border-left: none;
+    border-bottom-right-radius: 24px;
+  }
+
+  .metrics {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    gap: 54px;
+    padding: 120px 110px 0;
+  }
+
+  .card {
+    position: relative;
+    width: 350px;
+    height: 190px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.12),
+      0 0 20px rgba(82,243,255, 0.3),
+      0 0 60px rgba(82,243,255, 0.1);
+    overflow: visible;
+  }
+
+  .badge {
+    position: absolute;
+    top: -56px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.12),
+      0 0 20px rgba(82,243,255, 0.3),
+      0 0 60px rgba(82,243,255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .badge-inner {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(11, 23, 42, 0.55);
+    color: #66f6ff;
+    font-size: 32px;
+    box-shadow: inset 0 0 18px rgba(82,243,255,0.14);
+  }
+
+  .card-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding-top: 52px;
+  }
+  .metric-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #bfeeff;
+    opacity: 0.95;
+    margin-bottom: 10px;
+    letter-spacing: -0.2px;
+  }
+  .metric-value {
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 800;
+    color: #f8ffff;
+    letter-spacing: -1px;
+    text-shadow: 0 0 14px rgba(255,255,255,0.12);
+  }
+  .metric-change {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #82fff1;
+  }
+
+  .mini-bar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    width: 150px;
+    height: 24px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    z-index: 2;
+  }
+  .mini-bar::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 6px;
+    transform: translateX(-50%);
+    width: 78px;
+    height: 10px;
+    border-radius: 999px;
+    background: #53f0ff;
+    box-shadow: 0 0 20px rgba(83,240,255, 0.3), 0 0 60px rgba(83,240,255, 0.1);
+    opacity: 0.9;
+  }
+
+  .chart-panel {
+    position: relative;
+    z-index: 2;
+    margin: 38px 110px 0;
+    height: 250px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.12),
+      0 0 20px rgba(82,243,255, 0.3),
+      0 0 60px rgba(82,243,255, 0.1);
+    padding: 28px 26px 26px 26px;
+  }
+
+  .chart-title {
+    position: absolute;
+    top: 18px;
+    left: 28px;
+    z-index: 3;
+    font-size: 22px;
+    font-weight: 700;
+    color: #dff8ff;
+  }
+
+  .plot {
+    position: absolute;
+    left: 54px;
+    right: 28px;
+    top: 56px;
+    bottom: 34px;
+    z-index: 2;
+  }
+
+  .grid-h {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(107,223,255,0.18);
+  }
+
+  .y-axis {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(107,223,255,0.28);
+  }
+
+  .x-axis {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: rgba(107,223,255,0.18);
+  }
+
+  .tick-y, .tick-x {
+    position: absolute;
+    width: 22px;
+    height: 6px;
+    border-radius: 2px;
+    background: #9be7ff;
+    box-shadow: 0 0 20px rgba(155,231,255, 0.3), 0 0 60px rgba(155,231,255, 0.1);
+    opacity: 0.9;
+  }
+  .tick-y { left: -30px; }
+  .tick-x { bottom: -16px; }
+
+  .line {
+    position: absolute;
+    inset: 0;
+  }
+  .line svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .footer-glow {
+    position: absolute;
+    left: 340px;
+    bottom: 18px;
+    width: 600px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,230,255,0.10), transparent 70%);
+    filter: blur(36px);
+    z-index: 0;
+  }
+</style>
+
+<div class="slide">
+  <div class="bg-glow g1"></div>
+  <div class="bg-glow g2"></div>
+  <div class="bg-glow g3"></div>
+
+  <div class="dots left"></div>
+  <div class="dots right"></div>
+
+  <div class="top-line-wrap">
+    <div class="top-line-left"></div>
+    <div class="curve-left"></div>
+    <div class="top-line-center"></div>
+    <div class="curve-right"></div>
+    <div class="top-line-right"></div>
+  </div>
+
+  <div class="header">
+    <div class="title">Q4 2025 비즈니스 성과 대시보드</div>
+  </div>
+
+  <div class="metrics">
+    <div class="card">
+      <div class="badge">
+        <div class="badge-inner">💰</div>
+      </div>
+      <div class="card-content">
+        <div class="metric-title">매출</div>
+        <div class="metric-value">₩128억</div>
+        <div class="metric-change">+23% YoY</div>
+      </div>
+      <div class="mini-bar"></div>
+    </div>
+
+    <div class="card">
+      <div class="badge">
+        <div class="badge-inner">👥</div>
+      </div>
+      <div class="card-content">
+        <div class="metric-title">활성 사용자</div>
+        <div class="metric-value">2.4M</div>
+        <div class="metric-change">+15% MoM</div>
+      </div>
+      <div class="mini-bar"></div>
+    </div>
+
+    <div class="card">
+      <div class="badge">
+        <div class="badge-inner">⭐</div>
+      </div>
+      <div class="card-content">
+        <div class="metric-title">고객 만족도</div>
+        <div class="metric-value">4.7/5.0</div>
+        <div class="metric-change">+0.3</div>
+      </div>
+      <div class="mini-bar"></div>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <div class="chart-title">월별 매출 추이</div>
+    <div class="plot">
+      <div class="y-axis"></div>
+      <div class="x-axis"></div>
+
+      <div class="grid-h" style="top: 12%;"></div>
+      <div class="grid-h" style="top: 28%;"></div>
+      <div class="grid-h" style="top: 44%;"></div>
+      <div class="grid-h" style="top: 60%;"></div>
+      <div class="grid-h" style="top: 76%;"></div>
+
+      <div class="tick-y" style="top: 8%;"></div>
+      <div class="tick-y" style="top: 24%;"></div>
+      <div class="tick-y" style="top: 40%;"></div>
+      <div class="tick-y" style="top: 56%;"></div>
+      <div class="tick-y" style="top: 72%;"></div>
+      <div class="tick-y" style="top: 88%;"></div>
+
+      <div class="tick-x" style="left: 15%;"></div>
+      <div class="tick-x" style="left: 32%;"></div>
+      <div class="tick-x" style="left: 49%;"></div>
+      <div class="tick-x" style="left: 66%;"></div>
+      <div class="tick-x" style="left: 83%;"></div>
+      <div class="tick-x" style="left: 98%; transform: translateX(-100%);"></div>
+
+      <div class="line">
+        <svg viewBox="0 0 1160 160" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="fill1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(84,246,255,0.30)"/>
+              <stop offset="100%" stop-color="rgba(84,246,255,0.02)"/>
+            </linearGradient>
+            <linearGradient id="fill2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(66,153,255,0.30)"/>
+              <stop offset="100%" stop-color="rgba(66,153,255,0.02)"/>
+            </linearGradient>
+            <filter id="glowCyan">
+              <feGaussianBlur stdDeviation="2.2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <filter id="glowBlue">
+              <feGaussianBlur stdDeviation="2.2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <path d="M0,150 L190,78 L380,96 L570,38 L760,86 L950,12 L1160,6 L1160,150 Z" fill="url(#fill1)" opacity="0.55"></path>
+          <path d="M0,150 L190,118 L380,64 L570,76 L760,24 L950,68 L1160,8 L1160,150 Z" fill="url(#fill2)" opacity="0.52"></path>
+
+          <polyline points="0,150 190,78 380,96 570,38 760,86 950,12 1160,6"
+            fill="none" stroke="#49f1ef" stroke-width="3"
+            filter="url(#glowCyan)" opacity="0.95"></polyline>
+
+          <polyline points="0,150 190,118 380,64 570,76 760,24 950,68 1160,8"
+            fill="none" stroke="#49a7ff" stroke-width="3"
+            filter="url(#glowBlue)" opacity="0.95"></polyline>
+
+          <polyline points="0,150 190,102 380,116 570,76 760,54 950,94 1160,36"
+            fill="none" stroke="#53d8ff" stroke-width="3"
+            filter="url(#glowBlue)" opacity="0.72"></polyline>
+
+          <g fill="#49f1ef">
+            <circle cx="190" cy="78" r="5"></circle>
+            <circle cx="380" cy="96" r="5"></circle>
+            <circle cx="570" cy="38" r="5"></circle>
+            <circle cx="760" cy="86" r="5"></circle>
+            <circle cx="950" cy="12" r="5"></circle>
+            <circle cx="1160" cy="6" r="5"></circle>
+          </g>
+
+          <g fill="#49a7ff">
+            <circle cx="190" cy="118" r="5"></circle>
+            <circle cx="380" cy="64" r="5"></circle>
+            <circle cx="570" cy="76" r="5"></circle>
+            <circle cx="760" cy="24" r="5"></circle>
+            <circle cx="950" cy="68" r="5"></circle>
+            <circle cx="1160" cy="8" r="5"></circle>
+          </g>
+
+          <g fill="#53d8ff" opacity="0.85">
+            <circle cx="190" cy="102" r="5"></circle>
+            <circle cx="380" cy="116" r="5"></circle>
+            <circle cx="570" cy="76" r="5"></circle>
+            <circle cx="760" cy="54" r="5"></circle>
+            <circle cx="950" cy="94" r="5"></circle>
+            <circle cx="1160" cy="36" r="5"></circle>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-glow"></div>
+</div></div></body></html>

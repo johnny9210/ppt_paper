@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_04_pyramid" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+.design_04_pyramid-bg{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(96,165,250,0.18) 0%, rgba(59,130,246,0.12) 24%, rgba(15,23,42,0.96) 62%, #0F172A 100%),
+    linear-gradient(180deg, #111a31 0%, #0F172A 55%, #0b1222 100%);
+}
+
+.design_04_pyramid-bg > div{
+  position:absolute;
+}
+
+.design_04_pyramid-bg .bg-glow{
+  left:0%;
+  top:0%;
+  width:100%;
+  height:100%;
+  z-index:0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(96,165,250,0.28) 0%, rgba(59,130,246,0.18) 26%, rgba(15,23,42,0.10) 48%, rgba(15,23,42,0.02) 62%, rgba(15,23,42,0.00) 78%);
+  opacity:0.32;
+}
+
+.design_04_pyramid-bg .inner-frame{
+  left:1.8%;
+  top:3.1%;
+  width:96.0%;
+  height:90.6%;
+  z-index:1;
+  border:1px solid rgba(96,165,250,0.46);
+  opacity:0.72;
+}
+
+.design_04_pyramid-bg .inner-frame::before{
+  content:"";
+  position:absolute;
+  inset:0.9%;
+  border:1px solid rgba(59,130,246,0.34);
+}
+
+.design_04_pyramid-bg .left-edge-glow{
+  left:0%;
+  top:8%;
+  width:10%;
+  height:84%;
+  z-index:2;
+  background:
+    radial-gradient(ellipse at 0% 50%, rgba(96,165,250,0.34) 0%, rgba(59,130,246,0.16) 42%, rgba(15,23,42,0.02) 86%);
+  opacity:0.35;
+}
+
+.design_04_pyramid-bg .right-edge-glow{
+  left:90%;
+  top:8%;
+  width:10%;
+  height:84%;
+  z-index:2;
+  background:
+    radial-gradient(ellipse at 100% 50%, rgba(96,165,250,0.30) 0%, rgba(59,130,246,0.14) 42%, rgba(15,23,42,0.02) 86%);
+  opacity:0.28;
+}
+
+.design_04_pyramid-bg .bottom-center-glow{
+  left:36%;
+  top:72%;
+  width:28%;
+  height:22%;
+  z-index:2;
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(96,165,250,0.24) 0%, rgba(59,130,246,0.10) 48%, rgba(15,23,42,0.02) 88%);
+  opacity:0.22;
+}
+
+.design_04_pyramid-bg .pattern-right{
+  left:56%;
+  top:0%;
+  width:44%;
+  height:100%;
+  z-index:3;
+  opacity:0.42;
+  background:
+    linear-gradient(63deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.00) 43%, rgba(96,165,250,0.20) 43.4%, rgba(96,165,250,0.00) 43.8%, rgba(96,165,250,0.00) 100%),
+    linear-gradient(63deg, rgba(59,130,246,0.00) 0%, rgba(59,130,246,0.00) 56%, rgba(59,130,246,0.16) 56.35%, rgba(59,130,246,0.00) 56.7%, rgba(59,130,246,0.00) 100%),
+    linear-gradient(-63deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.00) 62%, rgba(96,165,250,0.12) 62.3%, rgba(96,165,250,0.00) 62.6%, rgba(96,165,250,0.00) 100%),
+    linear-gradient(0deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.08) 50%, rgba(96,165,250,0.00) 100%);
+}
+
+.design_04_pyramid-bg .pattern-right::before,
+.design_04_pyramid-bg .pattern-right::after{
+  content:"";
+  position:absolute;
+  inset:0;
+}
+
+.design_04_pyramid-bg .pattern-right::before{
+  background:
+    linear-gradient(90deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.00) 30%, rgba(96,165,250,0.10) 30.3%, rgba(96,165,250,0.00) 30.6%, rgba(96,165,250,0.00) 100%),
+    linear-gradient(90deg, rgba(59,130,246,0.00) 0%, rgba(59,130,246,0.00) 68%, rgba(59,130,246,0.11) 68.3%, rgba(59,130,246,0.00) 68.6%, rgba(59,130,246,0.00) 100%),
+    linear-gradient(63deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.00) 77%, rgba(96,165,250,0.14) 77.25%, rgba(96,165,250,0.00) 77.5%, rgba(96,165,250,0.00) 100%);
+}
+
+.design_04_pyramid-bg .pattern-right::after{
+  background:
+    linear-gradient(-63deg, rgba(59,130,246,0.00) 0%, rgba(59,130,246,0.00) 33%, rgba(59,130,246,0.10) 33.25%, rgba(59,130,246,0.00) 33.5%, rgba(59,130,246,0.00) 100%),
+    linear-gradient(-63deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.00) 74%, rgba(96,165,250,0.10) 74.25%, rgba(96,165,250,0.00) 74.5%, rgba(96,165,250,0.00) 100%);
+}
+
+.design_04_pyramid-bg .pattern-left-bottom{
+  left:0%;
+  top:60%;
+  width:18%;
+  height:40%;
+  z-index:3;
+  opacity:0.22;
+  background:
+    linear-gradient(55deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.00) 48%, rgba(96,165,250,0.16) 48.4%, rgba(96,165,250,0.00) 48.8%, rgba(96,165,250,0.00) 100%),
+    linear-gradient(-55deg, rgba(59,130,246,0.00) 0%, rgba(59,130,246,0.00) 58%, rgba(59,130,246,0.12) 58.4%, rgba(59,130,246,0.00) 58.8%, rgba(59,130,246,0.00) 100%),
+    linear-gradient(90deg, rgba(96,165,250,0.00) 0%, rgba(96,165,250,0.08) 52%, rgba(96,165,250,0.00) 100%);
+}
+</style>
+
+<div class="design_04_pyramid-bg">
+  <div class="bg-glow"></div>
+  <div class="inner-frame"></div>
+  <div class="left-edge-glow"></div>
+  <div class="right-edge-glow"></div>
+  <div class="bottom-center-glow"></div>
+  <div class="pattern-right"></div>
+  <div class="pattern-left-bottom"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:10;"><style>
+  .design_04_pyramid-cards{
+    width:100%;
+    height:100%;
+    position:absolute;
+    inset:0;
+    z-index:10;
+  }
+
+  .design_04_pyramid-cards > div{
+    position:absolute;
+    box-sizing:border-box;
+  }
+
+  .design_04_pyramid-cards .glass-card{
+    border-radius:16px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    overflow:hidden;
+  }
+
+  .design_04_pyramid-cards .glass-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:linear-gradient(180deg, rgba(96,165,250,0.18) 0%, rgba(255,255,255,0.04) 100%);
+    pointer-events:none;
+  }
+
+  .design_04_pyramid-cards .glass-top{
+    box-shadow:0 0 24px rgba(96,165,250,0.30);
+  }
+
+  .design_04_pyramid-cards .glass-mid{
+    box-shadow:0 0 18px rgba(255,255,255,0.12);
+  }
+
+  .design_04_pyramid-cards .gradient-card{
+    border-radius:16px;
+    background:rgba(255,255,255,0.10);
+    border:1px solid rgba(255,255,255,0.16);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 0 18px rgba(59,130,246,0.20);
+    overflow:hidden;
+  }
+
+  .design_04_pyramid-cards .gradient-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg, #3B82F6 0%, #60A5FA 50%, #3B82F6 100%);
+    pointer-events:none;
+  }
+
+  .design_04_pyramid-cards .gradient-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(96,165,250,0.05) 100%);
+    pointer-events:none;
+  }
+
+  .design_04_pyramid-cards #card_top{
+    left:40.55%;
+    top:7.50%;
+    width:19.84%;
+    height:22.92%;
+    z-index:19;
+  }
+
+  .design_04_pyramid-cards #card_mid_left{
+    left:27.11%;
+    top:40.83%;
+    width:20.94%;
+    height:22.92%;
+    z-index:16;
+  }
+
+  .design_04_pyramid-cards #card_mid_right{
+    left:52.97%;
+    top:40.83%;
+    width:20.94%;
+    height:22.92%;
+    z-index:16;
+  }
+
+  .design_04_pyramid-cards #card_bottom_left{
+    left:11.95%;
+    top:69.44%;
+    width:22.34%;
+    height:22.50%;
+    z-index:12;
+  }
+
+  .design_04_pyramid-cards #card_bottom_center{
+    left:38.98%;
+    top:69.44%;
+    width:23.05%;
+    height:22.50%;
+    z-index:12;
+  }
+
+  .design_04_pyramid-cards #card_bottom_right{
+    left:65.86%;
+    top:69.44%;
+    width:22.58%;
+    height:22.50%;
+    z-index:12;
+  }
+</style>
+
+<div class="design_04_pyramid-cards">
+  <div id="card_top" class="glass-card glass-top"></div>
+  <div id="card_mid_left" class="glass-card glass-mid"></div>
+  <div id="card_mid_right" class="glass-card glass-mid"></div>
+  <div id="card_bottom_left" class="gradient-card"></div>
+  <div id="card_bottom_center" class="gradient-card"></div>
+  <div id="card_bottom_right" class="gradient-card"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+.design_04_pyramid-content{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color:#F1F5F9;
+}
+.design_04_pyramid-content *{
+  position:absolute;
+  box-sizing:border-box;
+}
+.design_04_pyramid-content .main-title{
+  left:40.55%;
+  top:3.20%;
+  width:19.84%;
+  text-align:center;
+  font-size:1.85rem;
+  font-weight:800;
+  line-height:1.2;
+  letter-spacing:-0.02em;
+  color:#F1F5F9;
+  z-index:29;
+}
+.design_04_pyramid-content .tier-tag{
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:12px;
+  font-size:0.75rem;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:#E8F1FF;
+  background:rgba(59,130,246,0.22);
+  border:1px solid rgba(96,165,250,0.45);
+  z-index:28;
+}
+.design_04_pyramid-content .card-title{
+  font-size:1.4rem;
+  font-weight:800;
+  line-height:1.25;
+  color:#F1F5F9;
+  z-index:27;
+}
+.design_04_pyramid-content .card-desc{
+  font-size:0.9rem;
+  font-weight:500;
+  line-height:1.6;
+  color:rgba(241,245,249,0.9);
+  z-index:26;
+}
+.design_04_pyramid-content .emoji{
+  font-size:1.25rem;
+  line-height:1;
+  z-index:27;
+}
+.design_04_pyramid-content .small-title{
+  font-size:1.18rem;
+  font-weight:800;
+  line-height:1.25;
+  color:#F1F5F9;
+  z-index:27;
+}
+.design_04_pyramid-content .small-desc{
+  font-size:0.82rem;
+  font-weight:500;
+  line-height:1.6;
+  color:rgba(241,245,249,0.88);
+  z-index:26;
+}
+</style>
+
+<div class="design_04_pyramid-content">
+  <div class="main-title">데이터 거버넌스 프레임워크</div>
+
+  <div class="tier-tag" style="left:46.20%; top:8.90%; z-index:28;">Strategic</div>
+  <div class="emoji" style="left:48.45%; top:14.90%;">👑</div>
+  <div class="card-title" style="left:45.10%; top:21.00%; width:10.80%; text-align:center;">데이터 전략</div>
+  <div class="card-desc" style="left:42.20%; top:25.90%; width:16.60%; text-align:center;">경영진 주도 데이터 비전 및 정책 수립</div>
+
+  <div class="tier-tag" style="left:35.20%; top:42.20%;">Tactical</div>
+
+  <div class="emoji" style="left:31.10%; top:47.90%;">📋</div>
+  <div class="small-title" style="left:33.70%; top:47.60%; width:10.80%;">품질 관리</div>
+  <div class="small-desc" style="left:31.10%; top:52.20%; width:13.80%;">데이터 표준화 및 품질 모니터링</div>
+
+  <div class="emoji" style="left:56.80%; top:47.90%;">🔐</div>
+  <div class="small-title" style="left:59.40%; top:47.60%; width:10.80%;">보안 통제</div>
+  <div class="small-desc" style="left:56.80%; top:52.20%; width:13.80%;">접근 권한 및 개인정보 보호</div>
+
+  <div class="tier-tag" style="left:45.55%; top:70.80%;">Operational</div>
+
+  <div class="emoji" style="left:15.20%; top:76.10%;">🗄️</div>
+  <div class="small-title" style="left:18.00%; top:75.90%; width:7.50%;">수집</div>
+  <div class="small-desc" style="left:15.20%; top:80.30%; width:14.20%;">원천 데이터 통합</div>
+
+  <div class="emoji" style="left:42.10%; top:76.10%;">⚙️</div>
+  <div class="small-title" style="left:44.95%; top:75.90%; width:7.50%;">처리</div>
+  <div class="small-desc" style="left:42.10%; top:80.30%; width:15.20%;">ETL 파이프라인</div>
+
+  <div class="emoji" style="left:69.00%; top:76.10%;">📈</div>
+  <div class="small-title" style="left:71.85%; top:75.90%; width:7.50%;">분석</div>
+  <div class="small-desc" style="left:69.00%; top:80.30%; width:14.80%;">BI 대시보드 운영</div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><style>
+.design_04_pyramid-icons{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  z-index:30;
+  pointer-events:none;
+}
+.design_04_pyramid-icons > *{
+  position:absolute;
+  box-sizing:border-box;
+}
+
+.design_04_pyramid-icons .icon-crown{
+  left:46.80%;
+  top:17.08%;
+  width:72px;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#60A5FA;
+  font-size:50px;
+  line-height:1;
+  z-index:38;
+  text-shadow:
+    0 0 10px rgba(96,165,250,0.45),
+    0 0 22px rgba(59,130,246,0.28);
+}
+
+.design_04_pyramid-icons .icon-star{
+  left:49.45%;
+  top:11.94%;
+  width:26px;
+  height:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#93C5FD;
+  font-size:18px;
+  line-height:1;
+  z-index:39;
+  text-shadow:
+    0 0 8px rgba(96,165,250,0.55),
+    0 0 16px rgba(59,130,246,0.32);
+}
+
+.design_04_pyramid-icons .accent{
+  border-radius:2px;
+}
+
+.design_04_pyramid-icons .a1{
+  left:50.00%;
+  top:30.42%;
+  width:0.16%;
+  height:6.81%;
+  background:rgba(96,165,250,0.80);
+  z-index:31;
+}
+.design_04_pyramid-icons .a2{
+  left:35.70%;
+  top:37.08%;
+  width:14.38%;
+  height:0.28%;
+  background:rgba(96,165,250,0.55);
+  z-index:31;
+}
+.design_04_pyramid-icons .a3{
+  left:50.08%;
+  top:37.08%;
+  width:14.45%;
+  height:0.28%;
+  background:rgba(96,165,250,0.55);
+  z-index:31;
+}
+.design_04_pyramid-icons .a4{
+  left:35.63%;
+  top:37.08%;
+  width:0.16%;
+  height:3.47%;
+  background:rgba(96,165,250,0.55);
+  z-index:31;
+}
+.design_04_pyramid-icons .a5{
+  left:64.45%;
+  top:37.08%;
+  width:0.16%;
+  height:3.47%;
+  background:rgba(96,165,250,0.55);
+  z-index:31;
+}
+.design_04_pyramid-icons .a6{
+  left:37.11%;
+  top:63.75%;
+  width:0.16%;
+  height:5.42%;
+  background:rgba(96,165,250,0.45);
+  z-index:31;
+}
+.design_04_pyramid-icons .a7{
+  left:50.08%;
+  top:63.75%;
+  width:0.16%;
+  height:5.42%;
+  background:rgba(96,165,250,0.45);
+  z-index:31;
+}
+.design_04_pyramid-icons .a8{
+  left:62.89%;
+  top:63.75%;
+  width:0.16%;
+  height:5.42%;
+  background:rgba(96,165,250,0.45);
+  z-index:31;
+}
+.design_04_pyramid-icons .a9{
+  left:13.67%;
+  top:80.97%;
+  width:72.19%;
+  height:0.28%;
+  background:rgba(96,165,250,0.26);
+  z-index:30;
+}
+</style>
+
+<div class="design_04_pyramid-icons">
+  <div class="accent a1"></div>
+  <div class="accent a2"></div>
+  <div class="accent a3"></div>
+  <div class="accent a4"></div>
+  <div class="accent a5"></div>
+  <div class="accent a6"></div>
+  <div class="accent a7"></div>
+  <div class="accent a8"></div>
+  <div class="accent a9"></div>
+
+  <div class="icon-crown"><i class="fas fa-crown"></i></div>
+  <div class="icon-star"><i class="fas fa-star"></i></div>
+</div></div>
+</div></div></body></html>

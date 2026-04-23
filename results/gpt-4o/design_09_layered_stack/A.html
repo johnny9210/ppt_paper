@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
+  }
+  .layer {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s;
+  }
+  .layer:nth-child(1) {
+    transform: translateY(0px);
+  }
+  .layer:nth-child(2) {
+    transform: translateY(20px);
+  }
+  .layer:nth-child(3) {
+    transform: translateY(40px);
+  }
+  .layer:nth-child(4) {
+    transform: translateY(60px);
+  }
+  .layer span {
+    margin-right: 15px;
+    font-size: 2rem;
+  }
+  .layer h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #FFD700;
+  }
+  .layer p {
+    margin: 5px 0 0;
+    color: #FFF7E6;
+  }
+</style>
+
+<div class="container">
+  <div class="layer">
+    <span>🎨</span>
+    <div>
+      <h2>프레젠테이션 계층</h2>
+      <p>React + Ant Design UI</p>
+    </div>
+  </div>
+  <div class="layer">
+    <span>⚡</span>
+    <div>
+      <h2>API 계층</h2>
+      <p>Express Gateway + Moleculer</p>
+    </div>
+  </div>
+  <div class="layer">
+    <span>🧠</span>
+    <div>
+      <h2>서비스 계층</h2>
+      <p>FastAPI + LangGraph AI 에이전트</p>
+    </div>
+  </div>
+  <div class="layer">
+    <span>💾</span>
+    <div>
+      <h2>인프라 계층</h2>
+      <p>MongoDB + OpenSearch + Redis + MinIO</p>
+    </div>
+  </div>
+</div></div>
+</body></html>

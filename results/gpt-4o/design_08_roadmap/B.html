@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="roadmap">
+  <h1>2025 제품 로드맵</h1>
+  <div class="timeline">
+    <div class="card" style="--glow-color: cyan;">
+      <div class="card-header">🎯 Q1</div>
+      <div class="card-body">
+        <h2>MVP 출시</h2>
+        <p>핵심 기능 3종 런칭</p>
+      </div>
+    </div>
+    <div class="card" style="--glow-color: red;">
+      <div class="card-header">📈 Q2</div>
+      <div class="card-body">
+        <h2>성장 가속</h2>
+        <p>사용자 1만명 돌파 목표</p>
+      </div>
+    </div>
+    <div class="card" style="--glow-color: purple;">
+      <div class="card-header">🌏 Q3</div>
+      <div class="card-body">
+        <h2>글로벌 확장</h2>
+        <p>일본·동남아 시장 진출</p>
+      </div>
+    </div>
+    <div class="card" style="--glow-color: yellowgreen;">
+      <div class="card-header">🏆 Q4</div>
+      <div class="card-body">
+        <h2>엔터프라이즈</h2>
+        <p>대기업 맞춤 솔루션 출시</p>
+      </div>
+    </div>
+    <div class="card" style="--glow-color: blue;">
+      <div class="card-header">🚀 2026</div>
+      <div class="card-body">
+        <h2>플랫폼화</h2>
+        <p>3rd party 앱 마켓플레이스</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .roadmap {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: #111;
+    color: white;
+    text-align: center;
+    z-index: 0;
+    overflow: hidden;
+    background-image: radial-gradient(farthest-side ellipse at 10% 0, rgba(255, 255, 255, 0.05), transparent),
+      radial-gradient(farthest-corner ellipse at 0 100%, rgba(255, 255, 255, 0.05), transparent);
+  }
+
+  h1 {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    z-index: 2;
+  }
+
+  .timeline {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 20px;
+    z-index: 1;
+  }
+
+  .card {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    flex-shrink: 0;
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  .card-header {
+    position: relative;
+    background: var(--glow-color);
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #111;
+    text-shadow: 0 0 10px var(--glow-color);
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-body h2 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  .card-body p {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+</style></div>
+</body></html>

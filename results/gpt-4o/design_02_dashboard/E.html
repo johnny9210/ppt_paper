@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_02_dashboard" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><div class="design_02_dashboard-bg">
+  <div class="layer-0"></div>
+  <div class="accent-line"></div>
+</div>
+
+<style>
+  .design_02_dashboard-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .design_02_dashboard-bg .layer-0 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(to bottom, #0b0d16, #162942);
+    z-index: 0;
+  }
+
+  .design_02_dashboard-bg .accent-line {
+    position: absolute;
+    left: 10%;
+    top: 60%;
+    width: 80%;
+    height: 35%;
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+  }
+</style></div>
+    <div style="position:absolute;inset:0;z-index:10;"><style>
+  .design_02_dashboard-cards {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+  }
+  .design_02_dashboard-cards .card {
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .design_02_dashboard-cards #left_card {
+    left: 10%;
+    top: 20%;
+    width: 20%;
+    height: 20%;
+  }
+  .design_02_dashboard-cards #middle_card {
+    left: 40%;
+    top: 20%;
+    width: 20%;
+    height: 20%;
+  }
+  .design_02_dashboard-cards #right_card {
+    left: 70%;
+    top: 20%;
+    width: 20%;
+    height: 20%;
+  }
+</style>
+
+<div class="design_02_dashboard-cards">
+  <div id="left_card" class="card"></div>
+  <div id="middle_card" class="card"></div>
+  <div id="right_card" class="card"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:20;"><style>
+  .design_02_dashboard-content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    line-height: 1.6;
+  }
+
+  .design_02_dashboard-content .title {
+    position: absolute;
+    left: 40%;
+    top: 5%;
+    width: 20%;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #F1F5F9;
+    text-align: center;
+  }
+
+  .design_02_dashboard-content .metrics {
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #F1F5F9;
+  }
+
+  .design_02_dashboard-content .metric {
+    text-align: center;
+  }
+
+  .design_02_dashboard-content .metric-title {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .design_02_dashboard-content .metric-value {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .design_02_dashboard-content .metric-change {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .design_02_dashboard-content .chart-title {
+    position: absolute;
+    left: 40%;
+    top: 60%;
+    width: 20%;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #F1F5F9;
+  }
+</style>
+
+<div class="design_02_dashboard-content">
+  <div class="title">Q4 2025 비즈니스 성과 대시보드</div>
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-title">💰 매출</div>
+      <div class="metric-value">₩128억</div>
+      <div class="metric-change">+23% YoY</div>
+    </div>
+    <div class="metric">
+      <div class="metric-title">👥 활성 사용자</div>
+      <div class="metric-value">2.4M</div>
+      <div class="metric-change">+15% MoM</div>
+    </div>
+    <div class="metric">
+      <div class="metric-title">⭐ 고객 만족도</div>
+      <div class="metric-value">4.7/5.0</div>
+      <div class="metric-change">+0.3</div>
+    </div>
+  </div>
+  <div class="chart-title">월별 매출 추이</div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:30;"><div class="design_02_dashboard-icons">
+    <div class="icon" style="left:12%; top:23%;">
+        <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
+    </div>
+    <div class="icon" style="left:42%; top:23%;">
+        <div class="icon-circle"><i class="fas fa-user"></i></div>
+    </div>
+    <div class="icon" style="left:72%; top:23%;">
+        <div class="icon-circle"><i class="fas fa-cloud-upload-alt"></i></div>
+    </div>
+    <div class="accent-line" style="left:10%; top:60%;"></div>
+</div>
+
+<style>
+    .design_02_dashboard-icons {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+    }
+    .design_02_dashboard-icons .icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+    }
+    .design_02_dashboard-icons .icon-circle {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+    .design_02_dashboard-icons .icon-circle i {
+        color: #FFFFFF;
+        font-size: 20px;
+    }
+    .design_02_dashboard-icons .accent-line {
+        position: absolute;
+        width: 80%;
+        height: 35px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+    }
+</style></div>
+</div></div>
+</body></html>

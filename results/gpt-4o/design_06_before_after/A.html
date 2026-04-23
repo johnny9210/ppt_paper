@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a;
+  }
+  
+  .container {
+    display: flex;
+    width: 1280px;
+    height: 720px;
+    background-color: #111;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .before, .after {
+    background-color: rgba(255, 80, 80, 0.1);
+    border: 3px solid #FF5050;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .after {
+    background-color: rgba(80, 255, 80, 0.1);
+    border-color: #50FF50;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0;
+  }
+  
+  .label {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .emoji {
+    font-size: 40px;
+    margin-right: 15px;
+  }
+  
+  .description {
+    font-size: 16px;
+    opacity: 0.8;
+  }
+  
+  .arrow {
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .arrow::before {
+    content: '→';
+    font-size: 70px;
+    color: #00BFFF;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+  }
+</style>
+
+<div class="container">
+  <div class="side">
+    <div class="title">AI 도입 전후 업무 효율성 비교</div>
+    <div class="before">
+      <div class="label">도입 전</div>
+      <div class="item">
+        <span class="emoji">📝</span>
+        <div>
+          <div><strong>수작업 보고서 작성</strong></div>
+          <div class="description">주 8시간 소요</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="emoji">🔍</span>
+        <div>
+          <div><strong>수동 데이터 검색</strong></div>
+          <div class="description">건당 30분</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="emoji">📞</span>
+        <div>
+          <div><strong>전화/이메일 응대</strong></div>
+          <div class="description">평균 응답 4시간</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="arrow"></div>
+  <div class="side">
+    <div class="after">
+      <div class="label">도입 후</div>
+      <div class="item">
+        <span class="emoji">🤖</span>
+        <div>
+          <div><strong>자동 보고서 생성</strong></div>
+          <div class="description">주 30분으로 단축</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="emoji">⚡</span>
+        <div>
+          <div><strong>RAG 기반 즉시 검색</strong></div>
+          <div class="description">건당 5초</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="emoji">💬</span>
+        <div>
+          <div><strong>AI 챗봇 자동 응대</strong></div>
+          <div class="description">평균 응답 10초</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+</body></html>
