@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #0F172A, #1E293B);
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+  }
+  .glass-card {
+    position: absolute;
+    width: 360px;
+    height: 100px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    z-index: 1;
+  }
+  .accent-line {
+    position: absolute;
+    width: 48px;
+    height: 4px;
+    border-radius: 2px;
+    background: #FFD700;
+    z-index: 0;
+  }
+  .icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFD700;
+    position: absolute;
+    top: -24px;
+    left: calc(50% - 24px);
+    z-index: 2;
+  }
+  .tier {
+    display: flex;
+    justify-content: center;
+    gap: 64px;
+  }
+  .text {
+    margin-top: 8px;
+  }
+  .ambient-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,223,0,0.15), transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+  }
+  .strategic {
+    top: 50px;
+    left: calc(50% - 180px);
+  }
+  .tactical {
+    top: 200px;
+    left: calc(50% - 400px);
+  }
+  .operational {
+    top: 350px;
+    left: calc(50% - 530px);
+  }
+  .accent-strategic {
+    top: 150px;
+    left: calc(50% - 24px);
+  }
+  .accent-tactical {
+    top: 300px;
+    left: calc(50% - 400px);
+  }
+</style>
+
+<div class="container">
+  <div class="ambient-glow" style="left: 490px; top: 40px;"></div>
+  <div class="glass-card strategic">
+    <div class="icon-badge">
+      <span>👑</span>
+    </div>
+    <div class="text">
+      <div>데이터 전략</div>
+      <div>경영진 주도 데이터 비전 및 정책 수립</div>
+    </div>
+  </div>
+  <div class="accent-line accent-strategic"></div>
+  <div class="tier tactical">
+    <div class="glass-card">
+      <div class="icon-badge">
+        <span>📋</span>
+      </div>
+      <div class="text">
+        <div>품질 관리</div>
+        <div>데이터 표준화 및 품질 모니터링</div>
+      </div>
+    </div>
+    <div class="glass-card">
+      <div class="icon-badge">
+        <span>🔐</span>
+      </div>
+      <div class="text">
+        <div>보안 통제</div>
+        <div>접근 권한 및 개인정보 보호</div>
+      </div>
+    </div>
+  </div>
+  <div class="accent-line accent-tactical"></div>
+  <div class="tier operational">
+    <div class="glass-card">
+      <div class="icon-badge">
+        <span>🗄️</span>
+      </div>
+      <div class="text">
+        <div>수집</div>
+        <div>원천 데이터 통합</div>
+      </div>
+    </div>
+    <div class="glass-card">
+      <div class="icon-badge">
+        <span>⚙️</span>
+      </div>
+      <div class="text">
+        <div>처리</div>
+        <div>ETL 파이프라인</div>
+      </div>
+    </div>
+    <div class="glass-card">
+      <div class="icon-badge">
+        <span>📈</span>
+      </div>
+      <div class="text">
+        <div>분석</div>
+        <div>BI 대시보드 운영</div>
+      </div>
+    </div>
+  </div>
+</div></div>
+</body></html>

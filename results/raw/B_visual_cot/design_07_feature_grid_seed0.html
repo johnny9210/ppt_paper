@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide">
+  <div class="feature-card">
+    <div class="icon">💬</div>
+    <div class="feature-title">AI 채팅</div>
+    <div class="feature-description">멀티턴 대화형 AI 어시스턴트</div>
+    <div class="feature-tag">Core</div>
+  </div>
+  <div class="feature-card">
+    <div class="icon">🔄</div>
+    <div class="feature-title">워크플로우</div>
+    <div class="feature-description">노코드 업무 자동화 빌더</div>
+    <div class="feature-tag">Automation</div>
+  </div>
+  <div class="feature-card">
+    <div class="icon">📄</div>
+    <div class="feature-title">문서 처리</div>
+    <div class="feature-description">PDF/엑셀 자동 분석 및 요약</div>
+    <div class="feature-tag">RAG</div>
+  </div>
+  <div class="feature-card">
+    <div class="icon">📊</div>
+    <div class="feature-title">데이터 분석</div>
+    <div class="feature-description">자연어 SQL 변환 및 시각화</div>
+    <div class="feature-tag">Analytics</div>
+  </div>
+  <div class="feature-card">
+    <div class="icon">🎨</div>
+    <div class="feature-title">PPT 생성</div>
+    <div class="feature-description">AI 기반 프레젠테이션 자동 생성</div>
+    <div class="feature-tag">Creative</div>
+  </div>
+  <div class="feature-card">
+    <div class="icon">🔗</div>
+    <div class="feature-title">API 연동</div>
+    <div class="feature-description">외부 시스템 MCP 연결</div>
+    <div class="feature-tag">Integration</div>
+  </div>
+</div>
+
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg, #141416, #202026);
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+  }
+  .slide {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 50px;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #ff33cc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
+  }
+  .icon {
+    font-size: 2em;
+    color: #d18fff;
+    margin-bottom: 10px;
+  }
+  .feature-title {
+    font-size: 1.5em;
+    color: white;
+    margin-bottom: 10px;
+  }
+  .feature-description {
+    font-size: 1em;
+    color: lightgray;
+    margin-bottom: 20px;
+  }
+  .feature-tag {
+    background-color: purple;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    display: inline-block;
+  }
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(128,0,128,0.2), transparent);
+    z-index: 0;
+  }
+</style></div>
+</body></html>

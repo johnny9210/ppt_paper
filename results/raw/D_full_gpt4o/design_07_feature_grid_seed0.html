@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_07_feature_grid" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><div class="design_07_feature_grid-bg">
+    <div class="glow-node node-1"></div>
+    <div class="glow-node node-2"></div>
+    <div class="glow-node node-3"></div>
+</div>
+
+<style>
+.design_07_feature_grid-bg {
+    width: 1280px;
+    height: 720px;
+    background: linear-gradient(135deg, #00042d, #1e1e1e);
+    position: relative;
+    overflow: hidden;
+}
+
+.design_07_feature_grid-bg::before, 
+.design_07_feature_grid-bg::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(238, 58, 236, 0.7), transparent);
+}
+
+.design_07_feature_grid-bg::before {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    left: -100px;
+    box-shadow: 0 0 30px 20px rgba(238, 58, 236, 0.7);
+}
+
+.design_07_feature_grid-bg::after {
+    width: 600px;
+    height: 600px;
+    bottom: -200px;
+    right: -200px;
+    box-shadow: 0 0 40px 30px rgba(238, 58, 236, 0.7);
+}
+
+.glow-node {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    background: radial-gradient(circle, rgba(238, 58, 236, 1), rgba(238, 58, 236, 0));
+    box-shadow: 0 0 15px 10px rgba(238, 58, 236, 0.8), 0 0 30px 15px rgba(238, 58, 236, 0.5);
+}
+
+.node-1 {
+    left: 640px;
+    top: 72px;
+}
+
+.node-2 {
+    left: 64px;
+    top: 36px;
+}
+
+.node-3 {
+    right: 64px;
+    top: 36px;
+}
+</style></div>
+    <div style="position:absolute;left:5.0%;top:25.0%;width:25.0%;height:20.0%;z-index:10;">
+<style>
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 16px;
+    background: rgba(25, 30, 45, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    overflow: hidden;
+  }
+
+  .header {
+    background: rgba(40, 45, 60, 0.15);
+    border-radius: 16px;
+    padding: 16px;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .circle-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(120, 0, 255, 0.3), rgba(255, 0, 200, 0.5));
+    margin-right: 16px;
+  }
+
+  .content {
+    background: rgba(40, 45, 60, 0.15);
+    border-radius: 16px;
+    margin: 20px;
+    padding: 16px;
+  }
+</style>
+
+<div class="card-1">
+  <div class="header">
+    <div class="circle-icon"></div>
+    <div class="text-placeholder" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+      <div style="font-size:0.55rem; color:rgba(96,165,250,0.8); font-weight:600; letter-spacing:0.1em;">STEP 1</div>
+      <div style="font-size:1.5rem;">💬</div>
+      <div style="font-size:0.85rem; font-weight:700; color:#e2e8f0;">AI 채팅</div>
+    </div>
+  </div>
+  <div class="content" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+    <div style="font-size:0.65rem; color:rgba(148,163,184,0.85); line-height:1.4;">멀티턴 대화형 AI 어시스턴트</div>
+  </div>
+</div>
+</div>
+<div style="position:absolute;left:35.0%;top:25.0%;width:25.0%;height:20.0%;z-index:10;">
+<style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    overflow: hidden;
+  }
+
+  .card-2 .header {
+    height: 20%;
+    background: rgba(50, 50, 70, 0.15);
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  }
+
+  .card-2 .content {
+    height: 80%;
+    background: rgba(50, 50, 70, 0.15);
+    border-radius: 0 0 16px 16px;
+  }
+
+  .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,0,150,0.5), rgba(0,0,0,0));
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+
+  .text-area {
+    flex-grow: 1;
+    background: rgba(100, 100, 120, 0.15);
+    border-radius: 10px;
+    height: 60%;
+    margin: 20px;
+  }
+</style>
+
+<div class="card-2">
+  <div class="header">
+    <div class="icon"></div>
+    <div class="text-area" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+      <div style="font-size:0.55rem; color:rgba(96,165,250,0.8); font-weight:600; letter-spacing:0.1em;">STEP 2</div>
+      <div style="font-size:1.5rem;">🔄</div>
+      <div style="font-size:0.85rem; font-weight:700; color:#e2e8f0;">워크플로우</div>
+    </div>
+  </div>
+  <div class="content" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+    <div style="font-size:0.65rem; color:rgba(148,163,184,0.85); line-height:1.4;">노코드 업무 자동화 빌더</div>
+  </div>
+</div>
+</div>
+<div style="position:absolute;left:65.0%;top:25.0%;width:25.0%;height:20.0%;z-index:10;">
+<style>
+.card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 0, 255, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.title-bar {
+    width: 70%;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    position: absolute;
+    top: 20px;
+    left: 90px;
+}
+
+.content-box {
+    width: 90%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    position: absolute;
+    top: 90px;
+    left: 5%;
+}
+</style>
+
+<div class="card-3">
+    <div class="icon-circle"></div>
+    <div class="title-bar" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+      <div style="font-size:0.55rem; color:rgba(96,165,250,0.8); font-weight:600; letter-spacing:0.1em;">STEP 3</div>
+      <div style="font-size:1.5rem;">📄</div>
+      <div style="font-size:0.85rem; font-weight:700; color:#e2e8f0;">문서 처리</div>
+    </div>
+    <div class="content-box" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+      <div style="font-size:0.65rem; color:rgba(148,163,184,0.85); line-height:1.4;">PDF/엑셀 자동 분석 및 요약</div>
+    </div>
+</div>
+</div>
+<div style="position:absolute;left:5.0%;top:55.0%;width:25.0%;height:20.0%;z-index:10;">
+<style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .segment {
+    margin: 20px;
+    padding: 12px;
+    background: rgba(20, 20, 20, 0.2);
+    border-radius: 16px;
+  }
+  
+  .circle {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.15), rgba(0, 128, 255, 0.15));
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 50%;
+    float: left;
+    margin-right: 10px;
+  }
+  
+  .title {
+    background: rgba(100, 100, 100, 0.2);
+    height: 25px;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="card-4">
+  <div class="segment">
+    <div class="circle"></div>
+    <div class="title" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+      <div style="font-size:0.55rem; color:rgba(96,165,250,0.8); font-weight:600; letter-spacing:0.1em;">STEP 4</div>
+      <div style="font-size:1.5rem;">📊</div>
+      <div style="font-size:0.85rem; font-weight:700; color:#e2e8f0;">데이터 분석</div>
+    </div>
+  </div>
+  <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+    <div style="font-size:0.65rem; color:rgba(148,163,184,0.85); line-height:1.4;">자연어 SQL 변환 및 시각화</div>
+  </div>
+</div>
+</div>
+<div style="position:absolute;left:35.0%;top:55.0%;width:25.0%;height:20.0%;z-index:10;">
+<style>
+    .card-5 {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 16px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+    .inner-circle {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(45deg, rgba(255, 0, 255, 0.15), rgba(0, 255, 255, 0.15));
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .text-area {
+        flex-grow: 1;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="card-5">
+    <div class="inner-circle"></div>
+    <div class="text-area" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+      <div style="font-size:0.55rem; color:rgba(96,165,250,0.8); font-weight:600; letter-spacing:0.1em;">STEP 5</div>
+      <div style="font-size:1.5rem;">🎨</div>
+      <div style="font-size:0.85rem; font-weight:700; color:#e2e8f0;">PPT 생성</div>
+      <div style="font-size:0.65rem; color:rgba(148,163,184,0.85); line-height:1.4;">AI 기반 프레젠테이션 자동 생성</div>
+    </div>
+</div>
+</div>
+<div style="position:absolute;left:65.0%;top:55.0%;width:25.0%;height:20.0%;z-index:10;">
+<style>
+    .card-6 {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 16px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        display: flex;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(0, 0, 255, 0.2));
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 20px;
+    }
+
+    .text-area {
+        flex-grow: 1;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 10px;
+    }
+</style>
+
+<div class="card-6">
+    <div class="icon-circle"></div>
+    <div class="text-area" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8px;">
+      <div style="font-size:0.55rem; color:rgba(96,165,250,0.8); font-weight:600; letter-spacing:0.1em;">STEP 6</div>
+      <div style="font-size:1.5rem;">🔗</div>
+      <div style="font-size:0.85rem; font-weight:700; color:#e2e8f0;">API 연동</div>
+      <div style="font-size:0.65rem; color:rgba(148,163,184,0.85); line-height:1.4;">외부 시스템 MCP 연결</div>
+    </div>
+</div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;">
+    <div style="font-size:1.5rem;font-weight:800;color:#f1f5f9;text-shadow:0 2px 12px rgba(0,0,0,0.4);">플랫폼 핵심 기능</div>
+    <div style="font-size:0.7rem;color:rgba(148,163,184,0.7);margin-top:4px;"></div>
+</div>
+</div></div>
+</body></html>

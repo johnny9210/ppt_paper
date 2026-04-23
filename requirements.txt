@@ -1,0 +1,23 @@
+# LLM clients
+openai>=1.0
+anthropic>=0.20
+boto3>=1.35
+
+# Multi-agent framework
+langgraph>=1.0
+langchain-core>=0.3
+
+# CV extractors & metrics
+Pillow>=10.0
+numpy>=1.26
+scipy>=1.13
+scikit-image>=0.24
+scikit-learn>=1.5
+pytesseract>=0.3.10
+
+# HTML parsing & rendering
+beautifulsoup4>=4.13
+playwright>=1.45
+
+# Env management
+python-dotenv>=1.0

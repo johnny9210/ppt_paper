@@ -1,0 +1,5 @@
+{"id": "design_01_timeline", "type": "timeline", "complexity": "high", "primary_rq": "RQ1+RQ4"}
+{"id": "design_04_pyramid", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1"}
+{"id": "design_05_hub_spoke", "type": "hub_spoke", "complexity": "high", "primary_rq": "RQ1+RQ4"}
+{"id": "design_07_feature_grid", "type": "feature_grid", "complexity": "medium", "primary_rq": "RQ1"}
+{"id": "design_10_stats_hero", "type": "stats_hero", "complexity": "medium", "primary_rq": "RQ2"}

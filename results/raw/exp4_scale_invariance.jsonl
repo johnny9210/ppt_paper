@@ -1,0 +1,2 @@
+{"exp": "exp4", "condition": "A_gpt4o", "model": "gpt-4o", "slide_id": "design_01_timeline", "seed": 0, "elapsed_s": 0.0, "reused": true, "consistency_score": 1.0, "n_card_classes": 1, "ccr": 1.0, "css_richness": 2, "joint_pass": 0, "ok": true}
+{"exp": "exp4", "condition": "A_gpt54", "model": "gpt-5.4", "slide_id": "design_01_timeline", "seed": 0, "elapsed_s": 0.0, "reused": true, "consistency_score": 1.0, "n_card_classes": 1, "ccr": 1.0, "css_richness": 57, "joint_pass": 1, "ok": true}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0a0514;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #00FFC3;
+  }
+  
+  .container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0a0514;
+  }
+
+  .hub, .spoke {
+    width: 160px;
+    height: 100px;
+    text-align: center;
+    border: 2px solid #00FFC3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .hub {
+    width: 180px;
+    height: 180px;
+  }
+
+  .title {
+    position: absolute;
+    top: 10px;
+    font-size: 24px;
+  }
+
+  .hub {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .spoke:nth-child(1) { top: 10%; left: 50%; transform: translateX(-50%); }
+  .spoke:nth-child(2) { top: 30%; right: 10%; }
+  .spoke:nth-child(3) { bottom: 30%; right: 10%; }
+  .spoke:nth-child(4) { bottom: 10%; left: 50%; transform: translateX(-50%); }
+  .spoke:nth-child(5) { bottom: 30%; left: 10%; }
+  .spoke:nth-child(6) { top: 30%; left: 10%; }
+
+  .emoji {
+    font-size: 36px;
+    margin-bottom: 5px;
+  }
+
+  .description {
+    font-size: 14px;
+    color: #80FFD8;
+  }
+</style>
+
+<div class="container">
+  <div class="title">마이크로서비스 아키텍처</div>
+  <div class="hub">
+    <div class="emoji">🌐</div>
+    <div class="hub-title">API Gateway</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">☁️</div>
+    <div class="title">클라우드 스토리지</div>
+    <div class="description">S3, MinIO 기반 객체 저장소</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">📡</div>
+    <div class="title">실시간 스트리밍</div>
+    <div class="description">Kafka 이벤트 브로커</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🗄️</div>
+    <div class="title">데이터베이스</div>
+    <div class="description">PostgreSQL + MongoDB</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🔒</div>
+    <div class="title">인증/보안</div>
+    <div class="description">OAuth2 + JWT 토큰</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🤖</div>
+    <div class="title">AI 서비스</div>
+    <div class="description">LLM 추론 엔진</div>
+  </div>
+  <div class="spoke">
+    <div class="emoji">🌍</div>
+    <div class="title">CDN/Edge</div>
+    <div class="description">글로벌 콘텐츠 배포</div>
+  </div>
+</div></div>
+</body></html>

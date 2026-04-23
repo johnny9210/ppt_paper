@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle, black, #1e3a57);
+    height: 720px;
+    width: 1280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    position: relative;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    position: relative;
+  }
+  .level1 {
+    border-top: 5px solid gold;
+  }
+  .level2 {
+    border-top: 5px solid silver;
+  }
+  .level3 {
+    border-top: 5px solid bronze;
+  }
+  .icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25%;
+    height: 1px;
+    background: linear-gradient(to right, gold, transparent);
+    z-index: -1;
+  }
+  .row:nth-child(2) .line {
+    top: 50%;
+  }
+</style>
+
+<div class="container">
+  <div class="card level1">
+    <div class="icon">👑</div>
+    <h2>데이터 전략</h2>
+    <p>경영진 주도 데이터 비전 및 정책 수립</p>
+  </div>
+  <div class="line"></div>
+  <div class="row">
+    <div class="card level2">
+      <div class="icon">📋</div>
+      <h3>품질 관리</h3>
+      <p>데이터 표준화 및 품질 모니터링</p>
+    </div>
+    <div class="card level2">
+      <div class="icon">🔐</div>
+      <h3>보안 통제</h3>
+      <p>접근 권한 및 개인정보 보호</p>
+    </div>
+  </div>
+  <div class="line"></div>
+  <div class="row">
+    <div class="card level3">
+      <div class="icon">🗄️</div>
+      <h3>수집</h3>
+      <p>원천 데이터 통합</p>
+    </div>
+    <div class="card level3">
+      <div class="icon">⚙️</div>
+      <h3>처리</h3>
+      <p>ETL 파이프라인</p>
+    </div>
+    <div class="card level3">
+      <div class="icon">📈</div>
+      <h3>분석</h3>
+      <p>BI 대시보드 운영</p>
+    </div>
+  </div>
+</div></div>
+</body></html>

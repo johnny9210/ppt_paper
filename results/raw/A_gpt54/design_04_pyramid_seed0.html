@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0a0f1d; font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto;
+    overflow: hidden;
+    color: #f4f6fb;
+    background:
+      radial-gradient(circle at 50% 38%, rgba(236,191,103,.36) 0%, rgba(236,191,103,.18) 18%, rgba(236,191,103,.06) 32%, rgba(0,0,0,0) 48%),
+      radial-gradient(circle at 7% 16%, rgba(234,168,52,.24) 0%, rgba(234,168,52,.08) 16%, rgba(0,0,0,0) 32%),
+      radial-gradient(circle at 93% 50%, rgba(226,161,74,.18) 0%, rgba(226,161,74,.06) 18%, rgba(0,0,0,0) 34%),
+      radial-gradient(circle at 77% 78%, rgba(18,64,182,.28) 0%, rgba(18,64,182,.12) 20%, rgba(0,0,0,0) 42%),
+      linear-gradient(120deg, #111318 0%, #131827 22%, #1d2436 45%, #0f1730 68%, #15161b 100%);
+  }
+
+  .frame {
+    position: absolute;
+    inset: 22px;
+    border: 2px solid rgba(220,178,94,.72);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,227,165,.18),
+      0 0 30px rgba(217,171,84,.12);
+    pointer-events: none;
+  }
+  .frame::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(220,178,94,.46);
+  }
+
+  .mesh {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(52deg, transparent 0 46%, rgba(214,171,93,.26) 46.2%, transparent 46.6%) 790px 20px/170px 170px repeat,
+      linear-gradient(-52deg, transparent 0 46%, rgba(214,171,93,.26) 46.2%, transparent 46.6%) 790px 20px/170px 170px repeat,
+      linear-gradient(0deg, transparent 0 49.3%, rgba(214,171,93,.2) 49.5%, transparent 49.8%) 790px 20px/170px 170px repeat;
+    opacity: .8;
+    pointer-events: none;
+  }
+
+  .left-lines, .right-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .left-lines::before,
+  .left-lines::after,
+  .right-lines::before,
+  .right-lines::after {
+    content: "";
+    position: absolute;
+    border: 1px solid rgba(195,154,83,.18);
+  }
+  .left-lines::before { left: 18px; bottom: 84px; width: 82px; height: 160px; transform: skewY(-18deg); }
+  .left-lines::after { left: 0; bottom: 0; width: 92px; height: 118px; transform: skewY(18deg); }
+  .right-lines::before { right: 0; bottom: 128px; width: 120px; height: 170px; transform: skewY(-20deg); opacity: .16; }
+  .right-lines::after { right: 52px; top: -30px; width: 180px; height: 180px; transform: skewY(22deg); opacity: .12; }
+
+  .title {
+    position: absolute;
+    top: 34px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: #f7e8c6;
+    text-shadow: 0 0 14px rgba(233,190,103,.26);
+  }
+
+  .tree {
+    position: absolute;
+    left: 0;
+    top: 84px;
+    width: 1280px;
+    height: 600px;
+  }
+
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,134,.58) 0%, rgba(255,215,134,.18) 38%, rgba(255,215,134,0) 70%);
+    filter: blur(10px);
+    pointer-events: none;
+  }
+  .glow.g1 { width: 420px; height: 420px; left: 430px; top: 18px; }
+  .glow.g2 { width: 560px; height: 300px; left: 350px; top: 280px; opacity: .65; }
+  .glow.g3 { width: 220px; height: 220px; left: 980px; top: 400px; opacity: .32; }
+
+  .connector {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(245,208,126,.18), rgba(255,228,163,.8), rgba(245,208,126,.18));
+    box-shadow: 0 0 10px rgba(248,213,128,.34);
+    border-radius: 2px;
+  }
+  .connector.v {
+    width: 2px;
+    background: linear-gradient(180deg, rgba(245,208,126,.15), rgba(255,228,163,.82), rgba(245,208,126,.15));
+  }
+  .connector.h {
+    height: 2px;
+  }
+
+  .card {
+    position: absolute;
+    border-radius: 14px;
+    padding: 18px 22px 18px;
+    backdrop-filter: blur(1px);
+    background:
+      linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.1) 30%, rgba(255,255,255,.06) 65%, rgba(255,255,255,.1)),
+      linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+    border: 1px solid rgba(255,255,255,.3);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.25),
+      inset 0 -10px 24px rgba(255,255,255,.04),
+      0 16px 34px rgba(0,0,0,.28),
+      0 0 18px rgba(255,214,137,.12);
+    overflow: hidden;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 26px;
+    background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.1));
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.22) 0 18%, rgba(255,255,255,0) 18% 100%);
+    pointer-events: none;
+  }
+
+  .card.goldbar::before {
+    background: linear-gradient(90deg, #a37522 0%, #f1d48b 28%, #b68933 55%, #f3dc9d 78%, #99671f 100%);
+  }
+  .card.silverbar::before {
+    background: linear-gradient(90deg, #8d939d 0%, #f4f6f9 25%, #b6bcc4 52%, #f4f7fa 76%, #828891 100%);
+  }
+  .card.copperbar::before {
+    background: linear-gradient(90deg, #8f532f 0%, #dab08a 24%, #a56740 54%, #f0cfae 80%, #8c5230 100%);
+  }
+
+  .card.top {
+    left: 500px;
+    top: 0;
+    width: 270px;
+    height: 165px;
+    text-align: center;
+  }
+  .card.mid.left {
+    left: 325px;
+    top: 210px;
+    width: 285px;
+    height: 165px;
+  }
+  .card.mid.right {
+    left: 665px;
+    top: 210px;
+    width: 285px;
+    height: 165px;
+  }
+  .card.bottom.left {
+    left: 115px;
+    top: 448px;
+    width: 312px;
+    height: 162px;
+  }
+  .card.bottom.center {
+    left: 482px;
+    top: 448px;
+    width: 312px;
+    height: 162px;
+  }
+  .card.bottom.right {
+    left: 849px;
+    top: 448px;
+    width: 312px;
+    height: 162px;
+  }
+
+  .icon {
+    font-size: 34px;
+    line-height: 1;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 8px rgba(255,221,153,.22));
+  }
+  .top .icon { font-size: 42px; margin-top: 10px; }
+  .level {
+    font-size: 11px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: rgba(245,233,201,.78);
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff4d7;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(255,220,140,.14);
+  }
+  .desc {
+    font-size: 14px;
+    line-height: 1.45;
+    color: rgba(239,244,252,.88);
+  }
+
+  .mid .card-title,
+  .bottom .card-title {
+    font-size: 22px;
+    margin-top: 6px;
+  }
+  .mid .desc,
+  .bottom .desc {
+    font-size: 13px;
+    color: rgba(239,244,252,.84);
+  }
+
+  .tech {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 70%;
+    opacity: .34;
+    pointer-events: none;
+  }
+  .tech::before,
+  .tech::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+  }
+  .tech::before {
+    background-image:
+      linear-gradient(90deg, rgba(223,183,109,.55), rgba(223,183,109,.55)),
+      linear-gradient(90deg, rgba(223,183,109,.42), rgba(223,183,109,.42)),
+      linear-gradient(90deg, rgba(223,183,109,.42), rgba(223,183,109,.42)),
+      linear-gradient(90deg, rgba(223,183,109,.32), rgba(223,183,109,.32)),
+      linear-gradient(0deg, rgba(223,183,109,.42), rgba(223,183,109,.42)),
+      linear-gradient(0deg, rgba(223,183,109,.42), rgba(223,183,109,.42)),
+      linear-gradient(0deg, rgba(223,183,109,.32), rgba(223,183,109,.32));
+    background-size:
+      78px 2px, 56px 2px, 60px 2px, 46px 2px,
+      2px 18px, 2px 14px, 2px 10px;
+    background-position:
+      16px 42px, 40px 58px, 182px 44px, 210px 60px,
+      90px 42px, 122px 58px, 242px 44px;
+  }
+  .tech::after {
+    background-image:
+      radial-gradient(circle, rgba(255,225,156,.8) 0 2px, transparent 3px),
+      radial-gradient(circle, rgba(255,225,156,.7) 0 2px, transparent 3px),
+      radial-gradient(circle, rgba(255,225,156,.6) 0 2px, transparent 3px);
+    background-size: 8px 8px, 8px 8px, 8px 8px;
+    background-position: 96px 41px, 124px 57px, 244px 43px;
+    background-repeat: no-repeat;
+  }
+
+  .sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(125deg, rgba(255,255,255,.18) 10%, rgba(255,255,255,.03) 28%, rgba(255,255,255,0) 40%);
+    pointer-events: none;
+  }
+</style>
+
+<div class="slide">
+  <div class="frame"></div>
+  <div class="mesh"></div>
+  <div class="left-lines"></div>
+  <div class="right-lines"></div>
+
+  <div class="title">데이터 거버넌스 프레임워크</div>
+
+  <div class="tree">
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+    <div class="glow g3"></div>
+
+    <div class="connector v" style="left:634px; top:150px; height:36px;"></div>
+    <div class="connector h" style="left:514px; top:186px; width:242px;"></div>
+    <div class="connector v" style="left:514px; top:186px; height:24px;"></div>
+    <div class="connector v" style="left:756px; top:186px; height:24px;"></div>
+
+    <div class="connector v" style="left:463px; top:375px; height:30px;"></div>
+    <div class="connector v" style="left:806px; top:375px; height:30px;"></div>
+    <div class="connector h" style="left:271px; top:405px; width:632px;"></div>
+    <div class="connector v" style="left:271px; top:405px; height:43px;"></div>
+    <div class="connector v" style="left:638px; top:405px; height:43px;"></div>
+    <div class="connector v" style="left:903px; top:405px; height:43px;"></div>
+
+    <div class="card top goldbar">
+      <div class="sheen"></div>
+      <div class="icon">👑</div>
+      <div class="level">Strategic</div>
+      <div class="card-title">데이터 전략</div>
+      <div class="desc">경영진 주도 데이터 비전 및 정책 수립</div>
+    </div>
+
+    <div class="card mid left silverbar">
+      <div class="sheen"></div>
+      <div class="icon">📋</div>
+      <div class="level">Tactical</div>
+      <div class="card-title">품질 관리</div>
+      <div class="desc">데이터 표준화 및 품질 모니터링</div>
+    </div>
+
+    <div class="card mid right silverbar">
+      <div class="sheen"></div>
+      <div class="icon">🔐</div>
+      <div class="level">Tactical</div>
+      <div class="card-title">보안 통제</div>
+      <div class="desc">접근 권한 및 개인정보 보호</div>
+    </div>
+
+    <div class="card bottom left copperbar">
+      <div class="sheen"></div>
+      <div class="tech"></div>
+      <div class="icon">🗄️</div>
+      <div class="level">Operational</div>
+      <div class="card-title">수집</div>
+      <div class="desc">원천 데이터 통합</div>
+    </div>
+
+    <div class="card bottom center copperbar">
+      <div class="sheen"></div>
+      <div class="tech"></div>
+      <div class="icon">⚙️</div>
+      <div class="level">Operational</div>
+      <div class="card-title">처리</div>
+      <div class="desc">ETL 파이프라인</div>
+    </div>
+
+    <div class="card bottom right copperbar">
+      <div class="sheen"></div>
+      <div class="tech"></div>
+      <div class="icon">📈</div>
+      <div class="level">Operational</div>
+      <div class="card-title">분석</div>
+      <div class="desc">BI 대시보드 운영</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

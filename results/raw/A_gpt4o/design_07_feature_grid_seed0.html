@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    background-color: #1b1f38;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    width: 1000px;
+    max-width: 100%;
+    padding: 20px;
+  }
+  .title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #cc33ff;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #cc33ff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(204, 51, 255, 0.05);
+    z-index: 0;
+    border-radius: 10px;
+  }
+  .emoji {
+    font-size: 2em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-description {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .tag {
+    background-color: #cc33ff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+<div class="container">
+  <div class="title">플랫폼 핵심 기능</div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="emoji">💬</div>
+      <div class="feature-title">AI 채팅</div>
+      <div class="feature-description">멀티턴 대화형 AI 어시스턴트</div>
+      <div class="tag">Core</div>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">🔄</div>
+      <div class="feature-title">워크플로우</div>
+      <div class="feature-description">노코드 업무 자동화 빌더</div>
+      <div class="tag">Automation</div>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">📄</div>
+      <div class="feature-title">문서 처리</div>
+      <div class="feature-description">PDF/엑셀 자동 분석 및 요약</div>
+      <div class="tag">RAG</div>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">📊</div>
+      <div class="feature-title">데이터 분석</div>
+      <div class="feature-description">자연어 SQL 변환 및 시각화</div>
+      <div class="tag">Analytics</div>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">🎨</div>
+      <div class="feature-title">PPT 생성</div>
+      <div class="feature-description">AI 기반 프레젠테이션 자동 생성</div>
+      <div class="tag">Creative</div>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">🔗</div>
+      <div class="feature-title">API 연동</div>
+      <div class="feature-description">외부 시스템 MCP 연결</div>
+      <div class="tag">Integration</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

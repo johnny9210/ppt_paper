@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이크로서비스 아키텍처</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0a0f24;
+        }
+        .container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            background-color: #0f1628;
+        }
+        .title {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #aaf8ff;
+            font-size: 32px;
+            font-family: Arial, sans-serif;
+        }
+        .hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background-color: #0f2945;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaf8ff;
+            font-size: 28px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 15px #00f1ff;
+            text-align: center;
+        }
+        .spoke {
+            width: 210px;
+            height: 100px;
+            background-color: #223240;
+            position: absolute;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #90e4ff;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 10px #00788c;
+            text-align: center;
+        }
+        .spoke .emoji {
+            font-size: 24px;
+        }
+        .spoke .title {
+            font-size: 20px;
+            margin-top: 5px;
+        }
+        .spoke .description {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .spoke:nth-child(1) { top: 30px; left: 50%; transform: translateX(-50%); }
+        .spoke:nth-child(2) { top: 220px; right: 30px; }
+        .spoke:nth-child(3) { top: 220px; left: 30px; }
+        .spoke:nth-child(4) { bottom: 220px; right: 30px; }
+        .spoke:nth-child(5) { bottom: 220px; left: 30px; }
+        .spoke:nth-child(6) { bottom: 30px; left: 50%; transform: translateX(-50%); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">마이크로서비스 아키텍처</div>
+        <div class="hub">🌐<br>API Gateway</div>
+        <div class="spoke">
+            <div class="emoji">☁️</div>
+            <div class="title">클라우드 스토리지</div>
+            <div class="description">S3, MinIO 기반 객체 저장소</div>
+        </div>
+        <div class="spoke">
+            <div class="emoji">📡</div>
+            <div class="title">실시간 스트리밍</div>
+            <div class="description">Kafka 이벤트 브로커</div>
+        </div>
+        <div class="spoke">
+            <div class="emoji">🗄️</div>
+            <div class="title">데이터베이스</div>
+            <div class="description">PostgreSQL + MongoDB</div>
+        </div>
+        <div class="spoke">
+            <div class="emoji">🔒</div>
+            <div class="title">인증/보안</div>
+            <div class="description">OAuth2 + JWT 토큰</div>
+        </div>
+        <div class="spoke">
+            <div class="emoji">🤖</div>
+            <div class="title">AI 서비스</div>
+            <div class="description">LLM 추론 엔진</div>
+        </div>
+        <div class="spoke">
+            <div class="emoji">🌍</div>
+            <div class="title">CDN/Edge</div>
+            <div class="description">글로벌 콘텐츠 배포</div>
+        </div>
+    </div>
+</body>
+</html></div>
+</body></html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #050426;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 6% 3%, rgba(255,170,255,.95) 0, rgba(212,122,255,.45) 6%, rgba(84,22,116,0) 13%),
+      radial-gradient(circle at 96% 1%, rgba(255,190,255,.9) 0, rgba(208,118,255,.42) 6%, rgba(84,22,116,0) 13%),
+      radial-gradient(circle at 2% 97%, rgba(255,170,255,.9) 0, rgba(212,122,255,.42) 6%, rgba(84,22,116,0) 13%),
+      radial-gradient(circle at 98% 95%, rgba(255,170,255,.9) 0, rgba(212,122,255,.42) 6%, rgba(84,22,116,0) 13%),
+      linear-gradient(180deg, rgba(16,18,76,.32), rgba(1,1,34,.2)),
+      repeating-linear-gradient(125deg, rgba(255,255,255,.035) 0 2px, rgba(255,255,255,0) 2px 7px),
+      radial-gradient(circle at 50% 42%, rgba(23,18,90,.35), rgba(4,4,36,0) 40%),
+      #04032b;
+    color: #fff;
+  }
+
+  .slide:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 16%, rgba(255,121,230,.14), rgba(255,121,230,0) 22%),
+      radial-gradient(circle at 50% 50%, rgba(109,91,255,.08), rgba(109,91,255,0) 45%);
+    pointer-events: none;
+  }
+
+  .title-wrap {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 745px;
+    height: 72px;
+    border-radius: 14px;
+    border: 2px solid rgba(230,133,235,.75);
+    background: linear-gradient(180deg, rgba(23,23,74,.55), rgba(13,13,52,.35));
+    box-shadow:
+      0 0 0 1px rgba(144,110,255,.18) inset,
+      0 0 22px rgba(216,102,255,.22),
+      0 0 48px rgba(116,69,255,.18);
+  }
+
+  .title-wrap:before {
+    content: "";
+    position: absolute;
+    left: 92px;
+    right: 92px;
+    top: 22px;
+    height: 22px;
+    border-radius: 7px;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.18), rgba(255,255,255,.08)),
+      linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+    box-shadow:
+      inset 0 2px 8px rgba(255,255,255,.06),
+      inset 0 -5px 12px rgba(0,0,0,.28);
+    opacity: .95;
+  }
+
+  .title {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,.94);
+    text-shadow:
+      0 0 12px rgba(247,112,255,.32),
+      0 2px 8px rgba(0,0,0,.55);
+  }
+
+  .grid {
+    position: absolute;
+    left: 72px;
+    top: 178px;
+    width: 1136px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 42px;
+    row-gap: 50px;
+  }
+
+  .card {
+    position: relative;
+    height: 236px;
+    border-radius: 18px;
+    border: 2px solid rgba(232,127,216,.76);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04) 35%, rgba(255,255,255,.03) 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(122,112,255,.26),
+      0 0 26px rgba(116,79,255,.12),
+      0 0 14px rgba(255,100,214,.10);
+    overflow: hidden;
+  }
+
+  .card:before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 164px;
+    width: 120px;
+    height: 270px;
+    transform: rotate(27deg);
+    background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.02));
+    opacity: .4;
+    filter: blur(.2px);
+  }
+
+  .card:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)),
+      radial-gradient(circle at 16% 14%, rgba(143,96,255,.16), rgba(143,96,255,0) 24%);
+    pointer-events: none;
+  }
+
+  .header {
+    position: absolute;
+    left: 18px;
+    right: 20px;
+    top: 26px;
+    height: 46px;
+  }
+
+  .icon-ring {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,175,255,.36), rgba(255,175,255,0) 30%),
+      linear-gradient(145deg, rgba(255,122,228,.92), rgba(102,86,255,.92));
+    box-shadow:
+      0 0 0 3px rgba(211,131,255,.2),
+      0 0 24px rgba(231,114,255,.38);
+  }
+
+  .icon-ring:before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(20,15,67,.9), rgba(11,10,46,.96));
+    box-shadow:
+      inset 0 0 0 2px rgba(161,109,255,.55),
+      0 0 12px rgba(152,96,255,.2);
+  }
+
+  .emoji {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    z-index: 2;
+    filter: drop-shadow(0 0 6px rgba(255,170,250,.28));
+  }
+
+  .title-bar {
+    position: absolute;
+    left: 52px;
+    right: 0;
+    top: 0;
+    height: 46px;
+    border-radius: 12px;
+    border: 2px solid rgba(243,126,204,.8);
+    background: linear-gradient(180deg, rgba(9,10,53,.88), rgba(7,8,43,.7));
+    display: flex;
+    align-items: center;
+    padding-left: 58px;
+    box-shadow:
+      inset 0 0 0 1px rgba(109,108,255,.18),
+      0 0 18px rgba(127,70,255,.12);
+  }
+
+  .card-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: rgba(255,255,255,.93);
+    letter-spacing: .4px;
+    text-shadow: 0 2px 6px rgba(0,0,0,.5);
+    white-space: nowrap;
+  }
+
+  .content {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 94px;
+    height: 122px;
+    border-radius: 14px;
+    border: 2px solid rgba(169,138,228,.5);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06)),
+      linear-gradient(180deg, rgba(14,16,55,.48), rgba(14,16,55,.28));
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.06),
+      inset 0 -10px 22px rgba(0,0,0,.16);
+    padding: 16px 18px;
+  }
+
+  .desc-line {
+    height: 7px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(215,218,230,.48), rgba(177,182,196,.7));
+    margin-bottom: 8px;
+    opacity: .92;
+  }
+
+  .desc-line.l1 { width: 96%; }
+  .desc-line.l2 { width: 95%; }
+  .desc-line.l3 { width: 95%; }
+  .desc-line.l4 { width: 76%; margin-bottom: 0; }
+
+  .real-text {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 94px;
+    height: 122px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 18px;
+    z-index: 2;
+  }
+
+  .feature-desc {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: rgba(255,255,255,.88);
+    text-shadow: 0 2px 8px rgba(0,0,0,.45);
+  }
+
+  .tag {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    min-width: 94px;
+    height: 24px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7f5cff, #ef79d5);
+    box-shadow:
+      inset 0 0 0 2px rgba(255,255,255,.18),
+      0 0 14px rgba(228,106,255,.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tag:before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 7px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.38);
+    filter: blur(.2px);
+  }
+
+  .tag-text {
+    position: relative;
+    z-index: 1;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .6px;
+    color: rgba(255,255,255,.95);
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0,0,0,.35);
+  }
+</style>
+
+<div class="slide">
+  <div class="title-wrap">
+    <div class="title">플랫폼 핵심 기능</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="header">
+        <div class="icon-ring"><div class="emoji">💬</div></div>
+        <div class="title-bar"><div class="card-title">AI 채팅</div></div>
+      </div>
+      <div class="content">
+        <div class="desc-line l1"></div>
+        <div class="desc-line l2"></div>
+        <div class="desc-line l3"></div>
+        <div class="desc-line l4"></div>
+      </div>
+      <div class="real-text">
+        <div class="feature-desc">멀티턴 대화형 AI 어시스턴트</div>
+      </div>
+      <div class="tag"><div class="tag-text">Core</div></div>
+    </div>
+
+    <div class="card">
+      <div class="header">
+        <div class="icon-ring"><div class="emoji">🔄</div></div>
+        <div class="title-bar"><div class="card-title">워크플로우</div></div>
+      </div>
+      <div class="content">
+        <div class="desc-line l1"></div>
+        <div class="desc-line l2"></div>
+        <div class="desc-line l3"></div>
+        <div class="desc-line l4"></div>
+      </div>
+      <div class="real-text">
+        <div class="feature-desc">노코드 업무 자동화 빌더</div>
+      </div>
+      <div class="tag"><div class="tag-text">Automation</div></div>
+    </div>
+
+    <div class="card">
+      <div class="header">
+        <div class="icon-ring"><div class="emoji">📄</div></div>
+        <div class="title-bar"><div class="card-title">문서 처리</div></div>
+      </div>
+      <div class="content">
+        <div class="desc-line l1"></div>
+        <div class="desc-line l2"></div>
+        <div class="desc-line l3"></div>
+        <div class="desc-line l4"></div>
+      </div>
+      <div class="real-text">
+        <div class="feature-desc">PDF/엑셀 자동 분석 및 요약</div>
+      </div>
+      <div class="tag"><div class="tag-text">RAG</div></div>
+    </div>
+
+    <div class="card">
+      <div class="header">
+        <div class="icon-ring"><div class="emoji">📊</div></div>
+        <div class="title-bar"><div class="card-title">데이터 분석</div></div>
+      </div>
+      <div class="content">
+        <div class="desc-line l1"></div>
+        <div class="desc-line l2"></div>
+        <div class="desc-line l3"></div>
+        <div class="desc-line l4"></div>
+      </div>
+      <div class="real-text">
+        <div class="feature-desc">자연어 SQL 변환 및 시각화</div>
+      </div>
+      <div class="tag"><div class="tag-text">Analytics</div></div>
+    </div>
+
+    <div class="card">
+      <div class="header">
+        <div class="icon-ring"><div class="emoji">🎨</div></div>
+        <div class="title-bar"><div class="card-title">PPT 생성</div></div>
+      </div>
+      <div class="content">
+        <div class="desc-line l1"></div>
+        <div class="desc-line l2"></div>
+        <div class="desc-line l3"></div>
+        <div class="desc-line l4"></div>
+      </div>
+      <div class="real-text">
+        <div class="feature-desc">AI 기반 프레젠테이션 자동 생성</div>
+      </div>
+      <div class="tag"><div class="tag-text">Creative</div></div>
+    </div>
+
+    <div class="card">
+      <div class="header">
+        <div class="icon-ring"><div class="emoji">🔗</div></div>
+        <div class="title-bar"><div class="card-title">API 연동</div></div>
+      </div>
+      <div class="content">
+        <div class="desc-line l1"></div>
+        <div class="desc-line l2"></div>
+        <div class="desc-line l3"></div>
+        <div class="desc-line l4"></div>
+      </div>
+      <div class="real-text">
+        <div class="feature-desc">외부 시스템 MCP 연결</div>
+      </div>
+      <div class="tag"><div class="tag-text">Integration</div></div>
+    </div>
+  </div>
+</div></div>
+</body></html>
