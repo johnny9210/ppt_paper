@@ -97,9 +97,15 @@ Return STRICT JSON:
 
 
 class ToolGroundedJudge:
-    def __init__(self, model: str = "claude-4.6-opus", seed: int | None = 42):
+    def __init__(self, model: str = "claude-4.6-opus", seed: int | None = 42, tool_grounded: bool = True):
+        """
+        Args:
+            tool_grounded: True면 DOM/CSS JSON 요약을 prompt에 포함 (2026 best practice).
+                False면 screenshot만 — exp3 ablation용 (slide-domain에서 71→89% 효과 재확인).
+        """
         self.model = model
         self.rng = random.Random(seed)
+        self.tool_grounded = tool_grounded
 
     def _build_prompt(self, criteria: tuple[Criterion, ...]) -> str:
         criteria_list = "\n".join(f"- {c}" for c in criteria)
@@ -126,19 +132,23 @@ class ToolGroundedJudge:
     ) -> list[dict]:
         a_img, b_img = (cand2_img, cand1_img) if order_swapped else (cand1_img, cand2_img)
         a_dom, b_dom = (cand2_dom, cand1_dom) if order_swapped else (cand1_dom, cand2_dom)
-        return [
-            {"role": "user", "content": [
-                {"type": "text", "text": prompt},
-                {"type": "text", "text": "REFERENCE:"},
-                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(reference_image_path)}"}},
-                {"type": "text", "text": "CANDIDATE A:"},
-                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(a_img)}"}},
-                {"type": "text", "text": f"CANDIDATE A DOM/CSS summary:\n```json\n{json.dumps(a_dom)[:4000]}\n```"},
-                {"type": "text", "text": "CANDIDATE B:"},
-                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(b_img)}"}},
-                {"type": "text", "text": f"CANDIDATE B DOM/CSS summary:\n```json\n{json.dumps(b_dom)[:4000]}\n```"},
-            ]},
+
+        content = [
+            {"type": "text", "text": prompt},
+            {"type": "text", "text": "REFERENCE:"},
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(reference_image_path)}"}},
+            {"type": "text", "text": "CANDIDATE A:"},
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(a_img)}"}},
         ]
+        if self.tool_grounded:
+            content.append({"type": "text", "text": f"CANDIDATE A DOM/CSS summary:\n```json\n{json.dumps(a_dom)[:4000]}\n```"})
+        content += [
+            {"type": "text", "text": "CANDIDATE B:"},
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(b_img)}"}},
+        ]
+        if self.tool_grounded:
+            content.append({"type": "text", "text": f"CANDIDATE B DOM/CSS summary:\n```json\n{json.dumps(b_dom)[:4000]}\n```"})
+        return [{"role": "user", "content": content}]
 
     def pairwise(
         self,

@@ -8,7 +8,7 @@
 
 본 논문은 이 두 보장과 평가 타당성을 명시적으로 부과하는 **LayerAgent** 프레임워크를 제안한다. LayerAgent는 디자인-투-코드 생성을 4개의 순차 단계로 분해한다: (1) **레이아웃 분석** — 요소 위치/유형 추출, (2) **요소별 렌더링** — 카드 단위 풍부한 CSS 생성, (3) **Style Normalizer** — 카드 간 CSS 통일을 *pre-render에서* 강제 (RQ1의 핵심 답), (4) **Text Inserter** — 시각 디자인 확정 후 텍스트 삽입으로 zero-sum 경쟁 제거 (RQ2의 핵심 답). 평가는 **tool-grounded (DOM JSON + screenshot) cross-model VLM-as-Judge** 와 양적 메트릭의 동반 검증으로 수행하며, position-randomization과 swap-debias를 포함한 2026 best practice를 따른다.
 
-10종 슬라이드 디자인(타임라인, 허브-스포크, 피라미드, 대시보드 등)에 대한 실험에서 LayerAgent는 GPT-4o 기반 single-pass baseline 대비 ConsistencyScore와 CSS Richness, CCR을 동시에 향상시켰으며, VLM-as-Judge가 양적 향상이 perceived fidelity 개선과 동반함을 확인하였다. H-RAG 기반 단일 VLM 기법은 CSS Richness를 2.8→10.3으로 올리지만 CCR이 0.26으로 붕괴(콘텐츠 74% 소실)하는 zero-sum 패턴을 보였다. 또한 GPT-5.4·Claude 4.6 Opus single-pass와의 비교는 두 보장 실패가 *모델 scale에 불변* — 즉 LayerAgent의 가치는 모델 약점의 보강이 아니라 단계 분리에 의한 구조적 보장임 — 을 시사한다.
+10종 슬라이드 디자인(타임라인, 허브-스포크, 피라미드, 대시보드 등)에 대한 실험에서 LayerAgent는 GPT-4o 기반 single-pass baseline 대비 ConsistencyScore와 CSS Richness, CCR을 동시에 향상시켰으며, cross-model VLM-as-Judge가 양적 향상이 perceived fidelity 개선과 동반함을 확인하였다 (단, validity의 직접 검증은 인간 평가가 필요하며 향후 연구로 둠). H-RAG 기반 단일 VLM 기법은 CSS Richness를 2.8→10.3으로 올리지만 CCR이 0.26으로 붕괴(콘텐츠 74% 소실)하는 zero-sum 패턴을 보였다. GPT-5.4·Claude 4.6 Opus single-pass와의 비교는 두 보장 실패가 *현재 세대 SOTA closed VLM 전반에서 일관되게 나타남* (즉, LayerAgent의 가치가 단일 모델의 약점 보강이 아니라 단계 분리가 부과하는 구조적 보장임)을 시사한다.
 
 **키워드**: 디자인-투-코드, 멀티에이전트, 시각 일관성, 콘텐츠 충실도, 측정 타당성, VLM-as-Judge, 프레젠테이션 생성
 
@@ -28,13 +28,15 @@
 
 본 연구는 VLM 기반 디자인-투-코드 생성에서 **단일 VLM 호출이 — 모델 능력이 향상되더라도 — 구조적으로 보장하지 못하는 두 속성**과, 디자인-투-코드 분야 전반에 걸친 **평가 타당성** 문제를 식별하여 세 가지 연구 질문(RQ)으로 정식화한다.
 
-**RQ1 — Cross-Element Visual Consistency (요소 간 시각 일관성).** 슬라이드 디자인은 다수의 카드/요소로 구성되며, 이들 간에는 색·투명도·테두리·그림자가 통일되어야 한다. 그러나 단일 VLM 호출은 자기회귀 생성 도중 의미적으로 동등한 요소들에 서로 다른 스타일을 부여하는 경향이 있다 — 카드 A는 `rgba(30,30,40,0.6)` 글래스모피즘인데 카드 B는 불투명 `#1e1e28` 단색이 되는 식이다. 이 문제는 **A2UI Protocol (Google, 2026)**, **Multi-Agent Design Orchestration (2026)** 등에서 agent-driven UI의 핵심 과제로 명시적으로 인정되어 왔다. 본 연구는 이를 슬라이드 도메인에서 정식 측정 가능한 형태(`ConsistencyScore`, §5.1)로 환원하고, **pre-render 정규화(Style Normalizer) 가 post-hoc iterative refinement(PPTAgent 류) 대비 효과적인지** 검증한다. 부수적으로, 단일 VLM의 인지 부하는 카드 간 *재질 불일치*뿐 아니라 *레이아웃 구조 단순화*(허브-스포크 → 그리드, 피라미드 → 리스트)로도 발현되며, 본 연구는 이 두 발현을 같은 메커니즘의 두 채널로 본다.
+**RQ1 — Cross-Element Visual Consistency (요소 간 시각 일관성).** 슬라이드 디자인은 다수의 카드/요소로 구성되며, 이들 간에는 색·투명도·테두리·그림자가 통일되어야 한다. 그러나 단일 VLM 호출은 자기회귀 생성 도중 의미적으로 동등한 요소들에 서로 다른 스타일을 부여하는 경향이 있다 — 카드 A는 `rgba(30,30,40,0.6)` 글래스모피즘인데 카드 B는 불투명 `#1e1e28` 단색이 되는 식이다. 이 문제는 **A2UI Protocol (Google, 2026)**, **Multi-Agent Design Orchestration (2026)** 등에서 agent-driven UI의 핵심 과제로 명시적으로 인정되어 왔다. 본 연구는 이를 슬라이드 도메인에서 정식 측정 가능한 형태(`ConsistencyScore`, §5.1)로 환원하고, **pre-render 정규화(Style Normalizer) 가 post-hoc render-then-refine 류 (DesignCoder의 self-correcting refinement, VisRefiner의 visual difference learning) 대비 효과적인지** 비교한다. 부수적으로, 단일 VLM의 인지 부하는 카드 간 *재질 불일치*뿐 아니라 *레이아웃 구조 단순화*(허브-스포크 → 그리드, 피라미드 → 리스트)로도 발현되며, 본 연구는 이 두 발현을 같은 메커니즘의 두 채널로 본다.
 
 **RQ2 — Joint Content-Visual Fidelity (콘텐츠-시각 동시 보장).** 풍부한 CSS 효과 생성과 정확한 텍스트 콘텐츠 배치는 단일 VLM의 제한된 생성 용량 위에서 zero-sum 경쟁 관계에 있다. CSS 패턴 지식 주입(H-RAG)으로 CSS Richness를 2.8→10.3으로 향상시켰을 때 콘텐츠 완성도(CCR)가 0.80→0.26으로 붕괴하여 입력 텍스트의 74%가 소실되는 것이 그 증거이다. 본 연구는 시각 디자인 생성과 텍스트 삽입의 **단계 분리(Text Inserter)** 가 이 트레이드오프를 구조적으로 해소함을 ablation으로 보인다.
 
-**RQ3 — Measurement Validity in Design-to-Code (디자인-투-코드 평가의 측정 타당성).** 디자인-투-코드 분야에서 널리 쓰이는 양적 메트릭 — CSS 속성 수, Block-Match (Design2Code), element-matching (SlidesBench), attribute overlap (Widget2Code) — 은 perceived visual fidelity를 충실히 반영하지 못한다. CSS Richness는 동일 색 `box-shadow` 4겹이나 충돌하는 그라디언트 중첩으로 부풀려질 수 있으며, 구조 메트릭은 카드 위치만 일치하면 단색 블록과 글래스모피즘에 동일 점수를 부여한다. 최근 **DreamHouse (arXiv:2603.24866, 2026)** 는 structural validity와 visual fidelity가 직교적 신호이며 최상위 VLM조차 joint pass rate 7.1%에 그침을 보였다. 본 연구는 이 직교성을 슬라이드 도메인에서 재확인하고, **tool-grounded (DOM JSON + screenshot 동시 제공) cross-model VLM-as-Judge** 와 양적 메트릭의 **동반 검증(concurrent validation)** 을 측정 타당성 회복의 필요조건으로 확립한다 (§5.1, §5.3). 평가 프로토콜은 2026 best practice에 따라 position-randomization과 swap-debias를 포함한다.
+**RQ3 — Convergent Reliability and Provisional Measurement Validity in Design-to-Code.** 디자인-투-코드 분야에서 널리 쓰이는 양적 메트릭 — CSS 속성 수, Block-Match (Design2Code), element-matching (SlidesBench), attribute overlap (Widget2Code) — 은 perceived visual fidelity를 충실히 반영하지 못한다. CSS Richness는 동일 색 `box-shadow` 4겹이나 충돌하는 그라디언트 중첩으로 부풀려질 수 있으며, 구조 메트릭은 카드 위치만 일치하면 단색 블록과 글래스모피즘에 동일 점수를 부여한다. 최근 **DreamHouse (arXiv:2603.24866, 2026)** 는 structural validity와 visual fidelity가 직교적 신호이며 최상위 VLM조차 joint pass rate 7.1%에 그침을 보였다.
 
-**모델-독립성 가설.** 위 세 RQ는 모두 단일 VLM의 자기회귀 생성에서 기인하는 **구조적 한계**이며, 모델 능력 향상만으로는 자연스럽게 해소되지 않는다는 가설을 동반한다. 이를 직접 검증하기 위해 본 연구는 GPT-4o, GPT-5.4 (Azure), Claude 4.6 Opus (Bedrock) 세 모델에서 동일한 single-pass baseline의 ConsistencyScore와 joint fidelity를 비교한다 (§5.3.4). GPT-5.4 single-pass의 ConsistencyScore가 LayerAgent-on-GPT-4o보다 낮다면, 문제는 모델 용량이 아닌 *생성 구조* 자체에 있음을 시사한다.
+본 연구는 두 단계로 RQ3를 다룬다. **첫째, *convergent reliability*** — 본 연구의 핵심 empirical claim — 으로, **tool-grounded (DOM JSON + screenshot 동시 제공) cross-model VLM-as-Judge** (Claude 4.6 Opus / GPT-5.4 / Gemini 2.5)가 양적 메트릭과 *어떤 패턴으로 일치/불일치*하는지를 Kendall-τ 분석으로 측정한다 (§5.2.3). 평가 프로토콜은 2026 best practice를 따라 position-randomization과 swap-debias를 포함한다. **둘째, *provisional measurement validity*** — 인간 평가와의 직접 정렬은 본 paper의 범위를 넘어서며 (cf. MT-Bench, AlpacaEval에서 인간 anchor가 핵심 contribution), 본 연구는 *convergent reliability 결과 + DreamHouse 2026의 외부 anchor + 2026 tool-grounding 결과 (verdict consistency 71→89%)* 를 근거로 *잠정적* validity claim을 제기하며, 인간 평가를 동반한 직접 검증은 향후 연구로 둔다 (§7 참조). 본 framing은 "VLM 합의 = validity" 라는 circular argument를 명시적으로 회피한다.
+
+**SOTA 일관성 가설 (구 "모델-독립성").** 위 세 RQ는 단일 VLM의 자기회귀 생성에서 기인하는 **구조적 한계**로 가설화하며, *현재 세대 SOTA closed VLM 전반*에서 자연스럽게 해소되지 않을 것으로 예상한다. 이를 직접 검증하기 위해 본 연구는 GPT-4o, GPT-5.4 (Azure), Claude 4.6 Opus (Bedrock) 세 모델에서 동일한 single-pass baseline의 ConsistencyScore와 joint fidelity를 비교한다 (§5.3.4). GPT-5.4 single-pass의 ConsistencyScore가 LayerAgent-on-GPT-4o보다 낮다면, 문제는 *해당 모델 세대*의 용량이 아닌 *생성 구조* 자체에 있음을 시사한다. (open-weight 모델 또는 차세대 frontier 모델로의 일반화는 향후 연구로 둔다 — §7 참조.)
 
 ### 1.3 진단 실험: 인지 부하와 두 종류의 보장 실패
 
@@ -70,7 +72,7 @@
 
 - **양-질 동반 검증 평가 프로토콜**: CSS Richness가 중복·충돌 속성으로 부풀려질 수 있음을 명시적으로 제기하고, **tool-grounded (DOM JSON + screenshot) cross-model VLM-as-Judge** 와 양적 메트릭의 동반 검증을 평가 원칙으로 확립한다. 2026 best practice (position-randomization, swap-debias, cross-model triangulation) 채택.
 
-- **정량적 검증 + 모델-독립성**: GPT-4o에서 LayerAgent는 ConsistencyScore와 CSS Richness, CCR을 동시에 향상시키고, VLM-as-Judge가 양적 향상이 perceived fidelity 개선과 동반함을 확인한다 (양-질 일치). H-RAG 기반 단일 VLM 기법(CCR 0.26)과의 대비로 zero-sum 트레이드오프 해소를 보이며, GPT-5.4·Claude 4.6 Opus single-pass와의 비교로 두 보장 실패가 모델 scale에 불변임을 검증한다.
+- **정량적 검증 + SOTA 일관성**: GPT-4o에서 LayerAgent는 ConsistencyScore와 CSS Richness, CCR을 동시에 향상시키고, cross-model VLM-as-Judge (Claude / GPT-5.4 / Gemini, position-randomized + swap-debiased) 가 양적 향상이 perceived fidelity 개선과 동반함을 확인한다 (인간 anchor는 향후 검증). H-RAG 기반 단일 VLM 기법(CCR 0.26)과의 대비로 zero-sum 트레이드오프 해소를 보이며, GPT-5.4·Claude 4.6 Opus single-pass와의 비교로 두 보장 실패가 *현재 세대 SOTA closed VLM 전반에서 일관됨*을 검증한다.
 
 ---
 
@@ -78,7 +80,13 @@
 
 ### 2.1 디자인-투-코드 생성
 
-디자인-투-코드 생성은 시각 디자인을 실행 가능한 코드로 변환하는 것을 목표로 한다. **Design2Code** (Si et al., 2024)는 484개의 실제 웹페이지로 구성된 벤치마크를 도입하고 GPT-4V가 스크린샷-투-HTML 변환에서 중간 수준의 충실도를 달성함을 보고하였다. **WebSight** (Laurençon et al., 2024)는 디자인-투-코드 모델 학습을 위한 200만 쌍의 합성 데이터셋을 공개하였다. **DCGen** (FSE 2025)은 페이지를 블록 단위로 분할하여 독립적으로 코드를 생성하는 분할 정복 접근을 제안하였다. DCGen의 블록 수준 분해는 개념적으로 본 연구의 요소 수준 크롭과 관련되나, DCGen은 **레이아웃 정확도**를, 본 연구는 **CSS 재질 품질**을 목표로 한다는 점에서 차별화되며, 이를 실험적으로 검증한다. **LaTCoder** (KDD 2025)는 코드 이전에 레이아웃을 "사고 과정(chain of thought)"으로 생성하는 접근을 취하며, **ScreenCoder** (2025)는 인식-계획-생성의 파이프라인을 채택하였다.
+디자인-투-코드 생성은 시각 디자인을 실행 가능한 코드로 변환하는 것을 목표로 한다. **Design2Code** (Si et al., 2024)는 484개의 실제 웹페이지로 구성된 벤치마크를 도입하고 GPT-4V가 스크린샷-투-HTML 변환에서 중간 수준의 충실도를 달성함을 보고하였다. **WebSight** (Laurençon et al., 2024)는 디자인-투-코드 모델 학습을 위한 200만 쌍의 합성 데이터셋을 공개하였다. **DCGen** (FSE 2025)은 페이지를 블록 단위로 분할하여 독립적으로 코드를 생성하는 분할 정복 접근을 제안하였다. **LaTCoder** (KDD 2025)는 코드 이전에 레이아웃을 "사고 과정(chain of thought)"으로 생성한다.
+
+본 연구와 가장 가까운 두 동시대 연구는 **ScreenCoder** (arXiv:2507.22827, 2025)와 **DesignCoder** (arXiv:2506.13663, 2025)이다.
+- **ScreenCoder**는 본 연구와 동일한 *웹 도메인 HTML/CSS 출력*을 생성하며, Grounding → Planning → Generation의 3단계 멀티에이전트 구조를 채택한다. 50,000 image-code pair 데이터셋과 함께 RL 미세조정(GRPO)을 도입하였다. **차별점**: ScreenCoder의 cross-element 일관성은 *원본 스크린샷에서 image patch를 추출하여 placeholder를 대체*하는 Hungarian-algorithm 매칭 방식이며, 본 연구의 Style Normalizer는 *생성된 CSS code 위에서 속성값을 통일*하는 코드-수준 기법이다. 즉, ScreenCoder는 visual content reuse, 본 연구는 generative code uniformity라는 다른 차원에서 일관성을 다룬다. 또한 ScreenCoder는 "Text Inserter" 같은 시각/콘텐츠 분리 단계가 없어 RQ2의 zero-sum을 해소하지 못한다.
+- **DesignCoder**는 모바일 UI / React Native 도메인에서 UI Grouping Chain → Hierarchy-Aware Generation → **Self-Correcting Refinement** 3단계를 사용한다. 마지막 단계는 Appium으로 렌더링한 결과를 원본과 비교하여 컴포넌트별 수정을 *post-hoc*로 가하는 iterative refinement이다. **차별점**: DesignCoder는 *post-render 검증-수정* 패러다임이고, LayerAgent의 Style Normalizer는 *pre-render 정규화* 패러다임이다. 본 연구의 Style Normalizer ablation (§5.2.1, D vs D₁) 은 pre-render 정규화의 effect size를 격리해서 보여주며, post-render iterative refinement와의 직접 head-to-head 비교는 동일 backbone 위에서 향후 추가 검증 대상으로 남긴다.
+
+DCGen·ScreenCoder·DesignCoder 모두 본 연구가 식별한 두 보장 (RQ1 cross-element consistency, RQ2 joint content-visual fidelity)을 *통합적으로* 부과하지 않는다 — DCGen은 레이아웃 정확도, ScreenCoder는 image patch 재사용, DesignCoder는 post-hoc refinement에 초점을 맞추며, 모두 슬라이드 도메인 특유의 글래스모피즘·네온 글로우 같은 *생성형 CSS 재질의 카드 간 통일*은 다루지 않는다. 본 연구는 이 gap을 Style Normalizer + Text Inserter의 단계 분리로 메우고, 평가 측면에서 DreamHouse 2026의 양/질 직교성을 슬라이드 도메인에서 재확인한다 (RQ3).
 
 반복적 시각 교정에 관한 최근 연구도 관련이 깊다. **VisRefiner** (arXiv:2602.05998, 2025)는 렌더링된 예측 결과와 참조 디자인 간의 시각적 차이를 학습하는 프레임워크로, GPT-4o 대비 Block Match에서 21.5점의 향상을 달성하였다. **Vision-Guided Iterative Refinement** (arXiv:2604.05839, 2026)은 VLM 기반 시각 비평(critic)을 통해 렌더링된 웹페이지에 구조화된 피드백을 제공하며, 3회 반복 교정을 통해 17.8%의 개선을 보고하였다. 이러한 접근은 본 연구와 상호 보완적이다: 이들은 반복적 렌더링과 비교를 통해 품질을 개선하는 반면, 본 연구는 입력 분해를 통해 품질을 개선한다.
 
@@ -278,7 +286,7 @@ LayerAgent는 LangGraph v1.0 StateGraph로 구현된다. 레이아웃 분석기�
 **평가 메트릭.** 본 연구는 RQ별로 양적·질적 메트릭을 페어링하여 보고한다 (RQ3의 동반 검증 원칙). 모든 메트릭 코드와 단위 테스트는 `final_test/metrics/` 아래에 공개한다.
 
 **자동 메트릭 (reference-free, deterministic):**
-- **`ConsistencyScore`** (RQ1 headline): 한 슬라이드 내 카드 간 6 CSS 속성(`border-radius`, `box-shadow blur`, `box-shadow alpha`, `background-rgb-distance`, `background-alpha`, `border-width`)의 정규화된 변동계수 평균을 1에서 뺀 값. 1.0 = 완전 일관, 0 = 최대 불일치. 구현: `final_test/metrics/consistency.py`.
+- **`ConsistencyScore`** (RQ1 headline, *provisional metric*): 한 슬라이드 내 카드 간 6 CSS 속성(`border-radius`, `box-shadow blur`, `box-shadow alpha`, `background-rgb-distance`, `background-alpha`, `border-width`)의 정규화된 변동계수 평균을 1에서 뺀 값. 1.0 = 완전 일관, 0 = 최대 불일치. **Caveat (RQ3 self-consistency)**: ConsistencyScore는 본 연구가 새로 정의하는 metric으로, 인간이 지각하는 *visual consistency*와의 정렬은 향후 연구로 검증 예정이다 (§7 참조). 따라서 본 paper에서 ConsistencyScore는 (a) ablation의 effect-size 비교용 *diagnostic* + (b) tool-grounded cross-model VLM-judge가 보는 *convergent reliability anchor* 로 사용하며, 단독으로 시각 품질을 결론짓는 근거로는 사용하지 않는다 — 항상 VLM-judge 점수와 페어 보고한다 (§5.1 동반 검증 원칙). 구현: `final_test/metrics/consistency.py`.
 - **CCR** (Content Completeness Rate, RQ2): 입력 텍스트 콘텐츠 중 생성 HTML에 나타나는 비율 (문자열 매칭).
 - **CSS Richness** (보조): CSS 효과 속성(box-shadow, gradient, opacity, filter, backdrop-filter, transform, border-radius)의 등장 횟수. RQ3에 따라 *양적 상한*으로만 사용하며 단독 결론 근거로 쓰지 않는다.
 
@@ -385,7 +393,7 @@ C와 D의 대비가 RQ2의 zero-sum 해소를 보인다: H-RAG는 CSS Richness 1
 
 VLM-judge 점수에서 LayerAgent는 Baseline 대비 Material에서 일관된 우위(예: design_01에서 +1점, glassmorphism 재현)를 보이며, design_05 (hub-spoke) Layout에서는 Baseline=3, LayerAgent=6으로 baseline이 hub-spoke를 2×3 grid로 평탄화한 사례를 정성 캡처한다.
 
-#### 5.3.4 모델-독립성 검증: 두 보장 실패는 모델 scale에 불변인가?
+#### 5.3.4 SOTA 일관성 검증: 두 보장 실패가 현재 세대 frontier VLM 전반에서 일관되는가?
 
 본 thesis는 RQ1/RQ2의 실패가 *단일 VLM의 자기회귀 생성 구조 자체*에서 기인하며, 모델 능력 향상으로 해소되지 않는다고 주장한다. 이를 직접 검증하기 위해 single-pass baseline을 GPT-4o, GPT-5.4 (Azure), Claude 4.6 Opus (Bedrock) 세 모델에서 실행하고, GPT-4o + LayerAgent와 비교한다 (`exp4`).
 
@@ -479,6 +487,46 @@ Style Normalizer는 A2UI Protocol (Google, 2026)이 client-side renderer로 desi
 
 ---
 
+## 부록 A. 사전 등록 (Pre-registration) — RQ3 가설 검증 임계값
+
+본 paper의 RQ3 핵심 가설들은 *post-hoc 임의 임계값*이 아닌 *사전 명시된* 결정 규칙으로 검증된다. 모든 임계값은 본 paper 초안 작성 시점 (즉 exp3 결과를 보기 전) 에 결정되었으며, 다음과 같다:
+
+**H3(a) — 양적 메트릭의 perceived fidelity 부족**
+- 결정 규칙: `Kendall τ(structural metric, VLM-judge) < 0.30` (Cohen-style "weak correlation")
+- 비교 메트릭: CSS Richness, CCR, Block-Match, element-IoU, CLIP, SSIM (총 6종)
+- 비교 judge: Claude 4.6 Opus, GPT-5.4, Gemini 2.5 (3종)
+- 적용 범위: 6×3 = 18개 metric-judge τ 중 ≥12개가 임계값 미만이면 H3(a) 채택
+- 95% bootstrap CI 보고
+
+**H3(b) — Cross-model VLM-judge 합의**
+- 결정 규칙: `Kendall τ(VLM_i, VLM_j) > 0.60` (Cohen-style "strong correlation")
+- 비교: 3 judge × 3 = 3 pairwise τ
+- 적용 범위: 3개 모두 임계값 초과면 H3(b) 채택, 2개 초과면 부분 채택
+- 95% bootstrap CI 보고
+
+**H3(c) — Tool-grounding의 슬라이드 도메인 효과**
+- 결정 규칙: `agreement(with-tool) − agreement(no-tool) ≥ 10 percentage points` (2026 외부 결과: 71→89% = 18pp 의 효과 절반 이상 재현)
+- 측정: 같은 30 pair에서 with-tool과 no-tool 조건의 cross-judge 합의 비율
+- 적용 범위: 3 judge 평균 효과가 임계값 이상이면 H3(c) 채택
+
+**H1 — Style Normalizer effect size (RQ1 ablation)**
+- 결정 규칙: `ConsistencyScore(D) − ConsistencyScore(D₁) ≥ 0.15` AND `paired Wilcoxon p < 0.05`
+- 적용 범위: 10 design × 3 seed = 30 paired observations
+
+**H2 — Text Inserter effect size (RQ2 ablation)**
+- 결정 규칙: `joint_pass_rate(D) − joint_pass_rate(D₂) ≥ 0.25`
+  (joint pass = CCR ≥ 0.7 AND CSS Richness ≥ 10)
+- 적용 범위: 10 design × 3 seed = 30 paired observations
+
+**H4 — SOTA 일관성 (구 모델-독립성)**
+- 결정 규칙: `ConsistencyScore(GPT-5.4 single-pass) < ConsistencyScore(GPT-4o + LayerAgent full)` AND `joint_pass(GPT-5.4 single-pass) < joint_pass(GPT-4o + LayerAgent full)`
+- 적용 범위: 10 design × 3 seed = 30 paired observations per model
+- 본 가설이 기각되면 thesis의 SOTA 일관성 주장을 *공개 모델·이전 세대까지로 확장하지 않은 잠정적 주장*으로 명시 약화한다.
+
+본 사전 등록은 paper 부록 외에도 OSF (Open Science Framework) 에 별도 등록될 예정이며, 등록 ID는 publication 시점에 명시한다.
+
+---
+
 ## 참고 문헌
 
 ### 디자인-투-코드 생성
@@ -486,7 +534,9 @@ Style Normalizer는 A2UI Protocol (Google, 2026)이 client-side renderer로 desi
 - Laurençon, H., et al. "Unlocking the Conversion of Web Screenshots into HTML Code with the WebSight Dataset." 2024.
 - DCGen. "Divide-and-Conquer Screenshot-to-Code Generation." FSE 2025.
 - LaTCoder. "Layout-as-Thought Code Generation." KDD 2025.
-- ScreenCoder. "Modular Multi-Agent Design-to-Code Framework." 2025.
+- ScreenCoder. "ScreenCoder: Advancing Visual-to-Code Generation for Front-End Automation via Modular Multimodal Agents." arXiv:2507.22827, 2025.
+- DesignCoder. "DesignCoder: Hierarchy-Aware and Self-Correcting UI Code Generation with Large Language Models." arXiv:2506.13663, 2025.
+- WebRenderBench. "Enhancing Web Interface Generation through Layout-Style Consistency and Reinforcement Learning." 2025.
 
 ### 시각 교정
 - VisRefiner. "Learning from Visual Differences for Screenshot-to-Code Generation." arXiv:2602.05998, 2025.
