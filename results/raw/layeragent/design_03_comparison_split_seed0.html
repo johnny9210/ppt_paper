@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_03_comparison_split" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+  <div style="position:absolute;inset:0;z-index:0;">
+    <style>
+      .design_03_comparison_split-bg-base {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: linear-gradient(90deg, #0F0E38 50%, #9360B9 50%);
+      }
+    </style>
+    <div class="design_03_comparison_split-bg-base"></div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:1;pointer-events:none;">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+      <defs>
+        <pattern id="p-circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+          <path d="M 0,20 L 30,20 L 30,40 L 60,40 L 60,15 L 80,15" stroke="#9360B9" stroke-width="0.6" fill="none" opacity="0.18" />
+          <path d="M 10,0 L 10,30 L 50,30 L 50,55 L 75,55 L 75,80" stroke="#9360B9" stroke-width="0.6" fill="none" opacity="0.18" />
+          <circle cx="30" cy="20" r="1.5" fill="#9360B9" opacity="0.18" />
+          <circle cx="60" cy="40" r="1.5" fill="#9360B9" opacity="0.18" />
+          <circle cx="50" cy="30" r="1.5" fill="#9360B9" opacity="0.18" />
+          <circle cx="75" cy="55" r="1.5" fill="#9360B9" opacity="0.18" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#p-circuit)" />
+    </svg>
+  </div>
+  <div style="position:absolute;inset:0;z-index:2;pointer-events:none;">
+    <style>
+      .design_03_comparison_split-atmos {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(circle at center, rgba(147, 96, 185, 0.25), transparent 70%), radial-gradient(circle at 25% 50%, rgba(147, 96, 185, 0.15), transparent 50%), radial-gradient(circle at 75% 50%, rgba(147, 96, 185, 0.15), transparent 50%);
+        filter: blur(8px);
+      }
+    </style>
+    <div class="design_03_comparison_split-atmos"></div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+    <style>
+      .design_03_comparison_split-decor {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .neon-circle {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, #9360B9, transparent 70%);
+        box-shadow: 0 0 15px #9360B9, 0 0 50px #9360B9, 0 0 100px #9360B9;
+      }
+    </style>
+
+    <div class="design_03_comparison_split-decor">
+      <div class="neon-circle"></div>
+    </div>
+  </div>
+
+  <div class="hero-wrap-1" style="position:absolute;left:45.0%;top:40.0%;width:10.0%;height:20.0%;z-index:20;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .hero-1 {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: radial-gradient(circle, #5648A8 0%, #292B76 100%);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+        }
+
+        .hero-value {
+          font-size: 3rem;
+          color: #C4E3FD;
+          text-shadow: 0 0 10px #5085CD, 0 0 20px #5085CD;
+        }
+
+        .hero-subtitle {
+          font-size: 1.2rem;
+          color: #C4E3FD;
+          opacity: 0.7;
+          text-shadow: 0 0 5px #948FE0;
+        }
+      </style>
+
+      <div class="hero-1">
+        <div class="hero-value">온프레미스 vs 클라우드 네이티브</div>
+      </div>
+    </div>
+    <div style="position:absolute;inset:0;border:2px solid rgba(154, 103, 181, 1);opacity:1.0;pointer-events:none;"></div>
+    <div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="5,40 5,5 40,5" stroke="#9360B9" stroke-width="2" fill="none" opacity="0.7" />
+      </svg>
+    </div>
+  </div>
+  <div class="card-wrap-1" style="position:absolute;left:5.0%;top:15.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-1 {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          background: rgba(1, 19, 52, 0.8);
+          border-radius: 10px;
+          padding: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          backdrop-filter: blur(8px);
+        }
+
+        .card-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: radial-gradient(circle, #5693BB 0%, #001334 70%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+          box-shadow: 0 0 10px rgba(155, 82, 196, 0.7);
+        }
+
+        .card-value {
+          flex-grow: 1;
+          background: rgba(36, 82, 112, 0.6);
+          border-radius: 8px;
+          padding: 5px 10px;
+          color: #95E4F5;
+          font-size: 1rem;
+        }
+
+        .card-label {
+          /* 숨김 */
+        }
+      </style>
+
+      <div class="card-1">
+        <div class="card-icon"><i class="fas fa-gear" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div class="card-value">초기 투자비용 높음</div>
+        <div class="card-label"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-2" style="position:absolute;left:5.0%;top:32.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-2 {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          background: rgba(1, 19, 52, 0.8);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          backdrop-filter: blur(8px);
+          padding: 1rem;
+          gap: 1rem;
+        }
+
+        .card-icon {
+          width: 3rem;
+          height: 3rem;
+          background: rgba(63, 146, 199, 0.9);
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .card-value {
+          flex-grow: 1;
+          background: rgba(24, 59, 106, 0.8);
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          color: #93e6f8;
+          font-size: 1rem;
+        }
+
+        .card-label {
+          color: #93e6f8;
+          font-size: 1rem;
+        }
+      </style>
+
+      <div class="card-2">
+        <div class="card-icon"><i class="fas fa-gear" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div class="card-value">확장에 수주~수개월 소요</div>
+        <div class="card-label"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-3" style="position:absolute;left:5.0%;top:49.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-3 {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #163A6A, #2C5885);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 10px;
+          position: relative;
+          color: #ffffff;
+          backdrop-filter: blur(8px);
+        }
+
+        .card-icon {
+          width: 50px;
+          height: 50px;
+          background-color: #01173B;
+          border-radius: 50%;
+          margin-right: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 10px rgba(155, 82, 196, 0.7);
+        }
+
+        .card-value {
+          flex: 1;
+          background-color: rgba(16, 26, 69, 0.6);
+          border-radius: 8px;
+          padding: 10px;
+        }
+
+        .card-label {
+          position: absolute;
+          bottom: 5px;
+          right: 10px;
+          font-size: 0.8rem;
+          opacity: 0.7;
+        }
+      </style>
+
+      <div class="card-3">
+        <div class="card-icon"><i class="fas fa-circle" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div class="card-value">보안 직접 관리 필요</div>
+        <div class="card-label"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-4" style="position:absolute;left:5.0%;top:66.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-4 {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          background-color: #02193D;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          padding: 10px;
+          position: relative;
+          width: 100%;
+          height: 100%;
+          backdrop-filter: blur(8px);
+        }
+
+        .card-icon {
+          flex-shrink: 0;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: radial-gradient(circle, #90E3F5, #2E5A87);
+          box-shadow: 0 0 10px rgba(155, 82, 196, 0.7);
+          margin-right: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          text-shadow: 0 0 5px #4698CA;
+        }
+
+        .card-value,
+        .card-label {
+          color: #fff;
+          opacity: 0.85;
+          margin-bottom: 5px;
+        }
+
+        .card-value {
+          font-size: 1.2rem;
+          margin-bottom: 4px;
+        }
+
+        .card-label {
+          font-size: 1rem;
+        }
+      </style>
+
+      <div class="card-4">
+        <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div>
+          <div class="card-value">유지보수 인력 상시 필요</div>
+          <div class="card-label"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-5" style="position:absolute;left:65.0%;top:15.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-5 {
+          width: 100%;
+          height: 100%;
+          background: rgba(1, 19, 52, 0.8);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-around;
+          position: relative;
+          border: 2px solid rgba(154, 103, 181, 1);
+          backdrop-filter: blur(8px);
+        }
+
+        .card-icon {
+          width: 64px;
+          height: 64px;
+          background: linear-gradient(135deg, #e9a8fd, #41285c);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 10px rgba(155, 82, 196, 0.7);
+        }
+
+        .card-value,
+        .card-label {
+          color: #EFB5F6;
+          text-shadow: 0 0 5px rgba(239, 181, 246, 0.8);
+          font-size: 1.2rem;
+          line-height: 1.5;
+        }
+
+        .card-value {
+          flex-grow: 1;
+          text-align: left;
+          padding-left: 20px;
+        }
+
+        .card-label {
+          flex-grow: 1;
+          text-align: right;
+          padding-right: 20px;
+        }
+      </style>
+
+      <div class="card-5">
+        <div class="card-icon"><i class="fas fa-arrow-right" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div class="card-value">사용량 기반 과금</div>
+        <div class="card-label"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-6" style="position:absolute;left:65.0%;top:32.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-6 {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          position: relative;
+          background: linear-gradient(135deg, rgba(237, 180, 248, 0.2), rgba(237, 180, 248, 0.1));
+          border: 2px solid rgba(154, 103, 181, 1);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          padding: 20px;
+          margin: 10px;
+          color: #ffffff;
+          backdrop-filter: blur(8px);
+        }
+
+        .card-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #EDB4F8, #9A51BF);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+          box-shadow: 0 0 10px rgba(155, 82, 196, 0.7);
+        }
+
+        .card-value {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+
+        .card-label {
+          font-size: 1rem;
+          color: rgba(237, 180, 248, 0.8);
+        }
+      </style>
+
+      <div class="card-6">
+        <div class="card-icon"><i class="fas fa-file-lines" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div class="card-value">분 단위 자동 스케일링</div>
+        <div class="card-label"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-7" style="position:absolute;left:65.0%;top:49.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-7 {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          background: rgba(1, 19, 52, 0.8);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          backdrop-filter: blur(8px);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 10px;
+          color: #e7b2f5;
+          font-family: Arial, sans-serif;
+        }
+
+        .card-icon {
+          width: 20%;
+          height: 60px;
+          background: #9350b9;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: 0 0 10px rgba(155, 82, 196, 0.7);
+        }
+
+        .card-value {
+          width: 50%;
+          margin-left: 10px;
+          font-size: 1rem;
+        }
+
+        .card-label {
+          width: 30%;
+          margin-left: 10px;
+          font-size: 0.9rem;
+          text-align: right;
+        }
+      </style>
+
+      <div class="card-7">
+        <div class="card-icon"><i class="fas fa-gauge" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div class="card-value">관리형 보안 서비스</div>
+        <div class="card-label"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-8" style="position:absolute;left:65.0%;top:66.0%;width:30.0%;height:10.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <style>
+        .card-8 {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          background: rgba(1, 19, 52, 0.8);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(64, 144, 194, 0.5);
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          backdrop-filter: blur(8px);
+        }
+
+        .card-icon {
+          flex: 0 0 40px;
+          height: 40px;
+          background: #9B52C4;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 10px;
+          box-shadow: 0 0 10px rgba(155, 82, 196, 0.7);
+        }
+
+        .card-value {
+          flex-grow: 1;
+          background: rgba(69, 42, 97, 0.8);
+          border-radius: 5px;
+          height: 10px;
+          margin-bottom: 5px;
+          box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-label {
+          flex-grow: 1;
+          background: rgba(69, 42, 97, 0.8);
+          border-radius: 5px;
+          height: 10px;
+          box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+      </style>
+
+      <div class="card-8">
+        <div class="card-icon"><i class="fas fa-lock" style="font-size:1.8rem;color:#9360B9;"></i></div>
+        <div style="flex-grow: 1;">
+          <div class="card-value">인프라 자동화로 인력 절감</div>
+          <div class="card-label"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#9360B9;letter-spacing:0.08em;text-transform:uppercase;">온프레미스 vs 클라우드 네이티브</div>
+
+  </div>
+</div></div>
+</body></html>

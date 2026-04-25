@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_01_timeline" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+    .design_01_timeline-bg-base {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: radial-gradient(circle at center, rgba(124, 153, 235, 0.7) 0%, rgba(8, 14, 60, 0.9) 60%);
+    }
+</style>
+<div class="design_01_timeline-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+  <defs>
+    <pattern id="p-circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 0,20 L 30,20 L 30,40 L 60,40 L 60,15 L 80,15" stroke="#73B2DD" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <path d="M 10,0 L 10,30 L 50,30 L 50,55 L 75,55 L 75,80" stroke="#73B2DD" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <circle cx="30" cy="20" r="1.5" fill="#73B2DD" opacity="0.18"/>
+      <circle cx="60" cy="40" r="1.5" fill="#73B2DD" opacity="0.18"/>
+      <circle cx="50" cy="30" r="1.5" fill="#73B2DD" opacity="0.18"/>
+      <circle cx="75" cy="55" r="1.5" fill="#73B2DD" opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#p-circuit)"/>
+</svg></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"><style>
+  .design_01_timeline-atmos {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle at center, rgba(115, 178, 221, 0.25), transparent),
+                radial-gradient(circle at 20% 20%, rgba(115, 178, 221, 0.25), transparent 70%);
+    backdrop-filter: blur(40px);
+  }
+</style>
+<div class="design_01_timeline-atmos"></div></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"><style>
+    body {
+        margin: 0;
+        background-color: #080E3C;
+    }
+    .design_01_timeline-decor {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+    }
+    .timeline-line {
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, rgba(124, 153, 235, 0) 0%, rgba(124, 153, 235, 0.7) 50%, rgba(124, 153, 235, 0) 100%);
+        box-shadow: 0 0 10px 5px rgba(124, 153, 235, 0.7);
+    }
+    .glow-node {
+        position: absolute;
+        width: 5%;
+        height: 0;
+        padding-bottom: 5%;
+        border-radius: 50%;
+        background: rgba(124, 153, 235, 0.7);
+        box-shadow: 0 0 20px 10px rgba(124, 153, 235, 0.7);
+    }
+    .glow-node:nth-child(1) { left: 7.5%; top: 35%; }
+    .glow-node:nth-child(2) { left: 27.5%; top: 35%; }
+    .glow-node:nth-child(3) { left: 47.5%; top: 35%; }
+    .glow-node:nth-child(4) { left: 67.5%; top: 35%; }
+    .glow-node:nth-child(5) { left: 87.5%; top: 35%; }
+</style>
+
+<div class="design_01_timeline-decor">
+    <div class="timeline-line"></div>
+    <div class="glow-node"></div>
+    <div class="glow-node"></div>
+    <div class="glow-node"></div>
+    <div class="glow-node"></div>
+    <div class="glow-node"></div>
+</div></div>
+    
+    <div class="card-wrap-1" style="position:absolute;left:20.0%;top:45.0%;width:15.0%;height:25.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0d162b;
+  }
+
+  .card-1, .card-2, .card-3, .card-4 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: rgba(35, 97, 141, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 0 18px rgba(62, 242, 236, 0.6);
+    backdrop-filter: blur(12px);
+  }
+
+  .card-icon, .card-value, .card-label {
+    width: 75%;
+    height: 20%;
+    background-color: rgba(112, 214, 237, 0.3);
+    margin-bottom: 8px;
+    border-radius: 6px;
+    box-shadow: inset 0 0 8px rgba(112, 214, 237, 0.5);
+  }
+
+  .card-1 .card-icon, .card-2 .card-icon, .card-3 .card-icon, .card-4 .card-icon {
+    height: 25%;
+  }
+
+  .card-3 .card-value, .card-4 .card-value {
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+  }
+
+  .card-3 .card-label, .card-4 .card-label {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+  }
+</style>
+
+<div class="card-1">
+  <div class="card-icon"><i class="fas fa-chart-bar" style="font-size:1.8rem;color:#73B2DD;"></i></div>
+  <div class="card-value">📊 현황 진단</div>
+  <div class="card-label">레거시 시스템 분석 및 디지털 성숙도 평가</div>
+</div></div>
+  
+</div>
+<div class="card-wrap-2" style="position:absolute;left:40.0%;top:45.0%;width:15.0%;height:25.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+    <div class="card-2">
+      <div class="card-icon"><i class="fas fa-chart-line" style="font-size:1.8rem;color:#73B2DD;"></i></div>
+      <div class="card-value">🏗️ 기반 구축</div>
+      <div class="card-label">클라우드 마이그레이션 및 API 플랫폼 설계</div>
+    </div>
+  </div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:60.0%;top:45.0%;width:15.0%;height:25.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+    <div class="card-3">
+      <div class="card-icon"><i class="fas fa-chart-bar" style="font-size:1.8rem;color:#73B2DD;"></i></div>
+      <div class="card-value">🔄 프로세스 혁신</div>
+      <div class="card-label">업무 자동화 및 데이터 기반 의사결정 체계 도입</div>
+    </div>
+  </div>
+</div>
+<div class="card-wrap-4" style="position:absolute;left:80.0%;top:45.0%;width:15.0%;height:25.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+    <div class="card-4">
+      <div class="card-icon"><i class="fas fa-file-lines" style="font-size:1.8rem;color:#73B2DD;"></i></div>
+      <div class="card-value">🚀 스케일업</div>
+      <div class="card-label">AI/ML 적용 확대 및 전사 디지털 문화 정착</div>
+    </div>
+  </div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:display;font-size:1.75rem;font-weight:700;color:#73B2DD;letter-spacing:0.08em;text-transform:uppercase;">디지털 전환 로드맵 2025</div>
+    <div style="font-size:0.75rem;color:#FFFFFF;margin-top:4px;opacity:0.85;">4단계 전환 마일스톤과 핵심 목표</div>
+</div>
+</div></div>
+</body></html>

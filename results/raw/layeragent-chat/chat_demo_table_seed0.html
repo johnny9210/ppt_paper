@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container chat_table_okr_v2" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+  /* v10 CJK guard */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-value, .card-label,
+  .hero-1, .hero-2, .hero-value, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .chat_table_okr_v2-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(90deg, #0F0E38 50%, #9360B9 50%);
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 50%);
+  }
+</style>
+<div class="chat_table_okr_v2-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+  <defs>
+    <pattern id="p-circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 0,20 L 30,20 L 30,40 L 60,40 L 60,15 L 80,15" stroke="#9360B9" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <path d="M 10,0 L 10,30 L 50,30 L 50,55 L 75,55 L 75,80" stroke="#9360B9" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <circle cx="30" cy="20" r="1.5" fill="#9360B9" opacity="0.18"/>
+      <circle cx="60" cy="40" r="1.5" fill="#9360B9" opacity="0.18"/>
+      <circle cx="50" cy="30" r="1.5" fill="#9360B9" opacity="0.18"/>
+      <circle cx="75" cy="55" r="1.5" fill="#9360B9" opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#p-circuit)"/>
+</svg></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"><style>
+  .chat_table_okr_v2-atmos {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle at center, rgba(147, 96, 185, 0.2), transparent 50%),
+                rgba(15, 14, 56, 0.5);
+    filter: blur(20px);
+  }
+</style>
+<div class="chat_table_okr_v2-atmos"></div></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"><style>
+    .chat_table_okr_v2-decor {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .decorative-line {
+        position: absolute;
+        width: 3px;
+        background: linear-gradient(to bottom, #0F0E38, #9360B9, #0F0E38);
+        height: 100%;
+    }
+
+    .line-left {
+        left: 50%;
+        transform: translateX(-150px);
+    }
+
+    .line-right {
+        right: 50%;
+        transform: translateX(150px);
+    }
+
+    .center-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+    }
+</style>
+
+<div class="chat_table_okr_v2-decor">
+    <div class="decorative-line line-left"></div>
+    <div class="decorative-line line-right"></div>
+    <div class="center-glow"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    <style>
+    .lt-table-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5%;
+      box-sizing: border-box;
+    }
+    .lt-table {
+      width: 100%;
+      max-height: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 14px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.35);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #FFFFFF;
+    }
+    .lt-table thead th {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+      color: #9360B9;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: left;
+      padding: 14px 18px;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .lt-table tbody td {
+      padding: 12px 18px;
+      font-size: 0.85rem;
+      color: #FFFFFF;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    .lt-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .lt-table tbody tr:nth-child(even) td {
+      background: rgba(255,255,255,0.02);
+    }
+    .lt-table tbody td:first-child {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+    }
+    </style>
+<div style="position:absolute;left:6.0%;top:14.0%;width:88.0%;height:80.0%;z-index:9;">
+  <div class="lt-table-wrap">
+    <table class="lt-table">
+      <thead><tr><th>부서</th><th>핵심 지표</th><th>목표</th><th>현재값</th><th>달성률</th></tr></thead>
+      <tbody><tr><td>엔지니어링</td><td>주간 배포 빈도</td><td>주 5회</td><td>주 4.2회</td><td>84%</td></tr><tr><td>마케팅</td><td>MQL 수</td><td>월 1200</td><td>월 1450</td><td>121%</td></tr><tr><td>세일즈</td><td>신규 ARR</td><td>40억</td><td>52억</td><td>130%</td></tr><tr><td>디자인</td><td>디자인 리뷰 처리율</td><td>100%</td><td>87%</td><td>87%</td></tr><tr><td>CS</td><td>평균 응답 시간</td><td>2시간</td><td>1.4시간</td><td>120%</td></tr></tbody>
+    </table>
+  </div>
+</div>
+    
+    
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#9360B9;letter-spacing:0.08em;text-transform:uppercase;">2026 Q1 부서별 OKR 진척률</div>
+    
+</div>
+</div></div>
+</body></html>

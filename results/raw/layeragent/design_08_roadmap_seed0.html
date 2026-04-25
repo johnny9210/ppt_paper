@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-value, .card-label,
+  .hero-1, .hero-2, .hero-value, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .design_08_roadmap-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(180deg, #061022, #032338);
+  }
+
+  .design_08_roadmap-bg-base::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://path/to/neon-lines-pattern.svg'), radial-gradient(circle at center, rgba(71, 185, 223, 0.2), transparent);
+    opacity: 0.6;
+  }
+
+  .design_08_roadmap-atmos {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle at center, rgba(71, 185, 223, 0.25), transparent 70%),
+                radial-gradient(circle at 20% 20%, rgba(112, 112, 112, 0.2), transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(112, 112, 112, 0.2), transparent 60%);
+    filter: blur(50px);
+  }
+
+  .design_08_roadmap-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .timeline-line {
+    position: absolute;
+    top: 40%;
+    left: 17.5%;
+    width: 65%;
+    height: 10px;
+    background: linear-gradient(90deg, #47B9DF, #CA47DF);
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(71, 185, 223, 0.5);
+  }
+
+  .glow-node {
+    position: absolute;
+    top: 37.5%;
+    width: 3%;
+    height: 3%;
+    background: #47B9DF;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(71, 185, 223, 0.8);
+  }
+
+  .node-1 { left: 17.5%; }
+  .node-2 { left: 32.5%; }
+  .node-3 { left: 47.5%; }
+  .node-4 { left: 62.5%; }
+  .node-5 { left: 77.5%; }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(101, 116, 131, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  .card-icon {
+    width: 50%;
+    height: 60px;
+    background: rgba(54, 162, 173, 0.5);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-value {
+    width: 80%;
+    height: 40px;
+    background: rgba(54, 162, 173, 0.2);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .card-label {
+    width: 80%;
+    height: 20px;
+    background: rgba(62, 80, 97, 0.7);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 14px; /* Reduced font-size by approximately 12.5% */
+    line-height: 1.2; /* Adjusted line-height */
+  }
+
+  body {
+    background-color: #141B24;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+</style>
+
+<div class="slide-container design_08_roadmap" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <div class="design_08_roadmap-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+            <defs>
+                <pattern id="p-circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+                    <path d="M 0,20 L 30,20 L 30,40 L 60,40 L 60,15 L 80,15" stroke="#47B9DF" stroke-width="0.6" fill="none" opacity="0.18" />
+                    <path d="M 10,0 L 10,30 L 50,30 L 50,55 L 75,55 L 75,80" stroke="#47B9DF" stroke-width="0.6" fill="none" opacity="0.18" />
+                    <circle cx="30" cy="20" r="1.5" fill="#47B9DF" opacity="0.18" />
+                    <circle cx="60" cy="40" r="1.5" fill="#47B9DF" opacity="0.18" />
+                    <circle cx="50" cy="30" r="1.5" fill="#47B9DF" opacity="0.18" />
+                    <circle cx="75" cy="55" r="1.5" fill="#47B9DF" opacity="0.18" />
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#p-circuit)" />
+        </svg>
+    </div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;">
+        <div class="design_08_roadmap-atmos"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;">
+            <defs>
+                <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="0.6" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <g filter="url(#neon-glow)">
+                <path d="M50.00,42.50 Q36.50,25.50 15.00,22.50" stroke="#47B9DF" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,42.50 Q34.00,53.50 30.00,72.50" stroke="#47B9DF" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,42.50 Q54.00,32.50 50.00,22.50" stroke="#47B9DF" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,42.50 Q54.00,61.50 70.00,72.50" stroke="#47B9DF" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,42.50 Q71.50,39.50 85.00,22.50" stroke="#47B9DF" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+            </g>
+        </svg>
+    </div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+        <div class="design_08_roadmap-decor">
+            <div class="timeline-line"></div>
+            <div class="glow-node node-1"></div>
+            <div class="glow-node node-2"></div>
+            <div class="glow-node node-3"></div>
+            <div class="glow-node node-4"></div>
+            <div class="glow-node node-5"></div>
+        </div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    <div style="position:absolute;left:42.0%;top:34.5%;width:16.0%;aspect-ratio:1;z-index:15;display:flex;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle, rgba(74,222,222,0.25) 0%, transparent 70%);box-shadow:0 0 60px #47B9DF55, 0 0 120px #47B9DF30, inset 0 0 40px #47B9DF44;border:2px solid #47B9DF;">
+        <i class="fas fa-network-wired" style="font-size:3rem;color:#47B9DF;filter:drop-shadow(0 0 10px #47B9DF);"></i>
+    </div>
+    <div class="card-wrap-1" style="position:absolute;left:7.5%;top:10.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-image" style="font-size:1.8rem;color:#47B9DF;"></i></div>
+                <div class="card-value">Q1 🎯 MVP 출시</div>
+                <div class="card-label">핵심 기능 3종 런칭</div>
+            </div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#47B9DF;opacity:1.0;pointer-events:none;"></div>
+    </div>
+    <div class="card-wrap-2" style="position:absolute;left:22.5%;top:60.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#47B9DF;"></i></div>
+                <div class="card-value">Q2 📈 성장 가속</div>
+                <div class="card-label">사용자 1만명 돌파 목표</div>
+            </div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#47B9DF;opacity:1.0;pointer-events:none;"></div>
+    </div>
+    <div class="card-wrap-3" style="position:absolute;left:42.5%;top:10.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-globe" style="font-size:1.8rem;color:#47B9DF;"></i></div>
+                <div class="card-value">Q3 🌏 글로벌 확장</div>
+                <div class="card-label">일본·동남아 시장 진출</div>
+            </div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#47B9DF;opacity:1.0;pointer-events:none;"></div>
+    </div>
+    <div class="card-wrap-4" style="position:absolute;left:62.5%;top:60.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-arrow-trend-up" style="font-size:1.8rem;color:#47B9DF;"></i></div>
+                <div class="card-value">Q4 🏆 엔터프라이즈</div>
+                <div class="card-label">대기업 맞춤 솔루션 출시</div>
+            </div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#47B9DF;opacity:1.0;pointer-events:none;"></div>
+    </div>
+    <div class="card-wrap-5" style="position:absolute;left:77.5%;top:10.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-rocket" style="font-size:1.8rem;color:#47B9DF;"></i></div>
+                <div class="card-value">2026 🚀 플랫폼화</div>
+                <div class="card-label">3rd party 앱 마켓플레이스</div>
+            </div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#47B9DF;opacity:1.0;pointer-events:none;"></div>
+    </div>
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#47B9DF;letter-spacing:0.08em;text-transform:uppercase;">2025 제품 로드맵</div>
+    </div>
+</div></div>
+</body></html>

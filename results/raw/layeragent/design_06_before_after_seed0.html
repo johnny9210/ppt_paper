@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-value, .card-label,
+  .hero-1, .hero-2, .hero-value, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .design_06_before_after-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to right, #201E21, #A0D5D1);
+  }
+
+  .design_06_before_after-atmos {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(160, 213, 209, 0.25) 0%, rgba(32, 30, 33, 0) 70%);
+    filter: blur(80px);
+  }
+
+  .design_06_before_after-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .flare-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20vw;
+    height: 20vw;
+    background: radial-gradient(circle, rgba(160, 213, 209, 0.8), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(30px);
+  }
+
+  .arrow-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 10vw solid transparent;
+    border-right: 10vw solid transparent;
+    border-bottom: 20vw solid #A0D5D1;
+    filter: blur(5px);
+  }
+
+  .hero-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #EBDEC7, #5C818C, #403430);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-value {
+    font-size: 3rem;
+    color: #C07456;
+    text-shadow: 0 0 10px #C07456;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    color: #EBDEC7;
+    opacity: 0.8;
+    text-align: center;
+  }
+
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #070e19;
+    height: 100vh;
+  }
+
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #4C2110, #704940);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    padding: 1rem;
+    font-size: 12px; /* Reduced from 16px */
+  }
+
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #5E2411, #9A4F34);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 13px; /* Reduced from 16px */
+  }
+
+  .card-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(145deg, #68413A, #A05845);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 1rem;
+    font-size: 14px; /* Reduced from 16px */
+  }
+
+  .card-6 .card-value {
+    color: #C3F4F4;
+    font-size: 26px; /* Reduced from 28px */
+  }
+
+  .card-icon, .card-value, .card-label {
+    flex: 1;
+    background-color: rgba(148, 80, 55, 0.8);
+    border: 1px solid #A0D5D1;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px #AF715C;
+  }
+
+  .card-value {
+    line-height: 1.2; /* Adjusted line-height */
+  }
+
+</style>
+
+<div class="slide-container design_06_before_after" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+  <div style="position:absolute;inset:0;z-index:0;">
+
+    <div class="design_06_before_after-bg-base"></div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:2;pointer-events:none;">
+
+    <div class="design_06_before_after-atmos"></div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+
+    <div class="design_06_before_after-decor">
+      <div class="flare-effect"></div>
+      <div class="arrow-effect"></div>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+
+  <div class="hero-wrap-1" style="position:absolute;left:43.0%;top:35.0%;width:14.0%;height:30.0%;z-index:20;">
+    <div style="position:absolute;inset:0;">
+
+      <div class="hero-1">
+        <div class="hero-value">AI 도입</div>
+        <div class="hero-subtitle">전후 비교</div>
+      </div>
+    </div>
+    <div style="position:absolute;inset:0;border:1px solid rgba(189, 119, 93, 0.7);opacity:1.0;pointer-events:none;"></div>
+    <div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="5,40 5,5 40,5" stroke="#A0D5D1" stroke-width="2" fill="none" opacity="0.7" />
+      </svg>
+    </div>
+  </div>
+  <div class="card-wrap-1" style="position:absolute;left:5.0%;top:5.0%;width:30.0%;height:20.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+
+      <div class="card-1">
+        <div class="card-icon"><i class="fas fa-circle" style="font-size:1.8rem;color:#A0D5D1;">📝</i></div>
+        <div class="card-value" style="color:#EBDEC7;">수작업 보고서 작성</div>
+        <div class="card-label" style="color:#C07456;">주 8시간 소요</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-2" style="position:absolute;left:5.0%;top:30.0%;width:30.0%;height:20.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+
+      <div class="card-2">
+        <div class="card-icon"><i class="fas fa-bug" style="font-size:1.8rem;color:#A0D5D1;">🔍</i></div>
+        <div class="card-value" style="color:#EBDEC7;">수동 데이터 검색</div>
+        <div class="card-label" style="color:#C07456;">건당 30분</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-3" style="position:absolute;left:5.0%;top:55.0%;width:30.0%;height:20.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+
+      <div class="card-3">
+        <div class="card-icon"><i class="fas fa-file-lines" style="font-size:1.8rem;color:#A0D5D1;">📞</i></div>
+        <div class="card-value">전화/이메일 응대</div>
+        <div class="card-label">평균 응답 4시간</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-4" style="position:absolute;left:65.0%;top:5.0%;width:30.0%;height:20.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+
+      <div class="card-4">
+        <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#A0D5D1;">🤖</i></div>
+        <div class="card-value" style="color:#EBDEC7;">자동 보고서 생성</div>
+        <div class="card-label" style="color:#89D4D0;">주 30분으로 단축</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-5" style="position:absolute;left:65.0%;top:30.0%;width:30.0%;height:20.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+
+      <div class="card-5">
+        <div class="card-icon"><i class="fas fa-lock" style="font-size:1.8rem;color:#A0D5D1;">⚡</i></div>
+        <div class="card-value" style="color:#C3F4F4;">RAG 기반 즉시 검색</div>
+        <div class="card-label" style="color:#89D4D0;">건당 5초</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-wrap-6" style="position:absolute;left:65.0%;top:55.0%;width:30.0%;height:20.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+
+      <div class="card-6">
+        <div class="card-icon"><i class="fas fa-chart-line" style="font-size:1.8rem;color:#A0D5D1;">💬</i></div>
+        <div class="card-value" style="color:#C3F4F4;">AI 챗봇 자동 응대</div>
+        <div class="card-label" style="color:#89D4D0;">평균 응답 10초</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:display;font-size:1.75rem;font-weight:700;color:#A0D5D1;letter-spacing:0.08em;text-transform:uppercase;">AI 도입 전후 업무 효율성 비교</div>
+
+  </div>
+</div></div>
+</body></html>

@@ -23,6 +23,8 @@ SUPPORTED_ABLATIONS = (
     "no_designspec",
     "no_library",
     "no_visual_critic",
+    "no_overflow_repair",   # v10 P1
+    "no_chart_agent",       # v10 P1
 )
 
 

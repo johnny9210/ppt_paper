@@ -1,0 +1,37 @@
+{
+  "user_message": "Q4 2025 비즈니스 성과 대시보드. 매출 128억(+23% YoY), 활성 사용자 240만(+15% MoM), 고객 만족도 4.7/5.0(+0.3). 다크 테마, 글래스모피즘, 차트 영역 포함.",
+  "parsed_spec": {
+    "slide_type": "dashboard",
+    "content": {
+      "title": "Q4 2025 비즈니스 성과 대시보드",
+      "metrics": [
+        {
+          "emoji": "📈",
+          "title": "매출",
+          "value": "₩128억",
+          "change": "+23% YoY"
+        },
+        {
+          "emoji": "👥",
+          "title": "활성 사용자",
+          "value": "240만",
+          "change": "+15% MoM"
+        },
+        {
+          "emoji": "⭐",
+          "title": "고객 만족도",
+          "value": "4.7/5.0",
+          "change": "+0.3"
+        }
+      ],
+      "chart_title": "성장 차트"
+    },
+    "style": {
+      "primary_color": "#00FFFF",
+      "accent_color": "#00BFFF",
+      "background": "#0A0F1E",
+      "text_color": "#FFFFFF"
+    }
+  },
+  "image_path": "/Users/jik/Documents/ppt_paper/data/experiment_designs/design_02_dashboard.png"
+}

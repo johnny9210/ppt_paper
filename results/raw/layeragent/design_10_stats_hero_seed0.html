@@ -6,20 +6,28 @@
 </head><body>
 <div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_10_stats_hero" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
     <div style="position:absolute;inset:0;z-index:0;"><style>
-    .design_10_stats_hero-bg-base {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        background: #0E1931;
-        background: linear-gradient(135deg, #0E1931 0%, #111F40 100%);
-    }
+  /* v10 CJK guard */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-value, .card-label,
+  .hero-1, .hero-2, .hero-value, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .design_10_stats_hero-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(circle at center left, #E8CF92, #0E1931);
+  }
 </style>
 
 <div class="design_10_stats_hero-bg-base"></div></div>
     <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
   <defs>
     <pattern id="p-hex" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
-      <polygon points="30,4 55,18 55,38 30,52 5,38 5,18" stroke="#AF9266" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <polygon points="30,4 55,18 55,38 30,52 5,38 5,18" stroke="#E8CF92" stroke-width="0.6" fill="none" opacity="0.18"/>
     </pattern>
   </defs>
   <rect width="100%" height="100%" fill="url(#p-hex)"/>
@@ -30,91 +38,84 @@
         inset: 0;
         z-index: 1;
         pointer-events: none;
-        background: radial-gradient(circle at top left, 
-            rgba(174, 144, 91, 0.25), 
-            transparent 50%),
-            rgba(14, 25, 49, 0.25);
-        backdrop-filter: blur(15px);
+        background: radial-gradient(circle at 25% 40%, rgba(232, 207, 146, 0.3), rgba(14, 25, 49, 0.1) 70%);
+        filter: blur(20px);
     }
 </style>
 <div class="design_10_stats_hero-atmos"></div></div>
     <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
     <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"><style>
-  .design_10_stats_hero-decor {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-  }
-  .triangle {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 2vmin solid transparent;
-    border-right: 2vmin solid transparent;
-    border-bottom: 3vmin solid rgba(232, 207, 146, 0.8);
-  }
-  .triangle-1 {
-    top: 8%;
-    left: 8%;
-  }
-  .triangle-2 {
-    top: 58%;
-    left: 42%;
-  }
-  .circle {
-    position: absolute;
-    width: 3vmin;
-    height: 3vmin;
-    background-color: rgba(232, 207, 146, 0.8);
-    border-radius: 50%;
-  }
-  .circle-1 {
-    top: 10%;
-    left: 70%;
-  }
-  .circle-2 {
-    top: 40%;
-    left: 90%;
-  }
+    .design_10_stats_hero-decor {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+    }
+    .design_10_stats_hero-decor .spotlight {
+        position: absolute;
+        left: 5%;
+        top: 5%;
+        width: 15%;
+        height: 15%;
+        background: radial-gradient(circle, rgba(232,207,146,0.5), transparent 70%);
+        border-radius: 50%;
+    }
+    .design_10_stats_hero-decor .triangle {
+        position: absolute;
+        left: 30%;
+        top: 30%;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 26px solid rgba(175, 146, 102, 0.8);
+    }
+    .design_10_stats_hero-decor .circle {
+        position: absolute;
+        left: 40%;
+        top: 60%;
+        width: 20px;
+        height: 20px;
+        background-color: rgba(175, 146, 102, 0.8);
+        border-radius: 50%;
+    }
 </style>
 <div class="design_10_stats_hero-decor">
-  <div class="triangle triangle-1"></div>
-  <div class="triangle triangle-2"></div>
-  <div class="circle circle-1"></div>
-  <div class="circle circle-2"></div>
-</div><div style="position:absolute;left:2.0%;top:10.0%;width:6.0%;height:6.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,90 10,90" stroke="#AF9266" stroke-width="2" fill="none" opacity="0.15"/></svg></div><div style="position:absolute;left:92.0%;top:5.0%;width:5.0%;height:5.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,8 88,30 88,70 50,92 12,70 12,30" stroke="#AF9266" stroke-width="2" fill="none" opacity="0.12"/></svg></div><div style="position:absolute;left:0.0%;top:80.0%;width:10.0%;height:10.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="42" stroke="#AF9266" stroke-width="2" fill="none" opacity="0.12"/></svg></div><div style="position:absolute;left:80.0%;top:80.0%;width:7.0%;height:7.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,90 10,90" stroke="#AF9266" stroke-width="2" fill="none" opacity="0.1"/></svg></div></div>
+    <div class="spotlight"></div>
+    <div class="triangle"></div>
+    <div class="circle"></div>
+</div><div style="position:absolute;left:2.0%;top:10.0%;width:6.0%;height:6.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,90 10,90" stroke="#E8CF92" stroke-width="2" fill="none" opacity="0.15"/></svg></div><div style="position:absolute;left:92.0%;top:5.0%;width:5.0%;height:5.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,8 88,30 88,70 50,92 12,70 12,30" stroke="#E8CF92" stroke-width="2" fill="none" opacity="0.12"/></svg></div><div style="position:absolute;left:0.0%;top:80.0%;width:10.0%;height:10.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="42" stroke="#E8CF92" stroke-width="2" fill="none" opacity="0.12"/></svg></div><div style="position:absolute;left:80.0%;top:80.0%;width:7.0%;height:7.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,90 10,90" stroke="#E8CF92" stroke-width="2" fill="none" opacity="0.1"/></svg></div></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
     
-    <div class="hero-wrap-1" style="position:absolute;left:5.0%;top:15.0%;width:40.0%;height:50.0%;z-index:20;">
+    <div class="hero-wrap-1" style="position:absolute;left:5.0%;top:30.0%;width:40.0%;height:40.0%;z-index:20;">
   <div style="position:absolute;inset:0;"><style>
   .hero-1 {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #101D38, #2F3A53);
-    border: 2px solid #AF9266;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(145deg, #2B3750, #0F1B34);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     padding: 20px;
-    border-radius: 10px;
+    color: #EFD499;
   }
 
   .hero-value {
-    color: #EDD49B;
-    font-size: 50px;
+    font-size: 7rem;
     font-weight: bold;
-    text-shadow: 0 0 10px #C29F6B, 0 0 15px #C29F6B;
-    margin: 10px 0;
+    color: #BF9E6B;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
   }
 
   .hero-subtitle {
-    color: #FFFFFF;
-    font-size: 20px;
-    margin: 5px 0;
-    letter-spacing: 1px;
+    font-size: 3.5rem;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
 </style>
 
@@ -122,193 +123,199 @@
   <div class="hero-value">300%</div>
   <div class="hero-subtitle">생산성 향상</div>
 </div></div>
-  <div style="position:absolute;inset:0;border:1px solid rgba(232, 207, 146, 0.8);opacity:1.0;pointer-events:none;"></div><div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="5,40 5,5 40,5" stroke="#AF9266" stroke-width="2" fill="none" opacity="0.7"/></svg></div>
+  <div style="position:absolute;inset:0;border:1px solid rgba(175, 146, 102, 0.8);opacity:0.8;pointer-events:none;"></div><div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="5,40 5,5 40,5" stroke="#E8CF92" stroke-width="2" fill="none" opacity="0.7"/></svg></div>
 </div>
-<div class="card-wrap-1" style="position:absolute;left:55.0%;top:20.0%;width:40.0%;height:10.0%;z-index:10;">
+<div class="card-wrap-1" style="position:absolute;left:55.0%;top:15.0%;width:40.0%;height:10.0%;z-index:10;">
   <div style="position:absolute;inset:0;"><style>
   .card-1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #515866;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+  }
+
+  .card-icon {
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    background-color: #CFBD9A;
+    border-radius: 50%;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #0C1831;
+  }
+
+  .card-value {
+    flex: 1;
+    color: #CFBD9A;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .card-label {
+    flex: 1;
+    color: #CFBD9A;
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+</style>
+
+<div class="card-1">
+  <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#E8CF92;">🏢</i></div>
+  <div class="card-value">150+</div>
+  <div class="card-label">도입 기업</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#E8CF92;opacity:0.8;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-2" style="position:absolute;left:55.0%;top:30.0%;width:40.0%;height:10.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    background: linear-gradient(145deg, #504D51, #1C263A);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+  }
+
+  .card-icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #767B87;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+
+  .card-value {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-right: 0.5rem;
+  }
+
+  .card-label {
+    font-size: 1.188rem;
+    color: #A98252;
+  }
+</style>
+
+<div class="card-2">
+  <div class="card-icon"><i class="fas fa-globe" style="font-size:1.8rem;color:#E8CF92;">👤</i></div>
+  <div class="card-value">50K+</div>
+  <div class="card-label">월간 활성 사용자</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#E8CF92;opacity:0.8;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:55.0%;top:45.0%;width:40.0%;height:10.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: linear-gradient(145deg, #6A6B73, #3A3E4B);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+  }
+
+  .card-icon {
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    background-color: #AF916C;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  .card-value {
+    font-size: 1.25rem; /* ≈ 20px */
+    color: #E5D29D;
+    margin-right: 10px;
+  }
+
+  .card-label {
+    font-size: 1.3125rem; /* ≈ 21px */
+    color: #ffffff;
+  }
+</style>
+
+<div class="card-3">
+  <div class="card-icon"><i class="fas fa-chart-line" style="font-size:1.8rem;color:#E8CF92;">📄</i></div>
+  <div class="card-value">2M+</div>
+  <div class="card-label">처리 문서 수</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#E8CF92;opacity:0.8;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-4" style="position:absolute;left:55.0%;top:60.0%;width:40.0%;height:10.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-4 {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    background: linear-gradient(145deg, #575C6A, #414756);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border: 2px solid #AF9266;
-    padding: 16px;
-    color: #E5B765;
+    background: linear-gradient(135deg, #4C505B, #293247);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    padding: 1rem;
   }
 
   .card-icon {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    padding: 10px;
-    margin-right: 12px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
-  }
-
-  .card-value {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.5rem;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-
-  .card-label {
-    font-size: 0.875rem;
-    color: #FFFFFF;
-  }
-</style>
-
-<div class="card-1">
-  <div class="card-icon">🏢</div>
-  <div class="card-value">150+</div>
-  <div class="card-label">도입 기업</div>
-</div></div>
-  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#AF9266;opacity:1.0;pointer-events:none;"></div>
-</div>
-<div class="card-wrap-2" style="position:absolute;left:55.0%;top:35.0%;width:40.0%;height:10.0%;z-index:10;">
-  <div style="position:absolute;inset:0;"><style>
-  .card-2 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background: rgba(45, 45, 45, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border: 2px solid #AF9266;
-    padding: 1rem;
-  }
-
-  .card-icon {
-    flex: 0 0 auto;
-    width: 2.5rem;
-    height: 2.5rem;
-    background-color: #45464F;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #EAD398;
-    margin-right: 1rem;
   }
 
   .card-value {
-    font-size: 1.8125rem; /* 29px */
-    color: #EAD398;
-    margin-right: 0.5rem;
-  }
-
-  .card-label {
-    font-size: 1.375rem; /* 22px */
-    color: #FFFFFF;
-  }
-</style>
-
-<div class="card-2">
-  <div class="card-icon">👤</div>
-  <div class="card-value">50K+</div>
-  <div class="card-label">월간 활성 사용자</div>
-</div></div>
-  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#AF9266;opacity:1.0;pointer-events:none;"></div>
-</div>
-<div class="card-wrap-3" style="position:absolute;left:55.0%;top:50.0%;width:40.0%;height:10.0%;z-index:10;">
-  <div style="position:absolute;inset:0;"><style>
-  .card-3 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(145deg, #524F51, #242C3E);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    border: 2px solid #AF9266;
-    padding: 10px;
-  }
-  .card-icon {
-    background: #E5D09B;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  .card-value {
-    color: #E5B765;
-    font-size: 1.25rem;
+    font-size: 2.875rem; /* ≈ 46px */
     font-weight: bold;
-  }
-  .card-label {
-    color: #FFFFFF;
-    font-size: 0.9rem;
-    opacity: 0.8;
-  }
-</style>
-<div class="card-3">
-  <div class="card-icon">📄</div>
-  <div class="card-value">2M+</div>
-  <div class="card-label">처리 문서 수</div>
-</div></div>
-  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#AF9266;opacity:1.0;pointer-events:none;"></div>
-</div>
-<div class="card-wrap-4" style="position:absolute;left:55.0%;top:65.0%;width:40.0%;height:10.0%;z-index:10;">
-  <div style="position:absolute;inset:0;"><style>
-  .card-4 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    background: linear-gradient(to right, #273043, #535154);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border: 2px solid #AF9266;
-    position: relative;
-  }
-
-  .card-icon {
-    flex: 0 0 auto;
-    background-color: #E4CF98;
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 1rem;
-  }
-
-  .card-value {
-    flex: 1;
-    font-size: 2.1875rem; /* 35px */
-    color: #E4CF98;
-    font-weight: bold;
+    color: #E6CD9D;
+    flex-grow: 1;
+    margin-left: 1rem;
   }
 
   .card-label {
-    flex: 1;
-    font-size: 1.3125rem; /* 21px */
-    color: #FFFFFF;
+    font-size: 1rem; /* ≈ 16px */
+    color: #A9A093;
   }
 </style>
 
 <div class="card-4">
-  <div class="card-icon">⏱️</div>
+  <div class="card-icon"><i class="fas fa-circle" style="font-size:1.8rem;color:#E8CF92;">⏱️</i></div>
   <div class="card-value">99.9%</div>
   <div class="card-label">서비스 가동률</div>
 </div></div>
-  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#AF9266;opacity:1.0;pointer-events:none;"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#E8CF92;opacity:0.8;pointer-events:none;"></div>
 </div>
 
     <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
-    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#AF9266;letter-spacing:0.08em;text-transform:uppercase;">2025년 성과 하이라이트</div>
+    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#E8CF92;letter-spacing:0.08em;text-transform:uppercase;">2025년 성과 하이라이트</div>
     
 </div>
 </div></div>

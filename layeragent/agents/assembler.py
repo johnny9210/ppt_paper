@@ -75,6 +75,8 @@ def assembler(state) -> dict:
     bg_base = state.get("bg_base_html", "")
     atmos = state.get("atmosphere_html", "")
     decor_agent_html = state.get("decoration_html", "")
+    chart_html = state.get("chart_html", "")
+    table_html = state.get("table_html", "")
 
     pal = spec.get("palette", {})
     accent = pal.get("accent", "#D4AF37")
@@ -182,6 +184,8 @@ def assembler(state) -> dict:
     <div style="position:absolute;inset:0;z-index:2;pointer-events:none;">{atmos}</div>
     <div style="position:absolute;inset:0;z-index:3;pointer-events:none;">{connections_svg}</div>
     <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">{decor_agent_html}{geo_decor}</div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;">{chart_html}</div>
+    {table_html}
     {hub_enhance}
     {elements}
     {title_div}

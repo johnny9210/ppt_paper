@@ -29,6 +29,12 @@ CARD_DETAIL_PROMPT = """이 슬라이드 이미지에서 **빨간 사각형으�
 </div>
 ```
 
+★★★ **`.card-label` 은 반드시 텍스트 라벨**:
+- height/width 고정 금지 (height:8px, width:80% 같은 진행바 모양 금지)
+- background, box-shadow 등 시각 장식으로 변형 금지
+- font-size 는 12~16px, color 는 muted text, line-height 1.3 정도
+- "라벨처럼 보이는 그라데이션 바" 는 금지 — 순수 텍스트 컨테이너로만
+
 ★ 빨간 사각형 안만, 바깥 요소 만들지 말 것
 ★ 크기: width:100%; height:100%; position:relative;
 ★ 가로형 long card 면 flex-row, 세로형 tall card 면 flex-column

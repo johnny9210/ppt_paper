@@ -37,10 +37,19 @@ class State(TypedDict, total=False):
     # Shape detector
     detected_shapes: list[dict]
 
+    # Chart specialist (v10 P1)
+    chart_html: str
+
+    # Table specialist (slide_type=table)
+    table_html: str
+
     # Assembly & post-processing
     assembled_raw: str
     assembled: str
     critic_diffs: dict | None
 
+    # Overflow repair (v10 P1)
+    overflow_report: list[dict]
+
     # Ablation flags (set by pipeline builder)
-    ablation: str                   # "none" | "no_style_norm" | "no_text_inserter" | "no_cv_facts" | "no_designspec" | "no_library"
+    ablation: str                   # "none" | "no_style_norm" | "no_text_inserter" | "no_cv_facts" | "no_designspec" | "no_library" | "no_overflow_repair"

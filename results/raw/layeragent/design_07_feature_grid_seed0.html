@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-value, .card-label,
+  .hero-1, .hero-2, .hero-value, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .design_07_feature_grid-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(145deg, #020629, #070b34);
+    background-size: 200% 200%;
+  }
+
+  .neon-lines {
+    background-image: radial-gradient(circle, rgba(168, 115, 196, 0.2) 15%, transparent 20%),
+                      radial-gradient(circle at 100px 100px, rgba(168, 115, 196, 0.1) 15%, transparent 20%);
+    background-size: 150px 150px;
+    mix-blend-mode: overlay;
+  }
+</style>
+
+<style>
+  .design_07_feature_grid-atmos {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle at top left, rgba(168, 115, 196, 0.25), transparent 40%),
+                rgba(2, 6, 41, 0.8);
+    filter: blur(8px);
+  }
+</style>
+
+<style>
+.design_07_feature_grid-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.glow-spotlight {
+    position: absolute;
+    width: 15%;
+    height: 15%;
+    background: radial-gradient(circle, rgba(168, 115, 196, 0.5), transparent);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+.glow-spotlight--top-left {
+    left: 10%;
+    top: 10%;
+}
+
+.glow-spotlight--top-right {
+    right: 10%;
+    top: 10%;
+}
+</style>
+
+<style>
+  body {
+    background-color: #0A0B2D;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    max-width: 250px;
+    max-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(51, 50, 80, 0.85);
+    border: 2px solid #A873C4;
+    box-shadow: 0 0 10px #A873C4;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    font-size: 13.6px; /* Reduced from 16px by 15% */
+  }
+
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #6B6883;
+    border-radius: 50%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px #A873C4;
+    color: #ffffff;
+  }
+
+  .card-value {
+    font-size: 1rem;
+    color: #ffffff;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .card-label {
+    font-size: 18.4px; /* Reduced from 23px by 20% */
+    color: #A873C4;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+</style>
+
+<style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to bottom, #2C2B4C, #0A0B2E);
+    border: 2px solid #A873C4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #A873C4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .card-icon {
+    width: 60px;
+    height: 60px;
+    background: #454460;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .card-value {
+    width: 80%;
+    height: 50px;
+    background: rgba(105, 102, 131, 0.425);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+  }
+
+  .card-label {
+    width: 60%;
+    height: 20px;
+    background: rgba(105, 102, 131, 0.255);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+  }
+</style>
+
+<style>
+  body {
+    background-color: #0b0b28;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    max-width: 350px;
+    max-height: 250px;
+    background: linear-gradient(145deg, #0B0C2F, #2E2D4D);
+    border: 2px solid #A873C4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #A873C4;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 13.6px; /* Reduced from 16px by 15% */
+  }
+
+  .card-icon {
+    background-color: #464561;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .card-value {
+    flex-grow: 1;
+    background-color: rgba(106, 102, 131, 0.68);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .card-label {
+    background-color: #100d3c;
+    color: #ffffff;
+    font-size: 1.0625rem; /* ≈ 17px */
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #ff00ff, #6A6683);
+  }
+</style>
+
+<style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: #1E1D3F;
+    border: 2px solid #A873C4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #A873C4;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-icon {
+    width: 20%;
+    background-color: #454162;
+    border-radius: 50%;
+    margin: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: #FFFFFF;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+  }
+
+  .card-value {
+    width: 60%;
+    margin: auto 0;
+    color: #FFFFFF;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .card-label {
+    width: 20%;
+    margin: auto;
+    background-color: #030628;
+    border-radius: 5px;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 0.9rem;
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+  }
+</style>
+
+<style>
+  .card-5 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(5,7,42,0.68), rgba(36,32,73,0.68));
+    border: 2px solid #A873C4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #A873C4;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    font-size: 13.6px; /* Reduced from 16px by 15% */
+  }
+
+  .card-icon {
+    font-size: 2.75rem; /* 44px */
+    color: #ff00ff;
+    filter: drop-shadow(0 0 5px #ff00ff);
+  }
+
+  .card-value {
+    font-size: 1.0625rem; /* 17px */
+    text-transform: uppercase;
+    color: #ffffff;
+    filter: drop-shadow(0 0 5px #ff00ff);
+  }
+
+  .card-label {
+    font-size: 1.0625rem; /* 17px */
+    color: #B09EC7;
+    text-transform: uppercase;
+  }
+</style>
+
+<style>
+  .card-6 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background: #464262;
+    border-radius: 10px;
+    border: 2px solid #A873C4;
+    box-shadow: 0 0 10px #A873C4;
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    background: #282548;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+  }
+
+  .card-value {
+    font-size: 1.0625rem; /* 17px */
+    color: #ffffff;
+    font-weight: bold;
+    margin-right: auto;
+  }
+
+  .card-label {
+    font-size: 19.55px; /* Reduced from 23px by 15% */
+    color: #ffffff;
+    font-weight: bold;
+    background: rgba(174, 157, 197, 0.085);
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+</style>
+
+<div class="slide-container design_07_feature_grid" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+<div class="design_07_feature_grid-bg-base neon-lines"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;">
+<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+  <defs>
+    <pattern id="p-circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 0,20 L 30,20 L 30,40 L 60,40 L 60,15 L 80,15" stroke="#A873C4" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <path d="M 10,0 L 10,30 L 50,30 L 50,55 L 75,55 L 75,80" stroke="#A873C4" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <circle cx="30" cy="20" r="1.5" fill="#A873C4" opacity="0.18"/>
+      <circle cx="60" cy="40" r="1.5" fill="#A873C4" opacity="0.18"/>
+      <circle cx="50" cy="30" r="1.5" fill="#A873C4" opacity="0.18"/>
+      <circle cx="75" cy="55" r="1.5" fill="#A873C4" opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#p-circuit)"/>
+</svg></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;">
+<div class="design_07_feature_grid-atmos"></div></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+<div class="design_07_feature_grid-decor">
+    <div class="glow-spotlight glow-spotlight--top-left"></div>
+    <div class="glow-spotlight glow-spotlight--top-right"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    
+    <div class="card-wrap-1" style="position:absolute;left:5.0%;top:25.0%;width:27.0%;height:20.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+
+<div class="card-1">
+  <div class="card-icon">💬</div>
+  <div class="card-value">AI 채팅</div>
+  <div class="card-label">멀티턴 대화형 AI 어시스턴트</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#A873C4;opacity:1.0;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-2" style="position:absolute;left:36.0%;top:25.0%;width:27.0%;height:20.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+
+<div class="card-2">
+  <div class="card-icon">🔄</div>
+  <div class="card-value">워크플로우</div>
+  <div class="card-label">노코드 업무 자동화 빌더</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#A873C4;opacity:1.0;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:67.0%;top:25.0%;width:27.0%;height:20.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+
+<div class="card-3">
+  <div class="card-icon">📄</div>
+  <div class="card-value">문서 처리</div>
+  <div class="card-label">PDF/엑셀 자동 분석 및 요약</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#A873C4;opacity:1.0;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-4" style="position:absolute;left:5.0%;top:55.0%;width:27.0%;height:20.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+
+<div class="card-4">
+  <div class="card-icon">📊</div>
+  <div class="card-value">데이터 분석</div>
+  <div class="card-label">자연어 SQL 변환 및 시각화</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#A873C4;opacity:1.0;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-5" style="position:absolute;left:36.0%;top:55.0%;width:27.0%;height:20.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+
+<div class="card-5">
+  <div class="card-icon">🎨</div>
+  <div class="card-value">PPT 생성</div>
+  <div class="card-label">AI 기반 프레젠테이션 자동 생성</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#A873C4;opacity:1.0;pointer-events:none;"></div>
+</div>
+<div class="card-wrap-6" style="position:absolute;left:67.0%;top:55.0%;width:27.0%;height:20.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+
+<div class="card-6">
+  <div class="card-icon">🔗</div>
+  <div class="card-value">API 연동</div>
+  <div class="card-label">외부 시스템 MCP 연결</div>
+</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:#A873C4;opacity:1.0;pointer-events:none;"></div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#A873C4;letter-spacing:0.08em;text-transform:uppercase;">플랫폼 핵심 기능</div>
+    
+</div></div>
+</body></html>

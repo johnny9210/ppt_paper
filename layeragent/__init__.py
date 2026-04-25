@@ -1,9 +1,18 @@
 """LayerAgent — Multi-agent framework for presentation slide generation.
 
-Quick usage:
+Two entry points:
+
+(1) Benchmark mode — pre-defined slide_id pulls structured content from meta.json:
     from layeragent import LayerAgent
     agent = LayerAgent(model="gpt-4o")
     html = agent.run("design_10_stats_hero")
+
+(2) Chat mode — user free-form message + reference image → 1 slide:
+    agent = LayerAgent(model="gpt-4o")
+    html, spec = agent.run_from_chat(
+        image_path="data/experiment_designs/design_02_dashboard.png",
+        user_message="Q4 매출 대시보드. 매출 128억 +23%, 사용자 240만 +15%, 만족도 4.7/5.0 +0.3",
+    )
 
 Ablations:
     agent = LayerAgent(ablation="no_style_norm")    # D₁
