@@ -8,3 +8,41 @@
 {"id": "design_08_roadmap", "type": "roadmap", "complexity": "high", "primary_rq": "RQ1"}
 {"id": "design_09_layered_stack", "type": "stack", "complexity": "very_high", "primary_rq": "RQ1"}
 {"id": "design_10_stats_hero", "type": "stats_hero", "complexity": "medium", "primary_rq": "RQ2"}
+{"id": "mekko_mckinsey_blue_finance", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "mekko", "_theme": "mckinsey_blue", "_domain": "finance"}
+{"id": "mekko_bcg_green_market_entry", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "mekko", "_theme": "bcg_green", "_domain": "market_entry"}
+{"id": "mekko_bain_red_customer", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "mekko", "_theme": "bain_red", "_domain": "customer"}
+{"id": "mekko_minimal_white_industry", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "mekko", "_theme": "minimal_white", "_domain": "industry"}
+{"id": "mekko_editorial_warm_geography", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "mekko", "_theme": "editorial_warm", "_domain": "geography"}
+{"id": "matrix_2x2_bcg_green_portfolio", "type": "feature_grid", "complexity": "high", "primary_rq": "RQ1", "_layout": "matrix_2x2", "_theme": "bcg_green", "_domain": "portfolio"}
+{"id": "matrix_2x2_mckinsey_blue_risk", "type": "feature_grid", "complexity": "high", "primary_rq": "RQ1", "_layout": "matrix_2x2", "_theme": "mckinsey_blue", "_domain": "risk"}
+{"id": "matrix_2x2_bain_red_competition", "type": "feature_grid", "complexity": "high", "primary_rq": "RQ1", "_layout": "matrix_2x2", "_theme": "bain_red", "_domain": "competition"}
+{"id": "matrix_2x2_minimal_white_investment", "type": "feature_grid", "complexity": "high", "primary_rq": "RQ1", "_layout": "matrix_2x2", "_theme": "minimal_white", "_domain": "investment"}
+{"id": "matrix_2x2_editorial_warm_feature", "type": "feature_grid", "complexity": "high", "primary_rq": "RQ1", "_layout": "matrix_2x2", "_theme": "editorial_warm", "_domain": "feature"}
+{"id": "waterfall_mckinsey_blue_finance", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "waterfall", "_theme": "mckinsey_blue", "_domain": "finance"}
+{"id": "waterfall_bcg_green_growth", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "waterfall", "_theme": "bcg_green", "_domain": "growth"}
+{"id": "waterfall_bain_red_cost", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "waterfall", "_theme": "bain_red", "_domain": "cost"}
+{"id": "waterfall_minimal_white_saas", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "waterfall", "_theme": "minimal_white", "_domain": "saas"}
+{"id": "waterfall_editorial_warm_ebitda", "type": "dashboard", "complexity": "high", "primary_rq": "RQ1", "_layout": "waterfall", "_theme": "editorial_warm", "_domain": "ebitda"}
+{"id": "harvey_table_bcg_green_frameworks", "type": "table", "complexity": "high", "primary_rq": "RQ1", "_layout": "harvey_table", "_theme": "bcg_green", "_domain": "frameworks"}
+{"id": "harvey_table_minimal_white_tools", "type": "table", "complexity": "high", "primary_rq": "RQ1", "_layout": "harvey_table", "_theme": "minimal_white", "_domain": "tools"}
+{"id": "harvey_table_editorial_warm_candidates", "type": "table", "complexity": "high", "primary_rq": "RQ1", "_layout": "harvey_table", "_theme": "editorial_warm", "_domain": "candidates"}
+{"id": "bar_chart_mckinsey_blue_performance", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "bar_chart", "_theme": "mckinsey_blue", "_domain": "performance"}
+{"id": "bar_chart_bcg_green_growth", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "bar_chart", "_theme": "bcg_green", "_domain": "growth"}
+{"id": "bar_chart_bain_red_cost", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "bar_chart", "_theme": "bain_red", "_domain": "cost"}
+{"id": "bar_chart_minimal_white_engagement", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "bar_chart", "_theme": "minimal_white", "_domain": "engagement"}
+{"id": "bar_chart_editorial_warm_satisfaction", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "bar_chart", "_theme": "editorial_warm", "_domain": "satisfaction"}
+{"id": "line_chart_mckinsey_blue_trend", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "line_chart", "_theme": "mckinsey_blue", "_domain": "trend"}
+{"id": "line_chart_bcg_green_competition", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "line_chart", "_theme": "bcg_green", "_domain": "competition"}
+{"id": "line_chart_bain_red_performance", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "line_chart", "_theme": "bain_red", "_domain": "performance"}
+{"id": "line_chart_minimal_white_saas", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "line_chart", "_theme": "minimal_white", "_domain": "saas"}
+{"id": "line_chart_editorial_warm_audience", "type": "dashboard", "complexity": "medium", "primary_rq": "RQ1", "_layout": "line_chart", "_theme": "editorial_warm", "_domain": "audience"}
+{"id": "process_flow_mckinsey_blue_transformation", "type": "timeline", "complexity": "medium", "primary_rq": "RQ1", "_layout": "process_flow", "_theme": "mckinsey_blue", "_domain": "transformation"}
+{"id": "process_flow_bcg_green_go_to_market", "type": "timeline", "complexity": "medium", "primary_rq": "RQ1", "_layout": "process_flow", "_theme": "bcg_green", "_domain": "go_to_market"}
+{"id": "process_flow_bain_red_ops", "type": "timeline", "complexity": "medium", "primary_rq": "RQ1", "_layout": "process_flow", "_theme": "bain_red", "_domain": "ops"}
+{"id": "process_flow_minimal_white_product", "type": "timeline", "complexity": "medium", "primary_rq": "RQ1", "_layout": "process_flow", "_theme": "minimal_white", "_domain": "product"}
+{"id": "process_flow_editorial_warm_campaign", "type": "timeline", "complexity": "medium", "primary_rq": "RQ1", "_layout": "process_flow", "_theme": "editorial_warm", "_domain": "campaign"}
+{"id": "pyramid_mckinsey_blue_executive_summary", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "mckinsey_blue", "_domain": "executive_summary"}
+{"id": "pyramid_bcg_green_recommendation", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "bcg_green", "_domain": "recommendation"}
+{"id": "pyramid_bain_red_thesis", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "bain_red", "_domain": "thesis"}
+{"id": "pyramid_minimal_white_argument", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "minimal_white", "_domain": "argument"}
+{"id": "pyramid_editorial_warm_narrative", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "editorial_warm", "_domain": "narrative"}

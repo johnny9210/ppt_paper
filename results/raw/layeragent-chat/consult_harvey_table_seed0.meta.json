@@ -1,0 +1,54 @@
+{
+  "user_message": "Bain 스타일 비교 표를 만들어. Action title: 'Vendor B leads on 4 of 5 evaluation criteria, justifying selection'. 헤더: 평가 기준, Vendor A, Vendor B, Vendor C. 5개 평가 기준 행: 1) Total Cost of Ownership: Vendor A '50% Harvey ball, 경쟁력 있으나 B보다 비쌈', Vendor B '100% filled, $2.4M lower 5yr TCO', Vendor C '25% filled, 매우 비쌈'. 2) Implementation speed: A '75%, Q4 2025 출시 가능', B '100%, Q1 2026 launch 확정', C '50%, Q2 2026 지연 가능'. 3) Feature completeness: A '50%, 핵심 분석 모듈 누락', B '75%, 90% core features 충족', C '25%, 기본 기능만'. 4) Vendor stability: A '100%, 10년+ 시장 안정', B '75%, 견고 재무 + 시장 점유 성장', C '50%, 최근 구조조정'. 5) Customer references: A '50%, 혼재된 피드백', B '100%, 매우 긍정적', C '75%, 니치 시장에서 좋음'. Vendor B 컬럼을 Bain red (#CC0033) 로 강조. 표 아래 추천 문구: 'Recommendation: proceed with Vendor B for Q1 2026 procurement'. Footer: 'Source: Vendor RFP scoring, Dec 2025'.",
+  "parsed_spec": {
+    "slide_type": "table",
+    "content": {
+      "title": "Vendor B leads on 4 of 5 evaluation criteria, justifying selection",
+      "headers": [
+        "평가 기준",
+        "Vendor A",
+        "Vendor B",
+        "Vendor C"
+      ],
+      "rows": [
+        [
+          "Total Cost of Ownership",
+          "🔘 50%, 경쟁력 있으나 B보다 비쌈",
+          "🔴 100%, $2.4M lower 5yr TCO",
+          "◔ 25%, 매우 비쌈"
+        ],
+        [
+          "Implementation speed",
+          "◗ 75%, Q4 2025 출시 가능",
+          "🔴 100%, Q1 2026 launch 확정",
+          "◑ 50%, Q2 2026 지연 가능"
+        ],
+        [
+          "Feature completeness",
+          "🔘 50%, 핵심 분석 모듈 누락",
+          "◕ 75%, 90% core features 충족",
+          "◔ 25%, 기본 기능만"
+        ],
+        [
+          "Vendor stability",
+          "🔴 100%, 10년+ 시장 안정",
+          "◗ 75%, 견고 재무 + 시장 점유 성장",
+          "◑ 50%, 최근 구조조정"
+        ],
+        [
+          "Customer references",
+          "🔘 50%, 혼재된 피드백",
+          "🔴 100%, 매우 긍정적",
+          "◕ 75%, 니치 시장에서 좋음"
+        ]
+      ]
+    },
+    "style": {
+      "primary_color": "#CC0033",
+      "accent_color": "#6A6A6A",
+      "background": "#FFFFFF",
+      "text_color": "#000000"
+    }
+  },
+  "image_path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/seeds_test/seed_03_table_bain.png"
+}

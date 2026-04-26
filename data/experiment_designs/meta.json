@@ -13,10 +13,30 @@
         "title": "디지털 전환 로드맵 2025",
         "description": "4단계 전환 마일스톤과 핵심 목표",
         "items": [
-          {"step": 1, "emoji": "📊", "title": "현황 진단", "description": "레거시 시스템 분석 및 디지털 성숙도 평가"},
-          {"step": 2, "emoji": "🏗️", "title": "기반 구축", "description": "클라우드 마이그레이션 및 API 플랫폼 설계"},
-          {"step": 3, "emoji": "🔄", "title": "프로세스 혁신", "description": "업무 자동화 및 데이터 기반 의사결정 체계 도입"},
-          {"step": 4, "emoji": "🚀", "title": "스케일업", "description": "AI/ML 적용 확대 및 전사 디지털 문화 정착"}
+          {
+            "step": 1,
+            "emoji": "📊",
+            "title": "현황 진단",
+            "description": "레거시 시스템 분석 및 디지털 성숙도 평가"
+          },
+          {
+            "step": 2,
+            "emoji": "🏗️",
+            "title": "기반 구축",
+            "description": "클라우드 마이그레이션 및 API 플랫폼 설계"
+          },
+          {
+            "step": 3,
+            "emoji": "🔄",
+            "title": "프로세스 혁신",
+            "description": "업무 자동화 및 데이터 기반 의사결정 체계 도입"
+          },
+          {
+            "step": 4,
+            "emoji": "🚀",
+            "title": "스케일업",
+            "description": "AI/ML 적용 확대 및 전사 디지털 문화 정착"
+          }
         ]
       }
     },
@@ -26,9 +46,24 @@
       "content": {
         "title": "Q4 2025 비즈니스 성과 대시보드",
         "metrics": [
-          {"emoji": "💰", "title": "매출", "value": "₩128억", "change": "+23% YoY"},
-          {"emoji": "👥", "title": "활성 사용자", "value": "2.4M", "change": "+15% MoM"},
-          {"emoji": "⭐", "title": "고객 만족도", "value": "4.7/5.0", "change": "+0.3"}
+          {
+            "emoji": "💰",
+            "title": "매출",
+            "value": "₩128억",
+            "change": "+23% YoY"
+          },
+          {
+            "emoji": "👥",
+            "title": "활성 사용자",
+            "value": "2.4M",
+            "change": "+15% MoM"
+          },
+          {
+            "emoji": "⭐",
+            "title": "고객 만족도",
+            "value": "4.7/5.0",
+            "change": "+0.3"
+          }
         ],
         "chart_title": "월별 매출 추이"
       }
@@ -64,16 +99,47 @@
       "content": {
         "title": "데이터 거버넌스 프레임워크",
         "tiers": [
-          {"level": "Strategic", "emoji": "👑", "title": "데이터 전략", "description": "경영진 주도 데이터 비전 및 정책 수립"},
-          {"level": "Tactical", "items": [
-            {"emoji": "📋", "title": "품질 관리", "description": "데이터 표준화 및 품질 모니터링"},
-            {"emoji": "🔐", "title": "보안 통제", "description": "접근 권한 및 개인정보 보호"}
-          ]},
-          {"level": "Operational", "items": [
-            {"emoji": "🗄️", "title": "수집", "description": "원천 데이터 통합"},
-            {"emoji": "⚙️", "title": "처리", "description": "ETL 파이프라인"},
-            {"emoji": "📈", "title": "분석", "description": "BI 대시보드 운영"}
-          ]}
+          {
+            "level": "Strategic",
+            "emoji": "👑",
+            "title": "데이터 전략",
+            "description": "경영진 주도 데이터 비전 및 정책 수립"
+          },
+          {
+            "level": "Tactical",
+            "items": [
+              {
+                "emoji": "📋",
+                "title": "품질 관리",
+                "description": "데이터 표준화 및 품질 모니터링"
+              },
+              {
+                "emoji": "🔐",
+                "title": "보안 통제",
+                "description": "접근 권한 및 개인정보 보호"
+              }
+            ]
+          },
+          {
+            "level": "Operational",
+            "items": [
+              {
+                "emoji": "🗄️",
+                "title": "수집",
+                "description": "원천 데이터 통합"
+              },
+              {
+                "emoji": "⚙️",
+                "title": "처리",
+                "description": "ETL 파이프라인"
+              },
+              {
+                "emoji": "📈",
+                "title": "분석",
+                "description": "BI 대시보드 운영"
+              }
+            ]
+          }
         ]
       }
     },
@@ -82,14 +148,41 @@
       "type": "hub_spoke",
       "content": {
         "title": "마이크로서비스 아키텍처",
-        "hub": {"emoji": "🌐", "title": "API Gateway"},
+        "hub": {
+          "emoji": "🌐",
+          "title": "API Gateway"
+        },
         "spokes": [
-          {"emoji": "☁️", "title": "클라우드 스토리지", "description": "S3, MinIO 기반 객체 저장소"},
-          {"emoji": "📡", "title": "실시간 스트리밍", "description": "Kafka 이벤트 브로커"},
-          {"emoji": "🗄️", "title": "데이터베이스", "description": "PostgreSQL + MongoDB"},
-          {"emoji": "🔒", "title": "인증/보안", "description": "OAuth2 + JWT 토큰"},
-          {"emoji": "🤖", "title": "AI 서비스", "description": "LLM 추론 엔진"},
-          {"emoji": "🌍", "title": "CDN/Edge", "description": "글로벌 콘텐츠 배포"}
+          {
+            "emoji": "☁️",
+            "title": "클라우드 스토리지",
+            "description": "S3, MinIO 기반 객체 저장소"
+          },
+          {
+            "emoji": "📡",
+            "title": "실시간 스트리밍",
+            "description": "Kafka 이벤트 브로커"
+          },
+          {
+            "emoji": "🗄️",
+            "title": "데이터베이스",
+            "description": "PostgreSQL + MongoDB"
+          },
+          {
+            "emoji": "🔒",
+            "title": "인증/보안",
+            "description": "OAuth2 + JWT 토큰"
+          },
+          {
+            "emoji": "🤖",
+            "title": "AI 서비스",
+            "description": "LLM 추론 엔진"
+          },
+          {
+            "emoji": "🌍",
+            "title": "CDN/Edge",
+            "description": "글로벌 콘텐츠 배포"
+          }
         ]
       }
     },
@@ -101,17 +194,41 @@
         "before": {
           "label": "도입 전",
           "items": [
-            {"emoji": "📝", "title": "수작업 보고서 작성", "description": "주 8시간 소요"},
-            {"emoji": "🔍", "title": "수동 데이터 검색", "description": "건당 30분"},
-            {"emoji": "📞", "title": "전화/이메일 응대", "description": "평균 응답 4시간"}
+            {
+              "emoji": "📝",
+              "title": "수작업 보고서 작성",
+              "description": "주 8시간 소요"
+            },
+            {
+              "emoji": "🔍",
+              "title": "수동 데이터 검색",
+              "description": "건당 30분"
+            },
+            {
+              "emoji": "📞",
+              "title": "전화/이메일 응대",
+              "description": "평균 응답 4시간"
+            }
           ]
         },
         "after": {
           "label": "도입 후",
           "items": [
-            {"emoji": "🤖", "title": "자동 보고서 생성", "description": "주 30분으로 단축"},
-            {"emoji": "⚡", "title": "RAG 기반 즉시 검색", "description": "건당 5초"},
-            {"emoji": "💬", "title": "AI 챗봇 자동 응대", "description": "평균 응답 10초"}
+            {
+              "emoji": "🤖",
+              "title": "자동 보고서 생성",
+              "description": "주 30분으로 단축"
+            },
+            {
+              "emoji": "⚡",
+              "title": "RAG 기반 즉시 검색",
+              "description": "건당 5초"
+            },
+            {
+              "emoji": "💬",
+              "title": "AI 챗봇 자동 응대",
+              "description": "평균 응답 10초"
+            }
           ]
         }
       }
@@ -122,12 +239,42 @@
       "content": {
         "title": "플랫폼 핵심 기능",
         "features": [
-          {"emoji": "💬", "title": "AI 채팅", "description": "멀티턴 대화형 AI 어시스턴트", "tag": "Core"},
-          {"emoji": "🔄", "title": "워크플로우", "description": "노코드 업무 자동화 빌더", "tag": "Automation"},
-          {"emoji": "📄", "title": "문서 처리", "description": "PDF/엑셀 자동 분석 및 요약", "tag": "RAG"},
-          {"emoji": "📊", "title": "데이터 분석", "description": "자연어 SQL 변환 및 시각화", "tag": "Analytics"},
-          {"emoji": "🎨", "title": "PPT 생성", "description": "AI 기반 프레젠테이션 자동 생성", "tag": "Creative"},
-          {"emoji": "🔗", "title": "API 연동", "description": "외부 시스템 MCP 연결", "tag": "Integration"}
+          {
+            "emoji": "💬",
+            "title": "AI 채팅",
+            "description": "멀티턴 대화형 AI 어시스턴트",
+            "tag": "Core"
+          },
+          {
+            "emoji": "🔄",
+            "title": "워크플로우",
+            "description": "노코드 업무 자동화 빌더",
+            "tag": "Automation"
+          },
+          {
+            "emoji": "📄",
+            "title": "문서 처리",
+            "description": "PDF/엑셀 자동 분석 및 요약",
+            "tag": "RAG"
+          },
+          {
+            "emoji": "📊",
+            "title": "데이터 분석",
+            "description": "자연어 SQL 변환 및 시각화",
+            "tag": "Analytics"
+          },
+          {
+            "emoji": "🎨",
+            "title": "PPT 생성",
+            "description": "AI 기반 프레젠테이션 자동 생성",
+            "tag": "Creative"
+          },
+          {
+            "emoji": "🔗",
+            "title": "API 연동",
+            "description": "외부 시스템 MCP 연결",
+            "tag": "Integration"
+          }
         ]
       }
     },
@@ -137,11 +284,36 @@
       "content": {
         "title": "2025 제품 로드맵",
         "phases": [
-          {"phase": "Q1", "emoji": "🎯", "title": "MVP 출시", "description": "핵심 기능 3종 런칭"},
-          {"phase": "Q2", "emoji": "📈", "title": "성장 가속", "description": "사용자 1만명 돌파 목표"},
-          {"phase": "Q3", "emoji": "🌏", "title": "글로벌 확장", "description": "일본·동남아 시장 진출"},
-          {"phase": "Q4", "emoji": "🏆", "title": "엔터프라이즈", "description": "대기업 맞춤 솔루션 출시"},
-          {"phase": "2026", "emoji": "🚀", "title": "플랫폼화", "description": "3rd party 앱 마켓플레이스"}
+          {
+            "phase": "Q1",
+            "emoji": "🎯",
+            "title": "MVP 출시",
+            "description": "핵심 기능 3종 런칭"
+          },
+          {
+            "phase": "Q2",
+            "emoji": "📈",
+            "title": "성장 가속",
+            "description": "사용자 1만명 돌파 목표"
+          },
+          {
+            "phase": "Q3",
+            "emoji": "🌏",
+            "title": "글로벌 확장",
+            "description": "일본·동남아 시장 진출"
+          },
+          {
+            "phase": "Q4",
+            "emoji": "🏆",
+            "title": "엔터프라이즈",
+            "description": "대기업 맞춤 솔루션 출시"
+          },
+          {
+            "phase": "2026",
+            "emoji": "🚀",
+            "title": "플랫폼화",
+            "description": "3rd party 앱 마켓플레이스"
+          }
         ]
       }
     },
@@ -151,10 +323,30 @@
       "content": {
         "title": "시스템 아키텍처 스택",
         "layers": [
-          {"level": 1, "emoji": "🎨", "title": "프레젠테이션 계층", "description": "React + Ant Design UI"},
-          {"level": 2, "emoji": "⚡", "title": "API 계층", "description": "Express Gateway + Moleculer"},
-          {"level": 3, "emoji": "🧠", "title": "서비스 계층", "description": "FastAPI + LangGraph AI 에이전트"},
-          {"level": 4, "emoji": "💾", "title": "인프라 계층", "description": "MongoDB + OpenSearch + Redis + MinIO"}
+          {
+            "level": 1,
+            "emoji": "🎨",
+            "title": "프레젠테이션 계층",
+            "description": "React + Ant Design UI"
+          },
+          {
+            "level": 2,
+            "emoji": "⚡",
+            "title": "API 계층",
+            "description": "Express Gateway + Moleculer"
+          },
+          {
+            "level": 3,
+            "emoji": "🧠",
+            "title": "서비스 계층",
+            "description": "FastAPI + LangGraph AI 에이전트"
+          },
+          {
+            "level": 4,
+            "emoji": "💾",
+            "title": "인프라 계층",
+            "description": "MongoDB + OpenSearch + Redis + MinIO"
+          }
         ]
       }
     },
@@ -163,14 +355,1281 @@
       "type": "stats_hero",
       "content": {
         "title": "2025년 성과 하이라이트",
-        "hero": {"value": "300%", "label": "생산성 향상"},
+        "hero": {
+          "value": "300%",
+          "label": "생산성 향상"
+        },
         "stats": [
-          {"emoji": "🏢", "value": "150+", "label": "도입 기업"},
-          {"emoji": "👤", "value": "50K+", "label": "월간 활성 사용자"},
-          {"emoji": "📄", "value": "2M+", "label": "처리 문서 수"},
-          {"emoji": "⏱️", "value": "99.9%", "label": "서비스 가동률"}
+          {
+            "emoji": "🏢",
+            "value": "150+",
+            "label": "도입 기업"
+          },
+          {
+            "emoji": "👤",
+            "value": "50K+",
+            "label": "월간 활성 사용자"
+          },
+          {
+            "emoji": "📄",
+            "value": "2M+",
+            "label": "처리 문서 수"
+          },
+          {
+            "emoji": "⏱️",
+            "value": "99.9%",
+            "label": "서비스 가동률"
+          }
         ]
       }
+    },
+    {
+      "id": "mekko_mckinsey_blue_finance",
+      "type": "dashboard",
+      "content": {
+        "title": "APAC retail drove 67% of FY2025 revenue growth, led by China and India",
+        "description": "Revenue contribution by region × product category",
+        "metrics": [
+          {
+            "emoji": "📐",
+            "title": "APAC",
+            "value": "45%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "NAM",
+            "value": "28%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "EMEA",
+            "value": "18%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "LATAM",
+            "value": "9%",
+            "change": ""
+          }
+        ],
+        "chart_title": "Revenue contribution by region × product category"
+      },
+      "_layout": "mekko",
+      "_theme": "mckinsey_blue",
+      "_domain": "finance"
+    },
+    {
+      "id": "mekko_bcg_green_market_entry",
+      "type": "dashboard",
+      "content": {
+        "title": "Premium and Mid-tier segments justify 73% of next-year marketing spend",
+        "description": "Market size by segment × channel",
+        "metrics": [
+          {
+            "emoji": "📐",
+            "title": "Premium",
+            "value": "28%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Mid",
+            "value": "45%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Value",
+            "value": "27%",
+            "change": ""
+          }
+        ],
+        "chart_title": "Market size by segment × channel"
+      },
+      "_layout": "mekko",
+      "_theme": "bcg_green",
+      "_domain": "market_entry"
+    },
+    {
+      "id": "mekko_bain_red_customer",
+      "type": "dashboard",
+      "content": {
+        "title": "Tier-1 customers contribute 64% of revenue from only 18% of accounts",
+        "description": "Account count × revenue contribution by customer tier",
+        "metrics": [
+          {
+            "emoji": "📐",
+            "title": "Tier-1",
+            "value": "18%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Tier-2",
+            "value": "35%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Tier-3",
+            "value": "47%",
+            "change": ""
+          }
+        ],
+        "chart_title": "Account count × revenue contribution by customer tier"
+      },
+      "_layout": "mekko",
+      "_theme": "bain_red",
+      "_domain": "customer"
+    },
+    {
+      "id": "mekko_minimal_white_industry",
+      "type": "dashboard",
+      "content": {
+        "title": "Healthcare and Tech industries together account for 58% of TAM",
+        "description": "Industry × buyer-persona TAM breakdown",
+        "metrics": [
+          {
+            "emoji": "📐",
+            "title": "Healthcare",
+            "value": "32%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Tech",
+            "value": "26%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Finance",
+            "value": "18%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Retail",
+            "value": "14%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "Other",
+            "value": "10%",
+            "change": ""
+          }
+        ],
+        "chart_title": "Industry × buyer-persona TAM breakdown"
+      },
+      "_layout": "mekko",
+      "_theme": "minimal_white",
+      "_domain": "industry"
+    },
+    {
+      "id": "mekko_editorial_warm_geography",
+      "type": "dashboard",
+      "content": {
+        "title": "European Q4 ad spend skewed 71% toward digital despite TV reach gains",
+        "description": "Ad spend by country × media channel",
+        "metrics": [
+          {
+            "emoji": "📐",
+            "title": "UK",
+            "value": "32%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "DE",
+            "value": "28%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "FR",
+            "value": "22%",
+            "change": ""
+          },
+          {
+            "emoji": "📐",
+            "title": "IT",
+            "value": "18%",
+            "change": ""
+          }
+        ],
+        "chart_title": "Ad spend by country × media channel"
+      },
+      "_layout": "mekko",
+      "_theme": "editorial_warm",
+      "_domain": "geography"
+    },
+    {
+      "id": "matrix_2x2_bcg_green_portfolio",
+      "type": "feature_grid",
+      "content": {
+        "title": "Three product lines are in the Stars quadrant, justifying 70% of capex",
+        "description": "BCG Growth-Share Matrix",
+        "features": [
+          {
+            "emoji": "🟢",
+            "title": "ProdA",
+            "description": "largest with glow"
+          },
+          {
+            "emoji": "🟢",
+            "title": "ProdB",
+            "description": "BCG green"
+          },
+          {
+            "emoji": "🟢",
+            "title": "ProdC",
+            "description": "BCG green"
+          },
+          {
+            "emoji": "🟢",
+            "title": "ProdD",
+            "description": "lighter green"
+          },
+          {
+            "emoji": "🟢",
+            "title": "ProdE",
+            "description": "lighter green"
+          },
+          {
+            "emoji": "🟢",
+            "title": "ProdF",
+            "description": "gray"
+          }
+        ]
+      },
+      "_layout": "matrix_2x2",
+      "_theme": "bcg_green",
+      "_domain": "portfolio"
+    },
+    {
+      "id": "matrix_2x2_mckinsey_blue_risk",
+      "type": "feature_grid",
+      "content": {
+        "title": "Two risk events fall in the High-Impact / High-Likelihood quadrant",
+        "description": "Risk register prioritization",
+        "features": [
+          {
+            "emoji": "🟢",
+            "title": "R1",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "R2",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "R3",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "R4",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "R5",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "R6",
+            "description": "None"
+          }
+        ]
+      },
+      "_layout": "matrix_2x2",
+      "_theme": "mckinsey_blue",
+      "_domain": "risk"
+    },
+    {
+      "id": "matrix_2x2_bain_red_competition",
+      "type": "feature_grid",
+      "content": {
+        "title": "Vendor B owns the High-Capability / High-Stability sweet spot",
+        "description": "Competitive landscape map",
+        "features": [
+          {
+            "emoji": "🟢",
+            "title": "Vendor B",
+            "description": "largest"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Vendor A",
+            "description": "small"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Vendor C",
+            "description": "medium"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Vendor D",
+            "description": "medium"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Vendor E",
+            "description": "small"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Vendor F",
+            "description": "small"
+          }
+        ]
+      },
+      "_layout": "matrix_2x2",
+      "_theme": "bain_red",
+      "_domain": "competition"
+    },
+    {
+      "id": "matrix_2x2_minimal_white_investment",
+      "type": "feature_grid",
+      "content": {
+        "title": "Quadrant analysis isolates 4 high-priority investments",
+        "description": "Strategic investment prioritization",
+        "features": [
+          {
+            "emoji": "🟢",
+            "title": "Initiative 1",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Initiative 2",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Initiative 3",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Initiative 4",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Initiative 5",
+            "description": "None"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Initiative 6",
+            "description": "None"
+          }
+        ]
+      },
+      "_layout": "matrix_2x2",
+      "_theme": "minimal_white",
+      "_domain": "investment"
+    },
+    {
+      "id": "matrix_2x2_editorial_warm_feature",
+      "type": "feature_grid",
+      "content": {
+        "title": "Six features rank as 'must-have' on importance and feasibility",
+        "description": "Feature prioritization matrix",
+        "features": [
+          {
+            "emoji": "🟢",
+            "title": "Feature 1",
+            "description": "must-have"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Feature 2",
+            "description": "must-have"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Feature 3",
+            "description": "must-have"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Feature 4",
+            "description": "must-have"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Feature 5",
+            "description": "must-have"
+          },
+          {
+            "emoji": "🟢",
+            "title": "Feature 6",
+            "description": "must-have"
+          }
+        ]
+      },
+      "_layout": "matrix_2x2",
+      "_theme": "editorial_warm",
+      "_domain": "feature"
+    },
+    {
+      "id": "waterfall_mckinsey_blue_finance",
+      "type": "dashboard",
+      "content": {
+        "title": "Operating margin expanded 320 bps driven primarily by COGS reduction",
+        "description": "FY2024 → FY2025 margin bridge",
+        "metrics": [
+          {
+            "emoji": "🔁",
+            "title": "COGS reduction",
+            "value": "180",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Pricing power",
+            "value": "90",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "SG&A increase",
+            "value": "-40",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Mix shift",
+            "value": "90",
+            "change": ""
+          }
+        ],
+        "chart_title": "FY2024 → FY2025 margin bridge"
+      },
+      "_layout": "waterfall",
+      "_theme": "mckinsey_blue",
+      "_domain": "finance"
+    },
+    {
+      "id": "waterfall_bcg_green_growth",
+      "type": "dashboard",
+      "content": {
+        "title": "Revenue grew $4.2B from $12.8B base, 60% from cross-sell expansion",
+        "description": "Revenue bridge $12.8B → $17.0B",
+        "metrics": [
+          {
+            "emoji": "🔁",
+            "title": "New customers",
+            "value": "1.4",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Cross-sell",
+            "value": "2.5",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Price",
+            "value": "0.6",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Churn",
+            "value": "-0.3",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "FX",
+            "value": "0.2",
+            "change": ""
+          }
+        ],
+        "chart_title": "Revenue bridge $12.8B → $17.0B"
+      },
+      "_layout": "waterfall",
+      "_theme": "bcg_green",
+      "_domain": "growth"
+    },
+    {
+      "id": "waterfall_bain_red_cost",
+      "type": "dashboard",
+      "content": {
+        "title": "$120M cost reduction unlocks 4-pp margin gain by year 2",
+        "description": "Cost-out program contribution",
+        "metrics": [
+          {
+            "emoji": "🔁",
+            "title": "Procurement",
+            "value": "-45",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Headcount",
+            "value": "-40",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Tech consolidation",
+            "value": "-25",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Real estate",
+            "value": "-10",
+            "change": ""
+          }
+        ],
+        "chart_title": "Cost-out program contribution"
+      },
+      "_layout": "waterfall",
+      "_theme": "bain_red",
+      "_domain": "cost"
+    },
+    {
+      "id": "waterfall_minimal_white_saas",
+      "type": "dashboard",
+      "content": {
+        "title": "ARR grew 28% with $32M net new contributions despite $14M churn",
+        "description": "Annual recurring revenue bridge",
+        "metrics": [
+          {
+            "emoji": "🔁",
+            "title": "New",
+            "value": "28",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Expansion",
+            "value": "18",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Contraction",
+            "value": "-8",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "Churn",
+            "value": "-6",
+            "change": ""
+          }
+        ],
+        "chart_title": "Annual recurring revenue bridge"
+      },
+      "_layout": "waterfall",
+      "_theme": "minimal_white",
+      "_domain": "saas"
+    },
+    {
+      "id": "waterfall_editorial_warm_ebitda",
+      "type": "dashboard",
+      "content": {
+        "title": "EBITDA bridge reveals 11% YoY uplift from operational excellence",
+        "description": "EBITDA $128M → $142M decomposition",
+        "metrics": [
+          {
+            "emoji": "🔁",
+            "title": "+Volume",
+            "value": "8",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "+Price",
+            "value": "11",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "-Inflation",
+            "value": "-6",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "+Mix",
+            "value": "3",
+            "change": ""
+          },
+          {
+            "emoji": "🔁",
+            "title": "-OpEx",
+            "value": "-2",
+            "change": ""
+          }
+        ],
+        "chart_title": "EBITDA $128M → $142M decomposition"
+      },
+      "_layout": "waterfall",
+      "_theme": "editorial_warm",
+      "_domain": "ebitda"
+    },
+    {
+      "id": "harvey_table_bcg_green_frameworks",
+      "type": "table",
+      "content": {
+        "title": "Framework Y delivers superior outcomes on 4 of 6 capabilities",
+        "description": "Capability framework comparison",
+        "headers": [
+          "Capability",
+          "Framework X",
+          "Framework Y",
+          "Framework Z"
+        ],
+        "rows": [
+          [
+            " Scalability",
+            " Harvey ball + note",
+            " Harvey ball + note"
+          ],
+          [
+            " Cost efficiency",
+            " Harvey ball + note",
+            " Harvey ball + note"
+          ],
+          [
+            " Vendor lock-in risk",
+            " Harvey ball + note",
+            " Harvey ball + note"
+          ],
+          [
+            " Time to market",
+            " Harvey ball + note",
+            " Harvey ball + note"
+          ],
+          [
+            " Talent availability",
+            " Harvey ball + note",
+            " Harvey ball + note"
+          ],
+          [
+            " Total ecosystem",
+            " Harvey ball + note",
+            " Harvey ball + note"
+          ]
+        ]
+      },
+      "_layout": "harvey_table",
+      "_theme": "bcg_green",
+      "_domain": "frameworks"
+    },
+    {
+      "id": "harvey_table_minimal_white_tools",
+      "type": "table",
+      "content": {
+        "title": "Tool 2 is best for 5 of 7 use cases reviewed",
+        "description": "Tool capability matrix",
+        "headers": [
+          "Use case",
+          "Tool 1",
+          "Tool 2",
+          "Tool 3"
+        ],
+        "rows": [
+          [
+            " Use case 1 note",
+            " Best suited",
+            " Use case 1 note"
+          ],
+          [
+            " Use case 2 note",
+            " Best suited",
+            " Use case 2 note"
+          ],
+          [
+            " Use case 3 note",
+            " Best suited",
+            " Use case 3 note"
+          ],
+          [
+            " Use case 4 note",
+            " Best suited",
+            " Use case 4 note"
+          ],
+          [
+            " Use case 5 note",
+            " Best suited",
+            " Use case 5 note"
+          ],
+          [
+            " Use case 6 note",
+            " ",
+            " Use case 6 note"
+          ],
+          [
+            " Use case 7 note",
+            " ",
+            " Use case 7 note"
+          ]
+        ]
+      },
+      "_layout": "harvey_table",
+      "_theme": "minimal_white",
+      "_domain": "tools"
+    },
+    {
+      "id": "harvey_table_editorial_warm_candidates",
+      "type": "table",
+      "content": {
+        "title": "Candidate B exceeds requirements on culture and execution dimensions",
+        "description": "Senior leadership candidate scoring",
+        "headers": [
+          "Vision",
+          "Execution",
+          "Culture fit",
+          "Domain depth",
+          "Reference quality"
+        ],
+        "rows": [
+          [
+            " ",
+            " ",
+            " "
+          ],
+          [
+            " ",
+            " ",
+            " "
+          ],
+          [
+            " ",
+            " ",
+            " "
+          ],
+          [
+            " ",
+            " ",
+            " "
+          ],
+          [
+            " ",
+            " ",
+            " "
+          ]
+        ]
+      },
+      "_layout": "harvey_table",
+      "_theme": "editorial_warm",
+      "_domain": "candidates"
+    },
+    {
+      "id": "bar_chart_mckinsey_blue_performance",
+      "type": "dashboard",
+      "content": {
+        "title": "Q4 revenue exceeded plan by 14% in 7 of 10 business units",
+        "description": "Revenue vs plan by business unit",
+        "metrics": [
+          {
+            "emoji": "📊",
+            "title": "BU1",
+            "value": "{'actual': 'value1', 'target': 'target1'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "BU2",
+            "value": "{'actual': 'value2', 'target': 'target2'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "BU3",
+            "value": "{'actual': 'value3', 'target': 'target3'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "BU4",
+            "value": "{'actual': 'value4', 'target': 'target4'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "BU5",
+            "value": "{'actual': 'value5', 'target': 'target5'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "BU6",
+            "value": "{'actual': 'value6', 'target': 'target6'}",
+            "change": ""
+          }
+        ],
+        "chart_title": "Revenue vs plan by business unit"
+      },
+      "_layout": "bar_chart",
+      "_theme": "mckinsey_blue",
+      "_domain": "performance"
+    },
+    {
+      "id": "bar_chart_bcg_green_growth",
+      "type": "dashboard",
+      "content": {
+        "title": "Customer LTV grew 31% YoY across all 5 cohorts",
+        "description": "LTV by acquisition cohort",
+        "metrics": [
+          {
+            "emoji": "📊",
+            "title": "2021",
+            "value": "{'Year 1 LTV': '$X', 'Year 3 LTV': '$Y'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "2022",
+            "value": "{'Year 1 LTV': '$X', 'Year 3 LTV': '$Y'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "2023",
+            "value": "{'Year 1 LTV': '$X', 'Year 3 LTV': '$Y'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "2024",
+            "value": "{'Year 1 LTV': '$X', 'Year 3 LTV': '$Y'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "2025",
+            "value": "{'Year 1 LTV': '$X', 'Year 3 LTV': '$Y'}",
+            "change": ""
+          }
+        ],
+        "chart_title": "LTV by acquisition cohort"
+      },
+      "_layout": "bar_chart",
+      "_theme": "bcg_green",
+      "_domain": "growth"
+    },
+    {
+      "id": "bar_chart_bain_red_cost",
+      "type": "dashboard",
+      "content": {
+        "title": "3 cost categories represent 78% of total addressable savings",
+        "description": "Savings opportunity by cost category",
+        "metrics": [],
+        "chart_title": "Savings opportunity by cost category"
+      },
+      "_layout": "bar_chart",
+      "_theme": "bain_red",
+      "_domain": "cost"
+    },
+    {
+      "id": "bar_chart_minimal_white_engagement",
+      "type": "dashboard",
+      "content": {
+        "title": "Engagement dropped 22% on weekends across the user base",
+        "description": "Daily active users by day-of-week",
+        "metrics": [
+          {
+            "emoji": "📊",
+            "title": "Mon",
+            "value": "{'day': 'Mon', 'value': 'DAU value for Mon'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Tue",
+            "value": "{'day': 'Tue', 'value': 'DAU value for Tue'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Wed",
+            "value": "{'day': 'Wed', 'value': 'DAU value for Wed'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Thu",
+            "value": "{'day': 'Thu', 'value': 'DAU value for Thu'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Fri",
+            "value": "{'day': 'Fri', 'value': 'DAU value for Fri'}",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Sat",
+            "value": "{'day': 'Sat', 'value': 'DAU value for Sat'}",
+            "change": ""
+          }
+        ],
+        "chart_title": "Daily active users by day-of-week"
+      },
+      "_layout": "bar_chart",
+      "_theme": "minimal_white",
+      "_domain": "engagement"
+    },
+    {
+      "id": "bar_chart_editorial_warm_satisfaction",
+      "type": "dashboard",
+      "content": {
+        "title": "NPS rose to 67 driven by support quality improvements",
+        "description": "NPS by quarter, last 8 quarters",
+        "metrics": [
+          {
+            "emoji": "📊",
+            "title": "Q1 2024",
+            "value": "None",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Q2 2024",
+            "value": "None",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Q3 2024",
+            "value": "None",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Q4 2024",
+            "value": "None",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Q1 2025",
+            "value": "None",
+            "change": ""
+          },
+          {
+            "emoji": "📊",
+            "title": "Q2 2025",
+            "value": "None",
+            "change": ""
+          }
+        ],
+        "chart_title": "NPS by quarter, last 8 quarters"
+      },
+      "_layout": "bar_chart",
+      "_theme": "editorial_warm",
+      "_domain": "satisfaction"
+    },
+    {
+      "id": "line_chart_mckinsey_blue_trend",
+      "type": "dashboard",
+      "content": {
+        "title": "Monthly active users tripled from 1.2M to 3.6M over 24 months",
+        "description": "MAU trajectory, Jan 2024 - Dec 2025",
+        "metrics": [
+          {
+            "emoji": "📈",
+            "title": "MAU",
+            "value": "3.6",
+            "change": ""
+          }
+        ],
+        "chart_title": "MAU trajectory, Jan 2024 - Dec 2025"
+      },
+      "_layout": "line_chart",
+      "_theme": "mckinsey_blue",
+      "_domain": "trend"
+    },
+    {
+      "id": "line_chart_bcg_green_competition",
+      "type": "dashboard",
+      "content": {
+        "title": "Our market share grew while top 2 competitors lost ground",
+        "description": "Market share by quarter, top 4 players",
+        "metrics": [],
+        "chart_title": "Market share by quarter, top 4 players"
+      },
+      "_layout": "line_chart",
+      "_theme": "bcg_green",
+      "_domain": "competition"
+    },
+    {
+      "id": "line_chart_bain_red_performance",
+      "type": "dashboard",
+      "content": {
+        "title": "Cost-to-serve dropped below industry benchmark in Q3 2025",
+        "description": "Cost per transaction, our co. vs benchmark",
+        "metrics": [],
+        "chart_title": "Cost per transaction, our co. vs benchmark"
+      },
+      "_layout": "line_chart",
+      "_theme": "bain_red",
+      "_domain": "performance"
+    },
+    {
+      "id": "line_chart_minimal_white_saas",
+      "type": "dashboard",
+      "content": {
+        "title": "ARR growth accelerated to 43% YoY by FY2025-end",
+        "description": "ARR growth rate trajectory",
+        "metrics": [
+          {
+            "emoji": "📈",
+            "title": "ARR Growth Rate",
+            "value": "43",
+            "change": ""
+          }
+        ],
+        "chart_title": "ARR growth rate trajectory"
+      },
+      "_layout": "line_chart",
+      "_theme": "minimal_white",
+      "_domain": "saas"
+    },
+    {
+      "id": "line_chart_editorial_warm_audience",
+      "type": "dashboard",
+      "content": {
+        "title": "",
+        "metrics": [],
+        "chart_title": ""
+      },
+      "_layout": "line_chart",
+      "_theme": "editorial_warm",
+      "_domain": "audience"
+    },
+    {
+      "id": "process_flow_mckinsey_blue_transformation",
+      "type": "timeline",
+      "content": {
+        "title": "Five-phase transformation roadmap delivers value in 18 months",
+        "description": "Digital transformation phases, Q1 2026 - Q2 2027",
+        "items": []
+      },
+      "_layout": "process_flow",
+      "_theme": "mckinsey_blue",
+      "_domain": "transformation"
+    },
+    {
+      "id": "process_flow_bcg_green_go_to_market",
+      "type": "timeline",
+      "content": {
+        "title": "Six-step GTM motion converts 22% of qualified leads",
+        "description": "Sales pipeline workflow",
+        "items": []
+      },
+      "_layout": "process_flow",
+      "_theme": "bcg_green",
+      "_domain": "go_to_market"
+    },
+    {
+      "id": "process_flow_bain_red_ops",
+      "type": "timeline",
+      "content": {
+        "title": "Optimized order-to-cash cycle compresses to 4.2 days from 9.1",
+        "description": "O2C process redesign",
+        "items": []
+      },
+      "_layout": "process_flow",
+      "_theme": "bain_red",
+      "_domain": "ops"
+    },
+    {
+      "id": "process_flow_minimal_white_product",
+      "type": "timeline",
+      "content": {
+        "title": "Product launch follows a 4-phase decision gate process",
+        "description": "New product launch process",
+        "items": []
+      },
+      "_layout": "process_flow",
+      "_theme": "minimal_white",
+      "_domain": "product"
+    },
+    {
+      "id": "process_flow_editorial_warm_campaign",
+      "type": "timeline",
+      "content": {
+        "title": "Marketing campaign cycle spans 6 stages over 8 weeks",
+        "description": "Campaign development workflow",
+        "items": [
+          {
+            "step": 1,
+            "emoji": "🔵",
+            "title": "Brief",
+            "description": "Stage 1"
+          },
+          {
+            "step": 2,
+            "emoji": "🔵",
+            "title": "Creative",
+            "description": "Stage 2"
+          },
+          {
+            "step": 3,
+            "emoji": "🔵",
+            "title": "Approval",
+            "description": "Stage 3"
+          },
+          {
+            "step": 4,
+            "emoji": "🔵",
+            "title": "Production",
+            "description": "Stage 4"
+          },
+          {
+            "step": 5,
+            "emoji": "🔵",
+            "title": "Launch",
+            "description": "Stage 5"
+          },
+          {
+            "step": 6,
+            "emoji": "🔵",
+            "title": "Measure",
+            "description": "Stage 6"
+          }
+        ]
+      },
+      "_layout": "process_flow",
+      "_theme": "editorial_warm",
+      "_domain": "campaign"
+    },
+    {
+      "id": "pyramid_mckinsey_blue_executive_summary",
+      "type": "pyramid",
+      "content": {
+        "title": "Three strategic priorities support our 2026 growth ambition",
+        "description": "Executive summary",
+        "levels": [
+          {
+            "title": "Achieve $200M ARR by FY2026",
+            "description": ""
+          },
+          {
+            "title": "Expand APAC presence",
+            "description": ""
+          },
+          {
+            "title": "Launch Tier-2 products",
+            "description": ""
+          }
+        ]
+      },
+      "_layout": "pyramid",
+      "_theme": "mckinsey_blue",
+      "_domain": "executive_summary"
+    },
+    {
+      "id": "pyramid_bcg_green_recommendation",
+      "type": "pyramid",
+      "content": {
+        "title": "Recommendation: invest $40M in Asia expansion, supported by 3 imperatives",
+        "description": "Investment recommendation pyramid",
+        "levels": [
+          {
+            "title": "",
+            "description": ""
+          }
+        ]
+      },
+      "_layout": "pyramid",
+      "_theme": "bcg_green",
+      "_domain": "recommendation"
+    },
+    {
+      "id": "pyramid_bain_red_thesis",
+      "type": "pyramid",
+      "content": {
+        "title": "Thesis: customer experience is the highest-leverage growth driver",
+        "description": "Investment thesis structure",
+        "levels": [
+          {
+            "title": "Thesis: customer experience is the highest-leverage growth driver",
+            "description": ""
+          },
+          {
+            "title": "CX impact on retention",
+            "description": ""
+          },
+          {
+            "title": "CX impact on referrals",
+            "description": ""
+          }
+        ]
+      },
+      "_layout": "pyramid",
+      "_theme": "bain_red",
+      "_domain": "thesis"
+    },
+    {
+      "id": "pyramid_minimal_white_argument",
+      "type": "pyramid",
+      "content": {
+        "title": "The case for restructuring rests on 3 compounding factors",
+        "description": "Strategic argument hierarchy",
+        "levels": [
+          {
+            "title": "main conclusion",
+            "description": ""
+          },
+          {
+            "title": "reason 1",
+            "description": ""
+          },
+          {
+            "title": "reason 2",
+            "description": ""
+          }
+        ]
+      },
+      "_layout": "pyramid",
+      "_theme": "minimal_white",
+      "_domain": "argument"
+    },
+    {
+      "id": "pyramid_editorial_warm_narrative",
+      "type": "pyramid",
+      "content": {
+        "title": "Brand story rests on three values: craftsmanship, trust, and continuity",
+        "description": "Brand pyramid",
+        "levels": [
+          {
+            "title": "Timeless craftsmanship",
+            "description": ""
+          },
+          {
+            "title": "Craftsmanship",
+            "description": ""
+          },
+          {
+            "title": "Trust",
+            "description": ""
+          }
+        ]
+      },
+      "_layout": "pyramid",
+      "_theme": "editorial_warm",
+      "_domain": "narrative"
     }
   ]
 }

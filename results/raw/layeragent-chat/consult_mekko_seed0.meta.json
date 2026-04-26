@@ -1,0 +1,46 @@
+{
+  "user_message": "McKinsey 스타일 Mekko (Marimekko) 차트 슬라이드. Action title: 'APAC retail drove 67% of FY2025 revenue growth, led by China and India'. Subtitle: 'Revenue contribution by region × product category'. 데이터: 4개 region (APAC 45%, NAM 28%, EMEA 18%, LATAM 9%) × 3 product category (Apparel, Electronics, Home). 각 cell 값: APAC Apparel $35.2B, APAC Electronics $28.8B, APAC Home $12.4B, NAM Apparel $18.1B, NAM Electronics $14.3B, NAM Home $5.9B, EMEA Apparel $9.7B, EMEA Electronics $6.5B, EMEA Home $3.1B, LATAM Apparel $4.2B, LATAM Electronics $2.8B, LATAM Home $1.5B. APAC region 만 강조 (deep navy #003B71), 나머지는 gray tones. Footer: 'Source: Internal financial data, FY2025'. Typography: Georgia serif title, Arial sans-serif body.",
+  "parsed_spec": {
+    "slide_type": "stats_hero",
+    "content": {
+      "title": "APAC retail drove 67% of FY2025 revenue growth, led by China and India",
+      "hero_metric": {
+        "value": "67%",
+        "label": "APAC Revenue Growth"
+      },
+      "stats": [
+        {
+          "label": "APAC Apparel Revenue",
+          "value": "$35.2B"
+        },
+        {
+          "label": "APAC Electronics Revenue",
+          "value": "$28.8B"
+        },
+        {
+          "label": "APAC Home Revenue",
+          "value": "$12.4B"
+        },
+        {
+          "label": "NAM Total Revenue",
+          "value": "$38.3B"
+        },
+        {
+          "label": "EMEA Total Revenue",
+          "value": "$19.3B"
+        },
+        {
+          "label": "LATAM Total Revenue",
+          "value": "$8.5B"
+        }
+      ]
+    },
+    "style": {
+      "primary_color": "#003B71",
+      "accent_color": "#BDBDBD",
+      "background": "#FFFFFF",
+      "text_color": "#333333"
+    }
+  },
+  "image_path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/seeds_test/seed_01_mekko_mckinsey.png"
+}

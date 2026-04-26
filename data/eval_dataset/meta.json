@@ -1,0 +1,413 @@
+{
+  "version": "1.0",
+  "total": 47,
+  "n_new": 37,
+  "n_existing": 10,
+  "failed": [],
+  "model": "gemini-3-pro-image-preview",
+  "slides": [
+    {
+      "id": "design_01_timeline",
+      "layout": "timeline",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_02_dashboard",
+      "layout": "dashboard",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_03_comparison_split",
+      "layout": "comparison_split",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_04_pyramid",
+      "layout": "pyramid",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_05_hub_spoke",
+      "layout": "hub_spoke",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_06_before_after",
+      "layout": "before_after",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_07_feature_grid",
+      "layout": "feature_grid",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_08_roadmap",
+      "layout": "roadmap",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_09_layered_stack",
+      "layout": "layered_stack",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "design_10_stats_hero",
+      "layout": "stats_hero",
+      "theme": "dark_glass",
+      "domain": "general",
+      "source": "existing_design_images (Gemini-generated, dark glassmorphism)"
+    },
+    {
+      "id": "mekko_minimal_white_industry",
+      "layout": "mekko",
+      "theme": "minimal_white",
+      "domain": "industry",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Healthcare and Tech industries together account for 58% of TAM\"\n- Optional subtitle below in lighter color: \"Industry × buyer-persona TAM breakdown\"\n- Body (~75% of slide): Marimekko chart, 5 industries on x-axis (Healthcare 32%, Tech 26%, Finance 18%, Retail 14%, Other 10%), each stacked into 3 buyer personas (CXO, Director, Manager). Cells labeled with $B values. Charcoal accent.\n- Footer bottom-right: \"Source: TAM model v3, Jan 2026\" with page number \"3\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/mekko_minimal_white_industry.png",
+      "_status": "generated"
+    },
+    {
+      "id": "mekko_editorial_warm_geography",
+      "layout": "mekko",
+      "theme": "editorial_warm",
+      "domain": "geography",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"European Q4 ad spend skewed 71% toward digital despite TV reach gains\"\n- Optional subtitle below in lighter color: \"Ad spend by country × media channel\"\n- Body (~75% of slide): Marimekko chart, 4 countries on x-axis (UK 32%, DE 28%, FR 22%, IT 18%), stacked into 3 channels (Digital, TV, Print). Numeric labels with €M values. Terracotta and gold accents.\n- Footer bottom-right: \"Source: Nielsen ad spend tracker, Q4 2025\" with page number \"7\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/mekko_editorial_warm_geography.png",
+      "_status": "generated"
+    },
+    {
+      "id": "matrix_2x2_bcg_green_portfolio",
+      "layout": "matrix_2x2",
+      "theme": "bcg_green",
+      "domain": "portfolio",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: BCG-style. Background white. Accent color BCG green (#00A651). Bold callouts. Clean modern feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Three product lines are in the Stars quadrant, justifying 70% of capex\"\n- Optional subtitle below in lighter color: \"BCG Growth-Share Matrix\"\n- Body (~75% of slide): Large 2×2 matrix. X-axis: 'Market Share' (Low → High). Y-axis: 'Market Growth Rate' (Low → High). Quadrants labeled Question Marks (top-left), Stars (top-right), Dogs (bottom-left), Cash Cows (bottom-right). 8 product circles (ProdA-H) sized by revenue, distributed: 3 in Stars (BCG green, ProdA largest with glow), 2 in Cash Cows (lighter green), 2 in Question Marks (gray), 1 in Dogs.\n- Footer bottom-right: \"Source: Strategic portfolio review, Q4 2025\" with page number \"10\"\n- Typography: sans-serif throughout (Helvetica/Arial), 2 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/matrix_2x2_bcg_green_portfolio.png",
+      "_status": "generated"
+    },
+    {
+      "id": "matrix_2x2_mckinsey_blue_risk",
+      "layout": "matrix_2x2",
+      "theme": "mckinsey_blue",
+      "domain": "risk",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: McKinsey-style. Background white. Accent color deep navy (#003B71). Generous white space. Clean professional feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Two risk events fall in the High-Impact / High-Likelihood quadrant\"\n- Optional subtitle below in lighter color: \"Risk register prioritization\"\n- Body (~75% of slide): 2×2 matrix. X-axis: 'Likelihood' (Low → High). Y-axis: 'Impact' (Low → High). 9 risk events as labeled circles. 2 in top-right (red), 3 in top-left (yellow), 2 in bottom-right (orange), 2 in bottom-left (gray). Each circle labeled R1-R9 with event name.\n- Footer bottom-right: \"Source: Enterprise risk assessment, 2025\" with page number \"14\"\n- Typography: Georgia serif title, Arial sans-serif body labels, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/matrix_2x2_mckinsey_blue_risk.png",
+      "_status": "generated"
+    },
+    {
+      "id": "matrix_2x2_bain_red_competition",
+      "layout": "matrix_2x2",
+      "theme": "bain_red",
+      "domain": "competition",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: Bain-style. Background white. Accent color Bain red (#CC0033). Selective emphasis with red highlights. Balanced density.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Vendor B owns the High-Capability / High-Stability sweet spot\"\n- Optional subtitle below in lighter color: \"Competitive landscape map\"\n- Body (~75% of slide): 2×2 matrix. X-axis: 'Stability' (Low → High). Y-axis: 'Capability' (Low → High). 6 vendors as circles sized by market share. Vendor B in top-right in Bain red (largest), others in gray.\n- Footer bottom-right: \"Source: Vendor evaluation, Dec 2025\" with page number \"6\"\n- Typography: Georgia title, Arial body, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/matrix_2x2_bain_red_competition.png",
+      "_status": "generated"
+    },
+    {
+      "id": "matrix_2x2_minimal_white_investment",
+      "layout": "matrix_2x2",
+      "theme": "minimal_white",
+      "domain": "investment",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Quadrant analysis isolates 4 high-priority investments\"\n- Optional subtitle below in lighter color: \"Strategic investment prioritization\"\n- Body (~75% of slide): 2×2 matrix. X-axis: 'Effort' (Low → High). Y-axis: 'Strategic Value' (Low → High). 12 initiatives as labeled circles. 4 in top-left (high value, low effort) highlighted in charcoal (priority), others lighter.\n- Footer bottom-right: \"Source: Strategic planning, FY2026\" with page number \"11\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/matrix_2x2_minimal_white_investment.png",
+      "_status": "generated"
+    },
+    {
+      "id": "matrix_2x2_editorial_warm_feature",
+      "layout": "matrix_2x2",
+      "theme": "editorial_warm",
+      "domain": "feature",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Six features rank as 'must-have' on importance and feasibility\"\n- Optional subtitle below in lighter color: \"Feature prioritization matrix\"\n- Body (~75% of slide): 2×2 matrix. X-axis: 'Feasibility' (Low → High). Y-axis: 'User Importance' (Low → High). 14 features as circles. 6 in top-right (terracotta, must-have), 4 in top-left (gold, ideas-to-validate), 3 in bottom-right (light), 1 in bottom-left.\n- Footer bottom-right: \"Source: UX research synthesis, 2025\" with page number \"4\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/matrix_2x2_editorial_warm_feature.png",
+      "_status": "generated"
+    },
+    {
+      "id": "waterfall_mckinsey_blue_finance",
+      "layout": "waterfall",
+      "theme": "mckinsey_blue",
+      "domain": "finance",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: McKinsey-style. Background white. Accent color deep navy (#003B71). Generous white space. Clean professional feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Operating margin expanded 320 bps driven primarily by COGS reduction\"\n- Optional subtitle below in lighter color: \"FY2024 → FY2025 margin bridge\"\n- Body (~75% of slide): Waterfall chart with 6 bars: Start FY2024 (12.4%), +COGS reduction (+180 bps, navy), +Pricing power (+90 bps, navy), -SG&A increase (-40 bps, gray), +Mix shift (+90 bps, navy), End FY2025 (15.6%). Each bar labeled with bps value. Connecting dotted lines.\n- Footer bottom-right: \"Source: Financial review, Q4 2025\" with page number \"9\"\n- Typography: Georgia serif title, Arial sans-serif body labels, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/waterfall_mckinsey_blue_finance.png",
+      "_status": "generated"
+    },
+    {
+      "id": "waterfall_bcg_green_growth",
+      "layout": "waterfall",
+      "theme": "bcg_green",
+      "domain": "growth",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: BCG-style. Background white. Accent color BCG green (#00A651). Bold callouts. Clean modern feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Revenue grew $4.2B from $12.8B base, 60% from cross-sell expansion\"\n- Optional subtitle below in lighter color: \"Revenue bridge $12.8B → $17.0B\"\n- Body (~75% of slide): Waterfall chart with 7 bars: Start (gray), +New customers (+$1.4B, BCG green), +Cross-sell (+$2.5B, BCG green darker), +Price (+$0.6B, green), -Churn (-$0.3B, light red), +FX (+$0.2B, gray), End (gray). Annotation arrow on cross-sell highlighting 60%.\n- Footer bottom-right: \"Source: Revenue analysis, FY2025\" with page number \"15\"\n- Typography: sans-serif throughout (Helvetica/Arial), 2 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/waterfall_bcg_green_growth.png",
+      "_status": "generated"
+    },
+    {
+      "id": "waterfall_bain_red_cost",
+      "layout": "waterfall",
+      "theme": "bain_red",
+      "domain": "cost",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: Bain-style. Background white. Accent color Bain red (#CC0033). Selective emphasis with red highlights. Balanced density.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"$120M cost reduction unlocks 4-pp margin gain by year 2\"\n- Optional subtitle below in lighter color: \"Cost-out program contribution\"\n- Body (~75% of slide): Waterfall chart with 6 bars showing cost reduction: Start ($820M), -Procurement (-$45M, Bain red), -Headcount (-$40M, Bain red), -Tech consolidation (-$25M, red), -Real estate (-$10M, lighter red), End ($700M, gray). All in $M.\n- Footer bottom-right: \"Source: Operations review, 2025\" with page number \"11\"\n- Typography: Georgia title, Arial body, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/waterfall_bain_red_cost.png",
+      "_status": "generated"
+    },
+    {
+      "id": "waterfall_minimal_white_saas",
+      "layout": "waterfall",
+      "theme": "minimal_white",
+      "domain": "saas",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"ARR grew 28% with $32M net new contributions despite $14M churn\"\n- Optional subtitle below in lighter color: \"Annual recurring revenue bridge\"\n- Body (~75% of slide): Waterfall chart 6 bars. Start ARR $48M, +New ($28M, charcoal), +Expansion ($18M, dark gray), -Contraction (-$8M, light), -Churn (-$6M, light), End ARR $80M. All bar values labeled.\n- Footer bottom-right: \"Source: ARR snapshot, Dec 2025\" with page number \"7\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/waterfall_minimal_white_saas.png",
+      "_status": "generated"
+    },
+    {
+      "id": "waterfall_editorial_warm_ebitda",
+      "layout": "waterfall",
+      "theme": "editorial_warm",
+      "domain": "ebitda",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"EBITDA bridge reveals 11% YoY uplift from operational excellence\"\n- Optional subtitle below in lighter color: \"EBITDA $128M → $142M decomposition\"\n- Body (~75% of slide): Waterfall chart with 6 bars. Start (gray), +Volume (+$8M, terracotta), +Price (+$11M, terracotta), -Inflation (-$6M, gold), +Mix (+$3M, terracotta), -OpEx (-$2M, light), End (gray). Bars labeled with $M.\n- Footer bottom-right: \"Source: Q4 2025 financials\" with page number \"5\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/waterfall_editorial_warm_ebitda.png",
+      "_status": "generated"
+    },
+    {
+      "id": "harvey_table_bain_red_vendors",
+      "layout": "harvey_table",
+      "theme": "bain_red",
+      "domain": "vendors",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: Bain-style. Background white. Accent color Bain red (#CC0033). Selective emphasis with red highlights. Balanced density.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Vendor B leads on 4 of 5 evaluation criteria, justifying selection\"\n- Optional subtitle below in lighter color: \"Vendor scoring matrix\"\n- Body (~75% of slide): Comparison table with 5 row criteria (Total Cost, Implementation speed, Feature completeness, Vendor stability, Customer references) and 3 columns (Vendor A, Vendor B, Vendor C). Each cell contains a Harvey ball (filled circle 0/25/50/75/100%) plus brief justification text. Vendor B column highlighted in Bain red border.\n- Footer bottom-right: \"Source: Vendor RFP scoring, Dec 2025\" with page number \"8\"\n- Typography: Georgia title, Arial body, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/harvey_table_bain_red_vendors.png",
+      "_status": "generated"
+    },
+    {
+      "id": "harvey_table_mckinsey_blue_options",
+      "layout": "harvey_table",
+      "theme": "mckinsey_blue",
+      "domain": "options",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: McKinsey-style. Background white. Accent color deep navy (#003B71). Generous white space. Clean professional feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Option C scores highest on weighted criteria across 6 dimensions\"\n- Optional subtitle below in lighter color: \"Strategic option comparison\"\n- Body (~75% of slide): Comparison table 6 rows (Cost, Speed, Risk, Strategic fit, Talent need, Reversibility) × 4 options (A, B, C, D). Harvey balls in each cell with justification text. Option C column highlighted with deep navy border. Rows weighted (column on left shows weight 5%, 15%, 20%, 25%, 20%, 15%).\n- Footer bottom-right: \"Source: Strategic option assessment, 2025\" with page number \"12\"\n- Typography: Georgia serif title, Arial sans-serif body labels, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/harvey_table_mckinsey_blue_options.png",
+      "_status": "generated"
+    },
+    {
+      "id": "harvey_table_bcg_green_frameworks",
+      "layout": "harvey_table",
+      "theme": "bcg_green",
+      "domain": "frameworks",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: BCG-style. Background white. Accent color BCG green (#00A651). Bold callouts. Clean modern feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Framework Y delivers superior outcomes on 4 of 6 capabilities\"\n- Optional subtitle below in lighter color: \"Capability framework comparison\"\n- Body (~75% of slide): Comparison table 6 rows (Scalability, Cost efficiency, Vendor lock-in risk, Time to market, Talent availability, Total ecosystem) × 3 frameworks (X, Y, Z). Harvey balls + short justifications. Framework Y column highlighted in BCG green.\n- Footer bottom-right: \"Source: Architecture review, 2025\" with page number \"4\"\n- Typography: sans-serif throughout (Helvetica/Arial), 2 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/harvey_table_bcg_green_frameworks.png",
+      "_status": "generated"
+    },
+    {
+      "id": "harvey_table_minimal_white_tools",
+      "layout": "harvey_table",
+      "theme": "minimal_white",
+      "domain": "tools",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Tool 2 is best for 5 of 7 use cases reviewed\"\n- Optional subtitle below in lighter color: \"Tool capability matrix\"\n- Body (~75% of slide): Comparison table 7 rows (Use case 1-7) × 3 tools (Tool 1, 2, 3). Harvey balls + brief notes. Tool 2 column subtly emphasized with charcoal border.\n- Footer bottom-right: \"Source: Tooling evaluation, 2025\" with page number \"6\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/harvey_table_minimal_white_tools.png",
+      "_status": "generated"
+    },
+    {
+      "id": "harvey_table_editorial_warm_candidates",
+      "layout": "harvey_table",
+      "theme": "editorial_warm",
+      "domain": "candidates",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Candidate B exceeds requirements on culture and execution dimensions\"\n- Optional subtitle below in lighter color: \"Senior leadership candidate scoring\"\n- Body (~75% of slide): Comparison table 5 rows (Vision, Execution, Culture fit, Domain depth, Reference quality) × 3 candidates (A, B, C). Harvey balls + interview justifications. Candidate B highlighted with terracotta border.\n- Footer bottom-right: \"Source: Executive search panel, Q4 2025\" with page number \"10\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/harvey_table_editorial_warm_candidates.png",
+      "_status": "generated"
+    },
+    {
+      "id": "bar_chart_mckinsey_blue_performance",
+      "layout": "bar_chart",
+      "theme": "mckinsey_blue",
+      "domain": "performance",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: McKinsey-style. Background white. Accent color deep navy (#003B71). Generous white space. Clean professional feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Q4 revenue exceeded plan by 14% in 7 of 10 business units\"\n- Optional subtitle below in lighter color: \"Revenue vs plan by business unit\"\n- Body (~75% of slide): Vertical bar chart with 10 bars (BU1-BU10). Each bar shows actual revenue with horizontal target line overlay. Bars exceeding target in deep navy, missing in gray. Y-axis $M, x-axis BU labels. Data labels above each bar.\n- Footer bottom-right: \"Source: Q4 2025 performance review\" with page number \"2\"\n- Typography: Georgia serif title, Arial sans-serif body labels, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/bar_chart_mckinsey_blue_performance.png",
+      "_status": "generated"
+    },
+    {
+      "id": "bar_chart_bcg_green_growth",
+      "layout": "bar_chart",
+      "theme": "bcg_green",
+      "domain": "growth",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: BCG-style. Background white. Accent color BCG green (#00A651). Bold callouts. Clean modern feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Customer LTV grew 31% YoY across all 5 cohorts\"\n- Optional subtitle below in lighter color: \"LTV by acquisition cohort\"\n- Body (~75% of slide): Vertical bar chart 5 cohorts (2021, 2022, 2023, 2024, 2025), each with two bars (Year 1 LTV vs Year 3 LTV). All bars in BCG green shades. Data labels in $.\n- Footer bottom-right: \"Source: Cohort LTV model, Dec 2025\" with page number \"8\"\n- Typography: sans-serif throughout (Helvetica/Arial), 2 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/bar_chart_bcg_green_growth.png",
+      "_status": "generated"
+    },
+    {
+      "id": "bar_chart_bain_red_cost",
+      "layout": "bar_chart",
+      "theme": "bain_red",
+      "domain": "cost",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: Bain-style. Background white. Accent color Bain red (#CC0033). Selective emphasis with red highlights. Balanced density.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"3 cost categories represent 78% of total addressable savings\"\n- Optional subtitle below in lighter color: \"Savings opportunity by cost category\"\n- Body (~75% of slide): Horizontal bar chart, 7 cost categories (Procurement, Workforce, Tech, Real estate, T&E, Marketing, Other) sorted descending by savings $M. Top 3 in Bain red, others gray. Pareto-style cumulative line overlay reaching 78%.\n- Footer bottom-right: \"Source: Cost diagnostic, 2025\" with page number \"11\"\n- Typography: Georgia title, Arial body, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/bar_chart_bain_red_cost.png",
+      "_status": "generated"
+    },
+    {
+      "id": "bar_chart_minimal_white_engagement",
+      "layout": "bar_chart",
+      "theme": "minimal_white",
+      "domain": "engagement",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Engagement dropped 22% on weekends across the user base\"\n- Optional subtitle below in lighter color: \"Daily active users by day-of-week\"\n- Body (~75% of slide): Vertical bar chart 7 bars (Mon-Sun), DAU on y-axis. Mon-Fri bars uniform charcoal, Sat-Sun lighter. Annotation arrow showing 22% gap.\n- Footer bottom-right: \"Source: Product analytics, Nov 2025\" with page number \"5\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/bar_chart_minimal_white_engagement.png",
+      "_status": "generated"
+    },
+    {
+      "id": "bar_chart_editorial_warm_satisfaction",
+      "layout": "bar_chart",
+      "theme": "editorial_warm",
+      "domain": "satisfaction",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"NPS rose to 67 driven by support quality improvements\"\n- Optional subtitle below in lighter color: \"NPS by quarter, last 8 quarters\"\n- Body (~75% of slide): Vertical bar chart 8 bars (Q1 2024 - Q4 2025). All bars in terracotta. Trend line overlay in gold. Latest bar (Q4 2025 = 67) labeled and highlighted.\n- Footer bottom-right: \"Source: Customer survey panel, 2025\" with page number \"7\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/bar_chart_editorial_warm_satisfaction.png",
+      "_status": "generated"
+    },
+    {
+      "id": "line_chart_mckinsey_blue_trend",
+      "layout": "line_chart",
+      "theme": "mckinsey_blue",
+      "domain": "trend",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: McKinsey-style. Background white. Accent color deep navy (#003B71). Generous white space. Clean professional feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Monthly active users tripled from 1.2M to 3.6M over 24 months\"\n- Optional subtitle below in lighter color: \"MAU trajectory, Jan 2024 - Dec 2025\"\n- Body (~75% of slide): Line chart with single trend line over 24 months. Y-axis MAU in millions, x-axis months. Inflection points annotated (e.g., 'Q3 2024 launch', 'Q1 2025 paid acquisition'). Deep navy line, light grid.\n- Footer bottom-right: \"Source: Product analytics, Dec 2025\" with page number \"3\"\n- Typography: Georgia serif title, Arial sans-serif body labels, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/line_chart_mckinsey_blue_trend.png",
+      "_status": "generated"
+    },
+    {
+      "id": "line_chart_bcg_green_competition",
+      "layout": "line_chart",
+      "theme": "bcg_green",
+      "domain": "competition",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: BCG-style. Background white. Accent color BCG green (#00A651). Bold callouts. Clean modern feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Our market share grew while top 2 competitors lost ground\"\n- Optional subtitle below in lighter color: \"Market share by quarter, top 4 players\"\n- Body (~75% of slide): Line chart with 4 lines over 12 quarters. Our line (BCG green, bold) trending up from 18% to 27%. Two competitors trending down. Y-axis 0-40%, legend on right.\n- Footer bottom-right: \"Source: Industry tracker, 2025\" with page number \"14\"\n- Typography: sans-serif throughout (Helvetica/Arial), 2 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/line_chart_bcg_green_competition.png",
+      "_status": "generated"
+    },
+    {
+      "id": "line_chart_bain_red_performance",
+      "layout": "line_chart",
+      "theme": "bain_red",
+      "domain": "performance",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: Bain-style. Background white. Accent color Bain red (#CC0033). Selective emphasis with red highlights. Balanced density.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Cost-to-serve dropped below industry benchmark in Q3 2025\"\n- Optional subtitle below in lighter color: \"Cost per transaction, our co. vs benchmark\"\n- Body (~75% of slide): Line chart with 2 lines over 8 quarters. Our cost (Bain red, bold) descending from $4.20 to $2.80. Industry benchmark (gray dashed) flat at $3.10. Crossover point annotated.\n- Footer bottom-right: \"Source: Operations benchmarking, Q3 2025\" with page number \"9\"\n- Typography: Georgia title, Arial body, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/line_chart_bain_red_performance.png",
+      "_status": "generated"
+    },
+    {
+      "id": "line_chart_minimal_white_saas",
+      "layout": "line_chart",
+      "theme": "minimal_white",
+      "domain": "saas",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"ARR growth accelerated to 43% YoY by FY2025-end\"\n- Optional subtitle below in lighter color: \"ARR growth rate trajectory\"\n- Body (~75% of slide): Line chart with single line over 10 quarters showing growth rate %. Y-axis 0-50%. Latest 3 points charcoal solid, earlier 7 points lighter. Annotation 'inflection at Q2 2024'.\n- Footer bottom-right: \"Source: ARR tracking, Q4 2025\" with page number \"2\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/line_chart_minimal_white_saas.png",
+      "_status": "generated"
+    },
+    {
+      "id": "line_chart_editorial_warm_audience",
+      "layout": "line_chart",
+      "theme": "editorial_warm",
+      "domain": "audience",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Newsletter subscribers reached 1.4M, growing 8% MoM\"\n- Optional subtitle below in lighter color: \"Subscriber count, last 18 months\"\n- Body (~75% of slide): Line chart over 18 months. Single terracotta line trending up. Gold dotted overlay shows monthly growth rate. Latest data point (1.4M, +8% MoM) labeled.\n- Footer bottom-right: \"Source: Audience analytics, Dec 2025\" with page number \"6\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/line_chart_editorial_warm_audience.png",
+      "_status": "generated"
+    },
+    {
+      "id": "process_flow_mckinsey_blue_transformation",
+      "layout": "process_flow",
+      "theme": "mckinsey_blue",
+      "domain": "transformation",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: McKinsey-style. Background white. Accent color deep navy (#003B71). Generous white space. Clean professional feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Five-phase transformation roadmap delivers value in 18 months\"\n- Optional subtitle below in lighter color: \"Digital transformation phases, Q1 2026 - Q2 2027\"\n- Body (~75% of slide): Horizontal process flow with 5 phases left-to-right (Diagnose, Design, Pilot, Scale, Sustain). Each phase shown as a chevron pointing right with phase name + 2-3 key activities + timeline (e.g., 'Q1 2026'). Connecting arrows. Deep navy theme.\n- Footer bottom-right: \"Source: Transformation PMO, 2026\" with page number \"4\"\n- Typography: Georgia serif title, Arial sans-serif body labels, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/process_flow_mckinsey_blue_transformation.png",
+      "_status": "generated"
+    },
+    {
+      "id": "process_flow_bcg_green_go_to_market",
+      "layout": "process_flow",
+      "theme": "bcg_green",
+      "domain": "go_to_market",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: BCG-style. Background white. Accent color BCG green (#00A651). Bold callouts. Clean modern feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Six-step GTM motion converts 22% of qualified leads\"\n- Optional subtitle below in lighter color: \"Sales pipeline workflow\"\n- Body (~75% of slide): Horizontal process flow with 6 stages (Awareness, Interest, Qualification, Evaluation, Decision, Onboarding). Each stage as a rounded box with conversion % below. Boxes connected with arrows showing drop-off. BCG green for top of funnel, darker for bottom.\n- Footer bottom-right: \"Source: Sales operations, 2025\" with page number \"13\"\n- Typography: sans-serif throughout (Helvetica/Arial), 2 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/process_flow_bcg_green_go_to_market.png",
+      "_status": "generated"
+    },
+    {
+      "id": "process_flow_bain_red_ops",
+      "layout": "process_flow",
+      "theme": "bain_red",
+      "domain": "ops",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: Bain-style. Background white. Accent color Bain red (#CC0033). Selective emphasis with red highlights. Balanced density.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Optimized order-to-cash cycle compresses to 4.2 days from 9.1\"\n- Optional subtitle below in lighter color: \"O2C process redesign\"\n- Body (~75% of slide): Horizontal process flow 5 steps (Order, Validate, Pack, Ship, Invoice). Each step labeled with redesigned cycle time. Total at right: '4.2 days (was 9.1)'. Bain red for accelerated steps, gray for stable.\n- Footer bottom-right: \"Source: Operations re-engineering, 2025\" with page number \"11\"\n- Typography: Georgia title, Arial body, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/process_flow_bain_red_ops.png",
+      "_status": "generated"
+    },
+    {
+      "id": "process_flow_minimal_white_product",
+      "layout": "process_flow",
+      "theme": "minimal_white",
+      "domain": "product",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Product launch follows a 4-phase decision gate process\"\n- Optional subtitle below in lighter color: \"New product launch process\"\n- Body (~75% of slide): Vertical process flow with 4 phases top-to-bottom (Concept, Validation, Build, Launch). Each phase has a decision diamond gate (Go/No-go) below. Charcoal monochrome.\n- Footer bottom-right: \"Source: Product operating model, 2025\" with page number \"8\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/process_flow_minimal_white_product.png",
+      "_status": "generated"
+    },
+    {
+      "id": "process_flow_editorial_warm_campaign",
+      "layout": "process_flow",
+      "theme": "editorial_warm",
+      "domain": "campaign",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Marketing campaign cycle spans 6 stages over 8 weeks\"\n- Optional subtitle below in lighter color: \"Campaign development workflow\"\n- Body (~75% of slide): Horizontal flow with 6 stages (Brief, Creative, Approval, Production, Launch, Measure). Each stage shown as numbered circle + label + duration. Connecting line. Terracotta circles, gold connecting lines.\n- Footer bottom-right: \"Source: Marketing ops handbook, 2025\" with page number \"5\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/process_flow_editorial_warm_campaign.png",
+      "_status": "generated"
+    },
+    {
+      "id": "pyramid_mckinsey_blue_executive_summary",
+      "layout": "pyramid",
+      "theme": "mckinsey_blue",
+      "domain": "executive_summary",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: McKinsey-style. Background white. Accent color deep navy (#003B71). Generous white space. Clean professional feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Three strategic priorities support our 2026 growth ambition\"\n- Optional subtitle below in lighter color: \"Executive summary\"\n- Body (~75% of slide): Pyramid structure: top tier with 1 main message ('Achieve $200M ARR by FY2026'). Middle tier with 3 supporting pillars ('Expand APAC presence', 'Launch Tier-2 products', 'Build B2B partnerships'). Bottom tier with 9 sub-arguments (3 per pillar). Connected by lines. Deep navy theme.\n- Footer bottom-right: \"Source: 2026 strategy planning\" with page number \"1\"\n- Typography: Georgia serif title, Arial sans-serif body labels, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/pyramid_mckinsey_blue_executive_summary.png",
+      "_status": "generated"
+    },
+    {
+      "id": "pyramid_bcg_green_recommendation",
+      "layout": "pyramid",
+      "theme": "bcg_green",
+      "domain": "recommendation",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: BCG-style. Background white. Accent color BCG green (#00A651). Bold callouts. Clean modern feel.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Recommendation: invest $40M in Asia expansion, supported by 3 imperatives\"\n- Optional subtitle below in lighter color: \"Investment recommendation pyramid\"\n- Body (~75% of slide): Pyramid with 1 recommendation at top ('$40M Asia expansion'). 3 imperatives in middle ('Establish Singapore hub', 'Build local sales team', 'Tailor product for APAC SMEs'). 6-9 evidence points at bottom. BCG green theme.\n- Footer bottom-right: \"Source: Strategic recommendation, Q4 2025\" with page number \"18\"\n- Typography: sans-serif throughout (Helvetica/Arial), 2 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/pyramid_bcg_green_recommendation.png",
+      "_status": "generated"
+    },
+    {
+      "id": "pyramid_bain_red_thesis",
+      "layout": "pyramid",
+      "theme": "bain_red",
+      "domain": "thesis",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: Bain-style. Background white. Accent color Bain red (#CC0033). Selective emphasis with red highlights. Balanced density.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Thesis: customer experience is the highest-leverage growth driver\"\n- Optional subtitle below in lighter color: \"Investment thesis structure\"\n- Body (~75% of slide): Pyramid: top thesis statement, 3 supporting claims (CX impact on retention, CX impact on referrals, CX impact on pricing power), 6-9 data points at base. Bain red highlighting at top.\n- Footer bottom-right: \"Source: Investment committee deck, 2025\" with page number \"2\"\n- Typography: Georgia title, Arial body, 2 fonts max\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/pyramid_bain_red_thesis.png",
+      "_status": "generated"
+    },
+    {
+      "id": "pyramid_minimal_white_argument",
+      "layout": "pyramid",
+      "theme": "minimal_white",
+      "domain": "argument",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: minimalist. Background pure white. Single accent color charcoal (#1F2937). Extreme white space. Apple-keynote influence.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"The case for restructuring rests on 3 compounding factors\"\n- Optional subtitle below in lighter color: \"Strategic argument hierarchy\"\n- Body (~75% of slide): Pyramid 3 tiers: top conclusion, 3 mid-tier reasons, 6 supporting facts at base. Charcoal lines, monochrome.\n- Footer bottom-right: \"Source: Strategy review, 2025\" with page number \"4\"\n- Typography: sans-serif (Inter or Helvetica), single typeface, 2-3 weights\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/pyramid_minimal_white_argument.png",
+      "_status": "generated"
+    },
+    {
+      "id": "pyramid_editorial_warm_narrative",
+      "layout": "pyramid",
+      "theme": "editorial_warm",
+      "domain": "narrative",
+      "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Brand story rests on three values: craftsmanship, trust, and continuity\"\n- Optional subtitle below in lighter color: \"Brand pyramid\"\n- Body (~75% of slide): Pyramid with 1 essence statement at top ('Timeless craftsmanship'), 3 brand values in middle (Craftsmanship, Trust, Continuity), 6-9 expressions at base. Terracotta and gold tones, serif typography.\n- Footer bottom-right: \"Source: Brand strategy, 2026\" with page number \"3\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/pyramid_editorial_warm_narrative.png",
+      "_status": "generated"
+    }
+  ]
+}

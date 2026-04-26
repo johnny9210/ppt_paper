@@ -1,0 +1,42 @@
+{
+  "user_message": "BCG 2×2 matrix 슬라이드 (Growth-Share Matrix). Action title: 'Three product lines are in the Stars quadrant, justifying 70% of capex'. X-axis: Market Share (Low → High). Y-axis: Market Growth Rate (Low → High). 4 quadrants: Question Marks (top-left), Stars (top-right), Dogs (bottom-left), Cash Cows (bottom-right). Products: ProdA, ProdB, ProdC in Stars (BCG green #00A651, ProdA largest with glow). ProdD, ProdE in Cash Cows (lighter green). ProdF, ProdG in Question Marks (gray). ProdH in Dogs (light gray). Footer: 'Source: Strategic review, Q4 2025'. Background white, BCG green accent, sans-serif typography.",
+  "parsed_spec": {
+    "slide_type": "stats_hero",
+    "content": {
+      "title": "Growth-Share Matrix Overview",
+      "hero_metric": {
+        "value": "70%",
+        "label": "Capex in Stars"
+      },
+      "stats": [
+        {
+          "label": "ProdA",
+          "value": "Star"
+        },
+        {
+          "label": "ProdB",
+          "value": "Star"
+        },
+        {
+          "label": "ProdC",
+          "value": "Star"
+        },
+        {
+          "label": "ProdD",
+          "value": "Cash Cow"
+        },
+        {
+          "label": "ProdE",
+          "value": "Cash Cow"
+        }
+      ]
+    },
+    "style": {
+      "primary_color": "#00A651",
+      "accent_color": "#888888",
+      "background": "#FFFFFF",
+      "text_color": "#000000"
+    }
+  },
+  "image_path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/seeds_test/seed_02_matrix_bcg.png"
+}
