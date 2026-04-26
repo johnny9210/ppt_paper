@@ -1,6 +1,6 @@
 """LayerAgent — Multi-agent framework for presentation slide generation.
 
-Two entry points:
+Two entry points (both require a reference design image):
 
 (1) Benchmark mode — pre-defined slide_id pulls structured content from meta.json:
     from layeragent import LayerAgent

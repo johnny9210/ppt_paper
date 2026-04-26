@@ -2,6 +2,11 @@
 
 HERO_DETAIL_PROMPT = """이 슬라이드 이미지에서 **빨간 사각형으로 표시된 HERO 영역 {hero_idx}**를 HTML+CSS로 재현하라.
 
+★★★ **빨간 사각형은 영역 표시용 overlay 일 뿐, 실제 디자인 요소가 아니다.**
+- `border: 2px solid red` 같은 빨간 테두리를 hero CSS 에 넣지 말 것
+- 빨간색을 hero 배경/테두리/그림자로 사용하지 말 것
+- hero 의 실제 색은 palette 의 accent / bg_primary 에서 가져오기
+
 {facts_block}
 
 ★ 위 결정론적 측정값 반영:

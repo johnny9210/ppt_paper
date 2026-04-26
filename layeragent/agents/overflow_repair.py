@@ -33,6 +33,92 @@ def _structure_preserved(input_html: str, output_html: str) -> bool:
     return not (needed - _structural_classes(output_html))
 
 
+_FONT_SIZE_PROP_RE = re.compile(
+    r"(font-size\s*:\s*)([\d.]+)\s*(rem|em|px)\s*(;|\s|$)",
+    re.IGNORECASE,
+)
+
+
+def _shrink_class_font(html: str, class_name: str, factor: float = 0.75) -> str:
+    """단일 CSS 클래스 룰의 font-size 를 factor 배만큼 축소 (deterministic)."""
+    rule_re = re.compile(
+        rf"(\.{re.escape(class_name)}\s*\{{)([^}}]*)\}}",
+        re.DOTALL,
+    )
+
+    def shrink_body(m: re.Match) -> str:
+        body = m.group(2)
+        def repl(fm: re.Match) -> str:
+            try:
+                new_val = float(fm.group(2)) * factor
+                return f"{fm.group(1)}{new_val:.2f}{fm.group(3)}{fm.group(4)}"
+            except Exception:
+                return fm.group(0)
+        new_body = _FONT_SIZE_PROP_RE.sub(repl, body)
+        return m.group(1) + new_body + "}"
+
+    return rule_re.sub(shrink_body, html)
+
+
+# Single principled parameter: extra slack below the measured fit ratio so
+# anti-aliasing / kerning / sub-pixel rounding don't push us back over.
+# 0.95 = leave 5% headroom; defensible as "shrink to fit with safety margin".
+_FONT_FIT_SAFETY = 0.95
+
+
+def _measured_fit_factor(ov: dict) -> float:
+    """Compute the largest font scale that still fits container by measurement.
+
+    Given Playwright's per-element clientWidth/Height (container) and
+    scrollWidth/Height (natural content), the factor that makes content
+    exactly fit each axis is container / content. Take the tighter axis,
+    multiply by a single safety margin. No magic thresholds.
+    """
+    cw = ov.get("client_w") or 0
+    ch = ov.get("client_h") or 0
+    sw = ov.get("scroll_w") or 0
+    sh = ov.get("scroll_h") or 0
+    # If a dimension isn't reported (older measurement) fall back to ratio
+    # derived from overflow_px alone: factor = (cw) / (cw + horiz_px).
+    if cw and sw:
+        rx = cw / sw
+    elif cw:
+        rx = cw / max(cw + (ov.get("horiz_px") or 0), 1)
+    else:
+        rx = 1.0
+    if ch and sh:
+        ry = ch / sh
+    elif ch:
+        ry = ch / max(ch + (ov.get("vert_px") or 0), 1)
+    else:
+        ry = 1.0
+    return min(rx, ry, 1.0) * _FONT_FIT_SAFETY
+
+
+def _deterministic_overflow_fix(html: str, overflows: list[dict]) -> str:
+    """Fallback when LLM repair is rejected — shrink-to-fit per measurement.
+
+    For each overflowing CSS class, compute the exact factor needed to fit
+    the rendered text into its container, derived from Playwright's
+    clientWidth/Height vs scrollWidth/Height. Per class we apply the
+    smallest measured factor across instances (most conservative).
+    """
+    # Per-class minimum factor across all overflowing instances of that class
+    cls_to_factor: dict[str, float] = {}
+    for ov in overflows:
+        sel = (ov.get("selector") or "").lstrip(".")
+        if not sel:
+            continue
+        f = _measured_fit_factor(ov)
+        if f >= 1.0:
+            continue  # not actually overflowing per measurement
+        cls_to_factor[sel] = min(cls_to_factor.get(sel, 1.0), f)
+
+    for cls, factor in cls_to_factor.items():
+        html = _shrink_class_font(html, cls, factor=factor)
+    return html
+
+
 OVERFLOW_MEASURE_JS = """
 (() => {
   const selectors = [
@@ -53,6 +139,11 @@ OVERFLOW_MEASURE_JS = """
           nth: idx,
           horiz_px: horiz_over,
           vert_px: vert_over,
+          // Exact dimensions for measurement-derived font scaling
+          client_w: el.clientWidth,
+          client_h: el.clientHeight,
+          scroll_w: el.scrollWidth,
+          scroll_h: el.scrollHeight,
           text_sample: (el.innerText || '').substring(0, 50),
           current_font_size: cs.fontSize,
         });
@@ -145,12 +236,14 @@ def overflow_repair(state) -> dict:
     try:
         raw = text_call(prompt, state.get("model", "gpt-4o"), max_tokens=16000)
         fixed = extract_html(raw)
-        if not fixed or len(fixed) < 500:
-            return {"assembled": html, "overflow_report": overflow_sorted}
-        if not _structure_preserved(html, fixed):
-            print("[overflow_repair] LLM dropped layout wrappers → keeping original")
-            return {"assembled": html, "overflow_report": overflow_sorted}
-        return {"assembled": fixed, "overflow_report": overflow_sorted}
+        if fixed and len(fixed) >= 500 and _structure_preserved(html, fixed):
+            return {"assembled": fixed, "overflow_report": overflow_sorted}
+        # LLM output rejected (too short or dropped wrappers) → measurement-
+        # derived deterministic shrink-to-fit
+        print("[overflow_repair] LLM rejected → measurement-derived shrink")
+        repaired = _deterministic_overflow_fix(html, overflow_sorted)
+        return {"assembled": repaired, "overflow_report": overflow_sorted}
     except Exception as e:
-        print(f"[overflow_repair] repair failed: {e}")
-        return {"assembled": html, "overflow_report": overflow_sorted}
+        print(f"[overflow_repair] LLM call failed: {e} → measurement-derived shrink")
+        repaired = _deterministic_overflow_fix(html, overflow_sorted)
+        return {"assembled": repaired, "overflow_report": overflow_sorted}

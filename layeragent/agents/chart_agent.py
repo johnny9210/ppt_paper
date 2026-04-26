@@ -24,8 +24,13 @@ CHART_KEYWORDS = (
     "growth", "analytics", "statistics", "metric", "performance",
 )
 
-# 시계열/트렌드 의미를 가진 키워드 — sparkline 으로 표현
-_TREND_KEYWORDS = ("추이", "트렌드", "trend", "월별", "분기별", "over time", "growth", "history")
+# 시계열/트렌드 의미를 가진 키워드 — sparkline 으로 표현. 이 enum 외의
+# 차트는 막대 형태로 default. 비교 가능 단위인지 판별은 별도 알고리즘이
+# 필요해 의도적으로 단순화 (paper-defensible enumeration).
+_TREND_KEYWORDS = (
+    "추이", "추세", "트렌드", "trend", "월별", "분기별", "연도별",
+    "over time", "growth", "history", "evolution", "progression",
+)
 
 
 def _find_chart_regions(analysis: dict, content: dict) -> list[dict]:
@@ -139,22 +144,14 @@ def chart_agent(state) -> dict:
         label_lower = (r["label"] or "").lower()
         is_trend = any(k in label_lower for k in _TREND_KEYWORDS)
 
-        # 값들이 서로 비교 불가능한 스케일이면 (예: 128 vs 240 vs 4.7) bar chart 가
-        # 작은 값을 안 보이게 만든다 → sparkline 으로 대체
-        scale_incommensurate = (
-            len(values) >= 2
-            and min(v for v in values if v > 0) > 0
-            and max(values) / min(v for v in values if v > 0) > 10
-        )
-
-        if len(values) >= 3 and not is_trend and not scale_incommensurate:
+        if len(values) >= 3 and not is_trend:
             svg = bar_chart_inline(values, labels=labels, color=accent,
                                     width_px=min(px_w, 600), height_px=min(px_h, 300))
-        elif len(values) == 1:
+        elif len(values) == 1 and not is_trend:
             svg = percentage_gauge(values[0] if values[0] <= 100 else 50,
                                     color=accent, size_px=min(px_w, px_h, 150))
         else:
-            # 시계열 트렌드 패턴 (8 포인트, 우상향 약간 노이즈)
+            # 시계열 트렌드 패턴 (8 포인트, 우상향)
             fake = [10, 18, 16, 26, 32, 38, 48, 62]
             svg = sparkline(fake, color=accent, width_px=min(px_w - 40, 520),
                             height_px=min(px_h - 60, 140))

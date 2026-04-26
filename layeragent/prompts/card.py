@@ -2,6 +2,11 @@
 
 CARD_DETAIL_PROMPT = """이 슬라이드 이미지에서 **빨간 사각형으로 표시된 카드 {card_idx}**를 HTML+CSS로 재현하라.
 
+★★★ **빨간 사각형은 영역 표시용 overlay 일 뿐, 실제 디자인 요소가 아니다.**
+- `border: 2px solid red` 같은 빨간 테두리를 카드 CSS 에 넣지 말 것
+- 빨간색을 카드 배경/테두리/그림자로 사용하지 말 것
+- 카드의 실제 색은 palette 에서 가져오기
+
 {facts_block}
 
 ★ 위 결정론적 측정값을 반영 (VLM이 추측하지 말 것):
@@ -29,11 +34,13 @@ CARD_DETAIL_PROMPT = """이 슬라이드 이미지에서 **빨간 사각형으�
 </div>
 ```
 
-★★★ **`.card-label` 은 반드시 텍스트 라벨**:
+★★★ **`.card-value` 와 `.card-label` 은 둘 다 순수 텍스트 컨테이너**:
+- background, background-color 사용 금지 (검은 칩/바 모양 금지)
+- box-shadow, border 등 시각 장식 금지
 - height/width 고정 금지 (height:8px, width:80% 같은 진행바 모양 금지)
-- background, box-shadow 등 시각 장식으로 변형 금지
-- font-size 는 12~16px, color 는 muted text, line-height 1.3 정도
-- "라벨처럼 보이는 그라데이션 바" 는 금지 — 순수 텍스트 컨테이너로만
+- "값을 강조하기 위한 chip / pill / 박스" 만들지 말 것 — 텍스트 자체가 강조 수단
+- `.card-value`: font-size 큼(20-32px), color: 밝은 대비
+- `.card-label`: font-size 12~16px, color: muted, line-height 1.3
 
 ★ 빨간 사각형 안만, 바깥 요소 만들지 말 것
 ★ 크기: width:100%; height:100%; position:relative;

@@ -4,7 +4,7 @@ Usage:
     from layeragent import LayerAgent
     agent = LayerAgent(model="gpt-4o", ablation="none", use_visual_critic=False)
     html = agent.run("design_10_stats_hero")              # benchmark mode
-    html = agent.run_from_chat("ref.png", "Q4 매출 대시보드. 매출 128억 +23%, ...")  # chat mode
+    html = agent.run_from_chat("ref.png", "Q4 매출 대시보드. 매출 128억 +23%, ...")  # chat mode (image required)
 
 Ablation-aware LangGraph:
 - 각 agent는 state["ablation"] 을 보고 분기 처리

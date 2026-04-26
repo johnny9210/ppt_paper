@@ -18,20 +18,20 @@
           "change": "+15% MoM"
         },
         {
-          "emoji": "⭐",
+          "emoji": "🌟",
           "title": "고객 만족도",
           "value": "4.7/5.0",
           "change": "+0.3"
         }
       ],
-      "chart_title": "성장 차트"
+      "chart_title": "분기별 성과 추이"
     },
     "style": {
-      "primary_color": "#00FFFF",
-      "accent_color": "#00BFFF",
-      "background": "#0A0F1E",
+      "primary_color": "#00E8FC",
+      "accent_color": "#2E8CFF",
+      "background": "#0F172A",
       "text_color": "#FFFFFF"
     }
   },
-  "image_path": "/Users/jik/Documents/ppt_paper/data/experiment_designs/design_02_dashboard.png"
+  "image_path": "data/experiment_designs/design_02_dashboard.png"
 }

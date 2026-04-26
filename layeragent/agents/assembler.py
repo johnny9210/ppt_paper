@@ -59,6 +59,97 @@ def _ensure_text_visible(html: str) -> str:
     return html
 
 
+def _strip_bbox_artifacts(html: str) -> str:
+    """LLM 이 빨간 bbox overlay 를 디자인으로 오해해 넣은 'border: ... red' 류 제거.
+
+    bbox overlay 색은 (255, 0, 0). 카드/히어로 CSS 에 들어간 'red' / '#FF0000' /
+    'rgb(255,0,0)' 류 border/outline 은 거의 100% 잘못된 카피이므로 안전하게 제거.
+    """
+    patterns = [
+        r"border\s*:\s*\d+px\s+solid\s+red\s*;?",
+        r"border\s*:\s*\d+px\s+solid\s+#[fF]{2}0{4}\s*;?",
+        r"border\s*:\s*\d+px\s+solid\s+rgb\(\s*255\s*,\s*0\s*,\s*0\s*\)\s*;?",
+        r"outline\s*:\s*\d+px\s+solid\s+red\s*;?",
+        r"outline\s*:\s*\d+px\s+solid\s+#[fF]{2}0{4}\s*;?",
+    ]
+    for p in patterns:
+        html = re.sub(p, "", html, flags=re.IGNORECASE)
+    return html
+
+
+# Architectural invariant: .card-value and .card-label are pure text containers.
+# Visual emphasis comes from typography (size/weight/color), not from wrapping
+# the text in a chip/box. Deterministically strip background/border properties
+# from these classes' rules so prompt drift doesn't leak chips into the output.
+_TEXT_CLASS_RULE_RE = re.compile(
+    r"(\.(?:card-value|card-label|hero-value|hero-subtitle)\s*\{)([^}]*)\}",
+    re.DOTALL,
+)
+_STRIP_FROM_TEXT_PROPS = (
+    "background",
+    "background-color",
+    "background-image",
+    "border",
+    "box-shadow",
+)
+
+# Architectural invariant: .card-icon is a content-sized icon slot, not a
+# space-grabbing decoration. It must not stretch via flex; the icon glyph
+# (FontAwesome / emoji) determines its size. Strip flex-grow attributes so
+# prompt drift cannot turn the icon slot into a vertical pill.
+_ICON_RULE_RE = re.compile(r"(\.card-icon\s*\{)([^}]*)\}", re.DOTALL)
+_STRIP_FROM_ICON_PROPS = (
+    "flex",
+    "flex-grow",
+    "flex-basis",
+    "background-image",
+)
+
+
+def _enforce_text_container_purity(html: str) -> str:
+    """`.card-value/.card-label/.hero-value/.hero-subtitle` 에서 시각 장식 속성 제거.
+
+    typography(font-size/color) 만 남기고 background/border/box-shadow 는 떨어냄.
+    값 토큰을 chip/pill 로 만드는 prompt drift 에 대한 deterministic 안전망.
+    """
+    def clean(match: re.Match) -> str:
+        head = match.group(1)
+        body = match.group(2)
+        for prop in _STRIP_FROM_TEXT_PROPS:
+            body = re.sub(
+                rf"{re.escape(prop)}\s*:\s*[^;]+;?",
+                "",
+                body,
+                flags=re.IGNORECASE,
+            )
+        return head + body + "}"
+
+    return _TEXT_CLASS_RULE_RE.sub(clean, html)
+
+
+def _enforce_icon_slot_invariant(html: str) -> str:
+    """`.card-icon` 에서 flex-stretch 속성 제거.
+
+    아이콘 슬롯은 글리프 크기로 자연 sizing 되어야 한다. flex:1 등으로 카드의
+    남은 세로 공간을 차지하면 vertical pill / bar 로 보이는 시각 사고가 발생.
+    """
+    def clean(match: re.Match) -> str:
+        head = match.group(1)
+        body = match.group(2)
+        for prop in _STRIP_FROM_ICON_PROPS:
+            # Match property at start-of-line (whole-property) only, not as
+            # substring of other property names like "flex-direction".
+            body = re.sub(
+                rf"(^|;)\s*{re.escape(prop)}\s*:\s*[^;]+;?",
+                lambda m: m.group(1),
+                body,
+                flags=re.IGNORECASE | re.MULTILINE,
+            )
+        return head + body + "}"
+
+    return _ICON_RULE_RE.sub(clean, html)
+
+
 def assembler(state) -> dict:
     sid = state["slide_id"]
     analysis = state.get("analysis", {})
@@ -78,8 +169,13 @@ def assembler(state) -> dict:
     chart_html = state.get("chart_html", "")
     table_html = state.get("table_html", "")
 
-    pal = spec.get("palette", {})
-    accent = pal.get("accent", "#D4AF37")
+    # Palette resolution: state["style"] (chat_parser / text_parser preset) wins
+    # over design_director's image-extracted palette. This matters most for
+    # text mode where the synth image's dim placeholder colors otherwise
+    # leak into the accent / text_bright that color the rendered title.
+    state_style = state.get("style") or {}
+    pal = spec.get("palette", {}) or {}
+    accent = state_style.get("accent_color") or pal.get("accent") or "#D4AF37"
     frame_color = pal.get("frame_color", "rgba(212,175,55,0.35)")
 
     # ── 1. 배경 패턴 (aesthetic 기반)
@@ -156,14 +252,14 @@ def assembler(state) -> dict:
 </div>
 '''
 
-    # Title
+    # Title — prefer state["style"]["text_color"] for legibility; accent for emphasis.
     title = content.get("title", "")
     desc = content.get("description", "")
     title_div = ""
     if title:
         typo = spec.get("typography", {})
         family = typo.get("hero_family", "serif")
-        text_bright = pal.get("text_bright", "#F5F5F0")
+        text_bright = state_style.get("text_color") or pal.get("text_bright") or "#F5F5F0"
         title_div = f"""<div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
     <div style="font-family:{family};font-size:1.75rem;font-weight:700;color:{accent};letter-spacing:0.08em;text-transform:uppercase;">{title}</div>
     {'<div style="font-size:0.75rem;color:' + text_bright + ';margin-top:4px;opacity:0.85;">' + desc + '</div>' if desc else ''}
@@ -191,4 +287,7 @@ def assembler(state) -> dict:
     {title_div}
 </div>"""
     assembled = _ensure_text_visible(assembled)
+    assembled = _strip_bbox_artifacts(assembled)
+    assembled = _enforce_text_container_purity(assembled)
+    assembled = _enforce_icon_slot_invariant(assembled)
     return {"assembled_raw": assembled, "bg_html": bg_base}

@@ -55,14 +55,25 @@ def _detect_placeholder_leak(html: str) -> list[str]:
 
 
 def _inject_cjk_word_break(html: str) -> str:
-    """카드/hero/title 컨테이너에 한국어 줄바꿈 가드 CSS 주입."""
+    """카드/hero/title 컨테이너에 한국어 줄바꿈 가드 CSS 주입.
+
+    .card-value / .hero-value 는 숫자+단위 토큰("+180%", "8.5만") 이 한 단위라
+    overflow-wrap:anywhere 로 분해되면 가독성 무너짐. 값(value) 만 break-word
+    로, 라벨/설명 텍스트는 anywhere 유지.
+    """
     cjk_css = (
-        "\n  /* v10 CJK guard */\n"
+        "\n  /* v10 CJK guard — long Korean labels can wrap mid-character */\n"
         "  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,\n"
-        "  .card-icon, .card-value, .card-label,\n"
-        "  .hero-1, .hero-2, .hero-value, .hero-subtitle {\n"
+        "  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {\n"
         "    word-break: keep-all;\n"
         "    overflow-wrap: anywhere;\n"
+        "    hyphens: none;\n"
+        "  }\n"
+        "  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */\n"
+        "  .card-value, .hero-value {\n"
+        "    word-break: keep-all;\n"
+        "    overflow-wrap: normal;\n"
+        "    white-space: nowrap;\n"
         "    hyphens: none;\n"
         "  }\n"
     )

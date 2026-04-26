@@ -50,9 +50,9 @@
       ]
     },
     "style": {
-      "primary_color": "#0077FF",
+      "primary_color": "#00B0FF",
       "accent_color": "#FF00FF",
-      "background": "#000000",
+      "background": "#0F172A",
       "text_color": "#FFFFFF"
     }
   },
