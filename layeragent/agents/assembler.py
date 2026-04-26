@@ -77,68 +77,34 @@ def _strip_bbox_artifacts(html: str) -> str:
     return html
 
 
-# Architectural invariant: .card-value and .card-label are pure text containers.
-# Visual emphasis comes from typography (size/weight/color), not from wrapping
-# the text in a chip/box. Deterministically strip background/border properties
-# from these classes' rules so prompt drift doesn't leak chips into the output.
-_TEXT_CLASS_RULE_RE = re.compile(
-    r"(\.(?:card-value|card-label|hero-value|hero-subtitle)\s*\{)([^}]*)\}",
-    re.DOTALL,
-)
-_STRIP_FROM_TEXT_PROPS = (
-    "background",
-    "background-color",
-    "background-image",
-    "border",
-    "box-shadow",
-)
-
-# Architectural invariant: .card-icon is a content-sized icon slot, not a
-# space-grabbing decoration. It must not stretch via flex; the icon glyph
-# (FontAwesome / emoji) determines its size. Strip flex-grow attributes so
-# prompt drift cannot turn the icon slot into a vertical pill.
+# Architectural invariant: .card-icon must not stretch via flex.
+#
+# Original failure mode this guards against (observed in earlier runs): an
+# emitted rule `.card-icon { flex: 1; ... }` made the icon slot consume all
+# of the card's vertical space, rendering as a long vertical pill instead of
+# an icon glyph container. We strip ONLY the `flex` family of properties —
+# NOT background/background-image/border-radius, since the reference design
+# legitimately styles the icon as a circular badge with a gradient fill, and
+# stripping those would degrade visual fidelity to the reference image.
 _ICON_RULE_RE = re.compile(r"(\.card-icon\s*\{)([^}]*)\}", re.DOTALL)
 _STRIP_FROM_ICON_PROPS = (
-    "flex",
+    "flex",        # whole-property only; matches won't cover flex-direction etc
     "flex-grow",
     "flex-basis",
-    "background-image",
 )
-
-
-def _enforce_text_container_purity(html: str) -> str:
-    """`.card-value/.card-label/.hero-value/.hero-subtitle` 에서 시각 장식 속성 제거.
-
-    typography(font-size/color) 만 남기고 background/border/box-shadow 는 떨어냄.
-    값 토큰을 chip/pill 로 만드는 prompt drift 에 대한 deterministic 안전망.
-    """
-    def clean(match: re.Match) -> str:
-        head = match.group(1)
-        body = match.group(2)
-        for prop in _STRIP_FROM_TEXT_PROPS:
-            body = re.sub(
-                rf"{re.escape(prop)}\s*:\s*[^;]+;?",
-                "",
-                body,
-                flags=re.IGNORECASE,
-            )
-        return head + body + "}"
-
-    return _TEXT_CLASS_RULE_RE.sub(clean, html)
 
 
 def _enforce_icon_slot_invariant(html: str) -> str:
-    """`.card-icon` 에서 flex-stretch 속성 제거.
+    """`.card-icon` 에서 flex-stretch 속성만 제거 (visual fidelity 보존).
 
     아이콘 슬롯은 글리프 크기로 자연 sizing 되어야 한다. flex:1 등으로 카드의
     남은 세로 공간을 차지하면 vertical pill / bar 로 보이는 시각 사고가 발생.
+    background / border-radius 같은 정당한 badge 스타일은 보존한다.
     """
     def clean(match: re.Match) -> str:
         head = match.group(1)
         body = match.group(2)
         for prop in _STRIP_FROM_ICON_PROPS:
-            # Match property at start-of-line (whole-property) only, not as
-            # substring of other property names like "flex-direction".
             body = re.sub(
                 rf"(^|;)\s*{re.escape(prop)}\s*:\s*[^;]+;?",
                 lambda m: m.group(1),
@@ -223,8 +189,14 @@ def assembler(state) -> dict:
 </div>
 '''
 
-    # Cards — icon 주입 + bottom accent bar
+    # Cards — icon 주입 + bottom accent (box-shadow outset, not inset div)
     use_bottom_bar = spec.get("frame_system", {}).get("bottom_accent_bar", False) and use_library
+    # Boundary-attached decorations are expressed as box-shadow on the
+    # container, NOT as position:absolute inset children. This guarantees
+    # the accent renders outside the content rect — overflowing text and
+    # this decoration occupy disjoint pixel regions by construction.
+    bar_style = f"box-shadow:0 3px 0 0 {accent};" if use_bottom_bar else ""
+
     for i, html in enumerate(card_htmls):
         if i >= len(cards_meta):
             break
@@ -244,11 +216,8 @@ def assembler(state) -> dict:
         else:
             inner = html
 
-        bottom_bar = shape_html("bottom_accent_bar", fill=accent, opacity=1.0) if use_bottom_bar else ""
-
-        elements += f'''<div class="card-wrap-{i+1}" style="position:absolute;left:{left:.1f}%;top:{top:.1f}%;width:{width:.1f}%;height:{height:.1f}%;z-index:10;">
+        elements += f'''<div class="card-wrap-{i+1}" style="position:absolute;left:{left:.1f}%;top:{top:.1f}%;width:{width:.1f}%;height:{height:.1f}%;z-index:10;{bar_style}">
   <div style="position:absolute;inset:0;">{inner}</div>
-  {bottom_bar}
 </div>
 '''
 
@@ -288,6 +257,5 @@ def assembler(state) -> dict:
 </div>"""
     assembled = _ensure_text_visible(assembled)
     assembled = _strip_bbox_artifacts(assembled)
-    assembled = _enforce_text_container_purity(assembled)
     assembled = _enforce_icon_slot_invariant(assembled)
     return {"assembled_raw": assembled, "bg_html": bg_base}

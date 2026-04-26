@@ -1,0 +1,48 @@
+{
+  "user_message": "LangChain 핵심 빌딩 블록 6가지를 feature grid 로. 1) Chains — 여러 LLM 호출을 순차/병렬로 엮는 기본 구조. 2) Agents — 도구를 동적으로 선택해 자율 추론하는 LLM 에이전트. 3) Memory — 대화 히스토리와 컨텍스트를 세션 간 보존. 4) Retrieval — Vector DB + Embedding 으로 RAG 파이프라인 구성. 5) Tools — 외부 API와 함수를 LLM 에 도구로 노출. 6) Callbacks — 실행 단계 추적, 로깅, 토큰 스트리밍. 각 항목에 어울리는 이모지. 다크 + 마젠타/보라 글래스모피즘.",
+  "parsed_spec": {
+    "slide_type": "feature_grid",
+    "content": {
+      "title": "LangChain 핵심 빌딩 블록",
+      "features": [
+        {
+          "emoji": "🔗",
+          "title": "Chains",
+          "description": "여러 LLM 호출을 순차/병렬로 엮는 기본 구조."
+        },
+        {
+          "emoji": "🤖",
+          "title": "Agents",
+          "description": "도구를 동적으로 선택해 자율 추론하는 LLM 에이전트."
+        },
+        {
+          "emoji": "🧠",
+          "title": "Memory",
+          "description": "대화 히스토리와 컨텍스트를 세션 간 보존."
+        },
+        {
+          "emoji": "📥",
+          "title": "Retrieval",
+          "description": "Vector DB + Embedding 으로 RAG 파이프라인 구성."
+        },
+        {
+          "emoji": "🛠️",
+          "title": "Tools",
+          "description": "외부 API와 함수를 LLM 에 도구로 노출."
+        },
+        {
+          "emoji": "📊",
+          "title": "Callbacks",
+          "description": "실행 단계 추적, 로깅, 토큰 스트리밍."
+        }
+      ]
+    },
+    "style": {
+      "primary_color": "#8A0FCB",
+      "accent_color": "#FF00FF",
+      "background": "#0A0A23",
+      "text_color": "#FFFFFF"
+    }
+  },
+  "image_path": "data/experiment_designs/design_07_feature_grid.png"
+}

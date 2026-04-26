@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container chat_langchain_v5" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .chat_langchain_v5-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, #020629, #0d1b5f);
+  }
+</style>
+<div class="chat_langchain_v5-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+  <defs>
+    <pattern id="p-circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 0,20 L 30,20 L 30,40 L 60,40 L 60,15 L 80,15" stroke="#FF00FF" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <path d="M 10,0 L 10,30 L 50,30 L 50,55 L 75,55 L 75,80" stroke="#FF00FF" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <circle cx="30" cy="20" r="1.5" fill="#FF00FF" opacity="0.18"/>
+      <circle cx="60" cy="40" r="1.5" fill="#FF00FF" opacity="0.18"/>
+      <circle cx="50" cy="30" r="1.5" fill="#FF00FF" opacity="0.18"/>
+      <circle cx="75" cy="55" r="1.5" fill="#FF00FF" opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#p-circuit)"/>
+</svg></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"><style>
+    .chat_langchain_v5-atmos {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(circle at top left, rgba(168, 115, 196, 0.25), transparent 70%),
+                    radial-gradient(circle at bottom right, rgba(168, 115, 196, 0.15), transparent 70%),
+                    rgba(2, 6, 41, 0.2);
+        backdrop-filter: blur(10px);
+    }
+</style>
+<div class="chat_langchain_v5-atmos"></div></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"><style>
+  .chat_langchain_v5-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .glow-node-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168, 115, 196, 0.6), rgba(2, 6, 41, 0));
+  }
+  .glow-node-1 {
+    width: 10vmin;
+    height: 10vmin;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .glow-node-2 {
+    width: 10vmin;
+    height: 10vmin;
+    bottom: 5%;
+    right: 5%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<div class="chat_langchain_v5-decor">
+  <div class="glow-node-circle glow-node-1"></div>
+  <div class="glow-node-circle glow-node-2"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    
+    
+    <div class="card-wrap-1" style="position:absolute;left:5.0%;top:20.0%;width:25.0%;height:25.0%;z-index:10;box-shadow:0 3px 0 0 #FF00FF;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-1 {
+    width: 380px;
+    height: 180px;
+    background: rgba(6, 8, 43, 0.8);
+    border-radius: 15px;
+    border: 1px solid #6A6884;
+    box-shadow: 0 0 15px rgba(247, 56, 255, 0.7);
+    backdrop-filter: blur(10px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to right, #464562, #2D2B4C);
+    border-radius: 50px;
+    padding: 8px 16px;
+    margin-bottom: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card-1 .card-icon {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #A58FBA 0%, #6A6884 100%);
+    border-radius: 50%;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-1 .card-value {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .card-body {
+    background: rgba(70, 69, 98, 0.6);
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    color: #e0e0e0;
+    flex-grow: 1;
+  }
+
+  .card-1 .card-label {
+    line-height: 1.2;
+    font-size: 0.8rem;
+  }
+
+  .card-accent {
+    width: 40px;
+    height: 8px;
+    background: linear-gradient(to right, #f738ff, #A58FBA);
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+</style>
+
+<div class="card-1">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-microphone" style="font-size:1.8rem;color:#A873C4;">🔗</i></div>
+    <div class="card-value">Chains</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">여러 LLM 호출을 순차/병렬로 엮는 기본 구조.</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-2" style="position:absolute;left:35.0%;top:20.0%;width:25.0%;height:25.0%;z-index:10;box-shadow:0 3px 0 0 #FF00FF;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgba(6, 8, 43, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(247, 56, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #454361, #696784);
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .card-2 .card-icon {
+    background: #696784;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-2 .card-value {
+    font-size: 0.91rem;
+    color: #ffffff;
+  }
+
+  .card-body {
+    background: rgba(43, 42, 75, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    flex-grow: 1;
+  }
+
+  .card-2 .card-label {
+    font-size: 0.64rem;
+    color: rgba(224, 224, 224, 0.7);
+    margin: 10px 0;
+  }
+
+  .card-accent {
+    background: linear-gradient(135deg, #f738ff, transparent);
+    height: 10px;
+    border-radius: 5px;
+  }
+</style>
+
+<div class="card-2">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#A873C4;">🤖</i></div>
+    <div class="card-value">Agents</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">도구를 동적으로 선택해 자율 추론하는 LLM 에이전트.</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:65.0%;top:20.0%;width:25.0%;height:25.0%;z-index:10;box-shadow:0 3px 0 0 #FF00FF;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgba(6, 8, 43, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(247, 56, 255, 0.7);
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(70, 69, 98, 0.8);
+    border-radius: 10px;
+    margin: 10px;
+  }
+
+  .card-3 .card-icon {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #A793BC, #6B6886);
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .card-3 .card-value {
+    color: #ffffff;
+    font-size: 1.0625rem;
+    font-weight: bold;
+  }
+
+  .card-body {
+    margin: 20px;
+    background: rgba(108, 105, 133, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(8px);
+  }
+
+  .card-3 .card-label {
+    color: #e0e0e0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .card-accent {
+    width: 100px;
+    height: 15px;
+    background: linear-gradient(45deg, #f738ff, #6B6886);
+    border-radius: 10px;
+    margin: 0 auto 10px;
+  }
+</style>
+
+<div class="card-3">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-globe" style="font-size:1.8rem;color:#A873C4;">🧠</i></div>
+    <div class="card-value">Memory</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">대화 히스토리와 컨텍스트를 세션 간 보존.</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-4" style="position:absolute;left:5.0%;top:55.0%;width:25.0%;height:25.0%;z-index:10;box-shadow:0 3px 0 0 #FF00FF;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgba(6, 8, 43, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(247, 56, 255, 0.7);
+    border: 1px solid #6A6884;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(247, 56, 255, 0.2), rgba(255, 148, 240, 0.2));
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-4 .card-icon {
+    width: 36px;
+    height: 36px;
+    background: radial-gradient(circle, rgba(227, 111, 237, 0.8), rgba(142, 68, 173, 0.8));
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  
+  .card-4 .card-value {
+    font-size: 1.0625rem;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .card-body {
+    flex-grow: 1;
+    background: linear-gradient(135deg, rgba(41, 41, 82, 0.5), rgba(43, 41, 75, 0.5));
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .card-4 .card-label {
+    font-size: 0.875rem;
+    color: #e0e0e0;
+    line-height: 1.4;
+  }
+  
+  .card-accent {
+    width: 50px;
+    height: 8px;
+    background: linear-gradient(90deg, rgba(247, 56, 255, 0.8), rgba(255, 148, 240, 0.8));
+    border-radius: 4px;
+    margin-top: 12px;
+    align-self: center;
+  }
+</style>
+
+<div class="card-4">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-chart-line" style="font-size:1.8rem;color:#A873C4;">📥</i></div>
+    <div class="card-value">Retrieval</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">Vector DB + Embedding 으로 RAG 파이프라인 구성.</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-5" style="position:absolute;left:35.0%;top:55.0%;width:25.0%;height:25.0%;z-index:10;box-shadow:0 3px 0 0 #FF00FF;">
+  <div style="position:absolute;inset:0;"><style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #030628;
+  }
+
+  .card-5 {
+    width: 300px;
+    height: 200px;
+    background: rgba(6, 8, 43, 0.8);
+    border-radius: 15px;
+    border: 1px solid #6A6884;
+    box-shadow: 0 0 15px rgba(247, 56, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    position: relative;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: #444260;
+    border-radius: 10px;
+    width: 90%;
+    padding: 5px 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-5 .card-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #6B6585;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .card-5 .card-value {
+    color: #ffffff;
+    font-size: 1.0625rem; /* 17px */
+  }
+
+  .card-body {
+    width: 90%;
+    background: rgba(68, 66, 96, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-5 .card-label {
+    color: #e0e0e0;
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.2rem; /* Adjust to fit */
+  }
+
+  .card-accent {
+    width: 60%;
+    height: 10px;
+    background: linear-gradient(to right, #f738ff, #ac9cc6);
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="card-5">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-circle" style="font-size:1.8rem;color:#A873C4;">🛠️</i></div>
+    <div class="card-value">Tools</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">외부 API와 함수를 LLM 에 도구로 노출.</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-6" style="position:absolute;left:65.0%;top:55.0%;width:25.0%;height:25.0%;z-index:10;box-shadow:0 3px 0 0 #FF00FF;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-6 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgba(6, 8, 43, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(247, 56, 255, 0.7);
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #AA9AC4, #6B6586);
+    padding: 10px 16px;
+    border-radius: 12px;
+    margin: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-6 .card-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #6B6586, #444260);
+    border-radius: 50%;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.77rem;
+    color: #ffffff;
+  }
+
+  .card-6 .card-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .card-body {
+    background: rgba(36, 38, 58, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid #444260;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 16px;
+    color: #e0e0e0;
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+
+  .card-6 .card-label {
+    margin-top: 8px;
+    font-size: 0.6875rem;
+    color: #e0e0e0;
+  }
+
+  .card-accent {
+    height: 10px;
+    background: linear-gradient(90deg, #AA9AC4, #6B6586, #444260);
+    border-radius: 6px;
+    margin: 12px 16px 16px 16px;
+  }
+</style>
+
+<div class="card-6">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-rocket" style="font-size:1.8rem;color:#A873C4;">📊</i></div>
+    <div class="card-value">Callbacks</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">실행 단계 추적, 로깅, 토큰 스트리밍.</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#FF00FF;letter-spacing:0.08em;text-transform:uppercase;">LangChain 핵심 빌딩 블록</div>
+    
+</div>
+</div></div>
+</body></html>

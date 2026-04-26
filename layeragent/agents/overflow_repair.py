@@ -40,9 +40,15 @@ _FONT_SIZE_PROP_RE = re.compile(
 
 
 def _shrink_class_font(html: str, class_name: str, factor: float = 0.75) -> str:
-    """단일 CSS 클래스 룰의 font-size 를 factor 배만큼 축소 (deterministic)."""
+    """CSS 룰의 font-size 를 factor 배만큼 축소 (deterministic).
+
+    Matches both unscoped (`.card-value { ... }`) and scoped (`.card-N
+    .card-value { ... }`) rule heads — anything where the selector contains
+    `.{class_name}` as a token. This is required after style_normalizer's
+    Pass-1 scoping rewrites unscoped child selectors.
+    """
     rule_re = re.compile(
-        rf"(\.{re.escape(class_name)}\s*\{{)([^}}]*)\}}",
+        rf"([^{{}}]*?\.{re.escape(class_name)}\b[^{{}}]*\{{)([^}}]*)\}}",
         re.DOTALL,
     )
 
