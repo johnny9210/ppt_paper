@@ -1,0 +1,36 @@
+{
+  "single_pass_gpt_5_4": {
+    "per_design": {
+      "design_01_timeline": 0.49029128968195906,
+      "design_02_dashboard": 0.5670193856394913,
+      "design_03_comparison_split": 0.49795220877304847,
+      "design_04_pyramid": 0.6030617512192837,
+      "design_05_hub_spoke": 0.4710043046557825,
+      "design_06_before_after": 0.5278086358048447,
+      "design_07_feature_grid": 0.367488545602367,
+      "design_08_roadmap": 0.547664586258102,
+      "design_09_layered_stack": 0.4601227141608132,
+      "design_10_stats_hero": 0.5796834336854708
+    },
+    "mean": 0.5112096855481163
+  },
+  "single_pass_claude_4_6_opus": {
+    "per_design": {
+      "design_01_timeline": 0.5848790274681798,
+      "design_02_dashboard": 0.5046917980929294,
+      "design_03_comparison_split": 0.5158156587944221,
+      "design_04_pyramid": 0.567452439387555,
+      "design_05_hub_spoke": 0.49612273442653465,
+      "design_06_before_after": 0.496557814695777,
+      "design_07_feature_grid": 0.40530064275916455,
+      "design_08_roadmap": 0.6029893007700412,
+      "design_09_layered_stack": 0.3043997627964489,
+      "design_10_stats_hero": 0.5762508730934784
+    },
+    "mean": 0.5054460052284531
+  },
+  "reference_main_eval": {
+    "single_pass_gpt_4o": 0.4988552811908511,
+    "layeragent_gpt_4o": 0.4569971647331898
+  }
+}

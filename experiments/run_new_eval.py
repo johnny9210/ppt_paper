@@ -34,10 +34,14 @@ DARK_GLASS = [
 ]
 
 METHODS = {
+    # Table 1: same-model GPT-4o comparison
     "single_pass":               "results/raw/single_pass",
+    "visual_cot":                "results/raw/visual_cot",
+    "cot_h_rag":                 "results/raw/cot_h_rag",
+    "layeragent":                "results/raw/layeragent",
+    # Table 2: cross-model cost-efficiency
     "single_pass_gpt_5_4":       "results/raw/single_pass_gpt_5_4",
     "single_pass_claude_4_6_opus": "results/raw/single_pass_claude_4_6_opus",
-    "layeragent":                "results/raw/layeragent",
 }
 
 
