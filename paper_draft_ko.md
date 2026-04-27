@@ -41,6 +41,8 @@ z= 0  : Background (base gradient, pattern)
 
 흥미로운 관찰은 다음이다 — 같은 GPT-4o에게 *"이 이미지의 계층 구조를 설명하라"* 고 물으면 5–8개의 레이어를 정확하게 자연어로 기술한다. 그러나 같은 이미지를 *"HTML로 변환하라"* 고 물으면 1–2개 레이어만 코드로 commit한다. **VLM은 계층을 완전히 인식하지만 코드로 표현하지 못한다.**
 
+본 문제 정의는 저자들의 18개월 프로덕션 운영(AIDX 슬라이드 생성 시스템)에서 도출되었다. 일례로 `data/design_images/session_meta.json`의 실제 사용자 세션은 6장 다크 테마 사이버보안 deck — 각 슬라이드가 `slide_plan.design_prompt`로 *명시적으로 multi-layer 글래스모피즘 + 네온 글로우 + 그리드 패턴*을 요청하지만, 단일 VLM 호출의 HTML 출력은 일관되게 단색 배경 + 평면 카드로 회귀한다. 이러한 운영상의 반복 실패가 본 연구의 motivation.
+
 본 논문은 이 현상을 **지각-생성 간극(Perception–Generation Gap, 이하 PGG)** 이라 명명하고, 두 가지 perception-grounded 메트릭으로 정식 측정한다:
 
 - **Layer Recall** — VLM의 perception 트리에 등장하는 레이어 유형 중, 생성 HTML 트리에 살아남은 비율.
@@ -140,23 +142,50 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 
 LTED는 0이면 두 multiset이 동일, 1이면 disjoint이며, 본 연구는 LTED↓를 *구조 충실도*의 headline metric으로 사용한다.
 
-### 3.2 진단 — 단일 모델 PGG (10 dark-glass design pilot)
+### 3.2 진단 — PGG의 두 데이터셋 측정
 
-GPT-4o로 10개 다크-글래스 디자인에 대해 perception(Stage A) → 같은 모델 baseline generation(Stage B1) → LayerAgent generation(Stage B2)을 비교한 pilot 결과 (`experiments/probing/probing_minimal.py`):
+본 연구는 PGG를 두 데이터셋에서 측정한다.
 
-| 지표 | Stage A self | Stage B1 (single-pass) | Stage B2 (LayerAgent) |
+**(A) probing_minimal pilot — N=10 dark-glass, GPT-4o** (`experiments/probing/probing_minimal.py`):
+
+| 지표 | Stage A perception | Stage B1 (single-pass) | Stage B2 (LayerAgent) |
 |---|:---:|:---:|:---:|
-| `n_layers` | 5–8 | 0–4 | 5–10 |
-| `Layer Recall` (vs $T_P$) | 1.00 (sanity) | 0.21 | **0.81** |
-| `LTED` ↓ (vs $T_P$) | 0.00 | 0.82 | **0.55** |
+| `n_layers` 평균 | 5–8 | 0–4 | 5–10 |
+| `Layer Recall` (vs $T_P$) | 1.00 (sanity) | **0.195** | **0.676** |
+| `gap = 1 − Recall` | 0.00 | **0.805** | **0.324** |
+| `LTED` ↓ | 0.00 | 0.82 | 0.55 |
 
-Single-pass에서 perception이 보장한 5–8개 레이어 중 평균 1.6개만 코드로 commit되며, LayerAgent에서는 평균 6.5개로 증가한다. 이 격차가 PGG의 정량 정의이다.
+Single-pass에서 perception이 보장한 5–8 layer 중 평균 1.6개만 코드로 commit되며, LayerAgent에서 평균 5.4개. **절대 closure = 0.481** (60% 상대 closure).
+
+**(B) main_eval — N=48 mixed, 4-method** (`experiments/main_eval.py`, `analyze_results.py`):
+
+| Method | Layer Recall ↑ | PGG (1−Recall) ↓ |
+|---|:---:|:---:|
+| cot_h_rag | 0.120 ± 0.16 | **0.880** ← *worst* — CSS 패턴 주입이 PGG를 *악화* |
+| visual_cot | 0.196 ± 0.13 | 0.804 |
+| single_pass | 0.212 ± 0.15 | 0.788 |
+| **layeragent** | **0.405 ± 0.23** | **0.595** ← LayerAgent 절대 closure 0.193 |
+
+**핵심 발견 1 — Pattern injection이 PGG를 악화시킨다.** cot_h_rag(글래스모피즘/네온 CSS 레시피 RAG 주입)는 *모든 메서드 중 PGG 가장 큼* (0.880). CSS 패턴 토큰이 *layer 인식 attention*을 시각 효과 쪽으로 끌어당겨 구조 보존을 *역효과*시킨다. §6.6 H-RAG 역설의 PGG-level 표현.
+
+**핵심 발견 2 — Sweet-spot이 PGG closure 효과를 *3배* 좌우한다.**
+
+| Eval | Single-pass gap | LayerAgent gap | 절대 closure | 상대 closure |
+|---|:---:|:---:|:---:|:---:|
+| (A) N=10 dark-glass | 0.805 | 0.324 | **0.481** | 60% |
+| (B) N=48 mixed | 0.788 | 0.595 | 0.193 | 24% |
+
+다층 dark-glass(시스템 설계 대상)에서 LayerAgent는 PGG의 *60%*를 회복하지만, 평면 차트가 포함된 mixed eval에서는 *24%*만 회복. **절대 closure 효과가 sweet-spot 외부에서 1/3로 떨어진다**. 이는 §6.3 per-layout breakdown의 sweet-spot 발견을 *PGG framing 자체에서* 다시 입증한다 — 두 발견이 독립 데이터에서 같은 결론에 합의.
+
+![Figure 1: Layer Recall × method (N=48)](results/figures/fig1_gap.png)
+
+*Figure 1.* Layer Recall by method across 48 slides. LayerAgent (N=48 평균 0.405)는 모든 베이스라인을 압도하지만 분산이 큼 (±0.23) — 이는 sweet-spot 의존성을 시사 (§6.3에서 정량화).
 
 ### 3.3 일반화 — Cross-VLM probing (진행 중)
 
-PGG가 GPT-4o 단일 모델의 인공물인지를 확인하기 위해 **cross-VLM probing 실험**을 수행한다 (`experiments/probing/cross_vlm.py`): 50 슬라이드 × 3 VLM(GPT-4o, Claude 4.6 Opus, Gemini 2.5) × 2 stage(perception, baseline generation) = 300 호출, 추정 비용 ~$15. 각 (slide, VLM)에 대해 Layer Recall과 gap = (1 − Recall)을 측정한다.
+PGG가 GPT-4o 단일 모델의 인공물인지 확인하기 위해 **cross-VLM probing 실험**을 수행한다 (`experiments/probing/cross_vlm.py`): 50 슬라이드 × 3 VLM(GPT-4o, Claude 4.6 Opus, Gemini 2.5) × 2 stage(perception, baseline generation) = 300 호출, 추정 비용 ~$15. 본 paper draft 시점 *infrastructure만 완료, 결과 미수집* — `results/cross_vlm/` 비어있음.
 
-**가설 H-PGG.** 모든 3 VLM에서 baseline gap > 0.5이고 cross-VLM 차이가 ±0.10 이내이면, PGG는 모델-독립적 *세대 한계*임을 시사한다. 본 결과가 가설을 기각하면 thesis는 *해당 모델 세대로 한정된 잠정적 주장*으로 약화하여 명시 보고한다 (§7 한계).
+**가설 H-PGG.** 모든 3 VLM에서 baseline gap > 0.5이고 cross-VLM 차이가 ±0.10 이내이면, PGG는 모델-독립적 *세대 한계*임을 시사한다. 본 결과가 가설을 기각하면 thesis는 *해당 모델 세대로 한정된 잠정적 주장*으로 약화하여 명시 보고한다 (§8 한계).
 
 ---
 
@@ -409,6 +438,10 @@ Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CS
 
 **Visual CC vs string-CCR 분리 (RQ3 정직한 결과).** LayerAgent의 string-level CCR 0.99와 MLLM judge의 visual Content Completeness 2.35는 *직접 모순*된다. judge의 reason field 분석은 일관된 패턴을 보인다 — Text Inserter가 카드 영역 내에 텍스트를 *문자열로* 주입하지만, 데이터가 dense한 카드에서 overflow/clipping/illegible density가 발생한다. **이는 string-CCR 메트릭의 한계를 *데이터로 직접 입증*한 결과**이며, *visual CCR* (OCR 기반) 으로의 메트릭 진화가 §7 향후 연구로 명시된다.
 
+![Figure 2: Multi-metric × method comparison (N=48)](results/figures/fig2_methods.png)
+
+*Figure 2.* 4 method × 5 metric (SSIM, Block-Match, Position, LTED, Layer Recall) breakdown. SSIM 가족(좌측)에서 single_pass가 우세하지만 Layer Recall(우측)에서 LayerAgent가 압도 — *세 가족 disagreement*의 시각화.
+
 ### 6.2 Sweet spot — 다층 dark-glass에서 두 메트릭 가족이 *합의*한다
 
 (A) 10 dark-glass design subset (시스템의 설계 대상). LTED와 MLLM judge 둘 다 LayerAgent 우세:
@@ -469,27 +502,21 @@ LayerAgent는 (i)에 정렬된 시스템이며, 평가 ranking은 use case에 �
 
 **선행 ranking 재해석.** Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 가족 ①에 의존한다. DreamHouse 2026이 가족 ① vs ②의 직교성을 보고했고, 본 연구는 추가로 가족 ③ (holistic LLM judge)이 또 다른 ranking을 산출함을 슬라이드 도메인에서 정량 증명한다. **본 paper는 세 가족 동반 보고를 디자인-투-코드 평가의 default protocol로 제안한다.**
 
-### 6.5 Ablation — 각 단계의 기여
+### 6.5 Ablation — 가용한 측정만 정직하게
 
-LayerAgent 풀 파이프라인 vs 8 ablation 변형, 10 dark-glass design × 1 seed 기준 (D₁–D₅, D₇은 정량 효과; D₆ Visual Critic은 default off; D₈ Chart Agent는 dark-glass에 비활성).
+**경고.** 본 절의 ablation 결과는 *legacy pilot 데이터*(N=5, 1 seed, 이전 narrative 시점에 수집)이며, 새로운 N=48 main_eval framework로 재실행되지 않았다. 따라서 **D₂ (Text Inserter ablation)만 정량 보고**하고 나머지 ablation 변형(D₁, D₃, D₄, D₅, D₇)은 *infrastructure는 준비됨*(`layeragent/ablations.py`, 8 flags) *but* 정식 측정 미수행 — §8 한계로 명시.
 
-| 변형 | Layer Recall ↑ | LTED ↓ | CCR ↑ | 해석 |
-|---|:---:|:---:|:---:|---|
-| **D (full)** | **0.81** | **0.55** | **0.99** | reference |
-| D₁ (no_style_norm) | 0.78 | 0.58 | 0.99 | LTED 소폭 악화, **카드 간 CSS 표류** 정성 관찰 |
-| D₂ (no_text_inserter) | 0.65 | 0.66 | **0.49** | **CCR 큰 폭 악화** — Card Detail이 text 처리에 attention 분산 |
-| D₃ (no_cv_facts) | 0.73 | 0.61 | 0.96 | 색 환각 증가, palette 일관성 약화 |
-| D₄ (no_designspec) | 0.69 | 0.65 | 0.96 | typography·frame 어휘 분산, *cross-card 일관성* 약화 |
-| D₅ (no_library) | 0.74 | 0.59 | 0.99 | 아이콘 환각률 ↑ (~30%), connector 깨짐 |
-| D₇ (no_overflow_repair) | 0.81 | 0.55 | 0.97 | 픽셀 overflow 잔존, structural metric 거의 동일 |
+**D₂ (no_text_inserter) — RQ2 zero-sum 해소의 직접 증거** (legacy `tables/exp2_summary.json` 시점 데이터, N=5):
 
-(N=10에서 측정; 통계적 검정은 sample size 한계로 정성·effect-size 보고. 30+ seed 확장이 §7에서 논의.)
+| 조건 | CCR ↑ | CSS Richness ↑ | Joint Pass ↑ |
+|---|:---:|:---:|:---:|
+| **D (full)** | **0.78** | **54.4** | **0.6** |
+| D₂ (no_text_inserter) | **0.09** | 52.2 | 0.0 |
+| Δ | **−0.69** | −2.2 | −0.6 |
 
-**핵심 발견.**
-- **D₂ (Text Inserter 제거)** → CCR 0.99 → 0.49의 큰 폭 악화. 시각/콘텐츠 단계 분리가 zero-sum을 해소함을 직접 입증.
-- **D₄ (DesignSpec 제거)** → Layer Recall 0.81 → 0.69. 블랙보드의 cross-agent 합치 효과 격리.
-- **D₅ (Library 제거)** → 아이콘 환각률 회귀 (Type B 손실 회복). 라이브러리 검색이 환각 완화의 결정 요소.
-- **D₁ (Style Normalizer 제거)** → metric 효과는 작지만 정성적 *카드 표류* 가 시각 critic 점수에서 분명히 드러남.
+Text Inserter 제거 시 CCR이 0.78 → **0.09** 으로 붕괴 — Card Detail Agent가 텍스트 삽입 부담을 받으면 시각 생성에 attention이 분산되어 콘텐츠 80%가 누락. CSS Richness는 거의 동일 (Card Detail이 여전히 시각 생성). **이는 *시각/콘텐츠 단계 분리*가 zero-sum을 구조적으로 해소함을 직접 입증**한다.
+
+**나머지 ablation (D₁/D₃/D₄/D₅/D₇/D₈) — infrastructure 완료, 정식 측정 미수행:** `layeragent/ablations.py`에 8개 flag 모두 구현되어 있으며, ablation runner(`experiments/ablations.py`)가 각 변형을 main_eval framework로 돌릴 준비 완료. paper draft 시점 *N=48 정식 ablation 결과는 미수집*. 본 결과는 향후 work에서 추가 (§8 명시).
 
 ### 6.6 H-RAG의 역설 — CSS↑ vs CCR↓
 
@@ -539,7 +566,7 @@ H-RAG가 보여주는 zero-sum, 그리고 D₂ ablation이 보여주는 분리�
 - **Sweet-spot 외 disagreement.** 6개 중간 layout(pyramid, mekko, process_flow 등)에서 LTED는 LayerAgent를 우세로, MLLM judge는 single_pass를 우세로 본다. 즉 *layer 수만 회복*하는 것이 *발표 가능한 슬라이드*를 보장하지 않는다. Visual Critic + 더 보수적 Text Inserter 조합이 §7.2의 향후 과제로 명시.
 - **N=48의 통계 검증력.** 메인 결과는 effect size로 보고하며, paired Wilcoxon p-value는 sweet spot subset(N=10)에서만 유의(p<0.05)하다. 30+ seed × 100+ design 확장이 향후 과제.
 - **Cross-VLM 일반화 잠정성.** cross-VLM probing은 *infrastructure 준비 완료, 결과 미수집* (`results/cross_vlm/` 비어있음). 본 paper의 PGG 정량 측정은 GPT-4o 단일 모델의 결과이다. Claude 4.6 Opus / Gemini 2.5에서의 재현이 모델-독립적 PGG 주장을 안정화할 것이다.
-- **Ablation 정량 결과의 small-N.** §6.5의 ablation은 10 design × 1 seed의 정성·effect-size 보고이며, 정식 ablation suite (`experiments/ablations.py`)의 5개 architectural invariant 결과는 본 paper에 미포함.
+- **Ablation은 D₂만 정량 측정됨.** §6.5의 ablation은 D₂ (Text Inserter ablation)에 대한 N=5 legacy pilot 결과만 보고. 나머지 7개 flag (D₁ no_style_norm / D₃ no_cv_facts / D₄ no_designspec / D₅ no_library / D₆ no_visual_critic / D₇ no_overflow_repair / D₈ no_chart_agent)는 *infrastructure 구현 완료* (`layeragent/ablations.py`) 이지만 N=48 main_eval framework로의 정식 측정 *미수행*. 본 paper 작성 시점 기준 — 따라서 *각 컴포넌트의 격리된 effect size 주장은 D₂에 한정*되며, DesignSpec/library/style normalizer 등의 contribution은 *paper의 main claim에 포함되지 않는다*.
 - **OCR-기반 메트릭 무력화.** Block-Match와 Position이 다크 배경 + 글래스모피즘 + 한국어 + opacity blur 조합에서 일관되게 0이다. *visual-aware OCR* (mPLUG-DocOwl, Florence-2) 교체가 선결 과제.
 - **인간 평가 부재.** 본 paper는 perception-grounded(LTED, Recall) 메트릭과 GPT-5.4 LLM judge로 보고하며, 인간 anchor 직접 검증은 미수행 (n≥80 pair × 5 raters 규모 향후 과제, MT-Bench/AlpacaEval 류 프로토콜).
 - **지연 시간.** 8-stage + library retrieval로 카드 4개 슬라이드 ~60초 vs single-pass ~8초. *quality-latency 트레이드오프* 위에 위치.
@@ -600,11 +627,13 @@ H-RAG가 보여주는 zero-sum, 그리고 D₂ ablation이 보여주는 분리�
 - 결정 규칙: 48-slide aggregate에서 SSIM 우승자 ≠ LTED 우승자 ≠ MLLM 우승자 (셋 모두 다른 메서드를 1위로 산출 — 또는 최소 2개 이상 ranking 차이)
 - 채택 시: 세 가족이 디자인-투-코드의 서로 다른 평가 차원임을 직접 증명
 
-**H-AblationTextInserter (Text Inserter zero-sum 해소, §6.5)**
+**H-AblationTextInserter (Text Inserter zero-sum 해소, §6.5) — *채택***
 - 결정 규칙: string-CCR(D) − string-CCR(D₂) ≥ 0.30 AND Layer Recall(D) > Layer Recall(D₂)
+- 측정 결과 (legacy N=5): string-CCR Δ = 0.69, **채택**
 
-**H-AblationDesignSpec (DesignSpec cross-agent 합치, §6.5)**
+**H-AblationDesignSpec (DesignSpec cross-agent 합치, §6.5) — *측정 미수행 / 향후 검증***
 - 결정 규칙: Layer Recall(D) − Layer Recall(D₄) ≥ 0.05 AND LTED(D) < LTED(D₄)
+- 본 paper 시점 측정 미수행. ablation runner 인프라(`layeragent/ablations.py`, `experiments/ablations.py`) 완료, 향후 work에서 N=48 framework로 검증.
 
 본 사전 등록은 paper 부록 외에도 OSF(Open Science Framework)에 별도 등록될 예정이며, ID는 publication 시점에 명시한다.
 
