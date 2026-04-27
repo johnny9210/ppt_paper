@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1c1c1c, #2g2g2g);
+  }
+  .container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+  }
+  .background {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0f24, #1a1a3b);
+  }
+  .atmosphere {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 194, 0, 0.2), transparent);
+  }
+  .decor {
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+    background-size: 120px 120px;
+  }
+  .card {
+    position: absolute;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  .content {
+    position: absolute;
+    z-index: 20;
+    color: #fff;
+    padding: 15px;
+  }
+  .badge {
+    position: absolute;
+    z-index: 30;
+    font-size: 24px;
+  }
+  .level1 {
+    top: 50px;
+    left: 400px;
+    width: 480px;
+    height: 100px;
+    border-top: 4px solid gold;
+  }
+  .level2-1 {
+    top: 200px;
+    left: 250px;
+    width: 250px;
+    height: 100px;
+    border-top: 4px solid silver;
+  }
+  .level2-2 {
+    top: 200px;
+    left: 650px;
+    width: 250px;
+    height: 100px;
+    border-top: 4px solid silver;
+  }
+  .level3-1 {
+    top: 350px;
+    left: 100px;
+    width: 250px;
+    height: 100px;
+    border-top: 4px solid copper;
+  }
+  .level3-2 {
+    top: 350px;
+    left: 400px;
+    width: 250px;
+    height: 100px;
+    border-top: 4px solid copper;
+  }
+  .level3-3 {
+    top: 350px;
+    left: 700px;
+    width: 250px;
+    height: 100px;
+    border-top: 4px solid copper;
+  }
+</style>
+
+<div class="container">
+  <div class="background"></div>
+  <div class="atmosphere"></div>
+  <div class="decor"></div>
+  <div class="card level1"></div>
+  <div class="content" style="top: 70px; left: 420px;">
+    <div>데이터 전략</div>
+    <div>경영진 주도 데이터 비전 및 정책 수립</div>
+  </div>
+  <div class="badge" style="top: 50px; left: 430px;">👑</div>
+
+  <div class="card level2-1"></div>
+  <div class="content" style="top: 220px; left: 270px;">
+    <div>품질 관리</div>
+    <div>데이터 표준화 및 품질 모니터링</div>
+  </div>
+  <div class="badge" style="top: 200px; left: 280px;">📋</div>
+
+  <div class="card level2-2"></div>
+  <div class="content" style="top: 220px; left: 670px;">
+    <div>보안 통제</div>
+    <div>접근 권한 및 개인정보 보호</div>
+  </div>
+  <div class="badge" style="top: 200px; left: 680px;">🔐</div>
+
+  <div class="card level3-1"></div>
+  <div class="content" style="top: 370px; left: 120px;">
+    <div>수집</div>
+    <div>원천 데이터 통합</div>
+  </div>
+  <div class="badge" style="top: 350px; left: 130px;">🗄️</div>
+
+  <div class="card level3-2"></div>
+  <div class="content" style="top: 370px; left: 420px;">
+    <div>처리</div>
+    <div>ETL 파이프라인</div>
+  </div>
+  <div class="badge" style="top: 350px; left: 430px;">⚙️</div>
+
+  <div class="card level3-3"></div>
+  <div class="content" style="top: 370px; left: 720px;">
+    <div>분석</div>
+    <div>BI 대시보드 운영</div>
+  </div>
+  <div class="badge" style="top: 350px; left: 730px;">📈</div>
+</div></div>
+</body></html>

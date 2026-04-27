@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+  }
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+  }
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    z-index: 0;
+  }
+  .atmosphere {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.4), transparent);
+    z-index: 2;
+  }
+  .decorative {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    z-index: 5;
+  }
+  .hero-card {
+    position: absolute;
+    top: 180px;
+    left: 100px;
+    width: 420px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  .stats-card {
+    position: absolute;
+    top: 180px;
+    right: 100px;
+    width: 500px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  .title {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    font-size: 40px;
+    color: gold;
+    z-index: 20;
+  }
+  .hero-value {
+    position: absolute;
+    top: 200px;
+    left: 150px;
+    font-size: 80px;
+    font-weight: bold;
+    color: gold;
+    z-index: 20;
+  }
+  .hero-label {
+    position: absolute;
+    top: 300px;
+    left: 150px;
+    font-size: 24px;
+    color: white;
+    z-index: 20;
+  }
+  .stat-item {
+    position: relative;
+    font-size: 24px;
+    color: white;
+    margin: 10px 0;
+  }
+  .stat-value {
+    font-weight: bold;
+    color: gold;
+  }
+  .stat-icon {
+    position: absolute;
+    left: -40px;
+    font-size: 32px;
+    color: gold;
+    z-index: 30;
+  }
+</style>
+
+<div class="slide">
+  <div class="background"></div>
+  <div class="atmosphere"></div>
+  <div class="decorative"></div>
+  <div class="hero-card"></div>
+  <div class="stats-card"></div>
+
+  <div class="title">2025년 성과 하이라이트</div>
+  <div class="hero-value">300%</div>
+  <div class="hero-label">생산성 향상</div>
+
+  <div class="stat-item" style="top: 200px; left: 880px;">
+    <div class="stat-icon">🏢</div>
+    <span class="stat-value">150+</span> 도입 기업
+  </div>
+  <div class="stat-item" style="top: 260px; left: 880px;">
+    <div class="stat-icon">👤</div>
+    <span class="stat-value">50K+</span> 월간 활성 사용자
+  </div>
+  <div class="stat-item" style="top: 320px; left: 880px;">
+    <div class="stat-icon">📄</div>
+    <span class="stat-value">2M+</span> 처리 문서 수
+  </div>
+  <div class="stat-item" style="top: 380px; left: 880px;">
+    <div class="stat-icon">⏱️</div>
+    <span class="stat-value">99.9%</span> 서비스 가동률
+  </div>
+</div></div>
+</body></html>

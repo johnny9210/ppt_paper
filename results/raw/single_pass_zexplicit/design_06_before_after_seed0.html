@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+  .container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    background: linear-gradient(90deg, #ff6b6b, #4dabf7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+  }
+  .atmosphere {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(0,0,0,0));
+    z-index: 2;
+  }
+  .arrow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #fff, rgba(255,255,255,0.3));
+    clip-path: polygon(0% 50%, 100% 0%, 75% 50%, 100% 100%);
+    z-index: 5;
+  }
+  .card {
+    width: 300px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 10;
+    padding: 20px;
+  }
+  .before {
+    left: 120px;
+    top: 160px;
+    border-left: 4px solid #ff6b6b;
+  }
+  .after {
+    right: 120px;
+    top: 160px;
+    border-left: 4px solid #4dabf7;
+  }
+  .card h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    z-index: 20;
+  }
+  .item {
+    margin-bottom: 20px;
+  }
+  .emoji {
+    font-size: 36px;
+    display: inline-block;
+    width: 50px;
+  }
+  .title {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  .description {
+    font-size: 14px;
+    color: #ccc;
+  }
+</style>
+<div class="container">
+  <div class="atmosphere"></div>
+  <div class="arrow" style="left: 540px; top: 260px;"></div>
+  <div class="card before">
+    <h2>도입 전</h2>
+    <div class="item">
+      <span class="emoji">📝</span>
+      <div class="text">
+        <div class="title">수작업 보고서 작성</div>
+        <div class="description">주 8시간 소요</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="emoji">🔍</span>
+      <div class="text">
+        <div class="title">수동 데이터 검색</div>
+        <div class="description">건당 30분</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="emoji">📞</span>
+      <div class="text">
+        <div class="title">전화/이메일 응대</div>
+        <div class="description">평균 응답 4시간</div>
+      </div>
+    </div>
+  </div>
+  <div class="card after">
+    <h2>도입 후</h2>
+    <div class="item">
+      <span class="emoji">🤖</span>
+      <div class="text">
+        <div class="title">자동 보고서 생성</div>
+        <div class="description">주 30분으로 단축</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="emoji">⚡</span>
+      <div class="text">
+        <div class="title">RAG 기반 즉시 검색</div>
+        <div class="description">건당 5초</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="emoji">💬</span>
+      <div class="text">
+        <div class="title">AI 챗봇 자동 응대</div>
+        <div class="description">평균 응답 10초</div>
+      </div>
+    </div>
+  </div>
+</div></div>
+</body></html>

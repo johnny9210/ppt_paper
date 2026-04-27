@@ -146,10 +146,35 @@ _ELEMENT_RE = re.compile(
     re.IGNORECASE,
 )
 _Z_INDEX_RE = re.compile(r"z-index\s*:\s*(-?\d+)", re.IGNORECASE)
+_STYLE_BLOCK_RE = re.compile(r"<style[^>]*>([\s\S]*?)</style>", re.IGNORECASE)
+_CSS_RULE_RE = re.compile(
+    r"\.([\w-]+)[^{}]*\{([^{}]*)\}", re.IGNORECASE,
+)
+
+
+def _extract_style_block_z(html: str) -> dict[str, int]:
+    """Build {class_name: z_index} from <style> block CSS rules.
+
+    Fixes the inline-only parser bias — single_pass tends to put z-index inside
+    `<style>` blocks (e.g., `.card { z-index: 10 }`), and without this lookup
+    those z-values were lost (defaulted to z=0), inflating LayerAgent's lead.
+    """
+    class_z: dict[str, int] = {}
+    for sb in _STYLE_BLOCK_RE.findall(html):
+        for class_name, body in _CSS_RULE_RE.findall(sb):
+            zm = _Z_INDEX_RE.search(body)
+            if zm:
+                class_z[class_name.lower()] = int(zm.group(1))
+    return class_z
 
 
 def parse_html_tree(html: str) -> list[LayerNode]:
-    """Extract layer nodes from rendered HTML, sorted by z-index."""
+    """Extract layer nodes from rendered HTML, sorted by z-index.
+
+    Reads z-index from BOTH inline `style="..."` and `<style>` block CSS rules,
+    preferring inline if both are present (CSS specificity proxy).
+    """
+    style_block_z = _extract_style_block_z(html)
     by_z_type: dict[tuple[int, str], int] = {}
     for m in _ELEMENT_RE.finditer(html):
         cls = m.group(1) or ""
@@ -158,7 +183,15 @@ def parse_html_tree(html: str) -> list[LayerNode]:
         if not canonical:
             continue
         z_match = _Z_INDEX_RE.search(style)
-        z = int(z_match.group(1)) if z_match else 0
+        if z_match:
+            z = int(z_match.group(1))
+        else:
+            # Fall back to <style> block lookup by class name
+            z = 0
+            for cn in cls.split():
+                if cn.lower() in style_block_z:
+                    z = style_block_z[cn.lower()]
+                    break
         # Bucket by (z, type), increment count
         key = (z, canonical)
         by_z_type[key] = by_z_type.get(key, 0) + 1

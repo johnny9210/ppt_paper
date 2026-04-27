@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: linear-gradient(135deg, #0a0f29, #1f3b73);
+    z-index: 0;
+  }
+
+  .atmosphere {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 204, 255, 0.2), transparent);
+    z-index: 2;
+  }
+
+  .header {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 36px;
+    z-index: 20;
+  }
+
+  .metric-card {
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+
+  .metric-card:nth-child(1) { left: 80px; top: 100px; }
+  .metric-card:nth-child(2) { left: 490px; top: 100px; }
+  .metric-card:nth-child(3) { left: 900px; top: 100px; }
+
+  .icon {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    z-index: 30;
+  }
+
+  .metric-content {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    text-align: center;
+    color: #cceeff;
+    z-index: 20;
+  }
+
+  .chart-panel {
+    position: absolute;
+    left: 80px;
+    bottom: 100px;
+    width: 1120px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+
+  .chart-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -40px;
+    font-size: 24px;
+    color: white;
+    z-index: 20;
+  }
+
+  .decor-line {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    border-top: 2px solid #287bb3;
+    z-index: 5;
+  }
+</style>
+
+<div class="container">
+  <div class="atmosphere"></div>
+  <div class="header">Q4 2025 비즈니스 성과 대시보드</div>
+  
+  <div class="metric-card">
+    <div class="icon">💰</div>
+    <div class="metric-content">
+      <div>매출</div>
+      <div>₩128억</div>
+      <div>+23% YoY</div>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="icon">👥</div>
+    <div class="metric-content">
+      <div>활성 사용자</div>
+      <div>2.4M</div>
+      <div>+15% MoM</div>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="icon">⭐</div>
+    <div class="metric-content">
+      <div>고객 만족도</div>
+      <div>4.7/5.0</div>
+      <div>+0.3</div>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <div class="chart-title">월별 매출 추이</div>
+    <div class="decor-line"></div>
+  </div>
+</div></div>
+</body></html>

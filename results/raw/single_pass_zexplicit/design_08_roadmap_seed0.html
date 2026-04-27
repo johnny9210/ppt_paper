@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #121212, #1a1a1a);
+    height: 720px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .background {
+    position: absolute;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent);
+    width: 100%;
+    height: 100%;
+  }
+
+  .timeline {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    height: 60px;
+    background: linear-gradient(90deg, #3a3bda, #da3bda);
+    border-radius: 30px;
+    z-index: 2;
+    transform: translateY(-50%);
+  }
+
+  .card {
+    position: absolute;
+    width: 160px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+
+  .glow-node {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    z-index: 30;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+
+  .content {
+    z-index: 20;
+  }
+
+  .q1 { left: 5%; top: 15%; }
+  .q2 { left: 25%; top: 70%; }
+  .q3 { left: 45%; top: 15%; }
+  .q4 { left: 65%; top: 70%; }
+  .q5 { left: 85%; top: 15%; }
+
+  .node1 { left: 14%; top: 35%; }
+  .node2 { left: 34%; top: 55%; }
+  .node3 { left: 54%; top: 35%; }
+  .node4 { left: 74%; top: 55%; }
+  .node5 { left: 94%; top: 35%; }
+</style>
+
+<div class="background"></div>
+<div class="timeline"></div>
+
+<div class="card q1">
+  <div class="content">
+    🎯
+    <h3>Q1</h3>
+    <h4>MVP 출시</h4>
+    <p>핵심 기능 3종 런칭</p>
+  </div>
+</div>
+<div class="card q2">
+  <div class="content">
+    📈
+    <h3>Q2</h3>
+    <h4>성장 가속</h4>
+    <p>사용자 1만명 돌파 목표</p>
+  </div>
+</div>
+<div class="card q3">
+  <div class="content">
+    🌏
+    <h3>Q3</h3>
+    <h4>글로벌 확장</h4>
+    <p>일본·동남아 시장 진출</p>
+  </div>
+</div>
+<div class="card q4">
+  <div class="content">
+    🏆
+    <h3>Q4</h3>
+    <h4>엔터프라이즈</h4>
+    <p>대기업 맞춤 솔루션 출시</p>
+  </div>
+</div>
+<div class="card q5">
+  <div class="content">
+    🚀
+    <h3>2026</h3>
+    <h4>플랫폼화</h4>
+    <p>3rd party 앱 마켓플레이스</p>
+  </div>
+</div>
+
+<div class="glow-node node1"></div>
+<div class="glow-node node2"></div>
+<div class="glow-node node3"></div>
+<div class="glow-node node4"></div>
+<div class="glow-node node5"></div></div>
+</body></html>

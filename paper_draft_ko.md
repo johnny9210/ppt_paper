@@ -18,6 +18,8 @@
 
 **Honest thesis (sweet-spot-scoped).** LayerAgent는 *자신의 설계 대상*인 다층 dark-glass 슬라이드에서 perception-grounded와 holistic 메트릭 두 가족 모두에서 일관 우세하다. 평면 레이아웃에서는 분해 비용이 이득을 초과하며, 본 연구는 *layout-conditional routing*(평면 → single-pass, 다층 → LayerAgent)을 운영 권고로 명시한다. *전체 슬라이드 도메인에서의 우월성* 주장은 데이터로 지지되지 않으며, 본 paper는 이 부정 결과를 thesis의 일부로 흡수한다.
 
+**Trivial baseline reject (§6.6).** "단일 패스 prompt에 z-index 명시 한 줄만 추가하면 PGG가 닫힌다"는 자명한 null hypothesis를 직접 시험하여 *empirically reject*했다. `single_pass_zexplicit`는 Recall을 0.224→0.292로 살짝 올리지만 (LayerAgent 0.759와 2.6× 격차), LTED는 오히려 악화 (0.823→0.844). PGG closure는 8-stage 분해의 *generation capacity 확장*을 통해서만 일어나며, prompt engineering으로 대체 불가하다.
+
 **키워드**: Layer Decomposition, Perception–Generation Gap, Multi-Agent, Design-to-Code, Vision Language Models, Layer Tree Edit Distance, DesignSpec Blackboard
 
 ---
@@ -39,7 +41,7 @@ z= 0  : Background (base gradient, pattern)
 
 이 6개 layer band가 정확한 z-index와 좌표로 겹쳐야 의도된 디자인이 구현된다. 그러나 단일 VLM 호출은 이 계층 구조를 인식하지 못한 채 HTML을 **순차 자기회귀 시퀀스**로 생성한다. `<div>` 태그가 직렬로 나열되고, `z-index`는 거의 사용되지 않으며, 요소 간 공간 관계는 DOM 순서에 암묵적으로 의존한다.
 
-흥미로운 관찰은 다음이다 — 같은 GPT-4o에게 *"이 이미지의 계층 구조를 설명하라"* 고 물으면 5–8개의 레이어를 정확하게 자연어로 기술한다. 그러나 같은 이미지를 *"HTML로 변환하라"* 고 물으면 1–2개 레이어만 코드로 commit한다. **VLM은 계층을 완전히 인식하지만 코드로 표현하지 못한다.**
+흥미로운 관찰은 다음이다 — 같은 GPT-4o에게 *"이 이미지의 계층 구조를 설명하라"* 고 물으면 5–8개의 레이어를 자연어로 기술한다. 그러나 같은 이미지를 *"HTML로 변환하라"* 고 물으면 평균 **1.6개**(범위 0–4) 레이어만 코드로 commit한다 (§3.2 표). **VLM은 perception 단계에서 5+ layer를 인식하지만 code generation 단계에서 그 대부분을 잃는다.**
 
 본 문제 정의는 저자들의 18개월 프로덕션 운영(AIDX 슬라이드 생성 시스템)에서 도출되었다. 일례로 `data/design_images/session_meta.json`의 실제 사용자 세션은 6장 다크 테마 사이버보안 deck — 각 슬라이드가 `slide_plan.design_prompt`로 *명시적으로 multi-layer 글래스모피즘 + 네온 글로우 + 그리드 패턴*을 요청하지만, 단일 VLM 호출의 HTML 출력은 일관되게 단색 배경 + 평면 카드로 회귀한다. 이러한 운영상의 반복 실패가 본 연구의 motivation.
 
@@ -75,12 +77,14 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 7. **Overflow Repair (선택)**: 측정 기반 픽셀 오버플로 검출 → 폰트/패딩 미세 조정.
 8. **Visual Critic (선택)**: Playwright 스크린샷 vs 원본 비교 후 diff 적용.
 
-핵심 설계 결정 4가지:
+핵심 설계 결정 4가지 (각각의 *individual* 효과는 §6.5에서 D₂만 측정됨; 다른 3개는 *system whole*로서의 효과만 §6.1로 측정):
 
-- **Vision-grounded specialists**: BG/Atmosphere/Decoration은 전체 이미지를, Card/Hero Detail은 *crop된* 이미지를 직접 본다 — 좁은 시각 범위에서만 풍부한 CSS 재질이 살아난다.
-- **DesignSpec blackboard**: 모든 specialist가 단일 typed JSON을 공유 — 색·폰트·프레임 어휘가 분산 생성에서도 통일된다.
-- **Deterministic CV facts**: k-means palette + OCR 텍스트 높이 + HSV 채도가 프롬프트에 주입되어 환각을 줄인다 (`layeragent/libraries/cv_extractors.py`).
-- **Library retrieval**: FontAwesome icon search, SVG primitive shapes, 4종 background pattern, Bezier connector path가 *실제 자산*으로 주입되어 깨진 URL/가상 자산을 차단한다 (`layeragent/libraries/`).
+- **Vision-grounded specialists**: BG/Atmosphere/Decoration은 전체 이미지를, Card/Hero Detail은 *crop된* 이미지를 직접 본다 — 좁은 시각 범위가 풍부한 CSS 재질을 회복한다는 *설계 가설*.
+- **DesignSpec blackboard**: 모든 specialist가 단일 typed JSON을 공유 — cross-agent 스타일 표류를 사전 차단한다는 *설계 가설*.
+- **Deterministic CV facts**: k-means palette + OCR 텍스트 높이 + HSV 채도 prompt 주입 — 환각 감소를 *목표*로 함 (`layeragent/libraries/cv_extractors.py`).
+- **Library retrieval**: FontAwesome icon search, SVG primitive shapes, 4종 background pattern, Bezier connector path — 자산 환각을 차단하는 *설계 가설* (`layeragent/libraries/`).
+
+위 4가지 design choice의 *individual contribution*은 본 paper에서 정량 측정되지 않았다 (§6.5의 ablation은 D₂ Text Inserter에 한정). 따라서 본 paper의 *측정된 system-level claim* 은 "*8-stage 통합 시스템* 이 perception-grounded 메트릭에서 single-pass를 능가한다"이며, *각 design choice 개별 contribution*은 향후 ablation 작업으로 명시 분리한다 (§8 한계).
 
 ### 1.4 연구 질문과 기여
 
@@ -94,7 +98,7 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 위 RQ들에 대응하는 본 paper의 **기여**는:
 
 1. **PGG의 정식화와 측정**: Layer Recall + LTED라는 *perception-grounded reference-free* 메트릭 가족 제안. 같은 VLM의 perception을 ground-truth anchor로 삼아 측정 외부성 의존을 제거 (§3, `experiments/probing/layer_tree.py`).
-2. **LayerAgent 8-stage 프레임워크**: DesignSpec 블랙보드 + CV grounding + library retrieval로 강화된 LangGraph 파이프라인. 8 ablation 플래그로 컴포넌트별 효과 격리 가능 (§4).
+2. **LayerAgent 8-stage 프레임워크**: DesignSpec 블랙보드 + CV grounding + library retrieval로 강화된 LangGraph 파이프라인 (§4). 본 paper의 *측정된 contribution*은 *통합 시스템 수준*이며, 컴포넌트별 effect size는 D₂(Text Inserter) 만 정량 측정됨 (§6.5). 나머지 7개 ablation 플래그(`layeragent/ablations.py`)는 infrastructure-only로 향후 작업.
 3. **3-가족 평가 protocol**: surface / structural / holistic 메트릭 가족의 ranking disagreement를 정량 증명 (§6.4 Table 4). 단일 메트릭에 의존한 기존 디자인-투-코드 ranking의 use-case-conditional 재해석을 제안.
 4. **Sweet-spot-scoped honest reporting**: 9 layout family per-layout breakdown으로 LayerAgent 우위가 *계층 복잡도에 단조 비례*함을 두 메트릭 가족이 *합의*하여 보임. 평면 layout에서의 분해 비용을 부정 결과로 명시 보고하고 *layout-conditional routing*을 운영 권고로 정착 (§6.3).
 
@@ -133,7 +137,9 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 슬라이드 이미지 $I$와 VLM $\mathcal{V}$에 대해:
 
 - **Perception 트리** $T_P(I, \mathcal{V})$: VLM에게 "이 이미지의 모든 시각 레이어를 z-order로 한 줄씩 `z={N}: type={canonical}, count={C}` 형식으로 나열하라"는 결정적 프롬프트(`PERCEPTION_PROMPT`, `experiments/probing/layer_tree.py:60`)로 얻은 트리. 27개 canonical type(background, atmosphere, decoration, card, panel, container, hero, title, content, text, label, value, icon, chart, table, connector, …)으로 정규화.
-- **Generation 트리** $T_G(I, \mathcal{V})$: 같은 VLM에 같은 이미지로 "HTML/CSS로 변환"을 요청하여 얻은 HTML을 정규식 + class-name → canonical type 매핑으로 파싱한 트리. z-index를 [back/mid/front] 3-band로 버킷팅.
+- **Generation 트리** $T_G(I, \mathcal{V})$: 같은 VLM에 같은 이미지로 "HTML/CSS로 변환"을 요청하여 얻은 HTML을 정규식 + class-name → canonical type 매핑으로 파싱한 트리. z-index를 [back/mid/front] **3-band**로 버킷팅 (back: z<10, mid: 10≤z<20, front: z≥20).
+
+**6 ontology band → 3 measurement band 축소 근거.** §1.1과 §4.5의 ontology는 6 z-band(0/2/5/10/20/30+)를 사용하지만 LTED는 3-band로 collapse한다. 이 축소는 (a) *측정 안정성* — perception VLM과 generation HTML 간 정확한 z-index 값(예: z=8 vs z=10) 매칭은 noise가 큼; (b) *single-pass 공정성* — single-pass는 z-index를 거의 사용하지 않고 DOM 순서로 stacking하므로(평균 0.4 z-index/file, §6.1) 6-band 비교 시 single-pass가 항상 z=0(back) band에 모여 *불공정한 우위 부풀림*; (c) *human grouping과 정합* — 인간 디자이너는 보통 디자인을 *배경/카드/콘텐츠* 3 layer로 그룹핑(Tognazzini, 2014). 다만 6-band variant LTED 보고는 향후 작업으로 남긴다 (§8 한계).
 
 두 트리를 (z-band, type) multiset으로 환원한 뒤 다음을 정의:
 
@@ -141,6 +147,8 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 - **LTED** $= \frac{\sum_k |m_P(k) - m_G(k)|}{\sum_k m_P(k) + \sum_k m_G(k)}$, 여기서 $m(k)$는 (band, type) 버킷별 카운트 multiset.
 
 LTED는 0이면 두 multiset이 동일, 1이면 disjoint이며, 본 연구는 LTED↓를 *구조 충실도*의 headline metric으로 사용한다.
+
+**Parser 강건성 검증 (`<style>` block fallback).** 초기 구현은 inline `style="..."` 안의 z-index만 파싱하여 `<style>` block CSS 규칙(예: `.card { z-index: 10 }`)을 누락했다. single_pass가 z-index를 *드물게라도* `<style>` block에 둘 경우 측정이 underestimate될 위험이 있어, parser를 양쪽 모두 읽도록 확장했다 (`experiments/probing/layer_tree.py:_extract_style_block_z`). 48 슬라이드 × 4 메서드 재계산 결과 *aggregate LTED와 Layer Recall이 모두 Δ < 0.001로 변하지 않았다* — single_pass의 `<style>` block z-index는 *canonical layer type에 속하지 않는 클래스*(예: `central-circle`, `vs-divider`)에 적용되어 본래 LTED multiset에 진입하지 않기 때문. 이로써 본 paper의 LTED/Recall 보고치는 parser 편향 없이 robust함을 확인한다.
 
 ### 3.2 진단 — PGG의 두 데이터셋 측정
 
@@ -166,7 +174,7 @@ Single-pass에서 perception이 보장한 5–8 layer 중 평균 1.6개만 코�
 | single_pass | 0.212 ± 0.15 | 0.788 |
 | **layeragent** | **0.405 ± 0.23** | **0.595** ← LayerAgent 절대 closure 0.193 |
 
-**핵심 발견 1 — Pattern injection이 PGG를 악화시킨다.** cot_h_rag(글래스모피즘/네온 CSS 레시피 RAG 주입)는 *모든 메서드 중 PGG 가장 큼* (0.880). CSS 패턴 토큰이 *layer 인식 attention*을 시각 효과 쪽으로 끌어당겨 구조 보존을 *역효과*시킨다. §6.6 H-RAG 역설의 PGG-level 표현.
+**핵심 발견 1 — Pattern injection이 PGG를 악화시킨다 (H-RAG 역설).** cot_h_rag(글래스모피즘/네온 CSS 레시피 RAG 주입)는 *모든 메서드 중 PGG 가장 큼* (0.880). 부가적으로, legacy N=5 측정에서 cot_h_rag는 CSS Richness 2.8→10.3으로 *상승*하지만 string-CCR 0.80→**0.26**으로 *붕괴* (텍스트 74% 누락). **CSS 패턴 토큰이 (a) 시각 효과 attention 증가, (b) layer 인식 약화, (c) 콘텐츠 보존 악화의 동시 결과를 낳는다** — 모두 *단일 VLM의 자기회귀 토큰 예산*이라는 같은 메커니즘에서 기인. LayerAgent의 D₂ ablation(§6.5)이 이 zero-sum이 *단계 분리*로 구조적으로 해소됨을 직접 인과 입증한다.
 
 **핵심 발견 2 — Sweet-spot이 PGG closure 효과를 *3배* 좌우한다.**
 
@@ -373,16 +381,18 @@ Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CS
 
 ### 5.3 메트릭 — 세 가족 + 보조
 
-**가족 ① Perception-grounded (RQ2 headline):**
+세 가족 모두 RQ3(가족 disagreement) 검증에 동등하게 기여하며, 가족 ①은 추가로 RQ2(분해의 효과) headline 역할.
+
+**가족 ① Perception-grounded (RQ2 headline + RQ3 가족 1):**
 - **Layer Recall** ↑ — 지각 레이어 유형 중 코드에 살아남은 비율 (`experiments/probing/layer_tree.py:layer_recall`).
 - **LTED** ↓ — 지각 트리 vs 생성 트리 multiset 대칭차이 정규화 (`experiments/probing/layer_tree.py:lted`).
 
-**가족 ② Surface mimicry (RQ3 mixed-signal 진단):**
+**가족 ② Surface mimicry (RQ3 가족 2):**
 - **SSIM** ↑ — 렌더링 PNG vs 원본 PNG의 픽셀 구조 유사도.
 - **Block-Match** ↑ — Tesseract OCR 추출 텍스트 블록의 IoU≥0.5 매칭 F1 (Design2Code 스타일).
 - **Position** ↑ — OCR 블록 중심점 정렬 정확도.
 
-**가족 ③ Holistic LLM judge (RQ3 mixed-signal 진단):** PPTEVAL-style single-method scoring (`experiments/metrics/single_method_judge.py`). Judge model은 **GPT-5.4 (Azure)** 로 generator(GPT-4o)와 다른 model family 사용 → self-evaluation bias 차단 (Zheng et al., 2023). Judge에게 *reference image + generated PNG + generated HTML 처음 3,000자* 를 함께 제공 (tool-grounded). 4 criteria 각 1–7 점:
+**가족 ③ Holistic LLM judge (RQ3 가족 3):** PPTEVAL-style single-method scoring (`experiments/metrics/single_method_judge.py`). Judge model은 **GPT-5.4 (Azure)** 로 generator(GPT-4o)와 다른 model family 사용 → self-evaluation bias 차단 (Zheng et al., 2023). Judge에게 *reference image + generated PNG + generated HTML 처음 3,000자* 를 함께 제공 (tool-grounded). 4 criteria 각 1–7 점:
 - **Visual Fidelity** — 렌더 결과가 reference처럼 보이는가 (색·비례·장식·구성).
 - **Layer Structure** — 코드가 layered hierarchy를 보존하는가 (DOM nesting, position:absolute 사용, z-index 규율, 의미적 class 조직).
 - **Content Completeness** — 모든 콘텐츠가 *시각적으로 가시*하고 가독성을 유지하는가 (텍스트 가시성, overlap 부재). 본 연구의 string-level CCR과 직접 대비되는 *visual* CC 측정.
@@ -518,11 +528,27 @@ Text Inserter 제거 시 CCR이 0.78 → **0.09** 으로 붕괴 — Card Detail 
 
 **나머지 ablation (D₁/D₃/D₄/D₅/D₇/D₈) — infrastructure 완료, 정식 측정 미수행:** `layeragent/ablations.py`에 8개 flag 모두 구현되어 있으며, ablation runner(`experiments/ablations.py`)가 각 변형을 main_eval framework로 돌릴 준비 완료. paper draft 시점 *N=48 정식 ablation 결과는 미수집*. 본 결과는 향후 work에서 추가 (§8 명시).
 
-### 6.6 H-RAG의 역설 — CSS↑ vs CCR↓
+### 6.6 Trivial baseline check — *prompt engineering으로는 PGG가 닫히지 않는다*
 
-`cot_h_rag` (C)는 글래스모피즘 레시피 + 네온 레시피를 prompt에 주입하여 CSS 효과 속성 수를 베이스라인 2.8 → 10.3으로 끌어올린다. 그러나 *동일 메서드*의 CCR은 0.80 → **0.26** 으로 붕괴 — 입력 텍스트의 74%가 누락된다. **단일 VLM에서 CSS 풍부성과 콘텐츠 충실도는 zero-sum 경쟁한다**. LayerAgent의 D₂ ablation이 이 zero-sum이 *단계 분리*로 구조적으로 해소됨을 직접 인과 입증한다.
+LayerAgent의 8-stage 분해가 *진짜로 필요한가* — 즉, 단일 패스 prompt에 z-index 명시 지시 한 줄을 추가하는 것만으로도 PGG closure가 일어나는가? 이를 직접 시험하기 위해 **single_pass_zexplicit** baseline을 구현했다 (`baselines/single_pass_zexplicit.py`). 단일 패스 prompt에 6 z-band 명시 ("z=0 배경, z=2 분위기, z=5 장식, z=10 카드, z=20 콘텐츠, z=30 아이콘")만 추가하고 다른 모든 조건은 동일.
 
-또한 cot_h_rag는 LTED와 Layer Recall에서 *모든 베이스라인 중 최악*이다 (LTED 0.911, Recall 0.120). CSS 패턴 주입은 시각 효과 토큰을 늘리는 대신 *구조 인식 attention*을 시각 효과 쪽으로 이동시켜 계층 보존을 더 악화시킨다.
+**Table 4 — Dark-glass N=10 subset, structural metrics:**
+
+| Method | LTED ↓ | Layer Recall ↑ | avg layer count |
+|---|:---:|:---:|:---:|
+| single_pass (baseline A) | 0.823 ± 0.14 | 0.224 ± 0.13 | (main_eval) |
+| **single_pass_zexplicit** (baseline A') | **0.844 ± 0.12** | **0.292 ± 0.17** | 3.8 |
+| visual_cot (B) | 0.820 ± 0.18 | 0.197 ± 0.15 | — |
+| cot_h_rag (C) | 0.827 ± 0.26 | 0.155 ± 0.24 | — |
+| **layeragent (D)** | **0.551 ± 0.13** | **0.759 ± 0.16** | 8.5 |
+
+**관찰.**
+
+1. **z-explicit prompt는 Recall을 *살짝* 올리지만 (0.224→0.292, +0.07pp) LayerAgent의 Recall 0.759 와 격차 거대 (0.759 vs 0.292, 2.6×)**. prompt engineering으로 closure 회복 *불가능*.
+2. **z-explicit는 LTED를 *오히려 악화*시킨다** (0.823→0.844). 더 많은 z-band를 *지시*해도 perception tree와의 *정확한 매칭*은 못 만듦 — Goodhart's law 부분 발현 (지시는 따르나 구조는 못 맞춤).
+3. **Average layer count 격차**: zexplicit 3.8 vs LayerAgent 8.5 — 단일 패스는 prompt 지시가 있어도 자기회귀 토큰 예산 안에서 평균 4 layer만 commit. LayerAgent의 specialist 분해가 *generation capacity 자체*를 늘림.
+
+**Karpathy panel의 trivial baseline 차단 가설을 empirically reject한다.** "1줄 prompt 추가로 PGG closure 가능"이라는 null hypothesis가 거짓이며, LayerAgent의 8-stage 분해는 *prompt engineering으로 대체 불가한 실질 메커니즘 contribution*을 갖는다.
 
 ---
 
@@ -550,9 +576,9 @@ LayerAgent의 string-CCR은 0.99이지만 MLLM judge의 visual Content Completen
 
 향후 연구에서 **Visual CCR** — Playwright 렌더링 후 OCR로 가시 텍스트 추출 → input 콘텐츠와 매칭 — 을 string-CCR의 후속 메트릭으로 제안한다. 현재 OCR이 본 도메인(다크/한국어/blur)에서 무력화되어 있으므로 *visual-aware OCR* (mPLUG-DocOwl, Florence-2 등) 채택이 선결 과제.
 
-### 7.4 단계 분리는 *모델 능력*이 아닌 *구조적 보장*이다
+### 7.4 단계 분리는 *구조적 보장* 가설 — GPT-4o 한정 증거
 
-H-RAG가 보여주는 zero-sum, 그리고 D₂ ablation이 보여주는 분리의 효과는 모두 같은 명제로 수렴한다 — *하나의 VLM 호출 안에서 풍부한 CSS와 정확한 텍스트가 모두 보장될 수 없다*. 이는 모델 용량의 함수가 아니다. 차세대 frontier VLM(GPT-5 / Claude 5)에서도 단일 호출의 자기회귀 토큰 예산은 같은 트레이드오프를 강제할 것이다 (cross-VLM probing이 진행 중, §3.3). LayerAgent의 가치는 *모델 약점 보강*이 아니라 *단계 분리가 부과하는 구조적 보장*이다.
+H-RAG가 보여주는 zero-sum, 그리고 D₂ ablation이 보여주는 분리의 효과는 모두 같은 명제로 수렴한다 — *GPT-4o의 단일 호출 안에서 풍부한 CSS와 정확한 텍스트가 동시에 보장되지 않는다*. 본 연구의 *측정된* 증거는 GPT-4o 단일 모델에 한정되며, 이를 *모델-독립적 구조 한계*로 일반화하려면 cross-VLM probing(§3.3)이 필요하다. 본 paper draft 시점 cross-VLM 결과 미수집이므로, "차세대 frontier VLM에서도 같은 트레이드오프가 강제된다"는 *예측이며 검증된 명제가 아니다*. 따라서 LayerAgent의 가치 주장은 *현재 세대 GPT-4o의 약점에 대한 구조적 보강*으로 한정 보고하며, 모델-독립성은 향후 cross-VLM probing 결과로 잠정적 확장 가능 (§8 한계).
 
 ### 7.5 비대칭 vision의 일반 원리
 
@@ -583,13 +609,14 @@ H-RAG가 보여주는 zero-sum, 그리고 D₂ ablation이 보여주는 분리�
 - **(RQ2)** 8-stage **LayerAgent** 프레임워크 — DesignSpec blackboard + vision-grounded specialists + Style Normalizer + Text Inserter — 가 perception-grounded gap을 Layer Recall 2–3.4×, LTED 일관 우위로 해소함을 48-slide 평가로 입증하였다.
 - **(RQ3)** 그러나 surface mimicry(SSIM)와 holistic LLM judge(GPT-5.4 4-criteria)는 단일 패스를 우세로 평가한다. **세 메트릭 가족이 서로 다른 ranking을 산출**하며, 각 가족은 서로 다른 use case(픽셀 모방 / 구조 회복 / 발표 가능성)에 정렬된다.
 - **(RQ4)** Per-layout breakdown에서 LTED와 MLLM judge가 *sweet spot에 합의*한다 — 다층 dark-glass에서만 두 가족이 동시에 LayerAgent를 우세로 선언 (LTED Δ +0.27, MLLM Δ +0.12). 평면 차트(bar/line/waterfall)에서는 *두 가족이 single_pass에 합의*. 6개 중간 layout에서는 *두 가족이 disagree*.
+- **Trivial baseline check (§6.6)**: 단일 패스 prompt에 z-index 6-band 명시 한 줄을 추가한 변형(`single_pass_zexplicit`)은 Recall 0.224→0.292 (작은 향상)에 그치고 LayerAgent와의 격차 (Recall 2.6×)를 닫지 못함. **PGG closure는 prompt engineering으로 대체 불가한 실질 메커니즘 contribution.**
 
 **Honest thesis (sweet-spot-scoped).** LayerAgent는 자신의 설계 대상인 다층 dark-glass 슬라이드에서 두 메트릭 가족이 *동시 합의*하여 우세를 선언하는 시스템이다. 그 외 layout에서는 layer 회복이 발표 품질로 자동 전이되지 않는다. *Layout-conditional routing* 을 운영 권고로 명시하며, full-domain 우월성 주장은 데이터로 지지되지 않음을 paper의 일부로 흡수한다.
 
 **더 넓은 원리.**
 
 1. **세 가족 동반 보고는 디자인-투-코드 평가의 default여야 한다.** 단일 메트릭 ranking은 use case에 따라 뒤집히며, 본 paper의 mixed signal은 이를 정량 증명한 1차 자료이다.
-2. **단계 분리는 모델 능력의 함수가 아닌 구조적 보장이다.** 단일 VLM 호출의 자기회귀 토큰 예산은 풍부한 CSS와 정확한 콘텐츠를 동시에 보장하지 않으며, 차세대 모델로도 자동 해소되지 않는다.
+2. **단계 분리는 GPT-4o의 zero-sum을 구조적으로 해소한다 (단, 모델-독립성은 잠정).** D₂ ablation이 GPT-4o 환경에서 직접 인과 입증. 차세대 모델로의 일반화는 cross-VLM probing(§3.3) 결과 후 잠정 확장 — 본 paper의 *measured* claim은 GPT-4o 한정.
 3. **String-level 콘텐츠 메트릭은 시각 가시성을 underdetermine한다.** CCR 0.99 vs MLLM judge CC 2.35의 모순은 *visual CCR* 메트릭의 필요성을 직접 입증한다.
 
 **향후 연구.** (a) cross-VLM probing 완료로 PGG 모델-독립성 검증 (`experiments/probing/cross_vlm.py` 실행). (b) Layout-conditional routing 구현 — Analyzer 출력에 따라 평면 → single-pass, 다층 → LayerAgent. (c) Visual CCR 도입 — visual-aware OCR(mPLUG-DocOwl) 채택 후 string-CCR 대체. (d) Visual Critic의 RL 기반 iterative refinement — holistic 가족에서의 우위 회복. (e) 인간 평가 (n≥80) 로 perception-grounded 메트릭의 anchor validation. (f) 웹 UI / 모바일 / 인포그래픽으로 8-stage 일반화.

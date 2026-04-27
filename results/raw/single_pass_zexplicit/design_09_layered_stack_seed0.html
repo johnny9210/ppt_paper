@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+        }
+        .container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            perspective: 1000px;
+        }
+        .layer {
+            width: 90%;
+            height: 120px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 15px;
+            backdrop-filter: blur(10px) brightness(1.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .layer .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .layer .emoji, .layer .text {
+            z-index: 30;
+            color: white;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        .layer .emoji {
+            font-size: 28px;
+        }
+        .layer .text {
+            font-size: 20px;
+            padding-left: 40px;
+        }
+        .layer1 {
+            top: 60px;
+            z-index: 9;
+            background: rgba(255, 200, 50, 0.2);
+        }
+        .layer2 {
+            top: 180px;
+            z-index: 8;
+            background: rgba(50, 255, 200, 0.2);
+        }
+        .layer3 {
+            top: 300px;
+            z-index: 7;
+            background: rgba(200, 50, 255, 0.2);
+        }
+        .layer4 {
+            top: 420px;
+            z-index: 6;
+            background: rgba(255, 50, 100, 0.2);
+        }
+        .glow-lines {
+            position: absolute;
+            left: 90%;
+            top: 60px;
+            height: 400px;
+            width: 3px;
+            background: linear-gradient(180deg, red, orange, yellow, green, blue, violet);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            z-index: 5;
+        }
+        .title {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 40px;
+            z-index: 20;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">시스템 아키텍처 스택</div>
+        <div class="glow-lines"></div>
+        
+        <div class="layer layer1">
+            <div class="content">
+                <div class="emoji">🎨</div>
+                <div class="text">프레젠테이션 계층: React + Ant Design UI</div>
+            </div>
+        </div>
+        <div class="layer layer2">
+            <div class="content">
+                <div class="emoji">⚡</div>
+                <div class="text">API 계층: Express Gateway + Moleculer</div>
+            </div>
+        </div>
+        <div class="layer layer3">
+            <div class="content">
+                <div class="emoji">🧠</div>
+                <div class="text">서비스 계층: FastAPI + LangGraph AI 에이전트</div>
+            </div>
+        </div>
+        <div class="layer layer4">
+            <div class="content">
+                <div class="emoji">💾</div>
+                <div class="text">인프라 계층: MongoDB + OpenSearch + Redis + MinIO</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html></div>
+</body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f0f2d, #212151);
+            z-index: 0;
+        }
+        .central-node {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #21c1d6, #0987b1);
+            top: 285px;
+            left: 565px;
+            z-index: 2;
+        }
+        .central-node-title {
+            position: absolute;
+            top: 115px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            z-index: 20;
+        }
+        .spoke {
+            position: absolute;
+            width: 240px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            z-index: 10;
+        }
+        .spoke-title {
+            position: absolute;
+            width: 100%;
+            top: 20px;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            z-index: 20;
+        }
+        .spoke-description {
+            position: absolute;
+            width: 100%;
+            top: 50px;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            z-index: 20;
+        }
+        .connector {
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, #21c1d6, #0987b1);
+            z-index: 5;
+        }
+        .icon {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #21c1d6;
+            text-align: center;
+            line-height: 60px;
+            font-size: 24px;
+            color: white;
+            z-index: 30;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="central-node">
+            <div class="central-node-title">API Gateway 🌐</div>
+        </div>
+
+        <!-- First Spoke -->
+        <div class="spoke" style="top: 50px; left: 50px;">
+            <div class="icon" style="top: 30px; left: 90px;">☁️</div>
+            <div class="spoke-title">클라우드 스토리지</div>
+            <div class="spoke-description">S3, MinIO 기반 객체 저장소</div>
+        </div>
+        <div class="connector" style="top: 225px; left: 210px; transform: rotate(45deg);"></div>
+
+        <!-- Second Spoke -->
+        <div class="spoke" style="top: 50px; right: 50px;">
+            <div class="icon" style="top: 30px; left: 90px;">📡</div>
+            <div class="spoke-title">실시간 스트리밍</div>
+            <div class="spoke-description">Kafka 이벤트 브로커</div>
+        </div>
+        <div class="connector" style="top: 225px; right: 210px; transform: rotate(-45deg);"></div>
+
+        <!-- Third Spoke -->
+        <div class="spoke" style="bottom: 50px; left: 50px;">
+            <div class="icon" style="top: 30px; left: 90px;">🗄️</div>
+            <div class="spoke-title">데이터베이스</div>
+            <div class="spoke-description">PostgreSQL + MongoDB</div>
+        </div>
+        <div class="connector" style="bottom: 225px; left: 210px; transform: rotate(-45deg);"></div>
+
+        <!-- Fourth Spoke -->
+        <div class="spoke" style="bottom: 50px; right: 50px;">
+            <div class="icon" style="top: 30px; left: 90px;">🔒</div>
+            <div class="spoke-title">인증/보안</div>
+            <div class="spoke-description">OAuth2 + JWT 토큰</div>
+        </div>
+        <div class="connector" style="bottom: 225px; right: 210px; transform: rotate(45deg);"></div>
+
+        <!-- Fifth Spoke -->
+        <div class="spoke" style="top: 210px; left: 200px;">
+            <div class="icon" style="top: 30px; left: 90px;">🤖</div>
+            <div class="spoke-title">AI 서비스</div>
+            <div class="spoke-description">LLM 추론 엔진</div>
+        </div>
+        <div class="connector" style="top: 285px; left: 365px;"></div>
+
+        <!-- Sixth Spoke -->
+        <div class="spoke" style="top: 210px; right: 200px;">
+            <div class="icon" style="top: 30px; left: 90px;">🌍</div>
+            <div class="spoke-title">CDN/Edge</div>
+            <div class="spoke-description">글로벌 콘텐츠 배포</div>
+        </div>
+        <div class="connector" style="top: 285px; right: 365px;"></div>
+    </div>
+</body>
+</html></div>
+</body></html>

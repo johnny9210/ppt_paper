@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #020212, #232440);
+  }
+  
+  #container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+  }
+  
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: linear-gradient(to right, #06b8d3, #944dff);
+    opacity: 0.1;
+  }
+
+  .atmosphere {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.3), transparent);
+  }
+
+  .line {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #06b8d3, #944dff);
+    z-index: 5;
+  }
+
+  .glow-node {
+    position: absolute;
+    top: calc(50% - 10px);
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #06b8d3, transparent);
+    border-radius: 50%;
+    z-index: 30;
+  }
+
+  .glow-node:nth-child(1) { left: 15%; }
+  .glow-node:nth-child(2) { left: 39%; }
+  .glow-node:nth-child(3) { left: 63%; }
+  .glow-node:nth-child(4) { left: 87%; }
+
+  .card {
+    position: absolute;
+    top: 60%;
+    width: 200px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transform: translate(-50%, -50%);
+  }
+
+  .card:nth-child(5) { left: 15%; }
+  .card:nth-child(6) { left: 39%; }
+  .card:nth-child(7) { left: 63%; }
+  .card:nth-child(8) { left: 87%; }
+
+  .title {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: #ffffff;
+    z-index: 20;
+  }
+
+  .description {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #bbbbbb;
+    z-index: 20;
+  }
+
+  .icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    z-index: 30;
+    color: #ffffff;
+  }
+
+  .text-title {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    z-index: 20;
+  }
+
+  .text-desc {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #dddddd;
+    z-index: 20;
+  }
+</style>
+
+<div id="container">
+  <div class="background"></div>
+  <div class="atmosphere"></div>
+  <div class="title">디지털 전환 로드맵 2025</div>
+  <div class="description">4단계 전환 마일스톤과 핵심 목표</div>
+  
+  <div class="line"></div>
+  <div class="glow-node"></div>
+  <div class="glow-node"></div>
+  <div class="glow-node"></div>
+  <div class="glow-node"></div>
+
+  <div class="card">
+    <div class="icon">📊</div>
+    <div class="text-title">현황 진단</div>
+    <div class="text-desc">레거시 시스템 분석 및 디지털 성숙도 평가</div>
+  </div>
+  <div class="card">
+    <div class="icon">🏗️</div>
+    <div class="text-title">기반 구축</div>
+    <div class="text-desc">클라우드 마이그레이션 및 API 플랫폼 설계</div>
+  </div>
+  <div class="card">
+    <div class="icon">🔄</div>
+    <div class="text-title">프로세스 혁신</div>
+    <div class="text-desc">업무 자동화 및 데이터 기반 의사결정 체계 도입</div>
+  </div>
+  <div class="card">
+    <div class="icon">🚀</div>
+    <div class="text-title">스케일업</div>
+    <div class="text-desc">AI/ML 적용 확대 및 전사 디지털 문화 정착</div>
+  </div>
+</div></div>
+</body></html>
