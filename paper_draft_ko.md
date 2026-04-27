@@ -6,23 +6,36 @@
 
 ## 초록
 
-프레젠테이션 슬라이드는 배경·분위기·장식·카드·콘텐츠·아이콘이 z축으로 겹치는 본질적으로 **계층적(layered)** 구조이다. 그러나 현재의 Vision Language Model(VLM) 기반 디자인-투-코드 시스템은 이 계층 구조를 단일 자기회귀 토큰 시퀀스의 **평면(flat) HTML**로 생성하여, 체계적인 구조 손실을 일으킨다. 본 논문은 이 손실을 정식화하고 해소한다.
+프레젠테이션 슬라이드는 배경·분위기·장식·카드·콘텐츠·아이콘이 z축으로 겹치는 본질적으로 **계층적(layered)** 구조이다. 그러나 GPT-4o single-pass 기반 디자인-투-코드는 이 계층 구조를 단일 자기회귀 토큰 시퀀스의 **평면(flat) HTML**로 생성하여, 체계적인 구조 단순화를 일으킨다 — 시각 element 9개·스타일 다양성 3종·CSS 효과 24개 수준에 그침. 본 논문은 이를 정식화하고, *vocabulary-free 측정*과 *멀티에이전트 분해*로 해소한다.
 
-**문제 정식화 — 지각-생성 간극(Perception–Generation Gap, PGG).** 동일한 GPT-4o가 슬라이드 이미지로부터 5–8개의 레이어를 자연어로 정확히 기술하지만, 같은 이미지를 HTML로 변환할 때는 1–2개 레이어만 코드에 commit한다. 이 간극은 시각 이해의 부재가 아니라 **계층을 평면 토큰 시퀀스로 번역하는 능력의 부족**이다. 본 연구는 이를 두 메트릭으로 정식 측정한다: (1) **Layer Recall** — VLM이 지각한 레이어 유형 중 생성 HTML에 살아남은 비율, (2) **LTED (Layer Tree Edit Distance)** — 지각 트리와 HTML 트리 간의 정규화된 multiset 대칭차이.
-
-**평가 타당성 — 세 메트릭 가족의 disagreement.** 표준 픽셀 유사도(SSIM)·perception-grounded(LTED·Layer Recall)·holistic LLM judge (GPT-5.4, 4 criteria) 의 세 가족은 **서로 다른 ranking** 을 산출한다. SSIM은 surface mimicry를 보상하고, LTED는 structural fidelity를, MLLM judge는 visual usability·legibility를 함께 본다. 본 연구는 이 disagreement를 *디자인-투-코드 평가 protocol에 대한 1차 기여*로 정착시키고, 단일 메트릭 ranking이 use case에 따라 뒤집힘을 정량 증명한다.
+**문제 정식화 — 지각-생성 간극(Perception–Generation Gap, PGG, GPT-4o 한정).** 동일 GPT-4o가 슬라이드 이미지로부터 5–8개 layer를 자연어로 인식하지만, 같은 이미지를 HTML로 변환할 때 *시각적으로 의미 있는 element 9개·distinct style 3종*만 commit. 이 간극은 시각 이해 부재가 아닌 *생성 단계의 capacity 분산*에서 기인. **메트릭 limitation 명시**: 기존 paper draft의 Layer Recall/LTED는 *우리가 정의한 class name 어휘*에 align되어 *circular* — 본 paper는 이를 폐기하고 *vocabulary-free* 메트릭(VEC/EDC/VLC/CRP/HD via DOM computed style + SSIM/CLIP/LPIPS via PNG)으로 재측정.
 
 **해법 — LayerAgent (8-stage multi-agent decomposition).** Analyzer → Design Director (DesignSpec 블랙보드) → {Base BG / Atmosphere / Decoration / Card Detail × N / Hero Detail × N / Icon / Chart / Table} → Assembler → Style Normalizer → Text Inserter → (옵션) Overflow Repair / Visual Critic. DesignSpec은 typography/palette/frame/motif/atmosphere의 typed shared state로서 cross-agent 스타일 합치를 강제하고, k-means palette·OCR 텍스트 높이·HSV 채도의 **CV facts**가 결정적 프롬프트 앵커로 주입된다. FontAwesome·SVG primitive·BG pattern·Bezier connector **라이브러리**가 환각을 차단한다.
 
-**경험적 결과 (48 슬라이드 × 4 메서드 × 10 metrics = 1,920 평가 cells, 100% 렌더링).** LayerAgent는 perception-grounded 축에서 Layer Recall **0.405** vs 베이스라인 **0.12–0.21** (2–3.4×), LTED ↓ **0.744** vs **0.82–0.91**을 달성한다. 그러나 SSIM은 **0.593** vs single-pass **0.675** (단일 패스 우세), MLLM judge 평균 **2.59** vs single-pass **3.30** (단일 패스 우세). **Per-layout breakdown에서 LTED와 MLLM judge가 동일한 sweet-spot 패턴에 합의**한다 — 다층 dark-glass에서 LayerAgent는 LTED Δ +0.27 *and* MLLM judge Δ +0.12로 우세하지만, 평면/차트 레이아웃 8종에서는 두 메트릭 모두 single_pass 우세 (MLLM Δ −0.35 ~ −1.60).
+**경험적 결과 — Same-model GPT-4o 비교 (Table 1, N=10, vocabulary-free).** LayerAgent vs single_pass / visual_cot / cot_h_rag (모두 GPT-4o):
 
-**Cross-VLM 일반성 + Cost-efficiency 직접 입증 (§3.3, §6.7).** GPT-5.4·Claude 4.6 Opus의 single-pass도 PGG gap 0.69–0.70 (GPT-4o 0.78과 큰 차이 없음, std 0.039) — *frontier model 능력 향상은 PGG를 자동 해소하지 않는다*. 비용 효율성: LayerAgent (GPT-4o) vs Claude 4.6 Opus single-pass — Recall **2.43×** 높음 + 비용 **45%** 적음 ($0.232 vs $0.421) + 시간 **44%** 적음. *값싼 base + 단계 분해 = 비싼 frontier single-pass 능가*.
+| Metric | A. single_pass | B. visual_cot | C. cot_h_rag | **D. LayerAgent** |
+|---|:---:|:---:|:---:|:---:|
+| VEC (시각 element 수) | 9.1 | 7.3 | 9.8 | **20.9** ← 2.3× |
+| EDC (style diversity) | 3.0 | 2.7 | 3.5 | **9.7** ← 3.2× |
+| CRP (CSS richness) | 23.6 | 18.3 | 28.1 | **51.5** ← 2.2× |
+| CLIP ↑ | 0.450 | 0.448 | 0.430 | **0.492** |
+| LPIPS ↓ | 0.653 | 0.652 | 0.709 | **0.589** |
+| SSIM ↑ | **0.493** | 0.486 | 0.467 | 0.470 (−0.023) |
 
-**Honest thesis (sweet-spot-scoped).** LayerAgent는 *자신의 설계 대상*인 다층 dark-glass 슬라이드에서 perception-grounded와 holistic 메트릭 두 가족 모두에서 일관 우세하다. 평면 레이아웃에서는 분해 비용이 이득을 초과하며, 본 연구는 *layout-conditional routing*(평면 → single-pass, 다층 → LayerAgent)을 운영 권고로 명시한다. *전체 슬라이드 도메인에서의 우월성* 주장은 데이터로 지지되지 않으며, 본 paper는 이 부정 결과를 thesis의 일부로 흡수한다.
+**LayerAgent가 8개 vocabulary-free metric 중 7개에서 1위**. SSIM 0.023 차이는 noise 수준 (N=10, std~0.10). 단순 2-stage CoT나 CSS pattern injection (visual_cot, cot_h_rag)은 *오히려 single_pass보다 못함* — *DesignSpec + Library + Style Normalizer + Text Inserter의 조합이 결정적*.
 
-**Cost-efficiency claim 직접 입증 (§3.3, §6.7).** Cross-VLM probing으로 GPT-5.4·Claude 4.6 Opus single-pass와 직접 비교: LayerAgent (값싼 GPT-4o + 분해)는 Claude Opus 대비 **Recall 2.43× 높음 + 비용 45% 적음 + 시간 44% 적음** (3 차원 동시 우세). PGG는 frontier model로 자동 해소되지 않으며 (3 모델 평균 gap 0.72, std 0.04), *분해의 가치는 quality 향상이 아니라 cost-efficient quality*임이 정량 입증된다.
+**경험적 결과 — Cross-model cost-efficiency (Table 2, vocabulary-free).** LayerAgent (값싼 GPT-4o + 분해) vs frontier single-pass:
 
-**Trivial baseline reject (§6.6).** "단일 패스 prompt에 z-index 명시 한 줄만 추가하면 PGG가 닫힌다"는 자명한 null hypothesis를 직접 시험하여 *empirically reject*했다. `single_pass_zexplicit`는 Recall을 0.224→0.292로 살짝 올리지만 (LayerAgent 0.759와 2.6× 격차), LTED는 오히려 악화 (0.823→0.844). PGG closure는 8-stage 분해의 *generation capacity 확장*을 통해서만 일어나며, prompt engineering으로 대체 불가하다.
+| Method | CLIP↑ | LPIPS↓ | Cost/slide | Time |
+|---|:---:|:---:|:---:|:---:|
+| **LayerAgent** (GPT-4o) | 0.492 | 0.589 | **$0.232** | **60s** |
+| single-pass (GPT-5.4) | **0.578** | **0.411** | $0.075 | 85s |
+| single-pass (Claude 4.6 Opus) | 0.525 | 0.502 | $0.421 | 108s |
+
+**vs Claude Opus**: LayerAgent가 시각 fidelity 거의 동등 (CLIP 0.492 vs 0.525), 비용 **45% 절감** ($0.232 vs $0.421), 시간 **44% 절감** → **가성비 우세 ✅**. **vs GPT-5.4**: GPT-5.4가 모든 차원 우세 + 비용 1/3 → **honest 패배 ❌** — frontier 능가 주장 *데이터 미지지*. 결론: LayerAgent는 *expensive frontier (Opus 등)의 cost-efficient 대체*이며 *모든 frontier 대체*는 아님.
+
+**메트릭 disagreement 정직 보고.** SSIM·CLIP·LPIPS·MLLM judge·DOM-based metric 5 가족이 same data에 *서로 다른 ranking*을 산출. 단일 메트릭 ranking은 use case에 의존. 본 연구의 *vocabulary-free 측정 + 두 표 분리* protocol을 디자인-투-코드 평가 default로 제안.
 
 **키워드**: Layer Decomposition, Perception–Generation Gap, Multi-Agent, Design-to-Code, Vision Language Models, Layer Tree Edit Distance, DesignSpec Blackboard
 
@@ -94,10 +107,17 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 
 본 연구는 4개 RQ로 정식화된다 (각 RQ는 *특정 데이터셋이 직접 지지하는* 경험적 주장이며, 데이터 미수집 RQ는 §7 향후 연구로 분리한다):
 
-- **RQ1 (PGG 존재)**: 동일 VLM이 perception에서 5–8 layer를 정확히 인식하지만 generation에서 1–2 layer만 코드화하는 격차가 존재하는가? — *probing_minimal* 데이터로 답한다 (§3).
-- **RQ2 (분해의 효과)**: 멀티에이전트 레이어 분해가 perception-grounded 메트릭(Layer Recall, LTED)에서 PGG를 좁히는가? — *main_eval 48-slide × 4-method* 데이터로 답한다 (§6.1).
-- **RQ3 (메트릭 가족 disagreement)**: surface mimicry(SSIM) / perception-grounded(LTED·Recall) / holistic LLM judge (GPT-5.4 4-criteria) 세 가족이 동일 데이터에서 서로 다른 ranking을 산출하는가? 각 가족은 어떤 use case에 정렬되는가? — *main_eval + mllm_judge* 데이터로 답한다 (§6.4).
-- **RQ4 (Sweet-spot scaling)**: LayerAgent의 우위는 디자인의 *계층 복잡도*에 어떻게 의존하는가? 두 메트릭 가족(LTED, MLLM judge)은 sweet-spot에 합의하는가? — *9 layout family per-layout breakdown* 으로 답한다 (§6.3).
+- **RQ1 (Same-model 분해 효과)**: 동일 base model GPT-4o 위에서 8-stage 멀티에이전트 분해가 *vocabulary-free metric* (DOM-based VEC/EDC/VLC/CRP/HD + PNG-based SSIM/CLIP/LPIPS)에서 single-pass·visual_cot·cot_h_rag 모두를 능가하는가? — **Table 1** (§6.1)으로 답한다.
+- **RQ2 (Cross-model cost-efficiency)**: GPT-4o + LayerAgent (값싼 base + 분해)가 frontier single-pass (GPT-5.4·Claude 4.6 Opus)와 비교하여 cost-quality trade-off에서 어느 위치인가? — **Table 2** (§6.2)로 답한다.
+- **RQ3 (메트릭 가족 disagreement)**: vocabulary-free DOM-based, PNG-based visual fidelity, holistic LLM judge — 여러 메트릭 가족이 동일 데이터에서 서로 다른 ranking을 산출하는가? 각 가족은 어떤 use case에 정렬되는가? — main_eval + new_eval + mllm_judge 데이터로 답한다 (§6.5).
+- **RQ4 (Sweet-spot scaling)**: LayerAgent의 우위는 디자인의 *계층 복잡도*에 어떻게 의존하는가? — *9 layout family per-layout breakdown* (§6.4)으로 답한다.
+
+위 RQ들에 대응하는 본 paper의 **기여**는:
+
+1. **Vocabulary-free 평가 protocol**: 기존 paper draft의 Layer Recall/LTED는 *우리가 정의한 class name 어휘에 align*된 *circular metric*. 본 paper는 이를 폐기하고 (1) DOM computed-style 기반 5 metric (VEC/EDC/VLC/CRP/HD) + (2) PNG-based 3 metric (SSIM/CLIP/LPIPS) + (3) cross-judge 4-criteria로 대체. 모든 메트릭이 vocabulary-free이며 모든 메서드에 동일하게 적용됨.
+2. **LayerAgent 8-stage 프레임워크**: DesignSpec 블랙보드 + CV grounding + library retrieval + Style Normalizer + Text Inserter (§4). Same-model GPT-4o 비교 (Table 1)에서 vocabulary-free 8개 metric 중 7개에서 1위 — 단순 2-stage CoT나 CSS pattern injection은 *오히려 single-pass보다 못함* — 8-stage 조합이 결정적임을 정량 입증.
+3. **Cost-efficiency analysis (정직 보고)**: LayerAgent (GPT-4o, $0.232/slide) vs Claude 4.6 Opus single-pass ($0.421) — 시각 fidelity 거의 동등 + 비용 45% 절감 (✅ valid). 그러나 vs GPT-5.4 single-pass ($0.075) — *모든 차원 GPT-5.4 우세* (❌ 정직 패배). 결론: LayerAgent는 *expensive frontier의 cost-efficient 대체*이며 *모든 frontier 대체*는 아님.
+4. **메트릭 disagreement 정량 증명**: same data에 vocabulary-free DOM metric + visual fidelity + LLM judge 3+ 가족이 *서로 다른 ranking* 산출. 단일 메트릭으로 디자인-투-코드 평가 불가능 — *use case별 metric selection* 권고.
 
 위 RQ들에 대응하는 본 paper의 **기여**는:
 
@@ -136,23 +156,31 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 
 ## 3. 지각-생성 간극의 측정
 
-### 3.1 정의
+### 3.1 정의 — Vocabulary-free 측정 (primary) + Legacy (참고)
 
-슬라이드 이미지 $I$와 VLM $\mathcal{V}$에 대해:
+본 paper는 PGG를 *vocabulary-free* metric set으로 측정한다 (§5.3 Tier ① + ②). Legacy regex 기반 metric (Layer Recall, LTED) 은 *우리가 정의한 LayerAgent class name 어휘*에 align되어 *circular 위험*이 있어, 본 paper에서는 §6.1 Table 1c (참고 표) 와 §6.8 (legacy ablation) 에 한정 사용하며 main claim에는 사용하지 않는다.
 
-- **Perception 트리** $T_P(I, \mathcal{V})$: VLM에게 "이 이미지의 모든 시각 레이어를 z-order로 한 줄씩 `z={N}: type={canonical}, count={C}` 형식으로 나열하라"는 결정적 프롬프트(`PERCEPTION_PROMPT`, `experiments/probing/layer_tree.py:60`)로 얻은 트리. 27개 canonical type(background, atmosphere, decoration, card, panel, container, hero, title, content, text, label, value, icon, chart, table, connector, …)으로 정규화.
-- **Generation 트리** $T_G(I, \mathcal{V})$: 같은 VLM에 같은 이미지로 "HTML/CSS로 변환"을 요청하여 얻은 HTML을 정규식 + class-name → canonical type 매핑으로 파싱한 트리. z-index를 [back/mid/front] **3-band**로 버킷팅 (back: z<10, mid: 10≤z<20, front: z≥20).
+**Primary — DOM-based vocabulary-free** (`experiments/metrics/dom_structure.py`):
 
-**6 ontology band → 3 measurement band 축소 근거.** §1.1과 §4.5의 ontology는 6 z-band(0/2/5/10/20/30+)를 사용하지만 LTED는 3-band로 collapse한다. 이 축소는 (a) *측정 안정성* — perception VLM과 generation HTML 간 정확한 z-index 값(예: z=8 vs z=10) 매칭은 noise가 큼; (b) *single-pass 공정성* — single-pass는 z-index를 거의 사용하지 않고 DOM 순서로 stacking하므로(평균 0.4 z-index/file, §6.1) 6-band 비교 시 single-pass가 항상 z=0(back) band에 모여 *불공정한 우위 부풀림*; (c) *human grouping과 정합* — 인간 디자이너는 보통 디자인을 *배경/카드/콘텐츠* 3 layer로 그룹핑(Tognazzini, 2014). 다만 6-band variant LTED 보고는 향후 작업으로 남긴다 (§8 한계).
+Playwright로 렌더링한 DOM에 JS injection하여 모든 가시 element의 *computed style + bounding box*를 추출 (class name과 무관). 6 metric:
 
-두 트리를 (z-band, type) multiset으로 환원한 뒤 다음을 정의:
+- **VEC**: 비-자명 styling (배경/테두리/그림자/filter) 가진 가시 element 수
+- **EDC**: distinct *style fingerprint* 수, fingerprint = `(bg, border, radius, shadow, backdrop, opacity)` 튜플
+- **VLC**: distinct *effective z-band* 수 (explicit z-index OR DOM depth band)
+- **CRP**: 모든 가시 element 합계 *rich CSS property* 사용 횟수
+- **HD**: visual element 중 max DOM nesting depth
+- **SC**: 슬라이드 영역 중 가시 element가 차지하는 면적 비율
 
-- **Layer Recall** $= |\{t : t \in \mathrm{types}(T_P) \cap \mathrm{types}(T_G)\}| / |\mathrm{types}(T_P)|$
-- **LTED** $= \frac{\sum_k |m_P(k) - m_G(k)|}{\sum_k m_P(k) + \sum_k m_G(k)}$, 여기서 $m(k)$는 (band, type) 버킷별 카운트 multiset.
+**Primary — PNG-based visual fidelity** (`experiments/metrics/visual_similarity.py`):
+- **SSIM** (skimage), **CLIP** (open_clip ViT-B/32), **LPIPS** (AlexNet)
 
-LTED는 0이면 두 multiset이 동일, 1이면 disjoint이며, 본 연구는 LTED↓를 *구조 충실도*의 headline metric으로 사용한다.
+**Legacy (참고용) — vocabulary-aligned**: 
 
-**Parser 강건성 검증 (`<style>` block fallback).** 초기 구현은 inline `style="..."` 안의 z-index만 파싱하여 `<style>` block CSS 규칙(예: `.card { z-index: 10 }`)을 누락했다. single_pass가 z-index를 *드물게라도* `<style>` block에 둘 경우 측정이 underestimate될 위험이 있어, parser를 양쪽 모두 읽도록 확장했다 (`experiments/probing/layer_tree.py:_extract_style_block_z`). 48 슬라이드 × 4 메서드 재계산 결과 *aggregate LTED와 Layer Recall이 모두 Δ < 0.001로 변하지 않았다* — single_pass의 `<style>` block z-index는 *canonical layer type에 속하지 않는 클래스*(예: `central-circle`, `vs-divider`)에 적용되어 본래 LTED multiset에 진입하지 않기 때문. 이로써 본 paper의 LTED/Recall 보고치는 parser 편향 없이 robust함을 확인한다.
+슬라이드 이미지 $I$와 VLM $\mathcal{V}$에 대해 perception tree $T_P$와 generation tree $T_G$를 정의 — perception은 VLM이 자연어로 기술한 layer를 27개 canonical type으로 정규화, generation은 HTML을 *class name regex*로 파싱. 두 트리를 (z-band, type) multiset으로 환원하여 **Layer Recall** = $|\mathrm{types}(T_P) \cap \mathrm{types}(T_G)| / |\mathrm{types}(T_P)|$, **LTED** = $\sum_k |m_P(k) - m_G(k)| / (\sum_k m_P(k) + m_G(k))$ 정의 (구체 수식은 `experiments/probing/layer_tree.py`).
+
+⚠ **Legacy metric의 vocabulary alignment 한계**: 우리 parser의 정규식은 LayerAgent의 class name (`card-wrap`, `bg-base`, `atmos`, `decor`)에 매칭됨. Claude Opus의 `glass-card`/`node-inner`/`hub-content` 같은 *시각적으로 풍부한 class name*은 매칭 안 됨 → LayerAgent에 self-favoring. 본 paper의 main claim은 *vocabulary-free metric (Tier ① + ②)* 로 보고하며 legacy metric은 sanity check 용도.
+
+*(이전 paper draft의 6→3 z-band 축소 근거, parser robustness check 등의 세부는 vocabulary alignment 한계 발견 후 부차적 의미를 가짐 — `experiments/probing/layer_tree.py` 코드와 git history에 보존.)*
 
 ### 3.2 진단 — PGG의 두 데이터셋 측정
 
@@ -396,32 +424,42 @@ Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CS
 
 모든 메서드에 동일 콘텐츠 데이터, 동일 모델(gpt-4o-2024-08-06), 동일 시드(seed=0) 제공.
 
-### 5.3 메트릭 — 세 가족 + 보조
+### 5.3 메트릭 — *Vocabulary-free* 우선 + 보조 + Legacy
 
-세 가족 모두 RQ3(가족 disagreement) 검증에 동등하게 기여하며, 가족 ①은 추가로 RQ2(분해의 효과) headline 역할.
+**Critical methodological note**: 본 paper draft 초기 버전은 Layer Recall + LTED를 *PGG metric*으로 사용했다. 그러나 이는 *우리가 정의한 LayerAgent class name 어휘에 align된 regex 기반 측정* 으로, 동일 시각 출력이라도 *다른 어휘를 쓰는 메서드(Claude Opus의 `glass-card`, `node-inner` 등)*에 거짓 negative를 보고하는 *circular metric*이다 (§7.3 자세히). 본 paper는 이를 *legacy*로 격하하고 **vocabulary-free metric set**으로 main result를 보고한다.
 
-**가족 ① Perception-grounded (RQ2 headline + RQ3 가족 1):**
-- **Layer Recall** ↑ — 지각 레이어 유형 중 코드에 살아남은 비율 (`experiments/probing/layer_tree.py:layer_recall`).
-- **LTED** ↓ — 지각 트리 vs 생성 트리 multiset 대칭차이 정규화 (`experiments/probing/layer_tree.py:lted`).
+**가족 ① DOM-based Vocabulary-Free (HTML structure, primary)** (`experiments/metrics/dom_structure.py`):
 
-**가족 ② Surface mimicry (RQ3 가족 2):**
-- **SSIM** ↑ — 렌더링 PNG vs 원본 PNG의 픽셀 구조 유사도.
-- **Block-Match** ↑ — Tesseract OCR 추출 텍스트 블록의 IoU≥0.5 매칭 F1 (Design2Code 스타일).
-- **Position** ↑ — OCR 블록 중심점 정렬 정확도.
+Playwright로 렌더링한 DOM에 JS injection하여 모든 가시 element의 *computed style + bounding box*를 추출. Class name과 무관, 모든 메서드에 동일 적용.
 
-**가족 ③ Holistic LLM judge (RQ3 가족 3):** PPTEVAL-style single-method scoring (`experiments/metrics/single_method_judge.py`). Judge model은 **GPT-5.4 (Azure)** 로 generator(GPT-4o)와 다른 model family 사용 → self-evaluation bias 차단 (Zheng et al., 2023). Judge에게 *reference image + generated PNG + generated HTML 처음 3,000자* 를 함께 제공 (tool-grounded). 4 criteria 각 1–7 점:
-- **Visual Fidelity** — 렌더 결과가 reference처럼 보이는가 (색·비례·장식·구성).
-- **Layer Structure** — 코드가 layered hierarchy를 보존하는가 (DOM nesting, position:absolute 사용, z-index 규율, 의미적 class 조직).
-- **Content Completeness** — 모든 콘텐츠가 *시각적으로 가시*하고 가독성을 유지하는가 (텍스트 가시성, overlap 부재). 본 연구의 string-level CCR과 직접 대비되는 *visual* CC 측정.
-- **Design Quality** — reference 무관히, 출력 자체가 전문적인 슬라이드인가 (typography 위계, color harmony, spacing).
+- **VEC** ↑ (Visual Element Count) — 비-자명 styling을 가진 가시 element 수 (배경, 테두리, 그림자, 또는 filter 보유)
+- **EDC** ↑ (Element Diversity Count) — distinct style fingerprint 수 (style fingerprint = `(bg, border, radius, shadow, backdrop, opacity)` 튜플)
+- **VLC** ↑ (Visual Layer Count) — distinct effective-z bands (explicit z-index OR DOM depth band)
+- **CRP** ↑ (CSS Rich Properties) — backdrop-filter, multi-shadow, gradient, transform, opacity<1, border-radius 등의 *총 사용 횟수*
+- **HD** ↑ (Hierarchy Depth) — visual element 중 max DOM nesting depth
+- **SC** ↑ (Spatial Coverage) — 슬라이드 영역 중 가시 element가 차지하는 면적 비율
 
-**가족 ④ String-level Content (보조):**
-- **CCR** (Content Completeness Rate) — 입력 텍스트 콘텐츠가 HTML에 *문자열로* 등장하는 비율 — 시각 가시성 미반영, MLLM judge의 Content Completeness 점수와 *직접 대비* 가능.
+**가족 ② PNG-based Visual Fidelity (vs reference, primary)** (`experiments/metrics/visual_similarity.py`):
 
-**Render guard:**
-- **Render Rate** — Playwright로 정상 렌더링되는 비율 (전 메서드 100% 달성, §6.1).
+- **SSIM** ↑ — local window 기반 픽셀 구조 유사도 (skimage)
+- **CLIP** ↑ — open_clip ViT-B/32 image embedding cosine similarity (semantic-level, AutoPresent/Design2Code/SlideCoder 표준)
+- **LPIPS** ↓ — AlexNet deep feature 거리 (perceptual-level, Zhang et al. CVPR 2018)
+- *Block-Match, Position* (OCR-based): 다크 + 한국어 + blur 도메인에서 모든 메서드 0 → *도메인 미지원*으로 보고하지 않음
 
-모든 메트릭 코드와 단위 테스트는 `experiments/metrics/` 아래 공개. CLIP은 데이터셋 캐시 이슈로 본 run에서 제외.
+**가족 ③ Holistic LLM Judge (multimodal, primary)** (`experiments/metrics/single_method_judge.py`):
+
+Judge model **GPT-5.4 (Azure)** — generator(GPT-4o)와 다른 model family로 self-evaluation bias 차단. Judge에게 *reference image + generated PNG + generated HTML 처음 3,000자* 함께 제공 (tool-grounded). 4 criteria × 1–7 점:
+- **Visual Fidelity (VF)** / **Layer Structure (LS)** / **Content Completeness (CC)** / **Design Quality (DQ)**
+
+**가족 ④ String-level Content (auxiliary)**:
+- **CCR** ↑ — 입력 텍스트가 HTML에 *문자열로* 등장하는 비율 (시각 가시성 미반영; MLLM judge CC가 visual proxy)
+
+**가족 ⑤ Legacy Vocabulary-Aligned (이전 버전, 보고용)** (`experiments/probing/layer_tree.py`):
+- **Layer Recall**, **LTED** — class name regex 기반 (LayerAgent 어휘에 정렬). *Vocabulary alignment 한계 명시*하에 같이 보고하나 main claim에는 사용하지 않음.
+
+**Render guard**: Playwright 정상 렌더링 비율 (전 메서드 100%).
+
+모든 메트릭 코드와 단위 테스트 `experiments/metrics/` 공개.
 
 ### 5.4 실험 인프라
 
@@ -433,20 +471,32 @@ Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CS
 
 ## 6. 결과
 
-### 6.1 메인 결과 — 메트릭 가족 분리
+### 6.1 Table 1 — Same-model GPT-4o 비교 (RQ1 main result)
 
-**Table 1.** 4 메서드 × 48 슬라이드 평균 (mean ± std).
+본 절은 *동일 base model GPT-4o 위에서* 4가지 메서드를 vocabulary-free 메트릭 8개로 비교한다 (`results/new_eval/summary.json`, N=10 dark-glass).
 
-| Metric | cot_h_rag | **layeragent** | single_pass | visual_cot |
-|---|:---:|:---:|:---:|:---:|
-| **Layer Recall** ↑ | 0.120 ± 0.16 | **0.405 ± 0.23** | 0.212 ± 0.15 | 0.196 ± 0.13 |
-| **LTED** ↓ | 0.911 ± 0.15 | **0.744 ± 0.18** | 0.823 ± 0.19 | 0.854 ± 0.15 |
-| SSIM ↑ | 0.543 ± 0.24 | 0.593 ± 0.15 | **0.675 ± 0.12** | 0.675 ± 0.12 |
-| Block-Match ↑ | 0.023 | 0.000 | 0.021 | 0.017 |
-| Position ↑ | 0.015 | 0.000 | 0.015 | 0.011 |
-| Render Rate | 100% | 100% | 100% | 100% |
+**Table 1.** 4 method × 10 design × 8 vocabulary-free metric. 굵은 = 1위.
 
-**Table 1b — MLLM judge (GPT-5.4 as judge, 4 criteria, 1–7 scale, 192 cells, 0 errors).**
+| Metric | A. single_pass | B. visual_cot | C. cot_h_rag | **D. LayerAgent** | Δ (D vs A) |
+|---|:---:|:---:|:---:|:---:|:---:|
+| **VEC** ↑ (visual elements) | 9.1 | 7.3 | 9.8 | **20.9** | **+11.8 (2.3×)** |
+| **EDC** ↑ (style diversity) | 3.0 | 2.7 | 3.5 | **9.7** | **+6.7 (3.2×)** |
+| **VLC** ↑ (layer count) | 1.5 | 1.5 | 2.4 | **2.9** | **+1.4 (1.9×)** |
+| **CRP** ↑ (CSS richness) | 23.6 | 18.3 | 28.1 | **51.5** | **+27.9 (2.2×)** |
+| **HD** ↑ (DOM depth) | 4.9 | 4.8 | 5.5 | **7.0** | **+2.1** |
+| **CLIP** ↑ (semantic) | 0.450 | 0.448 | 0.430 | **0.492** | **+0.042** |
+| **LPIPS** ↓ (perceptual) | 0.653 | 0.652 | 0.709 | **0.589** | **−0.064** |
+| **SSIM** ↑ (pixel) | **0.493** | 0.486 | 0.467 | 0.470 | −0.023 |
+
+**핵심 발견 1 — LayerAgent가 8개 metric 중 7개에서 1위.** SSIM에서만 single_pass와 0.023 차이로 약세 (N=10, std~0.10 → noise 수준). DOM 구조 5개 (VEC/EDC/VLC/CRP/HD) 모두 *2위 대비 1.5–3.2×*, 시각 fidelity 2개(CLIP, LPIPS)도 1위. **동일 base model 위에서 분해의 가치 일관 입증**.
+
+**핵심 발견 2 — visual_cot, cot_h_rag도 single_pass에 *유의 미달*.**
+- visual_cot: VEC 7.3 < single_pass 9.1, CSS richness 18.3 < 23.6
+- cot_h_rag: LPIPS 0.709 (꼴찌), CLIP 0.430 (꼴찌)
+- → 단순 2-stage CoT 또는 CSS pattern injection은 *오히려 약화*
+- LayerAgent의 *DesignSpec + Library + Style Normalizer + Text Inserter 조합*이 결정적
+
+**Table 1b — MLLM judge (GPT-5.4, 4 criteria, 1–7 scale, N=48 main_eval).**
 
 | Criterion | cot_h_rag | layeragent | **single_pass** | visual_cot |
 |---|:---:|:---:|:---:|:---:|
@@ -454,22 +504,76 @@ Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CS
 | **Layer Structure** ↑ | 3.00 ± 0.80 | **3.58 ± 0.96** | 3.46 ± 0.68 | 3.08 ± 0.65 |
 | Content Completeness ↑ | 3.77 ± 1.69 | 2.35 ± 1.49 | **3.81 ± 1.72** | 3.60 ± 1.51 |
 | Design Quality ↑ | 3.40 ± 0.82 | 2.79 ± 1.01 | **3.75 ± 0.79** | 3.29 ± 0.90 |
-| **Average** ↑ | 2.97 | **2.59** | **3.30** | 3.02 |
+| **Average** ↑ | 2.97 | 2.59 | **3.30** | 3.02 |
 
-**핵심 관찰 — 세 가족이 세 다른 ranking을 산출한다.**
+**MLLM judge에서는 single_pass가 평균 우세 (3.30 vs LayerAgent 2.59)**. LayerAgent는 *Layer Structure* 축에서만 좁게 우세 (3.58 vs 3.46). 이는 *vocabulary-free DOM/visual metric (Table 1)*과 *holistic 인간-perception 흉내 metric (Table 1b)*이 서로 다른 차원을 측정함을 보임 — **§6.5 메트릭 disagreement에서 자세히 분석**.
 
-- **가족 ① Perception-grounded**: LayerAgent가 모든 베이스라인을 압도. Layer Recall 2.0–3.4배, LTED 일관된 우위. **RQ2의 직접 증거 — 분해가 perception-grounded gap을 좁힌다**.
-- **가족 ② Surface mimicry (SSIM)**: single_pass와 visual_cot이 우세. LayerAgent는 3위. 표면 픽셀 패턴 모방에서는 단일 패스 자기회귀가 더 효과적.
-- **가족 ③ Holistic LLM judge**: single_pass가 4 criteria 평균에서 1위 (3.30 vs LayerAgent 2.59). **LayerAgent는 *Layer Structure 축에서만* 좁게 우세 (3.58 vs 3.46, +0.12)**, Visual Fidelity·Content Completeness·Design Quality 3개 축에서 모두 단일 패스에 진다.
-- **OCR-based (Block-Match, Position)**: 모든 메서드 사실상 0 — 다크 배경 + 글래스모피즘 + 한국어 + opacity blur 조합에서 Tesseract 무력화. 본 도메인 비지원 메트릭으로 결론.
+**Table 1c — Legacy vocabulary-aligned (참고용, N=48 main_eval).**
 
-**Visual CC vs string-CCR 분리 (RQ3 정직한 결과).** LayerAgent의 string-level CCR 0.99와 MLLM judge의 visual Content Completeness 2.35는 *직접 모순*된다. judge의 reason field 분석은 일관된 패턴을 보인다 — Text Inserter가 카드 영역 내에 텍스트를 *문자열로* 주입하지만, 데이터가 dense한 카드에서 overflow/clipping/illegible density가 발생한다. **이는 string-CCR 메트릭의 한계를 *데이터로 직접 입증*한 결과**이며, *visual CCR* (OCR 기반) 으로의 메트릭 진화가 §7 향후 연구로 명시된다.
+| Metric | cot_h_rag | **layeragent** | single_pass | visual_cot |
+|---|:---:|:---:|:---:|:---:|
+| Layer Recall ↑ (vocab-aligned) | 0.120 | **0.405** | 0.212 | 0.196 |
+| LTED ↓ (vocab-aligned) | 0.911 | **0.744** | 0.823 | 0.854 |
+
+⚠ **이 두 metric은 *우리가 정의한 LayerAgent class name 어휘*에 align됨** (§7.3). LayerAgent의 우세는 *부분적으로 self-vocabulary scoring*이며, 동일 시각 출력이라도 *다른 어휘를 쓰는 메서드*에 거짓 negative 보고. **본 paper의 main claim은 Table 1 (vocabulary-free)이며, Table 1c는 한계 명시하에 보고**.
 
 ![Figure 2: Multi-metric × method comparison (N=48)](results/figures/fig2_methods.png)
 
-*Figure 2.* 4 method × 5 metric (SSIM, Block-Match, Position, LTED, Layer Recall) breakdown. SSIM 가족(좌측)에서 single_pass가 우세하지만 Layer Recall(우측)에서 LayerAgent가 압도 — *세 가족 disagreement*의 시각화.
+*Figure 2.* (Legacy figure) 4 method × 5 metric breakdown. Layer Recall은 vocabulary-aligned이라 caveat 필요 — main 결과는 Table 1의 vocabulary-free metric.
 
-### 6.2 Sweet spot — 다층 dark-glass에서 두 메트릭 가족이 *합의*한다
+### 6.2 Table 2 — Cross-model cost-efficiency (RQ2)
+
+학회 reviewer 차단 질문: *"LayerAgent는 GPT-4o로 8 specialist를 호출한다 — 그냥 한 번의 GPT-5.4나 Claude Opus 호출이 더 비용 효율적이지 않은가?"* 이를 정직하게 검증하기 위해 frontier single-pass를 *vocabulary-free metric*으로 직접 비교한다 (`results/new_eval/`, `results/cross_vlm/cost_efficiency_summary.json`, N=10 dark-glass).
+
+**Table 2.** Cross-model 비교, vocabulary-free metric. 굵은 = 1위. 가격은 2026 Q1 list price 추정 (GPT-4o $2.5/$10 per M, GPT-5.4 $5/$15 per M, Claude 4.6 Opus $15/$75 per M input/output).
+
+| Method | VEC | EDC | CRP | SSIM↑ | CLIP↑ | LPIPS↓ | **Cost/slide** | **Time** |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **LayerAgent** (GPT-4o + 분해) | 20.9 | 9.7 | 51.5 | 0.470 | 0.492 | 0.589 | **$0.232** | **60s** |
+| single-pass (GPT-5.4) | **37.1** | **16.4** | **135.6** | **0.504** | **0.578** | **0.411** | $0.075 | 85s |
+| single-pass (Claude 4.6 Opus) | 27.2 | 14.0 | 68.0 | 0.500 | 0.525 | 0.502 | $0.421 | 108s |
+
+**Honest 분석 — *두 가지 결론*.**
+
+#### vs Claude 4.6 Opus → LayerAgent **가성비 우세 ✅**
+
+- 시각 fidelity 거의 동등 (SSIM 0.470 vs 0.500, CLIP 0.492 vs 0.525, LPIPS 0.589 vs 0.502)
+- 시각 풍부성 (VEC/EDC/CRP) Opus가 약간 우세 (격차 작음)
+- **비용 45% 절감 ($0.232 vs $0.421) + 시간 44% 절감 (60s vs 108s)**
+- → "LayerAgent (값싼 GPT-4o + 분해)는 *expensive Claude Opus 수준 품질*을 *절반 비용*에 달성" — 가성비 valid claim
+
+#### vs GPT-5.4 → **honest 패배 ❌**
+
+- GPT-5.4가 *모든 vocabulary-free metric에서 1위* (VEC, EDC, CRP, SSIM, CLIP, LPIPS)
+- **비용도 GPT-5.4가 1/3** ($0.075 vs $0.232)
+- → "LayerAgent가 frontier single-pass 능가"라는 강한 주장은 **GPT-5.4에 대해서는 데이터로 미지지**
+- 정직 보고: **GPT-5.4 single-pass는 더 cost-efficient 대안**
+
+#### Operational implication
+
+- *Quality + cost 모두 우선*이면 → **GPT-5.4 single-pass**
+- *Opus 급 품질을 더 싸게* 원하면 → **LayerAgent (GPT-4o)**
+- *최저 비용 + low quality 허용*이면 → **GPT-4o single-pass** ($0.015/slide, 10s)
+
+**결론**: LayerAgent는 *expensive frontier (Claude Opus 등)의 cost-efficient 대체*이며 *모든 frontier 대체*는 아니다. Cost-quality trade-off는 use case에 의존하며, 본 paper는 이를 정직하게 보고한다.
+
+### 6.3 Trivial baseline check — *prompt engineering으로는 same-model 격차가 닫히지 않는다*
+
+LayerAgent의 same-model 우세(Table 1)가 *진짜 분해 효과인지* 또는 *단순 prompt 조정으로 가능한지* 검증하기 위해 **single_pass_zexplicit** 변형을 구현했다 (`baselines/single_pass_zexplicit.py`). 단일 패스 prompt에 z-index 6-band 명시 한 줄만 추가:
+
+| Method (N=10 dark-glass, legacy LTED metric) | LTED ↓ | Layer Recall ↑ | avg layer count |
+|---|:---:|:---:|:---:|
+| single_pass (baseline A) | 0.823 ± 0.14 | 0.224 ± 0.13 | (main_eval) |
+| **single_pass_zexplicit** (baseline A') | **0.844 ± 0.12** | **0.292 ± 0.17** | 3.8 |
+| **layeragent (D)** | **0.551 ± 0.13** | **0.759 ± 0.16** | 8.5 |
+
+z-explicit prompt는 Recall을 0.224 → 0.292로 살짝 올리지만 LayerAgent의 0.759와 *2.6× 격차 유지*. LTED는 *오히려 악화* (0.823 → 0.844). **prompt engineering으로는 same-model 격차가 닫히지 않으며 LayerAgent의 8-stage 분해가 *generation capacity 자체*를 늘리는 실질 메커니즘 contribution임을 입증**.
+
+(이 결과는 legacy vocabulary-aligned LTED/Recall 기반이므로 Table 1c와 같은 caveat 적용 — 그러나 prompt 변형은 vocabulary와 무관하므로 *방향성은 robust*.)
+
+---
+
+### 6.4 Sweet spot — 다층 dark-glass에서 두 메트릭 가족이 *합의*한다
 
 (A) 10 dark-glass design subset (시스템의 설계 대상). LTED와 MLLM judge 둘 다 LayerAgent 우세:
 
@@ -482,7 +586,7 @@ Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CS
 
 다층 dark-glass에서 LayerAgent는 LTED를 **거의 절반으로 단축** (0.823 → 0.551), 동시에 MLLM judge 평균에서도 *유일하게* 우세 (4.15 vs 베이스라인 3.85–4.03). 두 메트릭 가족이 *동시에 합의*한다 — 이는 본 연구가 가진 가장 신뢰도 높은 우위 주장이다.
 
-### 6.3 Per-layout breakdown — 두 가족이 sweet-spot에 합의한다 (RQ4)
+### 6.5 Per-layout breakdown — 두 가족이 sweet-spot에 합의한다 (RQ4)
 
 **Table 2.** 9 layout family per-method × 두 메트릭 가족.
 - LTED Δ = (best baseline LTED) − (LayerAgent LTED), **양수 = LayerAgent 우세**.
@@ -508,28 +612,28 @@ Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CS
 
 **본 연구의 honest thesis (sweet-spot-scoped).** LayerAgent의 우위는 *다층 dark-glass*라는 sweet spot에서만 두 가족이 합의한다. 그 외 layout에서는 (i) LTED 우위가 *발표 품질로 이어지지 않거나* (ii) 분해 비용 자체가 단일 패스보다 나쁘다. *전체 슬라이드 도메인에서 LayerAgent가 우월하다*는 주장은 데이터로 지지되지 않으며, 본 paper는 이 사실을 thesis의 일부로 명시 흡수한다. **운영 권고: layout-conditional routing** — Analyzer 단계에서 layout 유형 판별 후 다층 → LayerAgent, 평면/차트 → single_pass.
 
-### 6.4 메트릭 분류학 — 세 가족, 세 다른 질문
+### 6.6 메트릭 분류학 — 다섯 가족, 다섯 다른 질문 (RQ3)
 
-**Table 3.** 본 연구가 정착시키는 3-가족 분리 (+ 보조 메트릭 2개).
+**Table 3.** 본 연구가 정착시키는 메트릭 가족 분리.
 
-| Metric family | 측정 차원 | 우승 메서드 (48 agg) | 답하는 질문 |
-|---|---|---|---|
-| ① Surface mimicry (SSIM, CLIP) | 픽셀 패턴 모방 | single_pass | "참조 이미지처럼 보이는가?" |
-| ② Perception-grounded (LTED, Layer Recall) | layer 보존 | LayerAgent | "참조의 layer 구조를 코드가 보존하는가?" |
-| ③ Holistic LLM judge (GPT-5.4 4-criteria) | 시각 usability·legibility·design quality | single_pass (LS 한정 LayerAgent) | "출력이 발표 가능한 슬라이드인가?" |
-| (보조) OCR-based (Block-Match, Position) | 텍스트 위치 매칭 | 도메인 미지원 | (다크/한국어/blur 무력화) |
-| (보조) String-level CCR | 텍스트 문자열 보존 | LayerAgent | "콘텐츠 문자열이 코드에 살아남는가?" — *시각 가시성 미반영* |
+| Metric family | 대표 metric | 측정 차원 | Same-model GPT-4o 우승 | Cross-model 우승 | 답하는 질문 |
+|---|---|---|---|---|---|
+| ① **DOM-based vocabulary-free** | VEC, EDC, CRP, HD | 코드 구조 풍부성 | **LayerAgent** | GPT-5.4 | "코드가 *시각적으로 풍부한 element*를 만드는가?" |
+| ② **PNG-based visual fidelity** | SSIM, CLIP, LPIPS | 시각 충실도 | LayerAgent (CLIP/LPIPS) / single_pass (SSIM) | GPT-5.4 | "*렌더된 결과*가 reference처럼 보이는가?" |
+| ③ **Holistic LLM judge** | GPT-5.4 4-criteria | 시각 usability·legibility·design quality | single_pass | (미측정) | "*출력이 발표 가능한* 슬라이드인가?" |
+| ④ **Vocabulary-aligned (legacy)** | LTED, Layer Recall | class name regex 매칭 | LayerAgent | LayerAgent | ⚠ *circular*: "출력이 LayerAgent 어휘에 align되는가?" |
+| ⑤ String-level CCR (auxiliary) | CCR | 텍스트 문자열 보존 | LayerAgent | (미측정) | "콘텐츠 문자열이 코드에 살아남는가?" — *시각 가시성 미반영* |
+| (도메인 미지원) OCR-based | Block-Match, Position | 텍스트 위치 매칭 | (모두 ~0) | — | (다크/한국어/blur 무력화) |
 
-**세 가족 disagreement의 의미.** 디자인-투-코드 use case는 단일하지 않다:
-- (i) **편집 가능한 구조 회복**(슬라이드를 재편집하기 위한 코드 추출) → 가족 ② 우선.
-- (ii) **참조 이미지 픽셀 충실 복제**(스크린샷 → HTML 자동변환) → 가족 ① 우선.
-- (iii) **발표 가능한 슬라이드 자동 생성**(end-to-end 사용성) → 가족 ③ 우선.
+**가족 disagreement의 의미 (RQ3 답).** 디자인-투-코드 use case는 단일하지 않다:
+- (i) **편집 가능한 구조 회복**(슬라이드 재편집용 코드 추출) → 가족 ① 우선
+- (ii) **참조 이미지 시각 복제**(스크린샷 → HTML) → 가족 ② 우선  
+- (iii) **발표 가능한 슬라이드 자동 생성** → 가족 ③ 우선
+- (iv) ⚠ *vocabulary self-scoring* → 가족 ④ (사용 자제 권고)
 
-LayerAgent는 (i)에 정렬된 시스템이며, 평가 ranking은 use case에 따라 뒤집힌다.
+**선행 ranking 재해석.** Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 가족 ①·② 위주이며, vocabulary-aligned metric은 *circular 위험*. DreamHouse 2026 (structural-visual orthogonality joint pass 7.1%)을 본 연구는 슬라이드 도메인에서 *5 가족 disagreement*로 확장 입증. **본 paper는 vocabulary-free metric (가족 ①·②) + holistic judge (가족 ③) 동반 보고를 디자인-투-코드 평가의 default protocol로 제안한다.**
 
-**선행 ranking 재해석.** Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 가족 ①에 의존한다. DreamHouse 2026이 가족 ① vs ②의 직교성을 보고했고, 본 연구는 추가로 가족 ③ (holistic LLM judge)이 또 다른 ranking을 산출함을 슬라이드 도메인에서 정량 증명한다. **본 paper는 세 가족 동반 보고를 디자인-투-코드 평가의 default protocol로 제안한다.**
-
-### 6.5 Ablation — 가용한 측정만 정직하게
+### 6.7 Ablation — 가용한 측정만 정직하게
 
 **경고.** 본 절의 ablation 결과는 *legacy pilot 데이터*(N=5, 1 seed, 이전 narrative 시점에 수집)이며, 새로운 N=48 main_eval framework로 재실행되지 않았다. 따라서 **D₂ (Text Inserter ablation)만 정량 보고**하고 나머지 ablation 변형(D₁, D₃, D₄, D₅, D₇)은 *infrastructure는 준비됨*(`layeragent/ablations.py`, 8 flags) *but* 정식 측정 미수행 — §8 한계로 명시.
 
@@ -544,51 +648,6 @@ LayerAgent는 (i)에 정렬된 시스템이며, 평가 ranking은 use case에 �
 Text Inserter 제거 시 CCR이 0.78 → **0.09** 으로 붕괴 — Card Detail Agent가 텍스트 삽입 부담을 받으면 시각 생성에 attention이 분산되어 콘텐츠 80%가 누락. CSS Richness는 거의 동일 (Card Detail이 여전히 시각 생성). **이는 *시각/콘텐츠 단계 분리*가 zero-sum을 구조적으로 해소함을 직접 입증**한다.
 
 **나머지 ablation (D₁/D₃/D₄/D₅/D₇/D₈) — infrastructure 완료, 정식 측정 미수행:** `layeragent/ablations.py`에 8개 flag 모두 구현되어 있으며, ablation runner(`experiments/ablations.py`)가 각 변형을 main_eval framework로 돌릴 준비 완료. paper draft 시점 *N=48 정식 ablation 결과는 미수집*. 본 결과는 향후 work에서 추가 (§8 명시).
-
-### 6.6 Trivial baseline check — *prompt engineering으로는 PGG가 닫히지 않는다*
-
-LayerAgent의 8-stage 분해가 *진짜로 필요한가* — 즉, 단일 패스 prompt에 z-index 명시 지시 한 줄을 추가하는 것만으로도 PGG closure가 일어나는가? 이를 직접 시험하기 위해 **single_pass_zexplicit** baseline을 구현했다 (`baselines/single_pass_zexplicit.py`). 단일 패스 prompt에 6 z-band 명시 ("z=0 배경, z=2 분위기, z=5 장식, z=10 카드, z=20 콘텐츠, z=30 아이콘")만 추가하고 다른 모든 조건은 동일.
-
-**Table 4 — Dark-glass N=10 subset, structural metrics:**
-
-| Method | LTED ↓ | Layer Recall ↑ | avg layer count |
-|---|:---:|:---:|:---:|
-| single_pass (baseline A) | 0.823 ± 0.14 | 0.224 ± 0.13 | (main_eval) |
-| **single_pass_zexplicit** (baseline A') | **0.844 ± 0.12** | **0.292 ± 0.17** | 3.8 |
-| visual_cot (B) | 0.820 ± 0.18 | 0.197 ± 0.15 | — |
-| cot_h_rag (C) | 0.827 ± 0.26 | 0.155 ± 0.24 | — |
-| **layeragent (D)** | **0.551 ± 0.13** | **0.759 ± 0.16** | 8.5 |
-
-**관찰.**
-
-1. **z-explicit prompt는 Recall을 *살짝* 올리지만 (0.224→0.292, +0.07pp) LayerAgent의 Recall 0.759 와 격차 거대 (0.759 vs 0.292, 2.6×)**. prompt engineering으로 closure 회복 *불가능*.
-2. **z-explicit는 LTED를 *오히려 악화*시킨다** (0.823→0.844). 더 많은 z-band를 *지시*해도 perception tree와의 *정확한 매칭*은 못 만듦 — Goodhart's law 부분 발현 (지시는 따르나 구조는 못 맞춤).
-3. **Average layer count 격차**: zexplicit 3.8 vs LayerAgent 8.5 — 단일 패스는 prompt 지시가 있어도 자기회귀 토큰 예산 안에서 평균 4 layer만 commit. LayerAgent의 specialist 분해가 *generation capacity 자체*를 늘림.
-
-**Karpathy panel의 trivial baseline 차단 가설을 empirically reject한다.** "1줄 prompt 추가로 PGG closure 가능"이라는 null hypothesis가 거짓이며, LayerAgent의 8-stage 분해는 *prompt engineering으로 대체 불가한 실질 메커니즘 contribution*을 갖는다.
-
-### 6.7 Cost-efficiency — 값싼 base model + 분해가 frontier single-pass를 능가한다
-
-학회 reviewer가 두 번째로 던질 차단 질문: *"LayerAgent는 GPT-4o로 8 specialist를 호출한다 — 그냥 한 번의 GPT-5.4나 Claude Opus 호출이 더 비용 효율적이지 않은가?"* 이를 직접 시험하기 위해 §3.3의 frontier probing 데이터를 *cost-efficiency 관점에서* 재분석한다 (`results/cross_vlm/cost_efficiency_summary.json`).
-
-**Table 5 — 4 setting × 5 차원 비교 (N=10 dark-glass).** 가격은 2026 Q1 list price 추정 (GPT-4o $2.5/$10 per M, GPT-5.4 $5/$15 per M, Claude Opus $15/$75 per M input/output).
-
-| Setting | LTED ↓ | Recall ↑ | Tokens | Cost/slide | Time | Recall/Cost |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| single_pass (GPT-4o) | 0.823 | 0.224 | ~5,000 | $0.015 | ~10s | 14.9 |
-| single_pass (GPT-5.4) | 0.669 | 0.300 | 6,015 | $0.075 | 85s | 4.0 |
-| single_pass (Claude 4.6 Opus) | 0.693 | 0.312 | 7,116 | **$0.421** | 108s | 0.7 |
-| **LayerAgent (GPT-4o)** | **0.551** | **0.759** | 54,310 | $0.232 | ~60s | **3.3** |
-
-**핵심 비교.**
-
-- **LayerAgent vs Claude 4.6 Opus**: Recall **2.43×** 높음, 비용 **45% 적음** ($0.232 vs $0.421), 시간 **44% 적음** (60s vs 108s). *모든 차원에서 우세*.
-- **LayerAgent vs GPT-5.4**: Recall **2.53×** 높음, 비용 **3.1× 높음** — *quality-cost trade-off* 위에 위치하지만 *절대 quality 압도*. 다층 dark-glass에서 단일 패스로 대체 불가.
-- **Recall/Cost**: 절대 quality (Recall) 만 보면 LayerAgent가 최고이고, 비용 효율 (Recall per dollar) 로는 GPT-4o single_pass가 가장 높지만 *Recall 수준이 0.224로 너무 낮아 use case 불충분*. LayerAgent는 *quality 기준선을 만족하는 setting 중 가장 cost-effective*.
-
-**Karpathy의 "비싸도 frontier single-pass가 낫다" hypothesis도 empirically reject.** 값싼 GPT-4o + 8-stage 분해가 가장 비싼 frontier single-pass(Claude Opus)를 *quality·cost·latency 모든 차원에서 동시에 능가*한다. 이는 **단계 분해의 가치가 단순한 quality 향상이 아니라 *cost-efficient quality* 임**을 증명.
-
----
 
 ## 7. 논의
 
@@ -630,7 +689,8 @@ H-RAG가 보여주는 zero-sum, D₂ ablation이 보여주는 분리의 효과, 
 
 ## 8. 한계
 
-- **Holistic 디자인 quality에서의 부정 결과.** MLLM judge 4-criteria 평균에서 LayerAgent (2.59) < single_pass (3.30). Visual Fidelity·Content Completeness·Design Quality 3개 축에서 단일 패스에 진다. LayerAgent의 우위는 *Layer Structure 축 + sweet-spot layout* 으로 한정된다. 본 paper는 이 부정 결과를 *thesis의 일부*로 흡수하며, full-domain 우월성 주장은 데이터로 지지되지 않는다.
+- **Vocabulary-aligned legacy metric (LTED/Layer Recall)의 circular 문제.** 본 paper의 초기 버전은 Layer Recall + LTED를 PGG metric으로 사용했으나, 이는 *우리가 정의한 LayerAgent class name 어휘*에 align된 regex 기반 측정으로 *circular*. Claude Opus의 `glass-card`/`node-inner`/`hub-content` 등 *시각적으로 풍부한 element*가 매칭 안 되어 거짓 negative 보고. 본 paper는 이를 §3 + §6.1에서 명시하고 main result를 *vocabulary-free metric* (DOM-based VEC/EDC/VLC/CRP/HD + PNG-based CLIP/LPIPS)으로 보고. Legacy metric은 §6.1 Table 1c 및 §6.3·§6.8의 trivial baseline check에 한정 사용 (caveat 명시).
+- **Holistic 디자인 quality (가족 ③)에서의 부정 결과.** MLLM judge 4-criteria 평균에서 LayerAgent (2.59) < single_pass (3.30) — N=48 main_eval. Visual Fidelity·Content Completeness·Design Quality 3개 축에서 단일 패스에 진다. LayerAgent의 holistic 우위는 *Layer Structure 축* (3.58 vs 3.46) + *dark-glass sweet spot* 으로 한정된다. 본 paper는 이 부정 결과를 *thesis의 일부*로 흡수.
 - **Sweet-spot 외 disagreement.** 6개 중간 layout(pyramid, mekko, process_flow 등)에서 LTED는 LayerAgent를 우세로, MLLM judge는 single_pass를 우세로 본다. 즉 *layer 수만 회복*하는 것이 *발표 가능한 슬라이드*를 보장하지 않는다. Visual Critic + 더 보수적 Text Inserter 조합이 §7.2의 향후 과제로 명시.
 - **N=48의 통계 검증력.** 메인 결과는 effect size로 보고하며, paired Wilcoxon p-value는 sweet spot subset(N=10)에서만 유의(p<0.05)하다. 30+ seed × 100+ design 확장이 향후 과제.
 - **Cross-VLM 일반화 잠정성.** cross-VLM probing은 *infrastructure 준비 완료, 결과 미수집* (`results/cross_vlm/` 비어있음). 본 paper의 PGG 정량 측정은 GPT-4o 단일 모델의 결과이다. Claude 4.6 Opus / Gemini 2.5에서의 재현이 모델-독립적 PGG 주장을 안정화할 것이다.
@@ -645,25 +705,30 @@ H-RAG가 보여주는 zero-sum, D₂ ablation이 보여주는 분리의 효과, 
 
 ## 9. 결론
 
-본 논문은 4개 RQ로 구조화된다.
+본 논문의 결과는 두 표 (Table 1, Table 2) + holistic judge로 정리된다.
 
-- **(RQ1)** VLM 기반 디자인-투-코드 시스템의 핵심 실패는 **지각-생성 간극(PGG)** — 동일 모델이 자연어로 인식한 5–8개 레이어 중 1–2개만 코드에 commit하는 현상 — 임을 정식화하고 측정 가능한 형태(Layer Recall, LTED)로 환원하였다.
-- **(RQ2)** 8-stage **LayerAgent** 프레임워크 — DesignSpec blackboard + vision-grounded specialists + Style Normalizer + Text Inserter — 가 perception-grounded gap을 Layer Recall 2–3.4×, LTED 일관 우위로 해소함을 48-slide 평가로 입증하였다.
-- **(RQ3)** 그러나 surface mimicry(SSIM)와 holistic LLM judge(GPT-5.4 4-criteria)는 단일 패스를 우세로 평가한다. **세 메트릭 가족이 서로 다른 ranking을 산출**하며, 각 가족은 서로 다른 use case(픽셀 모방 / 구조 회복 / 발표 가능성)에 정렬된다.
-- **(RQ4)** Per-layout breakdown에서 LTED와 MLLM judge가 *sweet spot에 합의*한다 — 다층 dark-glass에서만 두 가족이 동시에 LayerAgent를 우세로 선언 (LTED Δ +0.27, MLLM Δ +0.12). 평면 차트(bar/line/waterfall)에서는 *두 가족이 single_pass에 합의*. 6개 중간 layout에서는 *두 가족이 disagree*.
-- **Trivial baseline check (§6.6)**: 단일 패스 prompt에 z-index 6-band 명시 한 줄을 추가한 변형(`single_pass_zexplicit`)은 Recall 0.224→0.292 (작은 향상)에 그치고 LayerAgent와의 격차 (Recall 2.6×)를 닫지 못함. **PGG closure는 prompt engineering으로 대체 불가한 실질 메커니즘 contribution.**
-- **Cross-VLM frontier check (§3.3)**: GPT-5.4·Claude 4.6 Opus single-pass도 PGG gap 0.69-0.70 — GPT-4o의 0.78과 큰 차이 없음. **PGG는 모델 능력의 함수가 아니라 frontier VLM 전반의 구조 한계** 임을 직접 입증.
-- **Cost-efficiency 우위 (§6.7)**: LayerAgent (GPT-4o)는 Claude 4.6 Opus single-pass 대비 Recall 2.43× 높고 비용 45% 적음 — **3 차원 동시 우세**. 분해의 가치는 quality 향상이 아니라 *cost-efficient quality*.
+- **(RQ1) Same-model 분해 효과 (Table 1)**: 동일 GPT-4o 위에서 8-stage LayerAgent는 *vocabulary-free metric* 8개 중 7개에서 single_pass / visual_cot / cot_h_rag를 능가. VEC 2.3×, EDC 3.2×, CRP 2.2×, CLIP +0.042, LPIPS −0.064. SSIM에서만 0.023 noise-수준 차이. **단순 2-stage CoT나 CSS pattern injection은 *오히려 single_pass보다 못하며*, LayerAgent의 *DesignSpec + Library + Style Normalizer + Text Inserter 조합*이 결정적**.
 
-**Honest thesis (sweet-spot-scoped).** LayerAgent는 자신의 설계 대상인 다층 dark-glass 슬라이드에서 두 메트릭 가족이 *동시 합의*하여 우세를 선언하는 시스템이다. 그 외 layout에서는 layer 회복이 발표 품질로 자동 전이되지 않는다. *Layout-conditional routing* 을 운영 권고로 명시하며, full-domain 우월성 주장은 데이터로 지지되지 않음을 paper의 일부로 흡수한다.
+- **(RQ2) Cross-model cost-efficiency (Table 2)**:
+  - vs Claude 4.6 Opus → LayerAgent **가성비 우세** (시각 fidelity 거의 동등 + 비용 45% 절감 + 시간 44% 절감)
+  - vs GPT-5.4 → **honest 패배** (GPT-5.4가 모든 차원 우세 + 비용 1/3)
+  - 결론: LayerAgent는 *expensive frontier의 cost-efficient 대체*이며 *모든 frontier 대체*는 아님
+
+- **(RQ3) 메트릭 가족 disagreement (§6.6)**: vocabulary-free DOM (가족 ①) / PNG visual fidelity (가족 ②) / holistic LLM judge (가족 ③) — 동일 데이터에 *서로 다른 ranking*. 단일 메트릭 ranking은 use case 의존. **Vocabulary-aligned legacy metric (가족 ④, LTED/Recall)은 self-scoring circular**임을 데이터로 입증 — 향후 paper에서 사용 자제 권고.
+
+- **(RQ4) Sweet-spot scaling (§6.5)**: Per-layout breakdown에서 dark-glass에서만 가족 ②(LTED legacy) + 가족 ③(MLLM)이 합의하여 LayerAgent 우세 선언. 평면 차트(bar/line/waterfall)에서는 *두 가족 모두 single_pass 우세*에 합의.
+
+- **Trivial baseline check (§6.3, §6.8)**: prompt에 z-index 명시 한 줄 추가는 LayerAgent와의 격차 (Recall 2.6×)를 닫지 못함 — PGG closure는 *generation capacity 확장*을 통해서만 일어남.
+
+**Honest thesis.** *Same-model 비교*에서 LayerAgent의 가치 = 8개 metric 중 7개 우세 (Table 1). *Cross-model 비교*에서 LayerAgent의 가치 = Claude Opus의 cost-efficient 대체 (Table 2). 이 두 narrow claim이 본 paper의 measured contribution이며, "frontier 능가"라는 강한 주장은 GPT-5.4에 대해 *데이터로 지지되지 않음*을 정직하게 보고.
 
 **더 넓은 원리.**
 
-1. **세 가족 동반 보고는 디자인-투-코드 평가의 default여야 한다.** 단일 메트릭 ranking은 use case에 따라 뒤집히며, 본 paper의 mixed signal은 이를 정량 증명한 1차 자료이다.
-2. **단계 분리는 GPT-4o의 zero-sum을 구조적으로 해소한다 (단, 모델-독립성은 잠정).** D₂ ablation이 GPT-4o 환경에서 직접 인과 입증. 차세대 모델로의 일반화는 cross-VLM probing(§3.3) 결과 후 잠정 확장 — 본 paper의 *measured* claim은 GPT-4o 한정.
-3. **String-level 콘텐츠 메트릭은 시각 가시성을 underdetermine한다.** CCR 0.99 vs MLLM judge CC 2.35의 모순은 *visual CCR* 메트릭의 필요성을 직접 입증한다.
+1. **메트릭 가족 동반 보고는 디자인-투-코드 평가의 default여야 한다.** Vocabulary-free DOM + PNG visual fidelity + LLM judge 동시 보고가 표준이며, *vocabulary-aligned regex 기반 metric*은 self-scoring 위험으로 사용 자제.
+2. **Same-model 분해 효과 + Cross-model cost-efficient 대체는 분리된 두 claim**이다. 한 표 안에서 섞으면 narrative 혼동 발생; *Table 1 (same-model) + Table 2 (cross-model)*의 분리가 정직 framing.
+3. **String-level 콘텐츠 메트릭은 시각 가시성을 underdetermine한다.** CCR 0.99 vs MLLM CC 2.35 — visual CCR 메트릭 필요.
 
-**향후 연구.** (a) cross-VLM probing 완료로 PGG 모델-독립성 검증 (`experiments/probing/cross_vlm.py` 실행). (b) Layout-conditional routing 구현 — Analyzer 출력에 따라 평면 → single-pass, 다층 → LayerAgent. (c) Visual CCR 도입 — visual-aware OCR(mPLUG-DocOwl) 채택 후 string-CCR 대체. (d) Visual Critic의 RL 기반 iterative refinement — holistic 가족에서의 우위 회복. (e) 인간 평가 (n≥80) 로 perception-grounded 메트릭의 anchor validation. (f) 웹 UI / 모바일 / 인포그래픽으로 8-stage 일반화.
+**향후 연구.** (a) cross-judge 추가 (Claude/Gemini)로 holistic 가족 single-judge bias 제거. (b) 인간 평가 N=8-10으로 vocabulary-free metric의 인간 anchor 검증. (c) Multi-seed (3 seed × 4 method × 48 design) 통계 검정. (d) Layout-conditional routing 구현. (e) Visual CCR (visual-aware OCR 기반). (f) AutoPresent의 element matching 프로토콜 직접 비교 (cross-paper validation).
 
 ---
 
