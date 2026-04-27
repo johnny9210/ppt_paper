@@ -132,7 +132,7 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 
 ### 2.1 디자인-투-코드 생성
 
-**Design2Code** (Si et al., 2024)는 484 웹페이지 벤치마크로 GPT-4V의 중간 충실도를 보고했다. **WebSight** (Laurençon et al., 2024)는 200만 합성 image-code pair를 공개했다. **DCGen** (FSE 2025)은 분할 정복으로 페이지를 블록 단위로 분해해 코드를 생성한다. **LaTCoder** (KDD 2025)는 코드 이전에 레이아웃을 chain-of-thought로 명시화한다. **ScreenCoder** (arXiv:2507.22827, 2025)는 Grounding → Planning → Generation의 3-stage agent 파이프라인을 채택하고 50K image-code pair로 GRPO 미세조정한다. **DesignCoder** (arXiv:2506.13663, 2025)는 모바일 UI 도메인에서 UI Grouping → Hierarchy-Aware Generation → **post-render Self-Correcting Refinement**의 3-stage를 사용한다.
+**Design2Code** (Si et al., 2024)는 484 웹페이지 벤치마크로 GPT-4V의 중간 충실도를 보고했다. **WebSight** (Laurençon et al., 2024)는 200만 합성 image-code pair를 공개했다. **DCGen** (FSE 2025)은 분할 정복으로 페이지를 블록 단위로 분해해 코드를 생성한다. **LaTCoder** (KDD 2025)는 코드 이전에 레이아웃을 chain-of-thought로 명시화한다. **ScreenCoder** (arXiv:2507.22827, 2025)는 Grounding → Planning → Generation의 3-stage agent 파이프라인을 채택하고 50K image-code pair로 GRPO 미세조정한다. **DesignCoder** (arXiv:2506.13663, 2025)는 모바일 UI 도메인에서 UI Grouping → Hierarchy-Aware Generation → **post-render Self-Correcting Refinement**의 3-stage를 사용한다. **UIOrchestra** (Findings of EMNLP 2025)는 multi-agent framework로 UI design → code 변환을 다루며 본 연구와 가장 가까운 peer — 다만 우리 LayerAgent의 *DesignSpec blackboard + CV grounding + library retrieval* 통합 구조와는 차별된다.
 
 **LayerAgent와의 차별점.** ScreenCoder는 *image patch reuse*(Hungarian matching)로 cross-element 일관성을, DesignCoder는 *post-render iterative refinement*로 코드 품질을 다룬다. 본 연구의 Style Normalizer는 *pre-render CSS 정규화*이고, Text Inserter는 *시각/콘텐츠 단계 분리*이며, DesignSpec blackboard는 *생성 시점 cross-agent 스타일 통일*이다. 또한 어떤 선행 연구도 **계층 구조 자체를 perception-grounded 메트릭으로 측정**하지 않는다.
 
@@ -146,11 +146,11 @@ PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 �
 
 ### 2.4 멀티에이전트 코드 생성
 
-**MetaGPT** (Hong et al., ICLR 2024), **ChatDev** (Qian et al., ACL 2024), **CAMEL** (Li et al., NeurIPS 2023)은 **소프트웨어 개발 프로세스**(설계→구현→테스트)로 agent를 분담한다. LayerAgent는 (a) 개발 프로세스가 아닌 **출력의 z축 시각 구조**(배경→카드→텍스트→아이콘)로 분담하고, (b) agent 간 통신을 자연어/코드가 아닌 **DesignSpec JSON + bounding box JSON**의 typed blackboard로 수행하여 truncation·해석 오류를 제거한다.
+**MetaGPT** (Hong et al., ICLR 2024), **ChatDev** (Qian et al., ACL 2024), **CAMEL** (Li et al., NeurIPS 2023), **AutoGen** (Wu et al., COLM 2024)은 **소프트웨어 개발 프로세스**(설계→구현→테스트) 또는 *대화형 multi-agent conversation*으로 agent를 분담한다. LayerAgent는 (a) 개발 프로세스가 아닌 **출력의 z축 시각 구조**(배경→카드→텍스트→아이콘)로 분담하고, (b) agent 간 통신을 자연어/코드가 아닌 **DesignSpec JSON + bounding box JSON**의 typed blackboard로 수행하여 truncation·해석 오류를 제거한다.
 
 ### 2.5 디자인-투-코드 평가
 
-기존 평가는 전역 유사도(CLIP, SSIM), 구조 매칭(Design2Code의 Block-Match, SlidesBench의 element-matching), 속성 수준(WebRenderBench의 SDA, Widget2Code의 per-property)으로 분류된다. **DreamHouse** (arXiv:2603.24866, 2026)는 structural validity와 visual fidelity가 직교적이며 frontier VLM의 joint pass rate가 7.1%에 불과함을 보였다. 본 연구는 (a) DreamHouse의 직교성을 슬라이드 도메인의 **SSIM vs LTED 분리**로 재확인하고, (b) **perception-grounded 메트릭**(LTED, Layer Recall, CCR)을 reference-free, deterministic 형태로 제안한다.
+기존 평가는 전역 유사도(CLIP, SSIM), 구조 매칭(Design2Code의 Block-Match, SlidesBench의 element-matching), 속성 수준(WebRenderBench의 SDA, Widget2Code의 per-property)으로 분류된다. **DreamHouse** (arXiv:2603.24866, 2026)는 structural validity와 visual fidelity가 직교적이며 frontier VLM의 joint pass rate가 7.1%에 불과함을 보였다. **SlideAudit** (UIST 2025)은 슬라이드 quality taxonomy를 정립하고 *automated metric vs holistic human judgment* 사이의 systematic disagreement를 정량 입증 — 본 연구의 §6.6 5-가족 metric disagreement 발견과 직접 정렬되는 prior. **WebDevJudge** (2025)는 design-to-code에서 *MLLM-as-judge*의 best practice (pairwise + code+visual modality)를 정립 — 본 연구의 single-judge limitation (§8) 의 학회 standard 인용. 본 연구는 (a) DreamHouse + SlideAudit의 metric disagreement 발견을 *vocabulary-free + 5 가족* framework로 확장하고, (b) **DOM-based vocabulary-free 메트릭** (VEC/EDC/VLC/CRP/HD)을 *class name regex 의존 없이* 추출하는 신규 protocol로 제안한다.
 
 ---
 
@@ -448,7 +448,7 @@ Playwright로 렌더링한 DOM에 JS injection하여 모든 가시 element의 *c
 
 **가족 ③ Holistic LLM Judge (multimodal, primary)** (`experiments/metrics/single_method_judge.py`):
 
-Judge model **GPT-5.4 (Azure)** — generator(GPT-4o)와 다른 model family로 self-evaluation bias 차단. Judge에게 *reference image + generated PNG + generated HTML 처음 3,000자* 함께 제공 (tool-grounded). 4 criteria × 1–7 점:
+Judge model **GPT-5.4 (Azure)** — generator(GPT-4o)와 다른 model family로 self-evaluation bias 차단 (Zheng et al., 2023). Judge에게 *reference image + generated PNG + generated HTML 처음 3,000자* 함께 제공 (tool-grounded; WebDevJudge 2025의 *code+visual modality* best practice 따름). 4 criteria × 1–7 점:
 - **Visual Fidelity (VF)** / **Layer Structure (LS)** / **Content Completeness (CC)** / **Design Quality (DQ)**
 
 **가족 ④ String-level Content (auxiliary)**:
@@ -631,7 +631,7 @@ z-explicit prompt는 Recall을 0.224 → 0.292로 살짝 올리지만 LayerAgent
 - (iii) **발표 가능한 슬라이드 자동 생성** → 가족 ③ 우선
 - (iv) ⚠ *vocabulary self-scoring* → 가족 ④ (사용 자제 권고)
 
-**선행 ranking 재해석.** Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 가족 ①·② 위주이며, vocabulary-aligned metric은 *circular 위험*. DreamHouse 2026 (structural-visual orthogonality joint pass 7.1%)을 본 연구는 슬라이드 도메인에서 *5 가족 disagreement*로 확장 입증. **본 paper는 vocabulary-free metric (가족 ①·②) + holistic judge (가족 ③) 동반 보고를 디자인-투-코드 평가의 default protocol로 제안한다.**
+**선행 ranking 재해석.** Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 가족 ①·② 위주이며, vocabulary-aligned metric은 *circular 위험*. DreamHouse 2026 (structural-visual orthogonality joint pass 7.1%) 및 SlideAudit (UIST 2025, automated vs human disagreement)을 본 연구는 슬라이드 도메인에서 *5 가족 disagreement*로 확장 입증. **본 paper는 vocabulary-free metric (가족 ①·②) + holistic judge (가족 ③) 동반 보고를 디자인-투-코드 평가의 default protocol로 제안한다.**
 
 ### 6.7 Ablation — 가용한 측정만 정직하게
 
@@ -863,6 +863,7 @@ python -m experiments.demo_chat
 - LaTCoder. "Layout-as-Thought Code Generation." KDD 2025.
 - ScreenCoder. "ScreenCoder: Advancing Visual-to-Code Generation for Front-End Automation via Modular Multimodal Agents." arXiv:2507.22827, 2025.
 - DesignCoder. "DesignCoder: Hierarchy-Aware and Self-Correcting UI Code Generation with Large Language Models." arXiv:2506.13663, 2025.
+- UIOrchestra. "Generating High-Fidelity Code from UI Designs with a Multi-Agent Framework." Findings of the Association for Computational Linguistics: EMNLP 2025.
 
 ### 시각 교정 / 반복 개선
 - VisRefiner. "Learning from Visual Differences for Screenshot-to-Code Generation." arXiv:2602.05998, 2025.
@@ -879,6 +880,10 @@ python -m experiments.demo_chat
 - WebRenderBench. "Layout-Style Consistency with Reinforcement Learning." 2025.
 - Widget2Code. "Apple HIG-inspired Per-Property Evaluation." 2025.
 - Image2Struct. NeurIPS 2024.
+- SlideAudit. "A Dataset and Taxonomy for Automated Presentation Slide Evaluation." UIST 2025. arXiv:2508.03630.
+- WebDevJudge. "Evaluating (M)LLMs as Critiques for Web Development Quality." arXiv:2510.18560, 2025.
+- Zhang, R., et al. "The Unreasonable Effectiveness of Deep Features as a Perceptual Metric (LPIPS)." CVPR 2018.
+- Zheng, L., et al. "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena." NeurIPS 2023.
 
 ### 계층 / 중첩
 - LayerD. "Decomposing Raster Graphic Designs into Layers." ICCV 2025.
@@ -889,6 +894,7 @@ python -m experiments.demo_chat
 - Hong, S., et al. "MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework." ICLR 2024.
 - Qian, C., et al. "ChatDev: Communicative Agents for Software Development." ACL 2024.
 - Li, G., et al. "CAMEL: Communicative Agents for Mind Exploration of Large Language Model Society." NeurIPS 2023.
+- Wu, Q., et al. "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation." COLM 2024.
 
 ### 에이전트 UI / 디자인 시스템
 - A2UI Protocol. "Agent-driven UI with Client-Side Design Enforcement." Google, 2026.
