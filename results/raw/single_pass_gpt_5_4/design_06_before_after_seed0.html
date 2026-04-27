@@ -1,0 +1,513 @@
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #05070d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+  }
+
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    color: #eef7ff;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(86,198,255,.12) 0 10%, rgba(0,0,0,0) 28%),
+      radial-gradient(circle at 24% 28%, rgba(255,102,36,.22), rgba(0,0,0,0) 34%),
+      radial-gradient(circle at 76% 30%, rgba(53,255,215,.18), rgba(0,0,0,0) 34%),
+      linear-gradient(90deg, #1b0805 0%, #140b0a 18%, #07131b 50%, #071914 82%, #061018 100%);
+  }
+
+  .glow-left,
+  .glow-right,
+  .center-halo,
+  .center-ring,
+  .center-ring-2,
+  .arrow,
+  .arrow:before,
+  .arrow:after,
+  .center-core {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .glow-left {
+    left: 220px; top: 90px;
+    width: 360px; height: 540px;
+    background: radial-gradient(circle, rgba(255,91,36,.18) 0%, rgba(255,91,36,.06) 36%, rgba(0,0,0,0) 74%);
+    filter: blur(18px);
+  }
+
+  .glow-right {
+    right: 220px; top: 90px;
+    width: 360px; height: 540px;
+    background: radial-gradient(circle, rgba(66,255,212,.16) 0%, rgba(66,255,212,.06) 36%, rgba(0,0,0,0) 74%);
+    filter: blur(18px);
+  }
+
+  .center-halo {
+    left: 50%; top: 50%;
+    width: 420px; height: 420px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(255,255,255,.08), rgba(0,0,0,0) 62%);
+    filter: blur(8px);
+  }
+
+  .center-ring {
+    left: 50%; top: 50%;
+    width: 350px; height: 350px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(180,235,255,.32);
+    box-shadow:
+      0 0 22px rgba(117,224,255,.45),
+      inset 0 0 24px rgba(255,255,255,.06);
+    clip-path: inset(0 0 0 50%);
+  }
+
+  .center-ring-2 {
+    left: 50%; top: 50%;
+    width: 350px; height: 350px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(255,136,84,.32);
+    box-shadow: 0 0 22px rgba(255,115,61,.35);
+    clip-path: inset(0 50% 0 0);
+  }
+
+  .beam {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 240px; height: 4px;
+    transform-origin: left center;
+    border-radius: 999px;
+    filter: blur(.2px);
+  }
+
+  .beam.orange1 { transform: translate(-140px, -10px) rotate(-18deg); background: linear-gradient(90deg, rgba(255,138,84,.0), rgba(255,130,88,.85), rgba(255,234,223,.95)); box-shadow: 0 0 14px rgba(255,126,72,.55); }
+  .beam.orange2 { transform: translate(-145px, 8px) rotate(-9deg); background: linear-gradient(90deg, rgba(255,138,84,.0), rgba(255,130,88,.82), rgba(255,234,223,.96)); box-shadow: 0 0 14px rgba(255,126,72,.55); }
+  .beam.orange3 { transform: translate(-145px, 26px) rotate(2deg); background: linear-gradient(90deg, rgba(255,138,84,.0), rgba(255,130,88,.78), rgba(255,234,223,.94)); box-shadow: 0 0 14px rgba(255,126,72,.5); }
+  .beam.orange4 { transform: translate(-140px, 42px) rotate(12deg); background: linear-gradient(90deg, rgba(255,138,84,.0), rgba(255,130,88,.72), rgba(255,234,223,.92)); box-shadow: 0 0 14px rgba(255,126,72,.45); }
+
+  .beam.blue1 { transform: translate(-5px, -14px) rotate(-10deg); background: linear-gradient(90deg, rgba(109,245,255,.15), rgba(109,245,255,.9), rgba(225,255,255,.98)); box-shadow: 0 0 16px rgba(109,245,255,.55); }
+  .beam.blue2 { transform: translate(-5px, 2px) rotate(-2deg); background: linear-gradient(90deg, rgba(109,245,255,.15), rgba(109,245,255,.92), rgba(225,255,255,.98)); box-shadow: 0 0 16px rgba(109,245,255,.58); }
+  .beam.blue3 { transform: translate(-5px, 18px) rotate(7deg); background: linear-gradient(90deg, rgba(109,245,255,.15), rgba(109,245,255,.88), rgba(225,255,255,.96)); box-shadow: 0 0 16px rgba(109,245,255,.52); }
+
+  .arrow {
+    left: 50%; top: 50%;
+    width: 160px; height: 96px;
+    transform: translate(-8px, -50%);
+    filter: drop-shadow(0 0 12px rgba(145,239,255,.45));
+  }
+  .arrow:before {
+    content: "";
+    left: 0; top: 16px;
+    width: 88px; height: 64px;
+    border-top: 3px solid rgba(200,248,255,.75);
+    border-bottom: 3px solid rgba(200,248,255,.75);
+    border-right: 0;
+    transform: skewX(32deg);
+  }
+  .arrow:after {
+    content: "";
+    right: 0; top: 0;
+    width: 0; height: 0;
+    border-top: 48px solid transparent;
+    border-bottom: 48px solid transparent;
+    border-left: 66px solid rgba(180,245,255,.12);
+    filter: drop-shadow(0 0 6px rgba(145,239,255,.45));
+  }
+
+  .arrow .outline1,
+  .arrow .outline2,
+  .arrow .outline3 {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(0 50%, 52% 0, 52% 26%, 100% 50%, 52% 74%, 52% 100%);
+    border: 2px solid rgba(197,248,255,.8);
+  }
+  .arrow .outline2 { inset: 10px 18px; border-color: rgba(138,235,255,.65); }
+  .arrow .outline3 { inset: 20px 34px; border-color: rgba(138,235,255,.45); }
+
+  .center-core {
+    left: 50%; top: 50%;
+    width: 24px; height: 24px;
+    transform: translate(78px, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0%, #b6f9ff 40%, rgba(0,0,0,0) 72%);
+    filter: blur(.3px);
+    box-shadow: 0 0 20px rgba(145,239,255,.85);
+  }
+
+  .header {
+    position: absolute;
+    left: 0; right: 0; top: 26px;
+    text-align: center;
+    z-index: 5;
+  }
+  .title {
+    display: inline-block;
+    padding: 10px 22px;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #f6fbff;
+    text-shadow: 0 0 18px rgba(255,255,255,.16), 0 0 24px rgba(119,228,255,.14);
+    background: linear-gradient(90deg, rgba(255,113,56,.08), rgba(255,255,255,.04), rgba(77,255,224,.08));
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 999px;
+    backdrop-filter: blur(2px);
+  }
+
+  .column {
+    position: absolute;
+    top: 72px;
+    width: 395px;
+    height: 610px;
+    border-radius: 20px;
+    padding: 16px;
+    backdrop-filter: blur(4px);
+  }
+
+  .column.left {
+    left: 38px;
+    background: linear-gradient(180deg, rgba(255,112,69,.10), rgba(255,112,69,.05));
+    border: 1px solid rgba(255,156,110,.22);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.03), 0 0 28px rgba(255,96,46,.10);
+  }
+
+  .column.right {
+    right: 38px;
+    background: linear-gradient(180deg, rgba(92,255,221,.10), rgba(92,255,221,.05));
+    border: 1px solid rgba(141,255,230,.18);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.03), 0 0 28px rgba(67,255,217,.08);
+  }
+
+  .col-label {
+    display: inline-block;
+    margin: 0 0 14px 4px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .left .col-label {
+    color: #ffd1bf;
+    background: linear-gradient(180deg, rgba(255,120,76,.18), rgba(255,120,76,.08));
+    border: 1px solid rgba(255,150,109,.35);
+    box-shadow: 0 0 18px rgba(255,111,56,.15);
+  }
+
+  .right .col-label {
+    color: #cbfff3;
+    background: linear-gradient(180deg, rgba(72,255,212,.16), rgba(72,255,212,.07));
+    border: 1px solid rgba(123,255,227,.28);
+    box-shadow: 0 0 18px rgba(72,255,212,.12);
+  }
+
+  .cards {
+    display: grid;
+    gap: 16px;
+  }
+
+  .card {
+    position: relative;
+    height: 168px;
+    border-radius: 18px;
+    padding: 18px 20px;
+    overflow: hidden;
+  }
+
+  .left .card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+      linear-gradient(180deg, rgba(255,112,69,.16), rgba(255,112,69,.08));
+    border: 2px solid rgba(255,141,101,.45);
+    box-shadow:
+      inset 0 0 18px rgba(255,255,255,.04),
+      0 0 18px rgba(255,118,67,.20),
+      0 0 34px rgba(255,93,42,.10);
+  }
+
+  .right .card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+      linear-gradient(180deg, rgba(80,255,214,.14), rgba(80,255,214,.07));
+    border: 2px solid rgba(120,255,226,.36);
+    box-shadow:
+      inset 0 0 18px rgba(255,255,255,.04),
+      0 0 18px rgba(84,255,221,.16),
+      0 0 34px rgba(33,240,206,.08);
+  }
+
+  .card:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 10% 12%, rgba(255,255,255,.18), rgba(255,255,255,0) 26%),
+      linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,0) 34%);
+    pointer-events: none;
+  }
+
+  .line-art {
+    position: absolute;
+    inset: 0;
+    opacity: .22;
+    pointer-events: none;
+  }
+
+  .left .line-art {
+    background:
+      radial-gradient(circle at 18% 28%, transparent 0 14px, rgba(255,220,204,.7) 15px 16px, transparent 17px),
+      radial-gradient(circle at 28% 20%, transparent 0 14px, rgba(255,220,204,.55) 15px 16px, transparent 17px),
+      radial-gradient(circle at 36% 16%, transparent 0 14px, rgba(255,220,204,.45) 15px 16px, transparent 17px),
+      linear-gradient(120deg, transparent 0 13%, rgba(255,220,204,.35) 13.5% 14%, transparent 14.5% 100%),
+      linear-gradient(70deg, transparent 0 38%, rgba(255,220,204,.28) 38.5% 39%, transparent 39.5% 100%);
+    mix-blend-mode: screen;
+  }
+
+  .right .line-art {
+    background:
+      linear-gradient(90deg, transparent 0 9%, rgba(216,255,250,.55) 9.5% 10%, transparent 10.5% 100%),
+      linear-gradient(0deg, transparent 0 28%, rgba(216,255,250,.28) 28.5% 29%, transparent 29.5% 100%);
+    background-size: 66px 66px, 66px 66px;
+    opacity: .12;
+  }
+
+  .card-inner {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .emoji {
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    margin-top: 2px;
+    backdrop-filter: blur(4px);
+  }
+
+  .left .emoji {
+    background: linear-gradient(180deg, rgba(255,140,102,.18), rgba(255,140,102,.08));
+    border: 1px solid rgba(255,165,130,.28);
+    box-shadow: inset 0 0 10px rgba(255,255,255,.03), 0 0 16px rgba(255,120,73,.12);
+  }
+
+  .right .emoji {
+    background: linear-gradient(180deg, rgba(99,255,221,.18), rgba(99,255,221,.08));
+    border: 1px solid rgba(146,255,232,.24);
+    box-shadow: inset 0 0 10px rgba(255,255,255,.03), 0 0 16px rgba(99,255,221,.10);
+  }
+
+  .text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding-top: 6px;
+  }
+
+  .item-title {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+  }
+
+  .item-desc {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: rgba(240,248,255,.92);
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.10);
+  }
+
+  .left .item-title { color: #fff1ea; text-shadow: 0 0 12px rgba(255,133,89,.16); }
+  .right .item-title { color: #effffb; text-shadow: 0 0 12px rgba(95,255,220,.12); }
+
+  .left .item-desc {
+    box-shadow: 0 0 12px rgba(255,120,73,.08) inset;
+  }
+
+  .right .item-desc {
+    box-shadow: 0 0 12px rgba(95,255,220,.07) inset;
+  }
+
+  .accent {
+    position: absolute;
+    right: 16px;
+    bottom: 14px;
+    width: 92px;
+    height: 10px;
+    border-radius: 999px;
+  }
+
+  .left .accent {
+    background: linear-gradient(90deg, rgba(255,134,87,.28), rgba(255,180,147,.9));
+    box-shadow: 0 0 10px rgba(255,129,79,.25);
+  }
+
+  .right .accent {
+    background: linear-gradient(90deg, rgba(90,255,214,.28), rgba(148,255,233,.92));
+    box-shadow: 0 0 10px rgba(90,255,214,.22);
+  }
+
+  .chip {
+    position: absolute;
+    right: 18px;
+    top: 16px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.82);
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.10);
+  }
+
+  .left .chip { color: #ffd5c8; }
+  .right .chip { color: #cbfff3; }
+</style>
+
+<div class="slide">
+  <div class="glow-left"></div>
+  <div class="glow-right"></div>
+  <div class="center-halo"></div>
+  <div class="center-ring"></div>
+  <div class="center-ring-2"></div>
+
+  <div class="beam orange1"></div>
+  <div class="beam orange2"></div>
+  <div class="beam orange3"></div>
+  <div class="beam orange4"></div>
+  <div class="beam blue1"></div>
+  <div class="beam blue2"></div>
+  <div class="beam blue3"></div>
+
+  <div class="arrow">
+    <div class="outline1"></div>
+    <div class="outline2"></div>
+    <div class="outline3"></div>
+  </div>
+  <div class="center-core"></div>
+
+  <div class="header">
+    <div class="title">AI 도입 전후 업무 효율성 비교</div>
+  </div>
+
+  <div class="column left">
+    <div class="col-label">도입 전</div>
+    <div class="cards">
+      <div class="card">
+        <div class="line-art"></div>
+        <div class="chip">Before</div>
+        <div class="card-inner">
+          <div class="emoji">📝</div>
+          <div class="text">
+            <div class="item-title">수작업 보고서 작성</div>
+            <div class="item-desc">주 8시간 소요</div>
+          </div>
+        </div>
+        <div class="accent"></div>
+      </div>
+
+      <div class="card">
+        <div class="line-art"></div>
+        <div class="chip">Before</div>
+        <div class="card-inner">
+          <div class="emoji">🔍</div>
+          <div class="text">
+            <div class="item-title">수동 데이터 검색</div>
+            <div class="item-desc">건당 30분</div>
+          </div>
+        </div>
+        <div class="accent"></div>
+      </div>
+
+      <div class="card">
+        <div class="line-art"></div>
+        <div class="chip">Before</div>
+        <div class="card-inner">
+          <div class="emoji">📞</div>
+          <div class="text">
+            <div class="item-title">전화/이메일 응대</div>
+            <div class="item-desc">평균 응답 4시간</div>
+          </div>
+        </div>
+        <div class="accent"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column right">
+    <div class="col-label">도입 후</div>
+    <div class="cards">
+      <div class="card">
+        <div class="line-art"></div>
+        <div class="chip">After</div>
+        <div class="card-inner">
+          <div class="emoji">🤖</div>
+          <div class="text">
+            <div class="item-title">자동 보고서 생성</div>
+            <div class="item-desc">주 30분으로 단축</div>
+          </div>
+        </div>
+        <div class="accent"></div>
+      </div>
+
+      <div class="card">
+        <div class="line-art"></div>
+        <div class="chip">After</div>
+        <div class="card-inner">
+          <div class="emoji">⚡</div>
+          <div class="text">
+            <div class="item-title">RAG 기반 즉시 검색</div>
+            <div class="item-desc">건당 5초</div>
+          </div>
+        </div>
+        <div class="accent"></div>
+      </div>
+
+      <div class="card">
+        <div class="line-art"></div>
+        <div class="chip">After</div>
+        <div class="card-inner">
+          <div class="emoji">💬</div>
+          <div class="text">
+            <div class="item-title">AI 챗봇 자동 응대</div>
+            <div class="item-desc">평균 응답 10초</div>
+          </div>
+        </div>
+        <div class="accent"></div>
+      </div>
+    </div>
+  </div>
+</div>

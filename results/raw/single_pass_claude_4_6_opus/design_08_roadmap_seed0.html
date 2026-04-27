@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a1628;
+    position: relative;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    background: #0a1628;
+  }
+
+  /* Topographic background pattern */
+  .topo-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.12;
+    background:
+      repeating-radial-gradient(ellipse at 20% 50%, transparent 0, transparent 40px, rgba(100,180,255,0.15) 41px, transparent 42px),
+      repeating-radial-gradient(ellipse at 80% 30%, transparent 0, transparent 50px, rgba(100,180,255,0.12) 51px, transparent 52px),
+      repeating-radial-gradient(ellipse at 60% 70%, transparent 0, transparent 35px, rgba(100,180,255,0.1) 36px, transparent 37px),
+      repeating-radial-gradient(ellipse at 30% 80%, transparent 0, transparent 45px, rgba(100,180,255,0.08) 46px, transparent 47px),
+      repeating-radial-gradient(ellipse at 90% 60%, transparent 0, transparent 55px, rgba(100,180,255,0.1) 56px, transparent 57px);
+  }
+
+  .topo-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.06;
+    background:
+      radial-gradient(ellipse 600px 300px at 25% 45%, transparent 100px, rgba(80,160,220,0.4) 101px, transparent 103px),
+      radial-gradient(ellipse 500px 250px at 25% 45%, transparent 120px, rgba(80,160,220,0.3) 121px, transparent 123px),
+      radial-gradient(ellipse 400px 200px at 25% 45%, transparent 80px, rgba(80,160,220,0.3) 81px, transparent 83px),
+      radial-gradient(ellipse 700px 350px at 75% 55%, transparent 130px, rgba(80,160,220,0.4) 131px, transparent 133px),
+      radial-gradient(ellipse 600px 300px at 75% 55%, transparent 160px, rgba(80,160,220,0.3) 161px, transparent 163px),
+      radial-gradient(ellipse 500px 250px at 75% 55%, transparent 100px, rgba(80,160,220,0.3) 101px, transparent 103px),
+      radial-gradient(ellipse 800px 400px at 50% 35%, transparent 180px, rgba(80,160,220,0.3) 181px, transparent 183px),
+      radial-gradient(ellipse 650px 320px at 50% 35%, transparent 140px, rgba(80,160,220,0.25) 141px, transparent 143px);
+  }
+
+  /* Title */
+  .title {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
+    z-index: 10;
+  }
+
+  /* Timeline bar */
+  .timeline-bar {
+    position: absolute;
+    top: 340px;
+    left: 60px;
+    right: 60px;
+    height: 56px;
+    border-radius: 28px;
+    background: linear-gradient(90deg, #0044ff 0%, #4400ff 25%, #8800cc 50%, #4466ff 75%, #00ddff 100%);
+    z-index: 2;
+    box-shadow:
+      0 0 40px rgba(0, 100, 255, 0.4),
+      0 0 80px rgba(100, 0, 255, 0.2),
+      inset 0 1px 1px rgba(255,255,255,0.1);
+  }
+
+  .timeline-bar::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 36px;
+    background: linear-gradient(90deg, rgba(0,100,255,0.3) 0%, rgba(100,0,255,0.2) 50%, rgba(0,220,255,0.3) 100%);
+    filter: blur(12px);
+    z-index: -1;
+  }
+
+  /* Phase numbers on timeline */
+  .phase-numbers {
+    position: absolute;
+    top: 340px;
+    left: 60px;
+    right: 60px;
+    height: 56px;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 70px;
+    align-items: center;
+  }
+
+  .phase-num {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Cards container */
+  .cards-wrapper {
+    position: absolute;
+    top: 0;
+    left: 60px;
+    right: 60px;
+    height: 720px;
+    z-index: 4;
+  }
+
+  /* Individual card */
+  .card {
+    position: absolute;
+    width: 185px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.15);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card-top-bar {
+    height: 10px;
+    border-radius: 2px;
+    margin: 12px 14px 0 14px;
+  }
+
+  .card-emoji {
+    font-size: 28px;
+    text-align: center;
+    margin: 10px 0 4px 0;
+  }
+
+  .card-phase {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 0 12px 14px 12px;
+    line-height: 1.5;
+  }
+
+  /* Connector lines */
+  .connector {
+    position: absolute;
+    width: 2px;
+    z-index: 3;
+  }
+
+  /* Card 1 - above, position 1 */
+  .card-1 {
+    left: 42px;
+    top: 110px;
+    height: 190px;
+  }
+  .card-1 .card-top-bar {
+    background: linear-gradient(90deg, #00cc88, #00ddcc);
+  }
+  .connector-1 {
+    left: 133px;
+    top: 300px;
+    height: 40px;
+    background: linear-gradient(180deg, #00ddcc, #00eeff);
+    box-shadow: 0 0 8px rgba(0,220,255,0.6);
+  }
+  .connector-1::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00eeff;
+    box-shadow: 0 0 10px #00eeff;
+  }
+
+  /* Card 2 - below, position 2 */
+  .card-2 {
+    left: 268px;
+    top: 420px;
+    height: 190px;
+  }
+  .card-2 .card-top-bar {
+    background: linear-gradient(90deg, #ff4444, #ff8844);
+  }
+  .connector-2 {
+    left: 359px;
+    top: 396px;
+    height: 24px;
+    background: linear-gradient(180deg, #ff6644, #ff6644);
+    box-shadow: 0 0 8px rgba(255,100,60,0.6);
+  }
+  .connector-2::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff7744;
+    box-shadow: 0 0 10px #ff7744;
+  }
+
+  /* Card 3 - above, position 3 */
+  .card-3 {
+    left: 494px;
+    top: 110px;
+    height: 190px;
+  }
+  .card-3 .card-top-bar {
+    background: linear-gradient(90deg, #aa44ff, #ff44cc);
+  }
+  .connector-3 {
+    left: 585px;
+    top: 300px;
+    height: 40px;
+    background: linear-gradient(180deg, #cc44ee, #cc88ff);
+    box-shadow: 0 0 8px rgba(200,100,255,0.5);
+  }
+  .connector-3::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cc88ff;
+    box-shadow: 0 0 10px #cc88ff;
+  }
+
+  /* Card 4 - below, position 4 */
+  .card-4 {
+    left: 720px;
+    top: 420px;
+    height: 190px;
+  }
+  .card-4 .card-top-bar {
+    background: linear-gradient(90deg, #88cc00, #ccff00);
+  }
+  .connector-4 {
+    left: 811px;
+    top: 396px;
+    height: 24px;
+    background: linear-gradient(180deg, #aadd00, #aadd00);
+    box-shadow: 0 0 8px rgba(170,220,0,0.6);
+  }
+  .connector-4::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #bbee00;
+    box-shadow: 0 0 10px #bbee00;
+  }
+
+  /* Card 5 - above, position 5 */
+  .card-5 {
+    left: 946px;
+    top: 110px;
+    height: 190px;
+  }
+  .card-5 .card-top-bar {
+    background: linear-gradient(90deg, #0088ff, #00ddff);
+  }
+  .connector-5 {
+    left: 1037px;
+    top: 300px;
+    height: 40px;
+    background: linear-gradient(180deg, #00bbff, #00eeff);
+    box-shadow: 0 0 8px rgba(0,200,255,0.6);
+  }
+  .connector-5::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00eeff;
+    box-shadow: 0 0 10px #00eeff;
+  }
+
+  /* Glow effects */
+  .glow-left {
+    position: absolute;
+    top: 310px;
+    left: 20px;
+    width: 200px;
+    height: 120px;
+    background: radial-gradient(ellipse, rgba(0,80,255,0.35) 0%, transparent 70%);
+    filter: blur(20px);
+    z-index: 1;
+  }
+
+  .glow-right {
+    position: absolute;
+    top: 310px;
+    right: 20px;
+    width: 200px;
+    height: 120px;
+    background: radial-gradient(ellipse, rgba(0,220,255,0.35) 0%, transparent 70%);
+    filter: blur(20px);
+    z-index: 1;
+  }
+
+  .glow-center {
+    position: absolute;
+    top: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 100px;
+    background: radial-gradient(ellipse, rgba(140,0,255,0.25) 0%, transparent 70%);
+    filter: blur(15px);
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="topo-bg"></div>
+    <div class="topo-lines"></div>
+
+    <div class="title">2025 제품 로드맵</div>
+
+    <div class="glow-left"></div>
+    <div class="glow-center"></div>
+    <div class="glow-right"></div>
+
+    <div class="timeline-bar"></div>
+
+    <div class="phase-numbers">
+      <div class="phase-num">1</div>
+      <div class="phase-num">2</div>
+      <div class="phase-num">3</div>
+      <div class="phase-num">4</div>
+      <div class="phase-num">5</div>
+    </div>
+
+    <div class="cards-wrapper">
+      <!-- Connectors -->
+      <div class="connector connector-1"></div>
+      <div class="connector connector-2"></div>
+      <div class="connector connector-3"></div>
+      <div class="connector connector-4"></div>
+      <div class="connector connector-5"></div>
+
+      <!-- Card 1 - Q1 MVP 출시 (above) -->
+      <div class="card card-1">
+        <div class="card-top-bar"></div>
+        <div class="card-emoji">🎯</div>
+        <div class="card-phase">Q1</div>
+        <div class="card-title">MVP 출시</div>
+        <div class="card-desc">핵심 기능 3종 런칭</div>
+      </div>
+
+      <!-- Card 2 - Q2 성장 가속 (below) -->
+      <div class="card card-2">
+        <div class="card-top-bar"></div>
+        <div class="card-emoji">📈</div>
+        <div class="card-phase">Q2</div>
+        <div class="card-title">성장 가속</div>
+        <div class="card-desc">사용자 1만명 돌파 목표</div>
+      </div>
+
+      <!-- Card 3 - Q3 글로벌 확장 (above) -->
+      <div class="card card-3">
+        <div class="card-top-bar"></div>
+        <div class="card-emoji">🌏</div>
+        <div class="card-phase">Q3</div>
+        <div class="card-title">글로벌 확장</div>
+        <div class="card-desc">일본·동남아 시장 진출</div>
+      </div>
+
+      <!-- Card 4 - Q4 엔터프라이즈 (below) -->
+      <div class="card card-4">
+        <div class="card-top-bar"></div>
+        <div class="card-emoji">🏆</div>
+        <div class="card-phase">Q4</div>
+        <div class="card-title">엔터프라이즈</div>
+        <div class="card-desc">대기업 맞춤 솔루션 출시</div>
+      </div>
+
+      <!-- Card 5 - 2026 플랫폼화 (above) -->
+      <div class="card card-5">
+        <div class="card-top-bar"></div>
+        <div class="card-emoji">🚀</div>
+        <div class="card-phase">2026</div>
+        <div class="card-title">플랫폼화</div>
+        <div class="card-desc">3rd party 앱 마켓플레이스</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: #08080f;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+  }
+
+  .grid-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background:
+      linear-gradient(rgba(100, 60, 180, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 60, 180, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transform: perspective(500px) rotateX(45deg);
+    transform-origin: bottom center;
+    opacity: 0.6;
+  }
+
+  .stack-container {
+    position: absolute;
+    left: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 1000px;
+  }
+
+  .layer {
+    position: relative;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transform: rotateX(2deg);
+    transition: all 0.3s;
+  }
+
+  .layer-4 {
+    width: 640px;
+    height: 120px;
+    background: linear-gradient(135deg, rgba(120, 40, 200, 0.35), rgba(80, 20, 160, 0.25));
+    border: 1px solid rgba(160, 80, 255, 0.3);
+    box-shadow:
+      0 0 30px rgba(140, 60, 220, 0.2),
+      0 0 60px rgba(140, 60, 220, 0.1),
+      inset 0 0 30px rgba(140, 60, 220, 0.05);
+    margin-bottom: 8px;
+    backdrop-filter: blur(5px);
+  }
+
+  .layer-4::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background:
+      repeating-linear-gradient(90deg, rgba(160, 100, 255, 0.08) 0px, rgba(160, 100, 255, 0.08) 30px, transparent 30px, transparent 40px),
+      repeating-linear-gradient(0deg, rgba(160, 100, 255, 0.05) 0px, rgba(160, 100, 255, 0.05) 2px, transparent 2px, transparent 20px);
+  }
+
+  .layer-3 {
+    width: 520px;
+    height: 105px;
+    background: linear-gradient(135deg, rgba(40, 80, 160, 0.4), rgba(60, 120, 200, 0.25));
+    border: 1px solid rgba(80, 150, 255, 0.25);
+    box-shadow:
+      0 0 30px rgba(60, 120, 220, 0.15),
+      0 0 60px rgba(60, 120, 220, 0.08),
+      inset 0 0 20px rgba(80, 140, 220, 0.05);
+    margin-bottom: 8px;
+    backdrop-filter: blur(5px);
+  }
+
+  .layer-3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background:
+      linear-gradient(120deg, transparent 30%, rgba(100, 180, 255, 0.06) 50%, transparent 70%);
+  }
+
+  .layer-2 {
+    width: 400px;
+    height: 90px;
+    background: linear-gradient(135deg, rgba(80, 160, 60, 0.25), rgba(180, 200, 40, 0.2), rgba(60, 180, 120, 0.2));
+    border: 1px solid rgba(150, 220, 80, 0.25);
+    box-shadow:
+      0 0 25px rgba(120, 200, 60, 0.12),
+      0 0 50px rgba(120, 200, 60, 0.06),
+      inset 0 0 20px rgba(140, 200, 60, 0.05);
+    margin-bottom: 8px;
+    backdrop-filter: blur(5px);
+  }
+
+  .layer-2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background:
+      linear-gradient(90deg, transparent 20%, rgba(180, 220, 100, 0.05) 40%, transparent 60%);
+  }
+
+  .layer-1 {
+    width: 300px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(255, 80, 80, 0.5), rgba(255, 140, 50, 0.4), rgba(255, 200, 50, 0.35), rgba(80, 220, 120, 0.3));
+    border: 1px solid rgba(255, 160, 100, 0.3);
+    box-shadow:
+      0 0 40px rgba(255, 120, 80, 0.2),
+      0 0 80px rgba(255, 120, 80, 0.1),
+      0 -10px 30px rgba(255, 100, 60, 0.1),
+      inset 0 0 20px rgba(255, 200, 150, 0.1);
+    backdrop-filter: blur(5px);
+  }
+
+  .layer-1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+  }
+
+  .layer-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .layer-title {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .layer-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+    margin-top: 3px;
+    font-weight: 400;
+  }
+
+  .layer-emoji {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  /* Right side panels */
+  .panels-container {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 380px;
+  }
+
+  .panel {
+    position: relative;
+    border-radius: 10px;
+    padding: 18px 22px;
+    backdrop-filter: blur(10px);
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    padding: 1.5px;
+    background: var(--border-gradient);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .panel-1 {
+    --border-gradient: linear-gradient(135deg, #ff4060, #ff8040, #ffcc30);
+    background: rgba(255, 80, 80, 0.06);
+    box-shadow: 0 0 20px rgba(255, 80, 80, 0.08);
+  }
+
+  .panel-1 .panel-dot {
+    background: #ff4060;
+    box-shadow: 0 0 10px #ff4060, 0 0 20px rgba(255, 64, 96, 0.5);
+  }
+
+  .panel-2 {
+    --border-gradient: linear-gradient(135deg, #ffcc30, #80ff40, #40ff80);
+    background: rgba(120, 255, 60, 0.04);
+    box-shadow: 0 0 20px rgba(120, 255, 60, 0.06);
+  }
+
+  .panel-2 .panel-dot {
+    background: #80ff40;
+    box-shadow: 0 0 10px #80ff40, 0 0 20px rgba(128, 255, 64, 0.5);
+  }
+
+  .panel-3 {
+    --border-gradient: linear-gradient(135deg, #40a0ff, #4060ff, #8040ff);
+    background: rgba(60, 120, 255, 0.06);
+    box-shadow: 0 0 20px rgba(60, 120, 255, 0.08);
+  }
+
+  .panel-3 .panel-dot {
+    background: #4080ff;
+    box-shadow: 0 0 10px #4080ff, 0 0 20px rgba(64, 128, 255, 0.5);
+  }
+
+  .panel-4 {
+    --border-gradient: linear-gradient(135deg, #a040ff, #ff40c0, #ff4080);
+    background: rgba(160, 60, 255, 0.06);
+    box-shadow: 0 0 20px rgba(160, 60, 255, 0.08);
+  }
+
+  .panel-4 .panel-dot {
+    background: #a040ff;
+    box-shadow: 0 0 10px #a040ff, 0 0 20px rgba(160, 64, 255, 0.5);
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .panel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .panel-title {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .panel-emoji {
+    font-size: 16px;
+  }
+
+  .panel-description {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    padding-left: 18px;
+    font-family: 'Consolas', 'Menlo', monospace;
+    letter-spacing: 0.3px;
+  }
+
+  /* Connection lines */
+  .connector {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .connector-1 {
+    top: 155px;
+    right: 440px;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 140, 80, 0.4), rgba(255, 140, 80, 0));
+  }
+
+  .connector-2 {
+    top: 280px;
+    right: 440px;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(150, 220, 80, 0.4), rgba(150, 220, 80, 0));
+  }
+
+  .connector-3 {
+    top: 390px;
+    right: 440px;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(80, 150, 255, 0.4), rgba(80, 150, 255, 0));
+  }
+
+  .connector-4 {
+    top: 510px;
+    right: 440px;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(160, 80, 255, 0.4), rgba(160, 80, 255, 0));
+  }
+
+  /* Title */
+  .main-title {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-align: center;
+    background: linear-gradient(90deg, #ff8080, #ffcc60, #80ff80, #60aaff, #cc80ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Ambient glow effects */
+  .glow-1 {
+    position: absolute;
+    top: 80px;
+    left: 200px;
+    width: 300px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(255, 100, 60, 0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .glow-2 {
+    position: absolute;
+    bottom: 50px;
+    left: 150px;
+    width: 500px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(120, 40, 200, 0.1), transparent 70%);
+    pointer-events: none;
+  }
+
+  .glow-3 {
+    position: absolute;
+    top: 200px;
+    right: 100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(60, 120, 220, 0.06), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Decorative circuit lines on layers */
+  .circuit-lines {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0.15;
+  }
+
+  .circuit-lines::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  }
+
+  .circuit-lines::after {
+    content: '';
+    position: absolute;
+    top: 60%;
+    left: 15%;
+    width: 70%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  }
+
+  /* Server rack visual on layer 4 */
+  .rack-visual {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0.12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 30px;
+  }
+
+  .rack-unit {
+    width: 35px;
+    height: 80%;
+    border: 1px solid rgba(200, 160, 255, 0.4);
+    border-radius: 3px;
+    background: rgba(160, 100, 255, 0.1);
+  }
+
+  .rack-unit:nth-child(odd) {
+    height: 70%;
+  }
+</style>
+
+<div class="slide">
+  <div class="grid-bg"></div>
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="glow-3"></div>
+
+  <div class="main-title">시스템 아키텍처 스택</div>
+
+  <div class="stack-container">
+    <div class="layer layer-1">
+      <div class="circuit-lines"></div>
+      <div class="layer-text">
+        <div class="layer-emoji">🎨</div>
+        <div class="layer-title">프레젠테이션 계층</div>
+        <div class="layer-desc">React + Ant Design UI</div>
+      </div>
+    </div>
+
+    <div class="layer layer-2">
+      <div class="circuit-lines"></div>
+      <div class="layer-text">
+        <div class="layer-emoji">⚡</div>
+        <div class="layer-title">API 계층</div>
+        <div class="layer-desc">Express Gateway + Moleculer</div>
+      </div>
+    </div>
+
+    <div class="layer layer-3">
+      <div class="circuit-lines"></div>
+      <div class="layer-text">
+        <div class="layer-emoji">🧠</div>
+        <div class="layer-title">서비스 계층</div>
+        <div class="layer-desc">FastAPI + LangGraph AI 에이전트</div>
+      </div>
+    </div>
+
+    <div class="layer layer-4">
+      <div class="rack-visual">
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+        <div class="rack-unit"></div>
+      </div>
+      <div class="layer-text">
+        <div class="layer-emoji">💾</div>
+        <div class="layer-title">인프라 계층</div>
+        <div class="layer-desc">MongoDB + OpenSearch + Redis + MinIO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel panel-1">
+      <div class="panel-header">
+        <div class="panel-dot"></div>
+        <div class="panel-emoji">🎨</div>
+        <div class="panel-title">프레젠테이션 계층</div>
+      </div>
+      <div class="panel-description">React + Ant Design UI</div>
+    </div>
+
+    <div class="panel panel-2">
+      <div class="panel-header">
+        <div class="panel-dot"></div>
+        <div class="panel-emoji">⚡</div>
+        <div class="panel-title">API 계층</div>
+      </div>
+      <div class="panel-description">Express Gateway + Moleculer</div>
+    </div>
+
+    <div class="panel panel-3">
+      <div class="panel-header">
+        <div class="panel-dot"></div>
+        <div class="panel-emoji">🧠</div>
+        <div class="panel-title">서비스 계층</div>
+      </div>
+      <div class="panel-description">FastAPI + LangGraph AI 에이전트</div>
+    </div>
+
+    <div class="panel panel-4">
+      <div class="panel-header">
+        <div class="panel-dot"></div>
+        <div class="panel-emoji">💾</div>
+        <div class="panel-title">인프라 계층</div>
+      </div>
+      <div class="panel-description">MongoDB + OpenSearch + Redis + MinIO</div>
+    </div>
+  </div>
+</div>

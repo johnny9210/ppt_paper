@@ -1,0 +1,30 @@
+{
+  "layeragent_gpt4o": {
+    "lted": 0.5509503598738889,
+    "recall": 0.759484126984127,
+    "avg_tokens": 54310.666666666664,
+    "avg_cost_usd": 0.23197416666666668,
+    "avg_calls": 18,
+    "n_designs_quality": 10,
+    "n_designs_tokens": 3
+  },
+  "single_pass_gpt4o": {
+    "lted": 0.8231348759123379,
+    "recall": 0.22373015873015872,
+    "avg_tokens_estimate": 5000,
+    "avg_cost_estimate_usd": 0.015,
+    "note": "tokens not instrumented — estimated from typical GPT-4o vision call"
+  },
+  "single_pass_gpt5_4": {
+    "lted": 0.6689979283608413,
+    "recall": 0.29984126984126985,
+    "avg_tokens": 6015,
+    "avg_cost_usd": 0.074518
+  },
+  "single_pass_claude_4_6_opus": {
+    "lted": 0.6929154321608624,
+    "recall": 0.31234126984126986,
+    "avg_tokens": 7116.8,
+    "avg_cost_usd": 0.42047999999999996
+  }
+}

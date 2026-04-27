@@ -1,0 +1,519 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: #0a0e27;
+    background-image:
+      radial-gradient(ellipse at 30% 50%, rgba(0, 200, 255, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 50%, rgba(160, 80, 255, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(0, 150, 255, 0.1) 0%, transparent 50%);
+    font-family: 'Noto Sans KR', sans-serif;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Grid background */
+  .grid-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    perspective: 800px;
+  }
+
+  .grid-floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    background-image:
+      linear-gradient(rgba(0, 200, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 200, 255, 0.06) 1px, transparent 1px);
+    background-size: 80px 40px;
+    transform: perspective(500px) rotateX(60deg);
+    transform-origin: bottom center;
+  }
+
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  .sparkle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+  .sparkle:nth-child(2) { top: 25%; left: 85%; animation-delay: 1s; }
+  .sparkle:nth-child(3) { top: 60%; left: 5%; animation-delay: 0.5s; }
+  .sparkle:nth-child(4) { top: 70%; left: 92%; animation-delay: 1.5s; }
+  .sparkle:nth-child(5) { top: 40%; left: 50%; animation-delay: 2s; }
+  .sparkle:nth-child(6) { top: 80%; left: 30%; animation-delay: 0.8s; }
+  .sparkle:nth-child(7) { top: 20%; left: 60%; animation-delay: 2.5s; }
+  .sparkle:nth-child(8) { top: 55%; left: 75%; animation-delay: 1.2s; }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Title area */
+  .title-area {
+    text-align: center;
+    margin-top: 40px;
+    z-index: 10;
+    position: relative;
+  }
+
+  .title-area h1 {
+    font-size: 36px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #00e5ff, #a855f7, #00e5ff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    animation: shimmer 4s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .title-area .subtitle {
+    font-size: 16px;
+    color: rgba(180, 210, 255, 0.7);
+    margin-top: 8px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  /* Timeline container */
+  .timeline-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 50px;
+    z-index: 10;
+    width: 1100px;
+  }
+
+  /* Timeline line */
+  .timeline-line {
+    position: absolute;
+    top: 28px;
+    left: 40px;
+    right: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #00e5ff, #6366f1, #a855f7, #00cfff);
+    border-radius: 2px;
+    z-index: 1;
+  }
+
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    right: 0;
+    height: 11px;
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.3), rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3), rgba(0, 207, 255, 0.3));
+    filter: blur(8px);
+    border-radius: 10px;
+  }
+
+  /* Timeline items */
+  .timeline-items {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 240px;
+  }
+
+  /* Node (circle on timeline) */
+  .node {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+  }
+
+  .node-outer {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 229, 255, 0.3);
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+
+  .timeline-item:nth-child(1) .node-outer { border-color: rgba(0, 229, 255, 0.4); }
+  .timeline-item:nth-child(2) .node-outer { border-color: rgba(99, 102, 241, 0.4); }
+  .timeline-item:nth-child(3) .node-outer { border-color: rgba(168, 85, 247, 0.4); }
+  .timeline-item:nth-child(4) .node-outer { border-color: rgba(0, 207, 255, 0.4); }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.6; }
+  }
+
+  .node-inner {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  .timeline-item:nth-child(1) .node-inner {
+    background: radial-gradient(circle, #00e5ff, #0088aa);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 0 40px rgba(0, 229, 255, 0.3);
+  }
+  .timeline-item:nth-child(2) .node-inner {
+    background: radial-gradient(circle, #a855f7, #6b21a8);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6), 0 0 40px rgba(168, 85, 247, 0.3);
+  }
+  .timeline-item:nth-child(3) .node-inner {
+    background: radial-gradient(circle, #818cf8, #4338ca);
+    box-shadow: 0 0 20px rgba(129, 140, 248, 0.6), 0 0 40px rgba(129, 140, 248, 0.3);
+  }
+  .timeline-item:nth-child(4) .node-inner {
+    background: radial-gradient(circle, #06d6ff, #7c3aed);
+    box-shadow: 0 0 20px rgba(6, 214, 255, 0.4), 0 0 40px rgba(124, 58, 237, 0.3);
+  }
+
+  /* Glass card */
+  .glass-card {
+    width: 220px;
+    min-height: 260px;
+    border-radius: 16px;
+    position: relative;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+  }
+
+  /* Glass shine effect */
+  .glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 50%;
+    bottom: 40%;
+    border-radius: 16px 4px 60% 4px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .timeline-item:nth-child(1) .glass-card::before {
+    border-color: rgba(0, 229, 255, 0.15);
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.05), inset 0 0 30px rgba(0, 229, 255, 0.03);
+  }
+  .timeline-item:nth-child(2) .glass-card::before {
+    border-color: rgba(120, 100, 255, 0.15);
+    box-shadow: 0 0 30px rgba(120, 100, 255, 0.05), inset 0 0 30px rgba(120, 100, 255, 0.03);
+  }
+  .timeline-item:nth-child(3) .glass-card::before {
+    border-color: rgba(168, 85, 247, 0.15);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.05), inset 0 0 30px rgba(168, 85, 247, 0.03);
+  }
+  .timeline-item:nth-child(4) .glass-card::before {
+    border-color: rgba(160, 120, 255, 0.15);
+    box-shadow: 0 0 30px rgba(160, 120, 255, 0.05), inset 0 0 30px rgba(160, 120, 255, 0.03);
+  }
+
+  /* Card internal layout lines (mimicking the grid in image) */
+  .card-header-bar {
+    width: 100%;
+    height: 36px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .timeline-item:nth-child(1) .card-header-bar {
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.15), rgba(0, 229, 255, 0.05));
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    color: #00e5ff;
+  }
+  .timeline-item:nth-child(2) .card-header-bar {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1));
+    border: 1px solid rgba(120, 100, 255, 0.2);
+    color: #a78bfa;
+  }
+  .timeline-item:nth-child(3) .card-header-bar {
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), rgba(129, 140, 248, 0.1));
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+  }
+  .timeline-item:nth-child(4) .card-header-bar {
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.15), rgba(6, 214, 255, 0.1));
+    border: 1px solid rgba(160, 120, 255, 0.2);
+    color: #a5b4fc;
+  }
+
+  .card-emoji {
+    font-size: 36px;
+    margin: 8px 0 10px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: rgba(180, 200, 230, 0.7);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-divider {
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 8px 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Bottom grid cells mimicking the image card structure */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-grid-cell {
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Glow reflections on floor */
+  .floor-glow {
+    position: absolute;
+    bottom: 30px;
+    width: 160px;
+    height: 60px;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.3;
+  }
+
+  .floor-glow:nth-child(1) { left: 80px; background: #00e5ff; }
+  .floor-glow:nth-child(2) { left: 340px; background: #7c3aed; }
+  .floor-glow:nth-child(3) { left: 600px; background: #a855f7; }
+  .floor-glow:nth-child(4) { left: 860px; background: #6366f1; }
+
+  /* Corner accents */
+  .corner-glow-tl {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .corner-glow-tr {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.12), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .step-number {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-right: 6px;
+    opacity: 0.8;
+  }
+</style>
+
+<div class="slide">
+  <div class="grid-bg"></div>
+  <div class="grid-floor"></div>
+  <div class="corner-glow-tl"></div>
+  <div class="corner-glow-tr"></div>
+
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+
+  <div class="floor-glow"></div>
+  <div class="floor-glow"></div>
+  <div class="floor-glow"></div>
+  <div class="floor-glow"></div>
+
+  <div class="title-area">
+    <h1>디지털 전환 로드맵 2025</h1>
+    <div class="subtitle">4단계 전환 마일스톤과 핵심 목표</div>
+  </div>
+
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+    <div class="timeline-items">
+
+      <div class="timeline-item">
+        <div class="node">
+          <div class="node-outer"></div>
+          <div class="node-inner"></div>
+        </div>
+        <div class="glass-card">
+          <div class="card-header-bar">
+            <span class="step-number">STEP</span> 01
+          </div>
+          <div class="card-emoji">📊</div>
+          <div class="card-title">현황 진단</div>
+          <div class="card-divider"></div>
+          <div class="card-desc">레거시 시스템 분석 및 디지털 성숙도 평가</div>
+          <div class="card-grid">
+            <div class="card-grid-cell"></div>
+            <div class="card-grid-cell"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="node">
+          <div class="node-outer"></div>
+          <div class="node-inner"></div>
+        </div>
+        <div class="glass-card">
+          <div class="card-header-bar">
+            <span class="step-number">STEP</span> 02
+          </div>
+          <div class="card-emoji">🏗️</div>
+          <div class="card-title">기반 구축</div>
+          <div class="card-divider"></div>
+          <div class="card-desc">클라우드 마이그레이션 및 API 플랫폼 설계</div>
+          <div class="card-grid">
+            <div class="card-grid-cell"></div>
+            <div class="card-grid-cell"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="node">
+          <div class="node-outer"></div>
+          <div class="node-inner"></div>
+        </div>
+        <div class="glass-card">
+          <div class="card-header-bar">
+            <span class="step-number">STEP</span> 03
+          </div>
+          <div class="card-emoji">🔄</div>
+          <div class="card-title">프로세스 혁신</div>
+          <div class="card-divider"></div>
+          <div class="card-desc">업무 자동화 및 데이터 기반 의사결정 체계 도입</div>
+          <div class="card-grid">
+            <div class="card-grid-cell"></div>
+            <div class="card-grid-cell"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="node">
+          <div class="node-outer"></div>
+          <div class="node-inner"></div>
+        </div>
+        <div class="glass-card">
+          <div class="card-header-bar">
+            <span class="step-number">STEP</span> 04
+          </div>
+          <div class="card-emoji">🚀</div>
+          <div class="card-title">스케일업</div>
+          <div class="card-divider"></div>
+          <div class="card-desc">AI/ML 적용 확대 및 전사 디지털 문화 정착</div>
+          <div class="card-grid">
+            <div class="card-grid-cell"></div>
+            <div class="card-grid-cell"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

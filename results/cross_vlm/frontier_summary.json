@@ -1,0 +1,26 @@
+{
+  "gpt-5.4": {
+    "n": 10,
+    "lted_mean": 0.6689979283608413,
+    "lted_std": 0.20844602177204188,
+    "recall_mean": 0.29984126984126985,
+    "recall_std": 0.11941319530057039,
+    "tokens_mean": 6015,
+    "tokens_total": 60150,
+    "cost_mean": 0.074518,
+    "cost_total": 0.74518,
+    "elapsed_mean": 85.30374412536621
+  },
+  "claude-4.6-opus": {
+    "n": 9,
+    "lted_mean": 0.677313443141699,
+    "lted_std": 0.18394620195917602,
+    "recall_mean": 0.31000881834215166,
+    "recall_std": 0.11443163664520631,
+    "tokens_mean": 7004,
+    "tokens_total": 63036,
+    "cost_mean": 0.4125,
+    "cost_total": 3.7125,
+    "elapsed_mean": 106.26442856258817
+  }
+}

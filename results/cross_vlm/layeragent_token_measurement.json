@@ -1,0 +1,313 @@
+{
+  "per_design": [
+    {
+      "design_id": "design_01_timeline",
+      "n_calls": 15,
+      "prompt_tokens": 33843,
+      "completion_tokens": 12060,
+      "total_tokens": 45903,
+      "cost_usd": 0.2052075,
+      "html_len": 12022,
+      "breakdown": [
+        {
+          "kind": "vision",
+          "pt": 1702,
+          "ct": 528
+        },
+        {
+          "kind": "vision",
+          "pt": 1860,
+          "ct": 336
+        },
+        {
+          "kind": "vision",
+          "pt": 1456,
+          "ct": 95
+        },
+        {
+          "kind": "vision",
+          "pt": 1464,
+          "ct": 177
+        },
+        {
+          "kind": "vision",
+          "pt": 1604,
+          "ct": 45
+        },
+        {
+          "kind": "vision",
+          "pt": 1700,
+          "ct": 367
+        },
+        {
+          "kind": "vision",
+          "pt": 1647,
+          "ct": 61
+        },
+        {
+          "kind": "vision",
+          "pt": 2413,
+          "ct": 592
+        },
+        {
+          "kind": "vision",
+          "pt": 1650,
+          "ct": 54
+        },
+        {
+          "kind": "vision",
+          "pt": 1653,
+          "ct": 34
+        },
+        {
+          "kind": "vision",
+          "pt": 2415,
+          "ct": 502
+        },
+        {
+          "kind": "vision",
+          "pt": 2416,
+          "ct": 625
+        },
+        {
+          "kind": "vision",
+          "pt": 2416,
+          "ct": 634
+        },
+        {
+          "kind": "text",
+          "pt": 4536,
+          "ct": 4131
+        },
+        {
+          "kind": "text",
+          "pt": 4911,
+          "ct": 3879
+        }
+      ]
+    },
+    {
+      "design_id": "design_05_hub_spoke",
+      "n_calls": 20,
+      "prompt_tokens": 47235,
+      "completion_tokens": 14831,
+      "total_tokens": 62066,
+      "cost_usd": 0.2663975,
+      "html_len": 10019,
+      "breakdown": [
+        {
+          "kind": "vision",
+          "pt": 1702,
+          "ct": 521
+        },
+        {
+          "kind": "vision",
+          "pt": 1855,
+          "ct": 341
+        },
+        {
+          "kind": "vision",
+          "pt": 1475,
+          "ct": 110
+        },
+        {
+          "kind": "vision",
+          "pt": 1537,
+          "ct": 39
+        },
+        {
+          "kind": "vision",
+          "pt": 1467,
+          "ct": 131
+        },
+        {
+          "kind": "vision",
+          "pt": 1518,
+          "ct": 261
+        },
+        {
+          "kind": "vision",
+          "pt": 1850,
+          "ct": 272
+        },
+        {
+          "kind": "vision",
+          "pt": 1580,
+          "ct": 61
+        },
+        {
+          "kind": "vision",
+          "pt": 2409,
+          "ct": 438
+        },
+        {
+          "kind": "vision",
+          "pt": 1584,
+          "ct": 54
+        },
+        {
+          "kind": "vision",
+          "pt": 1588,
+          "ct": 49
+        },
+        {
+          "kind": "vision",
+          "pt": 1591,
+          "ct": 35
+        },
+        {
+          "kind": "vision",
+          "pt": 2410,
+          "ct": 536
+        },
+        {
+          "kind": "vision",
+          "pt": 1594,
+          "ct": 41
+        },
+        {
+          "kind": "vision",
+          "pt": 2405,
+          "ct": 597
+        },
+        {
+          "kind": "vision",
+          "pt": 2410,
+          "ct": 521
+        },
+        {
+          "kind": "vision",
+          "pt": 2407,
+          "ct": 503
+        },
+        {
+          "kind": "vision",
+          "pt": 2403,
+          "ct": 601
+        },
+        {
+          "kind": "text",
+          "pt": 6529,
+          "ct": 6088
+        },
+        {
+          "kind": "text",
+          "pt": 6921,
+          "ct": 3632
+        }
+      ]
+    },
+    {
+      "design_id": "design_07_feature_grid",
+      "n_calls": 19,
+      "prompt_tokens": 43375,
+      "completion_tokens": 11588,
+      "total_tokens": 54963,
+      "cost_usd": 0.2243175,
+      "html_len": 14231,
+      "breakdown": [
+        {
+          "kind": "vision",
+          "pt": 1702,
+          "ct": 420
+        },
+        {
+          "kind": "vision",
+          "pt": 1978,
+          "ct": 338
+        },
+        {
+          "kind": "vision",
+          "pt": 1461,
+          "ct": 79
+        },
+        {
+          "kind": "vision",
+          "pt": 1537,
+          "ct": 37
+        },
+        {
+          "kind": "vision",
+          "pt": 1469,
+          "ct": 157
+        },
+        {
+          "kind": "vision",
+          "pt": 1465,
+          "ct": 396
+        },
+        {
+          "kind": "vision",
+          "pt": 1580,
+          "ct": 47
+        },
+        {
+          "kind": "vision",
+          "pt": 2413,
+          "ct": 612
+        },
+        {
+          "kind": "vision",
+          "pt": 1583,
+          "ct": 57
+        },
+        {
+          "kind": "vision",
+          "pt": 1586,
+          "ct": 57
+        },
+        {
+          "kind": "vision",
+          "pt": 1590,
+          "ct": 40
+        },
+        {
+          "kind": "vision",
+          "pt": 1594,
+          "ct": 45
+        },
+        {
+          "kind": "vision",
+          "pt": 2414,
+          "ct": 553
+        },
+        {
+          "kind": "vision",
+          "pt": 2417,
+          "ct": 520
+        },
+        {
+          "kind": "vision",
+          "pt": 2537,
+          "ct": 517
+        },
+        {
+          "kind": "vision",
+          "pt": 2556,
+          "ct": 536
+        },
+        {
+          "kind": "vision",
+          "pt": 2533,
+          "ct": 503
+        },
+        {
+          "kind": "text",
+          "pt": 5350,
+          "ct": 4756
+        },
+        {
+          "kind": "text",
+          "pt": 5610,
+          "ct": 1918
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "avg_calls": 18,
+    "avg_total_tokens": 54310.666666666664,
+    "avg_cost_usd": 0.23197416666666668,
+    "n_designs": 3
+  }
+}

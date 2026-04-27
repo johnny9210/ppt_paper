@@ -1,0 +1,532 @@
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #050816;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
+  }
+
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(90,120,255,.10), transparent 18%),
+      linear-gradient(90deg, #03152e 0%, #061c45 48%, #2a0a44 52%, #22063b 100%);
+  }
+
+  .slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(120,180,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,180,255,.08) 1px, transparent 1px);
+    background-size: 120px 120px, 120px 120px;
+    mask-image: radial-gradient(circle at center, black 20%, rgba(0,0,0,.65) 60%, transparent 100%);
+    opacity: .18;
+  }
+
+  .slide::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 640px;
+    border-radius: 999px;
+    background:
+      linear-gradient(180deg,
+        rgba(160,230,255,0) 0%,
+        rgba(120,220,255,.9) 10%,
+        rgba(255,255,255,.95) 50%,
+        rgba(220,120,255,.9) 90%,
+        rgba(220,120,255,0) 100%);
+    box-shadow:
+      0 0 18px rgba(122,214,255,.9),
+      0 0 40px rgba(122,214,255,.55),
+      0 0 80px rgba(210,111,255,.45);
+  }
+
+  .top-title {
+    position: absolute;
+    left: 50%;
+    top: 34px;
+    transform: translateX(-50%);
+    width: 850px;
+    height: 72px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #eef7ff;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    background: linear-gradient(90deg, rgba(95,170,255,.12), rgba(195,100,255,.12));
+    border: 2px solid rgba(165,210,255,.55);
+    box-shadow:
+      inset 0 0 24px rgba(255,255,255,.08),
+      0 0 18px rgba(110,190,255,.45),
+      0 0 30px rgba(187,96,255,.35);
+    text-shadow:
+      0 0 12px rgba(255,255,255,.25),
+      0 0 22px rgba(141,214,255,.4),
+      0 0 22px rgba(212,128,255,.35);
+  }
+
+  .top-title::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(90deg, rgba(86,197,255,.95), rgba(214,110,255,.95));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: .8;
+  }
+
+  .side-label {
+    position: absolute;
+    top: 120px;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: #f3f8ff;
+    text-shadow: 0 0 12px rgba(255,255,255,.25);
+  }
+  .side-label.left  { left: 175px; color: #bfe8ff; text-shadow: 0 0 14px rgba(102,200,255,.65); }
+  .side-label.right { right: 150px; color: #f0c8ff; text-shadow: 0 0 14px rgba(212,118,255,.65); }
+
+  .column {
+    position: absolute;
+    top: 145px;
+    width: 520px;
+  }
+  .column.left { left: 52px; }
+  .column.right { right: 52px; }
+
+  .item-row {
+    position: relative;
+    height: 128px;
+  }
+
+  .icon-wrap {
+    position: absolute;
+    top: 18px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .column.left .icon-wrap {
+    left: 14px;
+    border: 2px solid rgba(138,218,255,.95);
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,.22), rgba(255,255,255,.05) 35%, rgba(70,150,255,.10) 70%),
+      rgba(120,180,255,.08);
+    box-shadow:
+      inset 0 0 12px rgba(255,255,255,.12),
+      0 0 14px rgba(106,210,255,.9),
+      0 0 28px rgba(106,210,255,.45);
+  }
+
+  .column.right .icon-wrap {
+    left: 14px;
+    border: 2px solid rgba(227,140,255,.95);
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,.22), rgba(255,255,255,.05) 35%, rgba(200,100,255,.10) 70%),
+      rgba(190,110,255,.08);
+    box-shadow:
+      inset 0 0 12px rgba(255,255,255,.12),
+      0 0 14px rgba(221,126,255,.9),
+      0 0 28px rgba(221,126,255,.45);
+  }
+
+  .connector {
+    position: absolute;
+    top: 46px;
+    left: 78px;
+    width: 36px;
+    height: 4px;
+    border-radius: 999px;
+  }
+  .column.left .connector {
+    background: linear-gradient(90deg, rgba(110,210,255,1), rgba(110,210,255,.4));
+    box-shadow: 0 0 12px rgba(110,210,255,.75);
+  }
+  .column.right .connector {
+    background: linear-gradient(90deg, rgba(229,130,255,1), rgba(229,130,255,.4));
+    box-shadow: 0 0 12px rgba(229,130,255,.75);
+  }
+
+  .card {
+    position: absolute;
+    left: 108px;
+    top: 4px;
+    width: 332px;
+    height: 96px;
+    border-radius: 18px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    color: #eef6ff;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .column.left .card {
+    background: linear-gradient(180deg, rgba(140,190,255,.18), rgba(120,170,235,.10));
+    border: 2px solid rgba(111,208,255,.85);
+    box-shadow:
+      inset 0 0 16px rgba(255,255,255,.06),
+      0 0 16px rgba(99,198,255,.45);
+    color: #d9f0ff;
+  }
+
+  .column.right .card {
+    background: linear-gradient(180deg, rgba(218,145,255,.17), rgba(170,105,255,.10));
+    border: 2px solid rgba(228,131,255,.85);
+    box-shadow:
+      inset 0 0 16px rgba(255,255,255,.06),
+      0 0 16px rgba(221,118,255,.45);
+    color: #f3ddff;
+  }
+
+  .line-deco {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    top: 20px;
+    height: 12px;
+    border-radius: 999px;
+    opacity: .18;
+  }
+  .column.left .line-deco { background: rgba(210,238,255,.7); }
+  .column.right .line-deco { background: rgba(250,220,255,.7); }
+
+  .line-deco.two {
+    top: 42px;
+    height: 8px;
+    width: 82%;
+  }
+
+  .line-deco.three {
+    top: 60px;
+    height: 8px;
+    width: 62%;
+  }
+
+  .text {
+    position: relative;
+    z-index: 2;
+  }
+
+  .vs {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -40%);
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 54px;
+    font-weight: 900;
+    letter-spacing: -.04em;
+    color: #ffffff;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,.22), rgba(255,255,255,.08) 28%, rgba(70,20,100,.10) 72%),
+      linear-gradient(135deg, rgba(76,192,255,.22), rgba(218,102,255,.22));
+    border: 3px solid rgba(207,225,255,.55);
+    box-shadow:
+      inset 0 0 18px rgba(255,255,255,.14),
+      0 0 20px rgba(120,210,255,.45),
+      0 0 30px rgba(218,102,255,.35);
+    text-shadow:
+      0 0 10px rgba(255,255,255,.7),
+      0 0 18px rgba(96,213,255,.8),
+      0 0 18px rgba(220,124,255,.8);
+    z-index: 5;
+  }
+
+  .vs::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.16);
+  }
+
+  .vs::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 50%;
+    width: 3px;
+    transform: translateX(-50%) rotate(12deg);
+    background: linear-gradient(180deg, rgba(120,220,255,.95), rgba(235,120,255,.95));
+    box-shadow:
+      0 0 12px rgba(255,255,255,.4),
+      0 0 20px rgba(120,220,255,.35),
+      0 0 20px rgba(235,120,255,.35);
+    border-radius: 999px;
+    opacity: .9;
+  }
+
+  .icon {
+    position: relative;
+    width: 34px;
+    height: 34px;
+  }
+
+  .gear, .cloud, .shield, .search,
+  .bolt, .server, .lock, .target {
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+
+  .column.left .icon { color: #bfeaff; }
+  .column.right .icon { color: #f3c8ff; }
+
+  .gear::before, .gear::after,
+  .cloud::before, .cloud::after,
+  .shield::before, .shield::after,
+  .search::before, .search::after,
+  .bolt::before, .bolt::after,
+  .server::before, .server::after,
+  .lock::before, .lock::after,
+  .target::before, .target::after {
+    content: "";
+    position: absolute;
+  }
+
+  .gear::before {
+    inset: 8px;
+    border: 3px solid currentColor;
+    border-radius: 50%;
+  }
+  .gear::after {
+    inset: 1px;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 0deg,
+        currentColor 0 8%, transparent 8% 16%,
+        currentColor 16% 24%, transparent 24% 32%,
+        currentColor 32% 40%, transparent 40% 48%,
+        currentColor 48% 56%, transparent 56% 64%,
+        currentColor 64% 72%, transparent 72% 80%,
+        currentColor 80% 88%, transparent 88% 96%,
+        currentColor 96% 100%);
+    -webkit-mask: radial-gradient(circle, transparent 0 42%, #000 43% 62%, transparent 63%);
+  }
+
+  .cloud::before {
+    left: 4px; right: 4px; bottom: 8px; height: 16px;
+    border: 3px solid currentColor;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+  }
+  .cloud::after {
+    left: 5px; top: 8px; width: 24px; height: 14px;
+    border: 3px solid currentColor;
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 12px -6px 0 -3px currentColor;
+  }
+
+  .shield::before {
+    left: 8px; top: 4px; width: 18px; height: 24px;
+    border: 3px solid currentColor;
+    border-radius: 10px 10px 12px 12px;
+    clip-path: polygon(50% 0%, 100% 15%, 100% 65%, 50% 100%, 0% 65%, 0% 15%);
+  }
+  .shield::after {
+    left: 14px; top: 15px; width: 10px; height: 6px;
+    border-left: 3px solid currentColor;
+    border-bottom: 3px solid currentColor;
+    transform: rotate(-45deg);
+  }
+
+  .search::before {
+    left: 4px; top: 4px; width: 18px; height: 18px;
+    border: 3px solid currentColor;
+    border-radius: 50%;
+  }
+  .search::after {
+    right: 5px; bottom: 5px; width: 12px; height: 3px;
+    background: currentColor;
+    transform: rotate(45deg);
+    transform-origin: right center;
+    border-radius: 999px;
+  }
+
+  .bolt::before {
+    left: 12px; top: 3px; width: 10px; height: 28px;
+    background: currentColor;
+    clip-path: polygon(55% 0, 100% 0, 63% 42%, 100% 42%, 25% 100%, 45% 58%, 10% 58%);
+  }
+
+  .server::before {
+    left: 5px; top: 7px; width: 24px; height: 8px;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    box-shadow: 0 9px 0 0 rgba(0,0,0,0), 0 18px 0 0 rgba(0,0,0,0);
+  }
+  .server::after {
+    left: 5px; top: 16px; width: 24px; height: 8px;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    box-shadow: 0 9px 0 0 rgba(0,0,0,0);
+  }
+
+  .lock::before {
+    left: 9px; top: 14px; width: 16px; height: 14px;
+    border: 3px solid currentColor;
+    border-radius: 4px;
+  }
+  .lock::after {
+    left: 11px; top: 4px; width: 12px; height: 14px;
+    border: 3px solid currentColor;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .target::before {
+    inset: 4px;
+    border: 3px solid currentColor;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 6px transparent;
+  }
+  .target::after {
+    left: 17px; top: 5px; width: 12px; height: 3px;
+    background: currentColor;
+    transform: rotate(-35deg);
+    transform-origin: left center;
+    border-radius: 999px;
+    box-shadow: 8px -5px 0 0 currentColor;
+  }
+
+  .circuit-left, .circuit-right {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 240px;
+    opacity: .22;
+  }
+  .circuit-left {
+    left: 0;
+    background:
+      linear-gradient(90deg, transparent 0 18px, rgba(99,198,255,.55) 18px 20px, transparent 20px 100%),
+      linear-gradient(0deg, transparent 0 178px, rgba(99,198,255,.4) 178px 180px, transparent 180px 100%),
+      linear-gradient(0deg, transparent 0 416px, rgba(99,198,255,.4) 416px 418px, transparent 418px 100%);
+    background-repeat: no-repeat;
+    background-size: 240px 100%, 240px 100%, 240px 100%;
+  }
+  .circuit-right {
+    right: 0;
+    background:
+      linear-gradient(90deg, transparent 0 220px, rgba(221,118,255,.55) 220px 222px, transparent 222px 100%),
+      linear-gradient(0deg, transparent 0 178px, rgba(221,118,255,.4) 178px 180px, transparent 180px 100%),
+      linear-gradient(0deg, transparent 0 416px, rgba(221,118,255,.4) 416px 418px, transparent 418px 100%);
+    background-repeat: no-repeat;
+    background-size: 240px 100%, 240px 100%, 240px 100%;
+  }
+</style>
+
+<div class="slide">
+  <div class="circuit-left"></div>
+  <div class="circuit-right"></div>
+
+  <div class="top-title">온프레미스 vs 클라우드 네이티브</div>
+
+  <div class="side-label left">온프레미스</div>
+  <div class="side-label right">클라우드 네이티브</div>
+
+  <div class="column left">
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon gear"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">초기 투자비용 높음</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon cloud"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">확장에 수주~수개월 소요</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon shield"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">보안 직접 관리 필요</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon search"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">유지보수 인력 상시 필요</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vs">VS</div>
+
+  <div class="column right">
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon bolt"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">사용량 기반 과금</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon server"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">분 단위 자동 스케일링</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon lock"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">관리형 보안 서비스</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="icon-wrap"><div class="icon target"></div></div>
+      <div class="connector"></div>
+      <div class="card">
+        <div class="line-deco"></div><div class="line-deco two"></div><div class="line-deco three"></div>
+        <div class="text">인프라 자동화로 인력 절감</div>
+      </div>
+    </div>
+  </div>
+</div>

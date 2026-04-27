@@ -1,0 +1,504 @@
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #000; }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    background:
+      radial-gradient(ellipse at 50% 52%, rgba(40,70,170,.18) 0%, rgba(20,20,40,.08) 35%, rgba(0,0,0,0) 60%),
+      linear-gradient(180deg, #010205 0%, #02030a 35%, #040414 100%);
+    font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+    color: #fff;
+  }
+
+  .slide:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(60,90,255,.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(60,90,255,.14) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .35;
+    transform: perspective(900px) rotateX(76deg) translateY(220px) scale(1.6);
+    transform-origin: center;
+    filter: blur(.2px);
+  }
+
+  .slide:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 60%, rgba(120,180,255,.18), transparent 28%),
+      radial-gradient(circle at 55% 22%, rgba(255,120,80,.10), transparent 18%),
+      radial-gradient(circle at 70% 40%, rgba(130,255,170,.08), transparent 18%);
+    pointer-events: none;
+  }
+
+  .title {
+    position: absolute;
+    top: 36px;
+    left: 68px;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: rgba(255,255,255,.96);
+    text-shadow:
+      0 0 8px rgba(120,200,255,.35),
+      0 0 22px rgba(170,110,255,.18);
+    z-index: 20;
+  }
+
+  .stack {
+    position: absolute;
+    left: 128px;
+    top: 92px;
+    width: 980px;
+    height: 560px;
+    z-index: 5;
+  }
+
+  .base-glow {
+    position: absolute;
+    left: 180px;
+    bottom: 10px;
+    width: 620px;
+    height: 110px;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at center, rgba(112,70,255,.35) 0%, rgba(88,110,255,.18) 35%, rgba(0,0,0,0) 70%);
+    filter: blur(20px);
+  }
+
+  .plate {
+    position: absolute;
+    left: 0;
+    border-radius: 18px;
+    border: 2px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    overflow: hidden;
+  }
+  .plate .inner {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+  }
+  .plate .edge-glow {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 18px;
+    border-radius: 0 0 16px 16px;
+    filter: blur(8px);
+  }
+
+  .plate1 {
+    width: 980px;
+    height: 138px;
+    left: 4px;
+    top: 388px;
+    border-color: rgba(190,160,255,.22);
+    box-shadow:
+      0 0 0 1px rgba(140,90,255,.08) inset,
+      0 0 24px rgba(150,90,255,.20),
+      0 0 56px rgba(120,60,255,.14);
+    background:
+      linear-gradient(180deg, rgba(120,90,180,.16), rgba(30,30,80,.18)),
+      rgba(255,255,255,.03);
+  }
+  .plate1 .inner {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+      linear-gradient(90deg, rgba(170,100,255,.08), rgba(80,180,255,.05));
+  }
+  .plate1 .edge-glow {
+    background: linear-gradient(90deg, rgba(160,90,255,.55), rgba(120,150,255,.25), rgba(200,90,255,.55));
+  }
+
+  .plate2 {
+    width: 850px;
+    height: 128px;
+    left: 120px;
+    top: 218px;
+    border-color: rgba(140,190,255,.20);
+    box-shadow:
+      0 0 0 1px rgba(90,170,255,.08) inset,
+      0 0 24px rgba(80,140,255,.16),
+      0 0 48px rgba(100,130,255,.10);
+    background:
+      linear-gradient(180deg, rgba(60,90,180,.12), rgba(20,30,70,.14)),
+      rgba(255,255,255,.025);
+  }
+  .plate2 .inner {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)),
+      linear-gradient(90deg, rgba(90,170,255,.08), rgba(180,130,255,.05));
+  }
+  .plate2 .edge-glow {
+    background: linear-gradient(90deg, rgba(90,170,255,.28), rgba(130,170,255,.22), rgba(130,90,255,.32));
+  }
+
+  .plate3 {
+    width: 600px;
+    height: 138px;
+    left: 240px;
+    top: 76px;
+    border-color: rgba(220,240,180,.22);
+    box-shadow:
+      0 0 0 1px rgba(255,235,140,.08) inset,
+      0 0 30px rgba(255,220,120,.16),
+      0 0 56px rgba(180,255,150,.10);
+    background:
+      linear-gradient(180deg, rgba(180,190,120,.16), rgba(60,70,40,.14)),
+      rgba(255,255,255,.03);
+  }
+  .plate3 .inner {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)),
+      linear-gradient(90deg, rgba(255,220,120,.10), rgba(120,255,200,.08), rgba(100,180,255,.08));
+  }
+  .plate3 .edge-glow {
+    background: linear-gradient(90deg, rgba(255,220,120,.42), rgba(120,255,160,.35), rgba(120,180,255,.32));
+  }
+
+  .plate4 {
+    width: 430px;
+    height: 126px;
+    left: 360px;
+    top: 0px;
+    border-color: rgba(255,210,210,.28);
+    box-shadow:
+      0 0 0 1px rgba(255,160,170,.10) inset,
+      0 0 34px rgba(255,100,140,.20),
+      0 0 68px rgba(255,180,60,.14);
+    background:
+      linear-gradient(180deg, rgba(255,120,130,.18), rgba(255,170,70,.14)),
+      rgba(255,255,255,.04);
+  }
+  .plate4 .inner {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.04)),
+      linear-gradient(125deg,
+        rgba(255,110,140,.42) 0%,
+        rgba(255,120,100,.30) 22%,
+        rgba(255,210,100,.28) 48%,
+        rgba(120,255,140,.22) 72%,
+        rgba(90,180,255,.22) 100%);
+  }
+  .plate4 .edge-glow {
+    background: linear-gradient(90deg, rgba(255,100,150,.55), rgba(255,190,90,.55), rgba(120,170,255,.45));
+  }
+
+  .shine,
+  .shine2,
+  .shine3 {
+    position: absolute;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+    border-radius: 999px;
+    transform: rotate(-25deg);
+    filter: blur(.3px);
+    opacity: .7;
+  }
+  .plate4 .shine { width: 240px; top: 24px; left: 44px; }
+  .plate4 .shine2 { width: 200px; top: 56px; left: 150px; }
+  .plate4 .shine3 { width: 140px; top: 84px; left: 86px; }
+
+  .circuit,
+  .circuit2,
+  .circuit3,
+  .server-lines {
+    position: absolute;
+    inset: 0;
+    opacity: .18;
+    pointer-events: none;
+  }
+
+  .circuit {
+    background:
+      linear-gradient(90deg, transparent 0 8%, rgba(255,230,150,.35) 8% 8.3%, transparent 8.3% 20%, rgba(255,230,150,.2) 20% 20.25%, transparent 20.25% 100%),
+      linear-gradient(90deg, transparent 0 22%, rgba(255,230,150,.25) 22% 22.2%, transparent 22.2% 100%),
+      linear-gradient(0deg, transparent 0 38%, rgba(255,230,150,.28) 38% 38.4%, transparent 38.4% 100%),
+      linear-gradient(0deg, transparent 0 64%, rgba(255,230,150,.20) 64% 64.25%, transparent 64.25% 100%);
+  }
+
+  .circuit2 {
+    background:
+      linear-gradient(90deg, transparent 0 14%, rgba(120,200,255,.28) 14% 14.25%, transparent 14.25% 100%),
+      linear-gradient(90deg, transparent 0 48%, rgba(120,200,255,.18) 48% 48.2%, transparent 48.2% 100%),
+      linear-gradient(0deg, transparent 0 54%, rgba(120,200,255,.24) 54% 54.3%, transparent 54.3% 100%),
+      linear-gradient(0deg, transparent 0 30%, rgba(120,200,255,.18) 30% 30.2%, transparent 30.2% 100%);
+  }
+
+  .server-lines {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 64px, rgba(255,255,255,.02) 64px 66px, transparent 66px 100px),
+      repeating-linear-gradient(0deg, transparent 0 30px, rgba(255,255,255,.015) 30px 32px, transparent 32px 60px);
+  }
+
+  .rack {
+    position: absolute;
+    bottom: 20px;
+    width: 112px;
+    height: 88px;
+    border-radius: 6px;
+    background:
+      linear-gradient(180deg, rgba(15,18,30,.78), rgba(10,10,20,.66)),
+      rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: inset 0 0 12px rgba(255,255,255,.03);
+  }
+  .rack:before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 12px;
+    bottom: 12px;
+    background:
+      repeating-linear-gradient(180deg,
+        rgba(160,180,255,.18) 0 4px,
+        rgba(255,255,255,.02) 4px 12px);
+    opacity: .45;
+    border-radius: 3px;
+  }
+  .r1 { left: 44px; }
+  .r2 { left: 214px; }
+  .r3 { left: 372px; }
+  .r4 { left: 540px; }
+  .r5 { left: 710px; }
+  .r6 { left: 836px; width: 90px; }
+
+  .connector-wrap {
+    position: absolute;
+    left: 820px;
+    top: 34px;
+    width: 390px;
+    height: 460px;
+    z-index: 3;
+  }
+  .wire {
+    position: absolute;
+    right: 0;
+    border: 4px solid;
+    border-left: none;
+    border-radius: 0 18px 18px 0;
+    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 16px currentColor);
+    opacity: .95;
+  }
+  .wire:before, .wire:after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+  }
+
+  .w1 { top: 26px; width: 338px; height: 132px; color: #ff7a86; }
+  .w1:before { left: -168px; top: -4px; }
+  .w1:after { left: -138px; top: -4px; }
+
+  .w2 { top: 44px; width: 320px; height: 144px; color: #ffb25b; }
+  .w2:before { left: -132px; top: 90px; }
+  .w2:after { left: -232px; top: -4px; }
+
+  .w3 { top: 162px; width: 314px; height: 136px; color: #c8ef68; }
+  .w3:before { left: -146px; top: -4px; }
+  .w3:after { left: -114px; top: -4px; }
+
+  .w4 { top: 300px; width: 306px; height: 122px; color: #6fc4ff; }
+  .w4:before { left: -150px; top: -4px; }
+  .w4:after { left: -116px; top: -4px; }
+
+  .w5 { top: 306px; width: 336px; height: 144px; color: #8f7cff; }
+  .w5:before { left: -6px; top: -4px; }
+  .w5:after { left: -262px; top: -4px; }
+
+  .w6 { top: 216px; width: 280px; height: 132px; color: #71ffd5; opacity: .82; }
+  .w6:before { left: -8px; top: 60px; }
+  .w6:after { left: -250px; top: 60px; }
+
+  .label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(9,12,28,.28);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.03),
+      0 0 18px rgba(0,0,0,.16);
+    color: rgba(255,255,255,.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .label .emoji {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 22px;
+    background: rgba(255,255,255,.08);
+    box-shadow: inset 0 0 10px rgba(255,255,255,.06);
+    flex: none;
+  }
+  .label .text { line-height: 1.15; }
+  .label .ltitle {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .label .desc {
+    font-size: 13px;
+    color: rgba(255,255,255,.72);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .l1 {
+    left: 805px;
+    top: 4px;
+    min-width: 320px;
+    box-shadow:
+      0 0 18px rgba(255,120,120,.16),
+      inset 0 0 0 1px rgba(255,255,255,.03);
+  }
+  .l1 .emoji { background: linear-gradient(135deg, rgba(255,110,130,.22), rgba(255,185,90,.16)); }
+
+  .l2 {
+    left: 745px;
+    top: 132px;
+    min-width: 352px;
+    box-shadow:
+      0 0 18px rgba(220,255,120,.12),
+      inset 0 0 0 1px rgba(255,255,255,.03);
+  }
+  .l2 .emoji { background: linear-gradient(135deg, rgba(255,230,100,.18), rgba(130,255,140,.16)); }
+
+  .l3 {
+    left: 682px;
+    top: 274px;
+    min-width: 414px;
+    box-shadow:
+      0 0 18px rgba(120,190,255,.14),
+      inset 0 0 0 1px rgba(255,255,255,.03);
+  }
+  .l3 .emoji { background: linear-gradient(135deg, rgba(120,210,255,.18), rgba(120,140,255,.16)); }
+
+  .l4 {
+    left: 620px;
+    top: 442px;
+    min-width: 520px;
+    box-shadow:
+      0 0 18px rgba(180,120,255,.14),
+      inset 0 0 0 1px rgba(255,255,255,.03);
+  }
+  .l4 .emoji { background: linear-gradient(135deg, rgba(180,120,255,.20), rgba(120,170,255,.14)); }
+
+  .level-badge {
+    position: absolute;
+    right: 16px;
+    top: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,.54);
+    letter-spacing: .08em;
+  }
+</style>
+
+<div class="slide">
+  <div class="title">시스템 아키텍처 스택</div>
+
+  <div class="stack">
+    <div class="base-glow"></div>
+
+    <div class="plate plate1">
+      <div class="inner"></div>
+      <div class="server-lines"></div>
+      <div class="rack r1"></div>
+      <div class="rack r2"></div>
+      <div class="rack r3"></div>
+      <div class="rack r4"></div>
+      <div class="rack r5"></div>
+      <div class="rack r6"></div>
+      <div class="edge-glow"></div>
+    </div>
+
+    <div class="plate plate2">
+      <div class="inner"></div>
+      <div class="circuit2"></div>
+      <div class="edge-glow"></div>
+    </div>
+
+    <div class="plate plate3">
+      <div class="inner"></div>
+      <div class="circuit"></div>
+      <div class="edge-glow"></div>
+    </div>
+
+    <div class="plate plate4">
+      <div class="inner"></div>
+      <div class="shine"></div>
+      <div class="shine2"></div>
+      <div class="shine3"></div>
+      <div class="edge-glow"></div>
+    </div>
+
+    <div class="connector-wrap">
+      <div class="wire w1"></div>
+      <div class="wire w2"></div>
+      <div class="wire w3"></div>
+      <div class="wire w4"></div>
+      <div class="wire w5"></div>
+      <div class="wire w6"></div>
+    </div>
+
+    <div class="label l1">
+      <div class="emoji">🎨</div>
+      <div class="text">
+        <div class="ltitle">프레젠테이션 계층</div>
+        <div class="desc">React + Ant Design UI</div>
+      </div>
+      <div class="level-badge">LEVEL 1</div>
+    </div>
+
+    <div class="label l2">
+      <div class="emoji">⚡</div>
+      <div class="text">
+        <div class="ltitle">API 계층</div>
+        <div class="desc">Express Gateway + Moleculer</div>
+      </div>
+      <div class="level-badge">LEVEL 2</div>
+    </div>
+
+    <div class="label l3">
+      <div class="emoji">🧠</div>
+      <div class="text">
+        <div class="ltitle">서비스 계층</div>
+        <div class="desc">FastAPI + LangGraph AI 에이전트</div>
+      </div>
+      <div class="level-badge">LEVEL 3</div>
+    </div>
+
+    <div class="label l4">
+      <div class="emoji">💾</div>
+      <div class="text">
+        <div class="ltitle">인프라 계층</div>
+        <div class="desc">MongoDB + OpenSearch + Redis + MinIO</div>
+      </div>
+      <div class="level-badge">LEVEL 4</div>
+    </div>
+  </div>
+</div>

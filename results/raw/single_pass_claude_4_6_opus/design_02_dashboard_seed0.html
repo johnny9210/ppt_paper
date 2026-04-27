@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #0a0e1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: radial-gradient(ellipse at center, #0f1a2e 0%, #070b16 60%, #050810 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(ellipse at 10% 50%, rgba(0, 200, 220, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 50%, rgba(0, 200, 220, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .dot-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+  }
+
+  .title-section {
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 220, 255, 0.3);
+  }
+
+  .title-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    gap: 0;
+  }
+
+  .title-line-left,
+  .title-line-right {
+    height: 2px;
+    width: 380px;
+    position: relative;
+  }
+
+  .title-line-left {
+    background: linear-gradient(to right, transparent, #00e5ff);
+  }
+
+  .title-line-right {
+    background: linear-gradient(to left, transparent, #00e5ff);
+  }
+
+  .title-line-center {
+    width: 80px;
+    height: 8px;
+    position: relative;
+  }
+
+  .title-line-center::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1.5px solid #00e5ff;
+    border-radius: 4px;
+    clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  }
+
+  .metrics-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .metric-card {
+    width: 340px;
+    height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .metric-icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 229, 255, 0.5);
+    background: rgba(10, 20, 40, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    position: relative;
+    z-index: 3;
+    margin-bottom: -32px;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2), inset 0 0 15px rgba(0, 229, 255, 0.05);
+  }
+
+  .metric-box {
+    width: 100%;
+    height: 140px;
+    border: 1.5px solid rgba(0, 229, 255, 0.3);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(0, 40, 60, 0.4) 0%, rgba(5, 15, 30, 0.6) 100%);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.08), inset 0 0 30px rgba(0, 229, 255, 0.03);
+  }
+
+  .metric-box::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    right: 20px;
+    height: 1.5px;
+    background: linear-gradient(to right, transparent, rgba(0, 229, 255, 0.6), transparent);
+  }
+
+  .metric-title {
+    font-size: 13px;
+    color: rgba(0, 229, 255, 0.7);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+
+  .metric-value {
+    font-size: 42px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(0, 229, 255, 0.5), 0 0 60px rgba(0, 229, 255, 0.2);
+    letter-spacing: 2px;
+    line-height: 1.1;
+  }
+
+  .metric-change-bar {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .change-line {
+    width: 60px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(to right, #00e5ff, #00b8d4);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  }
+
+  .change-text {
+    font-size: 11px;
+    color: #00e5ff;
+    font-weight: 700;
+  }
+
+  .chart-section {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    border: 1.5px solid rgba(0, 229, 255, 0.25);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(0, 40, 60, 0.3) 0%, rgba(5, 15, 30, 0.5) 100%);
+    padding: 25px 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.06), inset 0 0 30px rgba(0, 229, 255, 0.02);
+    overflow: hidden;
+  }
+
+  .chart-section::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgba(0, 229, 255, 0.6), rgba(0, 229, 255, 0.1), rgba(0, 229, 255, 0.6));
+  }
+
+  .chart-title {
+    font-size: 14px;
+    color: rgba(0, 229, 255, 0.7);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+  }
+
+  .chart-area {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .chart-grid {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    right: 10px;
+    bottom: 25px;
+  }
+
+  .grid-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0, 229, 255, 0.08);
+  }
+
+  .grid-line:nth-child(1) { top: 0%; }
+  .grid-line:nth-child(2) { top: 25%; }
+  .grid-line:nth-child(3) { top: 50%; }
+  .grid-line:nth-child(4) { top: 75%; }
+  .grid-line:nth-child(5) { top: 100%; }
+
+  .chart-y-labels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 25px;
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .y-label {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: right;
+  }
+
+  .chart-x-labels {
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+    right: 10px;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .x-label {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.3);
+    position: relative;
+  }
+
+  .x-label::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(0, 229, 255, 0.4);
+    transform: translateX(-50%);
+  }
+
+  .chart-lines {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    right: 10px;
+    bottom: 25px;
+  }
+
+  .line-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .chart-line-1 {
+    fill: none;
+    stroke: #00e5ff;
+    stroke-width: 2;
+    filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.5));
+  }
+
+  .chart-line-2 {
+    fill: none;
+    stroke: #00ff88;
+    stroke-width: 2;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 4px rgba(0, 255, 136, 0.4));
+  }
+
+  .chart-line-3 {
+    fill: none;
+    stroke: #4488ff;
+    stroke-width: 2;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 4px rgba(68, 136, 255, 0.4));
+  }
+
+  .chart-fill-1 {
+    fill: url(#grad1);
+    opacity: 0.15;
+  }
+
+  .chart-fill-2 {
+    fill: url(#grad2);
+    opacity: 0.08;
+  }
+
+  .chart-dot {
+    fill: #00e5ff;
+    filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.8));
+  }
+
+  .chart-dot-2 {
+    fill: #00ff88;
+    filter: drop-shadow(0 0 3px rgba(0, 255, 136, 0.6));
+  }
+
+  .chart-dot-3 {
+    fill: #4488ff;
+    filter: drop-shadow(0 0 3px rgba(68, 136, 255, 0.6));
+  }
+
+  .glow-corner-tl {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 60px;
+    height: 60px;
+    border-top: 2px solid rgba(0, 229, 255, 0.6);
+    border-left: 2px solid rgba(0, 229, 255, 0.6);
+    border-radius: 12px 0 0 0;
+    pointer-events: none;
+  }
+
+  .glow-corner-br {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 60px;
+    height: 60px;
+    border-bottom: 2px solid rgba(0, 229, 255, 0.6);
+    border-right: 2px solid rgba(0, 229, 255, 0.6);
+    border-radius: 0 0 12px 0;
+    pointer-events: none;
+  }
+
+  .ambient-glow-left {
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(0, 229, 255, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .ambient-glow-right {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(0, 229, 255, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="dot-pattern"></div>
+    <div class="ambient-glow-left"></div>
+    <div class="ambient-glow-right"></div>
+
+    <div class="title-section">
+      <div class="title">Q4 2025 비즈니스 성과 대시보드</div>
+      <div class="title-line">
+        <div class="title-line-left"></div>
+        <div class="title-line-center"></div>
+        <div class="title-line-right"></div>
+      </div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-icon-circle">💰</div>
+        <div class="metric-box">
+          <div class="metric-title">매출</div>
+          <div class="metric-value">₩128억</div>
+          <div class="metric-change-bar">
+            <div class="change-line"></div>
+            <div class="change-text">+23% YoY</div>
+          </div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon-circle">👥</div>
+        <div class="metric-box">
+          <div class="metric-title">활성 사용자</div>
+          <div class="metric-value">2.4M</div>
+          <div class="metric-change-bar">
+            <div class="change-line"></div>
+            <div class="change-text">+15% MoM</div>
+          </div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon-circle">⭐</div>
+        <div class="metric-box">
+          <div class="metric-title">고객 만족도</div>
+          <div class="metric-value">4.7/5.0</div>
+          <div class="metric-change-bar">
+            <div class="change-line"></div>
+            <div class="change-text">+0.3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-section">
+      <div class="glow-corner-tl"></div>
+      <div class="glow-corner-br"></div>
+      <div class="chart-title">월별 매출 추이</div>
+      <div class="chart-area">
+        <div class="chart-y-labels">
+          <div class="y-label">160</div>
+          <div class="y-label">120</div>
+          <div class="y-label">80</div>
+          <div class="y-label">40</div>
+          <div class="y-label">0</div>
+        </div>
+        <div class="chart-grid">
+          <div class="grid-line" style="top: 0%"></div>
+          <div class="grid-line" style="top: 25%"></div>
+          <div class="grid-line" style="top: 50%"></div>
+          <div class="grid-line" style="top: 75%"></div>
+          <div class="grid-line" style="top: 100%"></div>
+        </div>
+        <div class="chart-x-labels">
+          <div class="x-label">1월</div>
+          <div class="x-label">2월</div>
+          <div class="x-label">3월</div>
+          <div class="x-label">4월</div>
+          <div class="x-label">5월</div>
+          <div class="x-label">6월</div>
+          <div class="x-label">7월</div>
+          <div class="x-label">8월</div>
+          <div class="x-label">9월</div>
+          <div class="x-label">10월</div>
+          <div class="x-label">11월</div>
+          <div class="x-label">12월</div>
+        </div>
+        <div class="chart-lines">
+          <svg class="line-svg" viewBox="0 0 1100 180" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" style="stop-color:#00e5ff;stop-opacity:0.4"/>
+                <stop offset="100%" style="stop-color:#00e5ff;stop-opacity:0"/>
+              </linearGradient>
+              <linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" style="stop-color:#00ff88;stop-opacity:0.3"/>
+                <stop offset="100%" style="stop-color:#00ff88;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Fill area for line 1 -->
+            <polygon class="chart-fill-1" points="0,155 100,140 200,125 300,115 400,105 500,95 600,80 700,75 800,60 900,55 1000,35 1100,20 1100,180 0,180"/>
+
+            <!-- Fill area for line 2 -->
+            <polygon class="chart-fill-2" points="0,165 100,155 200,148 300,140 400,130 500,120 600,112 700,100 800,95 900,80 1000,70 1100,45 1100,180 0,180"/>
+
+            <!-- Line 3 - blue -->
+            <polyline class="chart-line-3" points="0,160 100,148 200,138 300,145 400,125 500,118 600,105 700,110 800,90 900,85 1000,55 1100,30"/>
+
+            <!-- Line 2 - green -->
+            <polyline class="chart-line-2" points="0,165 100,155 200,148 300,140 400,130 500,120 600,112 700,100 800,95 900,80 1000,70 1100,45"/>
+
+            <!-- Line 1 - cyan (main) -->
+            <polyline class="chart-line-1" points="0,155 100,140 200,125 300,115 400,105 500,95 600,80 700,75 800,60 900,55 1000,35 1100,20"/>
+
+            <!-- Dots line 1 -->
+            <circle class="chart-dot" cx="0" cy="155" r="3.5"/>
+            <circle class="chart-dot" cx="100" cy="140" r="3.5"/>
+            <circle class="chart-dot" cx="200" cy="125" r="3.5"/>
+            <circle class="chart-dot" cx="300" cy="115" r="3.5"/>
+            <circle class="chart-dot" cx="400" cy="105" r="3.5"/>
+            <circle class="chart-dot" cx="500" cy="95" r="3.5"/>
+            <circle class="chart-dot" cx="600" cy="80" r="3.5"/>
+            <circle class="chart-dot" cx="700" cy="75" r="3.5"/>
+            <circle class="chart-dot" cx="800" cy="60" r="3.5"/>
+            <circle class="chart-dot" cx="900" cy="55" r="3.5"/>
+            <circle class="chart-dot" cx="1000" cy="35" r="3.5"/>
+            <circle class="chart-dot" cx="1100" cy="20" r="3.5"/>
+
+            <!-- Dots line 2 -->
+            <circle class="chart-dot-2" cx="0" cy="165" r="3"/>
+            <circle class="chart-dot-2" cx="100" cy="155" r="3"/>
+            <circle class="chart-dot-2" cx="200" cy="148" r="3"/>
+            <circle class="chart-dot-2" cx="300" cy="140" r="3"/>
+            <circle class="chart-dot-2" cx="400" cy="130" r="3"/>
+            <circle class="chart-dot-2" cx="500" cy="120" r="3"/>
+            <circle class="chart-dot-2" cx="600" cy="112" r="3"/>
+            <circle class="chart-dot-2" cx="700" cy="100" r="3"/>
+            <circle class="chart-dot-2" cx="800" cy="95" r="3"/>
+            <circle class="chart-dot-2" cx="900" cy="80" r="3"/>
+            <circle class="chart-dot-2" cx="1000" cy="70" r="3"/>
+            <circle class="chart-dot-2" cx="1100" cy="45" r="3"/>
+
+            <!-- Dots line 3 -->
+            <circle class="chart-dot-3" cx="0" cy="160" r="2.5"/>
+            <circle class="chart-dot-3" cx="100" cy="148" r="2.5"/>
+            <circle class="chart-dot-3" cx="200" cy="138" r="2.5"/>
+            <circle class="chart-dot-3" cx="300" cy="145" r="2.5"/>
+            <circle class="chart-dot-3" cx="400" cy="125" r="2.5"/>
+            <circle class="chart-dot-3" cx="500" cy="118" r="2.5"/>
+            <circle class="chart-dot-3" cx="600" cy="105" r="2.5"/>
+            <circle class="chart-dot-3" cx="700" cy="110" r="2.5"/>
+            <circle class="chart-dot-3" cx="800" cy="90" r="2.5"/>
+            <circle class="chart-dot-3" cx="900" cy="85" r="2.5"/>
+            <circle class="chart-dot-3" cx="1000" cy="55" r="2.5"/>
+            <circle class="chart-dot-3" cx="1100" cy="30" r="2.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

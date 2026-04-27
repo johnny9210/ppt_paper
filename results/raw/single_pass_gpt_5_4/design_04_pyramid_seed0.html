@@ -1,0 +1,331 @@
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0a0f1f; font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto;
+    overflow: hidden;
+    color: #f5f7fb;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(238,186,92,0.35) 0%, rgba(238,186,92,0.12) 16%, rgba(238,186,92,0.03) 28%, rgba(0,0,0,0) 42%),
+      radial-gradient(circle at 8% 50%, rgba(237,170,55,0.28) 0%, rgba(237,170,55,0.07) 18%, rgba(0,0,0,0) 36%),
+      radial-gradient(circle at 92% 50%, rgba(237,170,55,0.22) 0%, rgba(237,170,55,0.06) 18%, rgba(0,0,0,0) 34%),
+      radial-gradient(circle at 22% 18%, rgba(49,86,180,0.18) 0%, rgba(0,0,0,0) 28%),
+      radial-gradient(circle at 82% 78%, rgba(12,49,164,0.25) 0%, rgba(0,0,0,0) 30%),
+      linear-gradient(90deg, #121821 0%, #1b2231 28%, #22262f 48%, #1c2433 68%, #101723 100%);
+  }
+
+  .frame,
+  .frame:before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    border: 1px solid rgba(226, 186, 103, 0.65);
+  }
+  .frame {
+    inset: 22px;
+    box-shadow:
+      inset 0 0 30px rgba(221, 173, 76, 0.08),
+      0 0 40px rgba(214, 160, 58, 0.08);
+  }
+  .frame:before { inset: 12px; }
+
+  .geo {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(58deg, transparent 49.4%, rgba(214,171,88,0.22) 49.8%, rgba(214,171,88,0.22) 50.2%, transparent 50.6%) 830px 20px/140px 120px no-repeat,
+      linear-gradient(-58deg, transparent 49.4%, rgba(214,171,88,0.22) 49.8%, rgba(214,171,88,0.22) 50.2%, transparent 50.6%) 930px 18px/140px 120px no-repeat,
+      linear-gradient(58deg, transparent 49.4%, rgba(214,171,88,0.22) 49.8%, rgba(214,171,88,0.22) 50.2%, transparent 50.6%) 1015px 55px/160px 135px no-repeat,
+      linear-gradient(-58deg, transparent 49.4%, rgba(214,171,88,0.22) 49.8%, rgba(214,171,88,0.22) 50.2%, transparent 50.6%) 1095px 48px/160px 135px no-repeat,
+      linear-gradient(58deg, transparent 49.4%, rgba(214,171,88,0.22) 49.8%, rgba(214,171,88,0.22) 50.2%, transparent 50.6%) 900px 150px/180px 150px no-repeat,
+      linear-gradient(-58deg, transparent 49.4%, rgba(214,171,88,0.22) 49.8%, rgba(214,171,88,0.22) 50.2%, transparent 50.6%) 1030px 150px/180px 150px no-repeat,
+      linear-gradient(0deg, rgba(214,171,88,0.18), rgba(214,171,88,0.18)) 860px 110px/360px 1px no-repeat,
+      linear-gradient(0deg, rgba(214,171,88,0.18), rgba(214,171,88,0.18)) 805px 220px/430px 1px no-repeat,
+      linear-gradient(90deg, rgba(214,171,88,0.15), rgba(214,171,88,0.15)) 1070px 18px/1px 255px no-repeat,
+      linear-gradient(58deg, transparent 49.4%, rgba(214,171,88,0.12) 49.8%, rgba(214,171,88,0.12) 50.2%, transparent 50.6%) -50px 450px/160px 160px no-repeat,
+      linear-gradient(-58deg, transparent 49.4%, rgba(214,171,88,0.12) 49.8%, rgba(214,171,88,0.12) 50.2%, transparent 50.6%) 0px 560px/160px 160px no-repeat,
+      linear-gradient(90deg, rgba(214,171,88,0.12), rgba(214,171,88,0.12)) 60px 460px/1px 220px no-repeat;
+    opacity: .9;
+  }
+
+  .title {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: rgba(255,255,255,0.94);
+    text-shadow: 0 2px 18px rgba(255,214,128,0.12);
+  }
+
+  .tree {
+    position: absolute;
+    inset: 120px 90px 70px 90px;
+  }
+
+  .connectors {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .line {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(248,218,151,0.35), rgba(255,238,188,0.9), rgba(248,218,151,0.35));
+    box-shadow: 0 0 10px rgba(255,219,124,0.35);
+    border-radius: 2px;
+  }
+  .line.v {
+    width: 2px;
+    background: linear-gradient(180deg, rgba(248,218,151,0.35), rgba(255,238,188,0.95), rgba(248,218,151,0.35));
+  }
+  .line.h {
+    height: 2px;
+  }
+
+  .card {
+    position: absolute;
+    border-radius: 14px;
+    padding: 18px 22px 16px;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.1) 22%, rgba(255,255,255,0.05) 48%, rgba(255,255,255,0.12) 100%);
+    border: 1px solid rgba(255,255,255,0.28);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.35),
+      inset 0 -14px 28px rgba(255,255,255,0.03),
+      0 10px 28px rgba(0,0,0,0.28),
+      0 0 24px rgba(255,212,120,0.08);
+    backdrop-filter: blur(4px);
+    overflow: hidden;
+  }
+  .card:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.22) 0 18%, rgba(255,255,255,0.06) 18% 42%, transparent 42%),
+      linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+    pointer-events: none;
+  }
+  .card:after {
+    content: "";
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    bottom: -6px;
+    height: 18px;
+    background: radial-gradient(ellipse at center, rgba(255,218,131,0.8) 0%, rgba(255,218,131,0.25) 38%, rgba(255,218,131,0) 75%);
+    filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .top-gold .bar,
+  .bottom-copper .bar,
+  .mid-silver .bar {
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 22px;
+    border-radius: 14px 14px 0 0;
+  }
+  .top-gold .bar {
+    background: linear-gradient(90deg, #9f7530 0%, #d9b76a 14%, #f5df9b 50%, #d0aa58 86%, #9f7530 100%);
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.4);
+  }
+  .mid-silver .bar {
+    background: linear-gradient(90deg, #8f959f 0%, #cfd4da 14%, #f4f7fa 50%, #bcc2ca 86%, #8f959f 100%);
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.5);
+  }
+  .bottom-copper .bar {
+    background: linear-gradient(90deg, #8d5b39 0%, #be8357 16%, #f0c594 50%, #b9784d 84%, #8d5b39 100%);
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.35);
+  }
+
+  .icon {
+    position: relative;
+    z-index: 2;
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 0 14px rgba(255,224,143,0.22);
+  }
+  .level {
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: rgba(255,239,204,0.78);
+    margin-bottom: 6px;
+  }
+  .card-title {
+    position: relative;
+    z-index: 2;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .card-desc {
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    line-height: 1.45;
+    color: rgba(245,247,251,0.86);
+  }
+
+  .top-card {
+    width: 270px;
+    height: 166px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    text-align: center;
+    padding-top: 42px;
+  }
+
+  .mid-left, .mid-right {
+    width: 285px;
+    height: 165px;
+    top: 210px;
+    padding-top: 42px;
+  }
+  .mid-left { left: 200px; }
+  .mid-right { right: 200px; }
+
+  .bottom-left, .bottom-center, .bottom-right {
+    width: 312px;
+    height: 160px;
+    top: 415px;
+    padding-top: 42px;
+  }
+  .bottom-left { left: 20px; }
+  .bottom-center { left: 50%; transform: translateX(-50%); }
+  .bottom-right { right: 20px; }
+
+  .mid-left .card-title, .mid-right .card-title,
+  .bottom-left .card-title, .bottom-center .card-title, .bottom-right .card-title {
+    font-size: 22px;
+  }
+
+  .mid-left .card-desc, .mid-right .card-desc,
+  .bottom-left .card-desc, .bottom-center .card-desc, .bottom-right .card-desc {
+    font-size: 13px;
+  }
+
+  .circuit {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .45;
+  }
+  .circuit.bottom-left {
+    background:
+      linear-gradient(0deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 145px 68px/95px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 239px 68px/1px 18px no-repeat,
+      linear-gradient(0deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 239px 86px/48px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 286px 86px/1px 19px no-repeat,
+      linear-gradient(0deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 200px 105px/87px 1px no-repeat;
+  }
+  .circuit.bottom-center {
+    background:
+      linear-gradient(0deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 0 50px/92px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 91px 50px/1px 18px no-repeat,
+      linear-gradient(0deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 91px 68px/66px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 156px 68px/1px 12px no-repeat,
+      linear-gradient(0deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 156px 80px/160px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 230px 28px/1px 22px no-repeat,
+      linear-gradient(0deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 190px 28px/120px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.24), rgba(230,194,128,0.24)) 265px 28px/1px 22px no-repeat;
+  }
+  .circuit.bottom-right {
+    background:
+      linear-gradient(0deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 0 66px/95px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 94px 66px/1px 18px no-repeat,
+      linear-gradient(0deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 94px 84px/50px 1px no-repeat,
+      linear-gradient(90deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 143px 84px/1px 16px no-repeat,
+      linear-gradient(0deg, rgba(230,194,128,0.22), rgba(230,194,128,0.22)) 143px 100px/70px 1px no-repeat;
+  }
+</style>
+
+<div class="slide">
+  <div class="frame"></div>
+  <div class="geo"></div>
+  <div class="title">데이터 거버넌스 프레임워크</div>
+
+  <div class="tree">
+    <div class="connectors">
+      <div class="line v" style="left:50%; top:150px; height:38px; transform:translateX(-50%);"></div>
+      <div class="line h" style="left:343px; top:188px; width:504px;"></div>
+      <div class="line v" style="left:343px; top:188px; height:22px;"></div>
+      <div class="line v" style="left:847px; top:188px; height:22px;"></div>
+
+      <div class="line v" style="left:343px; top:375px; height:18px;"></div>
+      <div class="line h" style="left:176px; top:393px; width:500px;"></div>
+      <div class="line v" style="left:176px; top:393px; height:22px;"></div>
+      <div class="line v" style="left:509px; top:393px; height:22px;"></div>
+      <div class="line v" style="left:676px; top:393px; height:22px;"></div>
+
+      <div class="line v" style="left:847px; top:375px; height:18px;"></div>
+      <div class="line h" style="left:676px; top:393px; width:338px;"></div>
+      <div class="line v" style="left:1014px; top:393px; height:22px;"></div>
+    </div>
+
+    <div class="card top-card top-gold">
+      <div class="bar"></div>
+      <div class="icon">👑</div>
+      <div class="level">Strategic</div>
+      <div class="card-title">데이터 전략</div>
+      <div class="card-desc">경영진 주도 데이터 비전 및 정책 수립</div>
+    </div>
+
+    <div class="card mid-left mid-silver">
+      <div class="bar"></div>
+      <div class="icon">📋</div>
+      <div class="level">Tactical</div>
+      <div class="card-title">품질 관리</div>
+      <div class="card-desc">데이터 표준화 및 품질 모니터링</div>
+    </div>
+
+    <div class="card mid-right mid-silver">
+      <div class="bar"></div>
+      <div class="icon">🔐</div>
+      <div class="level">Tactical</div>
+      <div class="card-title">보안 통제</div>
+      <div class="card-desc">접근 권한 및 개인정보 보호</div>
+    </div>
+
+    <div class="card bottom-left bottom-copper">
+      <div class="bar"></div>
+      <div class="circuit bottom-left"></div>
+      <div class="icon">🗄️</div>
+      <div class="level">Operational</div>
+      <div class="card-title">수집</div>
+      <div class="card-desc">원천 데이터 통합</div>
+    </div>
+
+    <div class="card bottom-center bottom-copper">
+      <div class="bar"></div>
+      <div class="circuit bottom-center"></div>
+      <div class="icon">⚙️</div>
+      <div class="level">Operational</div>
+      <div class="card-title">처리</div>
+      <div class="card-desc">ETL 파이프라인</div>
+    </div>
+
+    <div class="card bottom-right bottom-copper">
+      <div class="bar"></div>
+      <div class="circuit bottom-right"></div>
+      <div class="icon">📈</div>
+      <div class="level">Operational</div>
+      <div class="card-title">분석</div>
+      <div class="card-desc">BI 대시보드 운영</div>
+    </div>
+  </div>
+</div>

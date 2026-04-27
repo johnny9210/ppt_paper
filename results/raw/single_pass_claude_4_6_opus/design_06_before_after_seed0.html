@@ -1,0 +1,494 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: linear-gradient(135deg, #0a0e1a 0%, #0d1525 30%, #0a1a2a 50%, #0d1f2d 70%, #0a1520 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(255, 60, 30, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 50%, rgba(0, 200, 150, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    z-index: 2;
+    letter-spacing: -0.5px;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    z-index: 2;
+    flex: 1;
+    width: 100%;
+    padding: 0 40px 30px;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 420px;
+  }
+
+  .column-label {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    padding: 6px 0;
+    border-radius: 8px;
+  }
+
+  .before-section .column-label {
+    color: #ff6b4a;
+    text-shadow: 0 0 20px rgba(255, 80, 40, 0.5);
+  }
+
+  .after-section .column-label {
+    color: #4aeabc;
+    text-shadow: 0 0 20px rgba(74, 234, 188, 0.5);
+  }
+
+  .card {
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+  }
+
+  .before-section .card {
+    background: linear-gradient(135deg, rgba(255, 60, 30, 0.12) 0%, rgba(255, 40, 20, 0.06) 100%);
+    border: 1.5px solid rgba(255, 80, 40, 0.35);
+    box-shadow: 
+      0 0 20px rgba(255, 60, 30, 0.1),
+      inset 0 0 20px rgba(255, 60, 30, 0.05),
+      0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .before-section .card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 80, 40, 0.3), transparent 50%, rgba(255, 60, 30, 0.1));
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .after-section .card {
+    background: linear-gradient(135deg, rgba(0, 220, 150, 0.1) 0%, rgba(0, 180, 130, 0.05) 100%);
+    border: 1.5px solid rgba(74, 234, 188, 0.3);
+    box-shadow: 
+      0 0 20px rgba(0, 220, 150, 0.1),
+      inset 0 0 20px rgba(0, 220, 150, 0.03),
+      0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .after-section .card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(74, 234, 188, 0.25), transparent 50%, rgba(0, 200, 150, 0.1));
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .card-emoji {
+    font-size: 40px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    flex-shrink: 0;
+  }
+
+  .before-section .card-emoji {
+    background: rgba(255, 60, 30, 0.15);
+    box-shadow: 0 0 15px rgba(255, 60, 30, 0.15);
+  }
+
+  .after-section .card-emoji {
+    background: rgba(0, 220, 150, 0.12);
+    box-shadow: 0 0 15px rgba(0, 220, 150, 0.15);
+  }
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .before-section .card-desc {
+    color: rgba(255, 130, 100, 0.9);
+  }
+
+  .after-section .card-desc {
+    color: rgba(100, 240, 200, 0.9);
+  }
+
+  .arrow-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .arrow-container {
+    position: relative;
+    width: 160px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Glowing orb in center */
+  .arrow-orb {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 200, 100, 0.3) 0%, rgba(255, 120, 50, 0.15) 40%, transparent 70%);
+    box-shadow: 
+      0 0 60px rgba(255, 150, 50, 0.2),
+      0 0 100px rgba(0, 200, 150, 0.1);
+  }
+
+  /* Arrow shape */
+  .arrow-shape {
+    position: relative;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .arrow-line {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, rgba(255, 120, 50, 0.8), rgba(200, 230, 200, 0.9), rgba(74, 234, 188, 0.9));
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(255, 180, 100, 0.4);
+    position: absolute;
+    left: 10px;
+  }
+
+  .arrow-head {
+    position: absolute;
+    right: 5px;
+    width: 0;
+    height: 0;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-left: 24px solid rgba(74, 234, 188, 0.8);
+    filter: drop-shadow(0 0 8px rgba(74, 234, 188, 0.5));
+  }
+
+  /* Swirl effect lines */
+  .swirl {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+  }
+
+  .swirl-1 {
+    width: 140px;
+    height: 140px;
+    border-top-color: rgba(255, 120, 50, 0.25);
+    border-right-color: rgba(74, 234, 188, 0.2);
+    transform: rotate(-30deg);
+  }
+
+  .swirl-2 {
+    width: 110px;
+    height: 110px;
+    border-bottom-color: rgba(74, 234, 188, 0.2);
+    border-left-color: rgba(255, 150, 80, 0.15);
+    transform: rotate(20deg);
+  }
+
+  .swirl-3 {
+    width: 170px;
+    height: 170px;
+    border-top-color: rgba(255, 180, 100, 0.1);
+    border-right-color: rgba(74, 234, 188, 0.12);
+    transform: rotate(60deg);
+  }
+
+  /* Particle dots */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .p1 { width: 3px; height: 3px; top: 80px; left: 30px; background: rgba(255, 150, 80, 0.7); box-shadow: 0 0 6px rgba(255, 150, 80, 0.5); }
+  .p2 { width: 2px; height: 2px; top: 120px; left: 120px; background: rgba(74, 234, 188, 0.7); box-shadow: 0 0 6px rgba(74, 234, 188, 0.5); }
+  .p3 { width: 4px; height: 4px; top: 200px; left: 70px; background: rgba(255, 200, 120, 0.6); box-shadow: 0 0 8px rgba(255, 200, 120, 0.4); }
+  .p4 { width: 2px; height: 2px; top: 280px; left: 40px; background: rgba(74, 234, 188, 0.6); box-shadow: 0 0 5px rgba(74, 234, 188, 0.4); }
+  .p5 { width: 3px; height: 3px; top: 300px; left: 110px; background: rgba(255, 150, 80, 0.5); box-shadow: 0 0 6px rgba(255, 150, 80, 0.4); }
+  .p6 { width: 2px; height: 2px; top: 160px; left: 140px; background: rgba(255, 255, 255, 0.5); box-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .p7 { width: 3px; height: 3px; top: 240px; left: 20px; background: rgba(255, 220, 150, 0.5); box-shadow: 0 0 6px rgba(255, 220, 150, 0.3); }
+  .p8 { width: 2px; height: 2px; top: 100px; left: 90px; background: rgba(74, 234, 188, 0.5); box-shadow: 0 0 5px rgba(74, 234, 188, 0.3); }
+
+  /* Energy streaks from left to right */
+  .streak {
+    position: absolute;
+    height: 2px;
+    border-radius: 1px;
+  }
+
+  .streak-1 {
+    width: 60px;
+    top: 150px;
+    left: 20px;
+    background: linear-gradient(90deg, rgba(255, 100, 50, 0.4), rgba(255, 180, 100, 0.2), transparent);
+  }
+
+  .streak-2 {
+    width: 70px;
+    top: 200px;
+    left: 50px;
+    background: linear-gradient(90deg, rgba(255, 150, 80, 0.3), rgba(74, 234, 188, 0.3), transparent);
+  }
+
+  .streak-3 {
+    width: 50px;
+    top: 250px;
+    left: 30px;
+    background: linear-gradient(90deg, rgba(255, 120, 60, 0.3), rgba(200, 230, 180, 0.2), transparent);
+  }
+
+  /* Converging lines from left cards */
+  .converge-line {
+    position: absolute;
+    height: 1.5px;
+    background: linear-gradient(90deg, rgba(255, 80, 40, 0.3), rgba(255, 150, 80, 0.5));
+    transform-origin: right center;
+  }
+
+  .cl-1 { width: 40px; top: 130px; left: 0; transform: rotate(12deg); }
+  .cl-2 { width: 35px; top: 200px; left: 0; }
+  .cl-3 { width: 40px; top: 270px; left: 0; transform: rotate(-12deg); }
+
+  /* Diverging lines to right cards */
+  .diverge-line {
+    position: absolute;
+    height: 1.5px;
+    background: linear-gradient(90deg, rgba(74, 234, 188, 0.5), rgba(74, 234, 188, 0.2));
+    transform-origin: left center;
+  }
+
+  .dl-1 { width: 40px; top: 130px; right: 0; transform: rotate(-12deg); }
+  .dl-2 { width: 35px; top: 200px; right: 0; }
+  .dl-3 { width: 40px; top: 270px; right: 0; transform: rotate(12deg); }
+
+  /* Bottom decoration bar for cards */
+  .card-bar {
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+    height: 4px;
+    border-radius: 2px;
+    width: 60px;
+  }
+
+  .before-section .card-bar {
+    background: linear-gradient(90deg, rgba(255, 80, 40, 0.5), rgba(255, 80, 40, 0.15));
+  }
+
+  .after-section .card-bar {
+    background: linear-gradient(90deg, rgba(74, 234, 188, 0.2), rgba(74, 234, 188, 0.5));
+  }
+
+  /* Background grid subtle effect */
+  .bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+</style>
+
+<div class="slide">
+  <div class="bg-grid"></div>
+  
+  <div class="title">AI 도입 전후 업무 효율성 비교</div>
+  
+  <div class="content">
+    <!-- Before Column -->
+    <div class="column before-section">
+      <div class="column-label">🔴 도입 전</div>
+      
+      <div class="card">
+        <div class="card-emoji">📝</div>
+        <div class="card-text">
+          <div class="card-title">수작업 보고서 작성</div>
+          <div class="card-desc">주 8시간 소요</div>
+        </div>
+        <div class="card-bar"></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">🔍</div>
+        <div class="card-text">
+          <div class="card-title">수동 데이터 검색</div>
+          <div class="card-desc">건당 30분</div>
+        </div>
+        <div class="card-bar"></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">📞</div>
+        <div class="card-text">
+          <div class="card-title">전화/이메일 응대</div>
+          <div class="card-desc">평균 응답 4시간</div>
+        </div>
+        <div class="card-bar"></div>
+      </div>
+    </div>
+    
+    <!-- Arrow Section -->
+    <div class="arrow-section">
+      <div class="arrow-container">
+        <!-- Converging lines from left -->
+        <div class="converge-line cl-1"></div>
+        <div class="converge-line cl-2"></div>
+        <div class="converge-line cl-3"></div>
+        
+        <!-- Diverging lines to right -->
+        <div class="diverge-line dl-1"></div>
+        <div class="diverge-line dl-2"></div>
+        <div class="diverge-line dl-3"></div>
+        
+        <!-- Swirl rings -->
+        <div class="swirl swirl-1"></div>
+        <div class="swirl swirl-2"></div>
+        <div class="swirl swirl-3"></div>
+        
+        <!-- Central orb -->
+        <div class="arrow-orb"></div>
+        
+        <!-- Arrow -->
+        <div class="arrow-shape">
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
+        </div>
+        
+        <!-- Energy streaks -->
+        <div class="streak streak-1"></div>
+        <div class="streak streak-2"></div>
+        <div class="streak streak-3"></div>
+        
+        <!-- Particles -->
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+        <div class="particle p6"></div>
+        <div class="particle p7"></div>
+        <div class="particle p8"></div>
+      </div>
+    </div>
+    
+    <!-- After Column -->
+    <div class="column after-section">
+      <div class="column-label">🟢 도입 후</div>
+      
+      <div class="card">
+        <div class="card-emoji">🤖</div>
+        <div class="card-text">
+          <div class="card-title">자동 보고서 생성</div>
+          <div class="card-desc">주 30분으로 단축</div>
+        </div>
+        <div class="card-bar"></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">⚡</div>
+        <div class="card-text">
+          <div class="card-title">RAG 기반 즉시 검색</div>
+          <div class="card-desc">건당 5초</div>
+        </div>
+        <div class="card-bar"></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-emoji">💬</div>
+        <div class="card-text">
+          <div class="card-title">AI 챗봇 자동 응대</div>
+          <div class="card-desc">평균 응답 10초</div>
+        </div>
+        <div class="card-bar"></div>
+      </div>
+    </div>
+  </div>
+</div>

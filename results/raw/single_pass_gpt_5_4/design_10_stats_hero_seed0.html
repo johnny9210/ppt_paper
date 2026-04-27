@@ -1,0 +1,340 @@
+<style>
+  :root{
+    --bg1:#02081c;
+    --bg2:#071a4a;
+    --bg3:#0f2b73;
+    --gold:#e7c27a;
+    --gold-strong:#f3d897;
+    --gold-deep:#b8883b;
+    --white:#f5f4f2;
+    --panel:rgba(255,255,255,.17);
+    --panel2:rgba(255,255,255,.11);
+    --line:rgba(255,215,150,.55);
+    --shadow:rgba(0,0,0,.45);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .slide{
+    position:relative;
+    width:1280px;
+    height:720px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 52% 52%, rgba(51,95,190,.18) 0%, rgba(10,31,86,.10) 28%, rgba(0,0,0,0) 48%),
+      radial-gradient(circle at 30% 62%, rgba(40,74,171,.22) 0%, rgba(0,0,0,0) 28%),
+      radial-gradient(circle at 72% 33%, rgba(62,89,160,.12) 0%, rgba(0,0,0,0) 24%),
+      linear-gradient(120deg, #08132f 0%, #03113a 34%, #021033 58%, #01091f 100%);
+    color:var(--white);
+  }
+
+  .slide:before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(180,210,255,.09) 0 19%, rgba(0,0,0,0) 19.5%),
+      radial-gradient(circle at 50% 50%, rgba(180,210,255,.08) 0 30%, rgba(0,0,0,0) 30.8%),
+      radial-gradient(circle at 50% 50%, rgba(180,210,255,.07) 0 42%, rgba(0,0,0,0) 42.7%),
+      radial-gradient(circle at 50% 50%, rgba(180,210,255,.05) 0 58%, rgba(0,0,0,0) 58.7%);
+    opacity:.45;
+    transform:scale(1.2) translateY(6px);
+    pointer-events:none;
+  }
+
+  .slide:after{
+    content:"";
+    position:absolute;
+    left:-120px; top:-60px;
+    width:420px; height:240px;
+    background:linear-gradient(135deg, rgba(255,255,255,.65), rgba(255,255,255,.12) 42%, rgba(255,255,255,0) 72%);
+    filter:blur(14px);
+    transform:rotate(-9deg);
+    opacity:.75;
+    pointer-events:none;
+  }
+
+  .title{
+    position:absolute;
+    top:18px;
+    width:100%;
+    text-align:center;
+    font-size:58px;
+    line-height:1;
+    letter-spacing:.5px;
+    font-weight:700;
+    color:var(--gold);
+    text-shadow:
+      0 2px 0 rgba(40,20,0,.35),
+      0 0 18px rgba(231,194,122,.14);
+  }
+
+  .hero-box{
+    position:absolute;
+    left:50px;
+    top:150px;
+    width:620px;
+    height:450px;
+    border:2px solid rgba(214,177,107,.7);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,230,180,.15),
+      0 0 0 1px rgba(255,215,130,.06);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)),
+      radial-gradient(circle at 36% 42%, rgba(66,113,255,.12), rgba(0,0,0,0) 42%);
+  }
+
+  .hero-content{
+    position:absolute;
+    left:92px;
+    top:210px;
+    width:520px;
+  }
+
+  .hero-value{
+    font-size:150px;
+    line-height:.92;
+    margin:0 0 18px 0;
+    font-weight:700;
+    letter-spacing:-4px;
+    color:var(--gold-strong);
+    text-shadow:
+      0 0 2px rgba(255,255,255,.15),
+      0 0 12px rgba(255,216,151,.32),
+      0 0 28px rgba(255,196,92,.22),
+      2px 4px 0 rgba(89,57,6,.45);
+  }
+
+  .hero-label{
+    margin:0;
+    font-size:68px;
+    line-height:1.02;
+    font-weight:700;
+    color:var(--white);
+    text-shadow: 1px 2px 0 rgba(0,0,0,.45);
+  }
+
+  .hero-label .gold{
+    display:block;
+    color:var(--gold);
+  }
+
+  .stats{
+    position:absolute;
+    right:28px;
+    top:116px;
+    width:460px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .stat{
+    position:relative;
+    height:132px;
+    border-radius:16px;
+    padding:20px 26px 20px 132px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.14) 55%, rgba(255,255,255,.10) 100%);
+    border:1px solid rgba(255,255,255,.20);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -16px 28px rgba(0,0,0,.14),
+      0 10px 20px rgba(0,0,0,.22);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  .stat:before{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:12px;
+    border-bottom-left-radius:16px;
+    border-bottom-right-radius:16px;
+    background:linear-gradient(90deg, rgba(190,131,44,.75), rgba(255,214,138,.95) 45%, rgba(194,135,48,.78));
+    box-shadow:0 0 14px rgba(241,193,103,.45);
+  }
+
+  .icon{
+    position:absolute;
+    left:28px;
+    top:22px;
+    width:78px;
+    height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    color:#0d275e;
+    text-shadow: 0 1px 0 rgba(255,255,255,.35);
+    filter: saturate(.85);
+  }
+
+  .stat-value{
+    margin:2px 0 6px;
+    font-size:66px;
+    line-height:.9;
+    font-weight:700;
+    color:var(--gold);
+    text-shadow:
+      0 1px 0 rgba(50,28,0,.35),
+      0 0 12px rgba(231,194,122,.12);
+    letter-spacing:-1px;
+  }
+
+  .stat-label{
+    font-size:28px;
+    line-height:1.1;
+    color:var(--white);
+    text-shadow:0 1px 0 rgba(0,0,0,.35);
+    white-space:nowrap;
+  }
+
+  .shape{
+    position:absolute;
+    border:5px solid rgba(214,177,107,.35);
+    border-radius:10px;
+    filter:blur(.2px);
+  }
+  .triangle{
+    width:0; height:0;
+    border-left:36px solid transparent;
+    border-right:36px solid transparent;
+    border-bottom:58px solid rgba(0,0,0,0);
+    transform:rotate(var(--r));
+    position:absolute;
+  }
+  .triangle:before{
+    content:"";
+    position:absolute;
+    left:-31px; top:7px;
+    width:0; height:0;
+    border-left:31px solid transparent;
+    border-right:31px solid transparent;
+    border-bottom:49px solid transparent;
+    outline:5px solid rgba(214,177,107,.3);
+    outline-offset:-5px;
+  }
+  .ring{
+    position:absolute;
+    border:5px solid rgba(214,177,107,.28);
+    border-radius:50%;
+  }
+  .hex{
+    position:absolute;
+    width:70px; height:40px;
+    border:5px solid rgba(214,177,107,.3);
+    border-radius:10px;
+    transform:rotate(var(--r));
+  }
+  .hex:before,.hex:after{
+    content:"";
+    position:absolute;
+    width:20px; height:20px;
+    border-top:5px solid rgba(214,177,107,.3);
+    border-right:5px solid rgba(214,177,107,.3);
+    background:transparent;
+    top:6px;
+  }
+  .hex:before{left:-12px; transform:rotate(-135deg)}
+  .hex:after{right:-12px; transform:rotate(45deg)}
+
+  .s1{left:78px; top:520px; transform:rotate(-18deg) scale(1.15); opacity:.8}
+  .s2{left:340px; top:120px; transform:rotate(-14deg) scale(.78); opacity:.45}
+  .s3{left:515px; top:560px; transform:rotate(22deg) scale(.9); opacity:.5}
+  .s4{right:42px; top:160px; transform:rotate(10deg) scale(.92); opacity:.42}
+  .s5{right:56px; bottom:96px; transform:rotate(12deg) scale(.72); opacity:.28}
+  .r1{left:446px; top:116px; width:22px; height:22px}
+  .r2{left:760px; top:250px; width:40px; height:40px}
+  .r3{left:798px; top:486px; width:44px; height:44px}
+  .r4{left:435px; bottom:46px; width:28px; height:28px}
+  .r5{left:12px; top:386px; width:26px; height:26px}
+  .r6{right:14px; bottom:118px; width:34px; height:34px}
+  .big-arc-left{
+    position:absolute; left:-54px; bottom:-72px;
+    width:260px; height:260px;
+    border:22px solid rgba(170,192,255,.16);
+    border-right-color:transparent;
+    border-top-color:transparent;
+    border-radius:50%;
+    transform:rotate(10deg);
+  }
+  .big-arc-right{
+    position:absolute; right:-58px; top:-76px;
+    width:250px; height:250px;
+    border:22px solid rgba(170,192,255,.12);
+    border-left-color:transparent;
+    border-bottom-color:transparent;
+    border-radius:50%;
+    transform:rotate(8deg);
+  }
+  .small-arrow{
+    position:absolute;
+    left:124px; top:108px;
+    width:44px; height:44px;
+    border-left:5px solid rgba(214,177,107,.26);
+    border-bottom:5px solid rgba(214,177,107,.26);
+    transform:rotate(45deg);
+    opacity:.45;
+  }
+</style>
+
+<div class="slide">
+  <div class="title">2025년 성과 하이라이트</div>
+
+  <div class="hero-box"></div>
+
+  <div class="hero-content">
+    <div class="hero-value">300%</div>
+    <p class="hero-label"><span>생산성</span><span class="gold">향상</span></p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="icon">🏢</div>
+      <div class="stat-value">150+</div>
+      <div class="stat-label">도입 기업</div>
+    </div>
+    <div class="stat">
+      <div class="icon">👤</div>
+      <div class="stat-value">50K+</div>
+      <div class="stat-label">월간 활성 사용자</div>
+    </div>
+    <div class="stat">
+      <div class="icon">📄</div>
+      <div class="stat-value">2M+</div>
+      <div class="stat-label">처리 문서 수</div>
+    </div>
+    <div class="stat">
+      <div class="icon">⏱️</div>
+      <div class="stat-value">99.9%</div>
+      <div class="stat-label">서비스 가동률</div>
+    </div>
+  </div>
+
+  <div class="triangle s1"></div>
+  <div class="triangle s2"></div>
+  <div class="triangle s3"></div>
+  <div class="hex s4"></div>
+  <div class="triangle s5"></div>
+
+  <div class="ring r1"></div>
+  <div class="ring r2"></div>
+  <div class="ring r3"></div>
+  <div class="ring r4"></div>
+  <div class="ring r5"></div>
+  <div class="ring r6"></div>
+
+  <div class="big-arc-left"></div>
+  <div class="big-arc-right"></div>
+  <div class="small-arrow"></div>
+</div>

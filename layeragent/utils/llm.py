@@ -1,4 +1,9 @@
-"""Unified LLM call helpers (OpenAI direct). Also supports Azure / Bedrock via explicit wrappers."""
+"""Unified LLM call helpers (OpenAI direct). Also supports Azure / Bedrock via explicit wrappers.
+
+Token usage tracking — when TRACK_TOKENS env var is set, every vision_call /
+text_call appends to TOKEN_LOG (a list of {model, prompt_tokens, completion_tokens}).
+Used by experiments to measure LayerAgent's cumulative token cost.
+"""
 from __future__ import annotations
 
 import base64
@@ -14,6 +19,7 @@ SYSTEM_PROMPT_DEFAULT = """당신은 디자인 이미지를 HTML+CSS로 변환�
 
 
 _CLIENT = None
+TOKEN_LOG: list[dict] = []
 
 
 def _openai_client() -> OpenAI:
@@ -21,6 +27,20 @@ def _openai_client() -> OpenAI:
     if _CLIENT is None:
         _CLIENT = OpenAI()
     return _CLIENT
+
+
+def _record_usage(model: str, kind: str, resp) -> None:
+    if os.getenv("TRACK_TOKENS"):
+        u = getattr(resp, "usage", None)
+        if u is None:
+            return
+        TOKEN_LOG.append({
+            "model": model,
+            "kind": kind,
+            "prompt_tokens": u.prompt_tokens,
+            "completion_tokens": u.completion_tokens,
+            "total_tokens": u.total_tokens,
+        })
 
 
 def vision_call(
@@ -43,6 +63,7 @@ def vision_call(
             ]},
         ],
     )
+    _record_usage(model, "vision", resp)
     return resp.choices[0].message.content
 
 
@@ -52,4 +73,5 @@ def text_call(prompt: str, model: str = "gpt-4o", max_tokens: int = 8000) -> str
         model=model, max_tokens=max_tokens,
         messages=[{"role": "user", "content": prompt}],
     )
+    _record_usage(model, "text", resp)
     return resp.choices[0].message.content

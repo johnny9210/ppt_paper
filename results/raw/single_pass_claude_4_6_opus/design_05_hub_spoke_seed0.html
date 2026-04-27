@@ -1,0 +1,448 @@
+<div class="slide">
+  <div class="bg-circuits"></div>
+  <h1 class="title">마이크로서비스 아키텍처</h1>
+
+  <!-- Connection Lines -->
+  <svg class="connections" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#00e5ff;stop-opacity:0.1"/>
+        <stop offset="50%" style="stop-color:#00e5ff;stop-opacity:0.8"/>
+        <stop offset="100%" style="stop-color:#00e5ff;stop-opacity:0.1"/>
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <!-- Left top -->
+    <path d="M 310 210 Q 450 260 540 340" stroke="url(#glowGrad)" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M 310 210 Q 450 260 540 340" stroke="#00e5ff" stroke-width="3" fill="none" filter="url(#glow)"/>
+    <!-- Left middle -->
+    <path d="M 310 380 Q 430 380 540 370" stroke="url(#glowGrad)" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M 310 380 Q 430 380 540 370" stroke="#00e5ff" stroke-width="3" fill="none" filter="url(#glow)"/>
+    <!-- Left bottom -->
+    <path d="M 310 550 Q 450 500 540 400" stroke="url(#glowGrad)" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M 310 550 Q 450 500 540 400" stroke="#00e5ff" stroke-width="3" fill="none" filter="url(#glow)"/>
+    <!-- Right top -->
+    <path d="M 740 340 Q 830 260 970 210" stroke="url(#glowGrad)" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M 740 340 Q 830 260 970 210" stroke="#00e5ff" stroke-width="3" fill="none" filter="url(#glow)"/>
+    <!-- Right middle -->
+    <path d="M 740 370 Q 850 380 970 380" stroke="url(#glowGrad)" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M 740 370 Q 850 380 970 380" stroke="#00e5ff" stroke-width="3" fill="none" filter="url(#glow)"/>
+    <!-- Right bottom -->
+    <path d="M 740 400 Q 830 500 970 550" stroke="url(#glowGrad)" stroke-width="8" fill="none" filter="url(#glow)" opacity="0.7"/>
+    <path d="M 740 400 Q 830 500 970 550" stroke="#00e5ff" stroke-width="3" fill="none" filter="url(#glow)"/>
+  </svg>
+
+  <!-- Center Hub -->
+  <div class="hub">
+    <div class="hub-ring hub-ring-outer"></div>
+    <div class="hub-ring hub-ring-inner"></div>
+    <div class="hub-content">
+      <span class="hub-emoji">🌐</span>
+      <span class="hub-label">API Gateway</span>
+    </div>
+    <div class="hub-glow"></div>
+  </div>
+
+  <!-- Spoke Cards - Left Column -->
+  <div class="card card-left card-top">
+    <div class="card-icon-wrap">
+      <div class="card-icon">☁️</div>
+    </div>
+    <div class="card-text">
+      <div class="card-title">클라우드 스토리지</div>
+      <div class="card-desc">S3, MinIO 기반 객체 저장소</div>
+    </div>
+  </div>
+
+  <div class="card card-left card-mid">
+    <div class="card-icon-wrap">
+      <div class="card-icon">🗄️</div>
+    </div>
+    <div class="card-text">
+      <div class="card-title">데이터베이스</div>
+      <div class="card-desc">PostgreSQL + MongoDB</div>
+    </div>
+  </div>
+
+  <div class="card card-left card-bot">
+    <div class="card-icon-wrap">
+      <div class="card-icon">🤖</div>
+    </div>
+    <div class="card-text">
+      <div class="card-title">AI 서비스</div>
+      <div class="card-desc">LLM 추론 엔진</div>
+    </div>
+  </div>
+
+  <!-- Spoke Cards - Right Column -->
+  <div class="card card-right card-top">
+    <div class="card-icon-wrap">
+      <div class="card-icon">📡</div>
+    </div>
+    <div class="card-text">
+      <div class="card-title">실시간 스트리밍</div>
+      <div class="card-desc">Kafka 이벤트 브로커</div>
+    </div>
+  </div>
+
+  <div class="card card-right card-mid">
+    <div class="card-icon-wrap">
+      <div class="card-icon">🔒</div>
+    </div>
+    <div class="card-text">
+      <div class="card-title">인증/보안</div>
+      <div class="card-desc">OAuth2 + JWT 토큰</div>
+    </div>
+  </div>
+
+  <div class="card card-right card-bot">
+    <div class="card-icon-wrap">
+      <div class="card-icon">🌍</div>
+    </div>
+    <div class="card-text">
+      <div class="card-title">CDN/Edge</div>
+      <div class="card-desc">글로벌 콘텐츠 배포</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #000;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: radial-gradient(ellipse at center, #0a2a3f 0%, #061520 40%, #030d14 70%, #010a10 100%);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  /* Circuit board background pattern */
+  .bg-circuits {
+    position: absolute;
+    inset: 0;
+    background:
+      /* Horizontal lines */
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 58px,
+        rgba(0, 229, 255, 0.03) 58px,
+        rgba(0, 229, 255, 0.03) 60px
+      ),
+      /* Vertical lines */
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 58px,
+        rgba(0, 229, 255, 0.03) 58px,
+        rgba(0, 229, 255, 0.03) 60px
+      );
+    opacity: 0.5;
+  }
+
+  .bg-circuits::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      /* Corner circuit traces top-left */
+      linear-gradient(135deg, rgba(0,229,255,0.06) 0%, transparent 30%),
+      /* Corner circuit traces top-right */
+      linear-gradient(225deg, rgba(0,229,255,0.06) 0%, transparent 30%),
+      /* Corner circuit traces bottom-left */
+      linear-gradient(45deg, rgba(0,229,255,0.04) 0%, transparent 25%),
+      /* Corner circuit traces bottom-right */
+      linear-gradient(315deg, rgba(0,229,255,0.04) 0%, transparent 25%);
+  }
+
+  .bg-circuits::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .title {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #e0f7ff;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.5), 0 0 40px rgba(0, 229, 255, 0.2);
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  /* SVG Connections */
+  .connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 720px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Hub */
+  .hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    height: 160px;
+    z-index: 5;
+  }
+
+  .hub-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.3) 0%, rgba(0, 229, 255, 0.1) 40%, transparent 70%);
+    border-radius: 50%;
+    animation: hubPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes hubPulse {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  }
+
+  .hub-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid;
+  }
+
+  .hub-ring-outer {
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-color: rgba(0, 229, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2), inset 0 0 15px rgba(0, 229, 255, 0.1);
+  }
+
+  .hub-ring-inner {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border-color: rgba(0, 229, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3), inset 0 0 20px rgba(0, 229, 255, 0.15);
+    background: radial-gradient(circle at center, rgba(0, 229, 255, 0.15) 0%, rgba(0, 40, 60, 0.9) 60%, rgba(5, 20, 35, 0.95) 100%);
+  }
+
+  .hub-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    z-index: 6;
+  }
+
+  .hub-emoji {
+    font-size: 40px;
+    filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
+    line-height: 1.2;
+  }
+
+  .hub-label {
+    color: #b0e8ff;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    white-space: nowrap;
+  }
+
+  /* Cards */
+  .card {
+    position: absolute;
+    width: 280px;
+    height: 130px;
+    background: linear-gradient(135deg, rgba(0, 40, 70, 0.6) 0%, rgba(0, 20, 40, 0.7) 100%);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 14px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow:
+      0 0 20px rgba(0, 229, 255, 0.05),
+      inset 0 0 30px rgba(0, 229, 255, 0.03),
+      0 4px 30px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 229, 255, 0.3) 50%, transparent 100%);
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 229, 255, 0.15) 50%, transparent 100%);
+  }
+
+  /* Card positions - Left */
+  .card-left.card-top { top: 135px; left: 30px; }
+  .card-left.card-mid { top: 305px; left: 30px; }
+  .card-left.card-bot { top: 475px; left: 30px; }
+
+  /* Card positions - Right */
+  .card-right.card-top { top: 135px; right: 30px; }
+  .card-right.card-mid { top: 305px; right: 30px; }
+  .card-right.card-bot { top: 475px; right: 30px; }
+
+  .card-icon-wrap {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 229, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, rgba(0, 20, 40, 0.6) 100%);
+    box-shadow:
+      0 0 15px rgba(0, 229, 255, 0.15),
+      inset 0 0 10px rgba(0, 229, 255, 0.08);
+    position: relative;
+  }
+
+  .card-icon-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 229, 255, 0.12);
+  }
+
+  .card-icon {
+    font-size: 28px;
+    line-height: 1;
+    filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.4));
+  }
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .card-title {
+    color: #d0f0ff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+  }
+
+  .card-desc {
+    color: rgba(160, 210, 235, 0.7);
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+  }
+
+  /* Decorative circuit traces */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      /* Top-left traces */
+      linear-gradient(to right, rgba(0,229,255,0.06), rgba(0,229,255,0.06)) no-repeat 80px 100px / 120px 1px,
+      linear-gradient(to bottom, rgba(0,229,255,0.06), rgba(0,229,255,0.06)) no-repeat 200px 60px / 1px 40px,
+      linear-gradient(to right, rgba(0,229,255,0.06), rgba(0,229,255,0.06)) no-repeat 200px 60px / 60px 1px,
+      /* Top-right traces */
+      linear-gradient(to right, rgba(0,229,255,0.06), rgba(0,229,255,0.06)) no-repeat 1080px 100px / 120px 1px,
+      linear-gradient(to bottom, rgba(0,229,255,0.06), rgba(0,229,255,0.06)) no-repeat 1080px 60px / 1px 40px,
+      linear-gradient(to right, rgba(0,229,255,0.06), rgba(0,229,255,0.06)) no-repeat 1020px 60px / 60px 1px,
+      /* Bottom traces */
+      linear-gradient(to right, rgba(0,229,255,0.04), rgba(0,229,255,0.04)) no-repeat 100px 650px / 100px 1px,
+      linear-gradient(to right, rgba(0,229,255,0.04), rgba(0,229,255,0.04)) no-repeat 1080px 650px / 100px 1px,
+      /* Middle horizontal accents */
+      linear-gradient(to right, rgba(0,229,255,0.03), rgba(0,229,255,0.03)) no-repeat 0px 360px / 80px 1px,
+      linear-gradient(to right, rgba(0,229,255,0.03), rgba(0,229,255,0.03)) no-repeat 1200px 360px / 80px 1px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      /* Small dot accents - circuit nodes */
+      radial-gradient(circle 2px at 200px 100px, rgba(0,229,255,0.15), transparent),
+      radial-gradient(circle 2px at 260px 60px, rgba(0,229,255,0.15), transparent),
+      radial-gradient(circle 2px at 1080px 100px, rgba(0,229,255,0.15), transparent),
+      radial-gradient(circle 2px at 1020px 60px, rgba(0,229,255,0.15), transparent),
+      radial-gradient(circle 2px at 80px 360px, rgba(0,229,255,0.1), transparent),
+      radial-gradient(circle 2px at 1200px 360px, rgba(0,229,255,0.1), transparent),
+      /* Subtle vignette */
+      radial-gradient(ellipse at center, transparent 40%, rgba(0,5,10,0.5) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+</style>

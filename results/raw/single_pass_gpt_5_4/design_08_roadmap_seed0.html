@@ -1,0 +1,337 @@
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #050b18; }
+  body { font-family: "Inter", "Pretendard", "Noto Sans KR", Arial, sans-serif; }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(900px 420px at 50% 58%, rgba(120, 78, 255, 0.12), transparent 60%),
+      radial-gradient(600px 260px at 12% 56%, rgba(0, 170, 255, 0.08), transparent 60%),
+      radial-gradient(620px 280px at 90% 56%, rgba(0, 255, 245, 0.08), transparent 60%),
+      linear-gradient(180deg, #030916 0%, #071224 55%, #040a16 100%);
+  }
+
+  /* topographic contour background */
+  .slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.32;
+    background:
+      radial-gradient(120px 60px at 8% 12%, transparent 58%, rgba(52,120,255,.45) 59%, transparent 61%),
+      radial-gradient(180px 90px at 15% 22%, transparent 58%, rgba(52,120,255,.36) 59%, transparent 61%),
+      radial-gradient(140px 70px at 28% 12%, transparent 58%, rgba(52,120,255,.3) 59%, transparent 61%),
+      radial-gradient(160px 80px at 37% 26%, transparent 58%, rgba(52,120,255,.34) 59%, transparent 61%),
+      radial-gradient(150px 75px at 50% 12%, transparent 58%, rgba(52,120,255,.3) 59%, transparent 61%),
+      radial-gradient(180px 90px at 64% 14%, transparent 58%, rgba(52,120,255,.32) 59%, transparent 61%),
+      radial-gradient(170px 85px at 78% 18%, transparent 58%, rgba(52,120,255,.34) 59%, transparent 61%),
+      radial-gradient(140px 70px at 92% 11%, transparent 58%, rgba(52,120,255,.28) 59%, transparent 61%),
+      radial-gradient(170px 85px at 10% 54%, transparent 58%, rgba(52,120,255,.3) 59%, transparent 61%),
+      radial-gradient(160px 80px at 28% 66%, transparent 58%, rgba(52,120,255,.28) 59%, transparent 61%),
+      radial-gradient(140px 70px at 50% 60%, transparent 58%, rgba(52,120,255,.3) 59%, transparent 61%),
+      radial-gradient(180px 90px at 72% 62%, transparent 58%, rgba(52,120,255,.28) 59%, transparent 61%),
+      radial-gradient(160px 80px at 90% 64%, transparent 58%, rgba(52,120,255,.3) 59%, transparent 61%);
+    filter: blur(.2px);
+  }
+
+  .title {
+    position: absolute;
+    top: 34px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: rgba(255,255,255,0.96);
+    text-shadow: 0 0 18px rgba(120, 186, 255, .18);
+  }
+
+  .timeline {
+    position: absolute;
+    left: 58px;
+    top: 380px;
+    width: 1164px;
+    height: 72px;
+    border-radius: 40px;
+    background:
+      linear-gradient(90deg,
+        #0d63e4 0%,
+        #3257e6 20%,
+        #6a54f0 38%,
+        #bf61ec 54%,
+        #99b7ff 74%,
+        #52d8f5 90%,
+        #37e0ea 100%);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.18) inset,
+      0 0 22px rgba(59, 139, 255, 0.45),
+      0 0 58px rgba(168, 89, 255, 0.24);
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 38px;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
+    opacity: .45;
+    pointer-events: none;
+  }
+
+  .marker {
+    position: absolute;
+    top: 13px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.92);
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,.34), rgba(255,255,255,.12) 38%, rgba(255,255,255,.06) 60%, rgba(255,255,255,.1) 100%);
+    border: 1px solid rgba(255,255,255,.38);
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,.05) inset,
+      0 6px 18px rgba(0,0,0,.24);
+    backdrop-filter: blur(5px);
+  }
+
+  .m1 { left: 164px; }
+  .m2 { left: 379px; }
+  .m3 { left: 598px; }
+  .m4 { left: 817px; }
+  .m5 { left: 1036px; }
+
+  .card {
+    position: absolute;
+    width: 170px;
+    height: 236px;
+    padding: 16px 16px 14px;
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.12) 28%, rgba(255,255,255,.08) 100%);
+    border: 1px solid rgba(255,255,255,.26);
+    box-shadow:
+      0 12px 34px rgba(0,0,0,.36),
+      0 0 0 1px rgba(255,255,255,.05) inset,
+      0 0 20px rgba(255,255,255,.06) inset;
+    backdrop-filter: blur(9px);
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background:
+      linear-gradient(130deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.05) 30%, transparent 31%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .glow {
+    position: absolute;
+    width: 140px;
+    height: 18px;
+    left: 14px;
+    top: 14px;
+    border-radius: 10px;
+    box-shadow: 0 0 18px currentColor;
+    opacity: 0.98;
+  }
+
+  .card .phase {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.96);
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255,255,255,.16);
+  }
+
+  .emojiBox {
+    position: absolute;
+    left: 67px;
+    top: 52px;
+    width: 36px;
+    height: 40px;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 0 14px rgba(255,255,255,.05) inset;
+  }
+
+  .content {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    height: 80px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.18);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.08));
+    padding: 12px 12px 10px;
+    box-shadow: inset 0 0 16px rgba(255,255,255,.05);
+  }
+
+  .content .ctitle {
+    font-size: 18px;
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 7px;
+    color: rgba(255,255,255,.96);
+    letter-spacing: -0.03em;
+  }
+
+  .content .desc {
+    font-size: 11px;
+    line-height: 1.35;
+    color: rgba(235,242,255,.78);
+    letter-spacing: -0.01em;
+  }
+
+  .connector {
+    position: absolute;
+    width: 4px;
+    border-radius: 4px;
+    box-shadow: 0 0 14px currentColor, 0 0 24px currentColor;
+  }
+
+  .dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    box-shadow: 0 0 14px currentColor, 0 0 24px currentColor;
+  }
+
+  /* positions */
+  .c1 { left: 160px; top: 92px; }
+  .c2 { left: 380px; top: 494px; }
+  .c3 { left: 598px; top: 102px; }
+  .c4 { left: 816px; top: 498px; }
+  .c5 { left: 1035px; top: 92px; }
+
+  .line1 { left: 243px; top: 327px; height: 53px; color: #60eff5; background: #60eff5; }
+  .line2 { left: 462px; top: 452px; height: 42px; color: #ff8a68; background: #ff8a68; }
+  .line3 { left: 681px; top: 337px; height: 43px; color: #d985ff; background: #d985ff; }
+  .line4 { left: 900px; top: 452px; height: 46px; color: #d4f057; background: #d4f057; }
+  .line5 { left: 1119px; top: 327px; height: 53px; color: #60eff5; background: #60eff5; }
+
+  .dot1 { left: 238px; top: 321px; color: #60eff5; background: #60eff5; }
+  .dot2 { left: 455px; top: 488px; color: #ff8a68; background: #ff8a68; }
+  .dot3 { left: 674px; top: 331px; color: #d985ff; background: #d985ff; }
+  .dot4 { left: 893px; top: 492px; color: #d4f057; background: #d4f057; }
+  .dot5 { left: 1112px; top: 321px; color: #60eff5; background: #60eff5; }
+
+  .g1 { background: linear-gradient(90deg, #4bb9ff 0%, #5cf1ca 100%); color: #60eff5; }
+  .g2 { background: linear-gradient(90deg, #ff496c 0%, #ff8748 100%); color: #ff8a68; }
+  .g3 { background: linear-gradient(90deg, #9c4dff 0%, #ff67d2 100%); color: #d985ff; }
+  .g4 { background: linear-gradient(90deg, #86f27c 0%, #dff44d 100%); color: #d4f057; }
+  .g5 { background: linear-gradient(90deg, #4bb9ff 0%, #6ef7ff 100%); color: #60eff5; }
+
+  .footerGlow {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 350px;
+    width: 980px;
+    height: 130px;
+    border-radius: 999px;
+    background: radial-gradient(ellipse at center, rgba(153, 102, 255, .24), rgba(0,0,0,0) 68%);
+    filter: blur(18px);
+    pointer-events: none;
+  }
+</style>
+
+<div class="slide">
+  <div class="title">2025 제품 로드맵</div>
+  <div class="footerGlow"></div>
+
+  <div class="card c1">
+    <div class="glow g1"></div>
+    <div class="phase">Q1</div>
+    <div class="emojiBox">🎯</div>
+    <div class="content">
+      <div class="ctitle">MVP 출시</div>
+      <div class="desc">핵심 기능 3종 런칭</div>
+    </div>
+  </div>
+
+  <div class="card c2">
+    <div class="glow g2"></div>
+    <div class="phase">Q2</div>
+    <div class="emojiBox">📈</div>
+    <div class="content">
+      <div class="ctitle">성장 가속</div>
+      <div class="desc">사용자 1만명 돌파 목표</div>
+    </div>
+  </div>
+
+  <div class="card c3">
+    <div class="glow g3"></div>
+    <div class="phase">Q3</div>
+    <div class="emojiBox">🌏</div>
+    <div class="content">
+      <div class="ctitle">글로벌 확장</div>
+      <div class="desc">일본·동남아 시장 진출</div>
+    </div>
+  </div>
+
+  <div class="card c4">
+    <div class="glow g4"></div>
+    <div class="phase">Q4</div>
+    <div class="emojiBox">🏆</div>
+    <div class="content">
+      <div class="ctitle">엔터프라이즈</div>
+      <div class="desc">대기업 맞춤 솔루션 출시</div>
+    </div>
+  </div>
+
+  <div class="card c5">
+    <div class="glow g5"></div>
+    <div class="phase">2026</div>
+    <div class="emojiBox">🚀</div>
+    <div class="content">
+      <div class="ctitle">플랫폼화</div>
+      <div class="desc">3rd party 앱 마켓플레이스</div>
+    </div>
+  </div>
+
+  <div class="connector line1"></div>
+  <div class="connector line2"></div>
+  <div class="connector line3"></div>
+  <div class="connector line4"></div>
+  <div class="connector line5"></div>
+
+  <div class="dot dot1"></div>
+  <div class="dot dot2"></div>
+  <div class="dot dot3"></div>
+  <div class="dot dot4"></div>
+  <div class="dot dot5"></div>
+
+  <div class="timeline">
+    <div class="marker m1">1</div>
+    <div class="marker m2">2</div>
+    <div class="marker m3">3</div>
+    <div class="marker m4">4</div>
+    <div class="marker m5">5</div>
+  </div>
+</div>

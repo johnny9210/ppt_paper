@@ -1,0 +1,495 @@
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #06122a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    color: #eefbff;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(39,164,255,.25), rgba(39,164,255,0) 28%),
+      radial-gradient(circle at 18% 18%, rgba(73,213,255,.12), rgba(73,213,255,0) 32%),
+      radial-gradient(circle at 85% 85%, rgba(47,203,255,.10), rgba(47,203,255,0) 28%),
+      linear-gradient(180deg, #071937 0%, #04112b 55%, #020a1b 100%);
+  }
+
+  .slide:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(67,215,255,.08), transparent 18%, transparent 82%, rgba(67,215,255,.08)),
+      linear-gradient(180deg, rgba(255,255,255,.02), transparent 22%, transparent 78%, rgba(255,255,255,.02));
+    pointer-events: none;
+  }
+
+  .left-dots, .right-dots {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    opacity: .22;
+    background-image: radial-gradient(rgba(92, 225, 255, .55) 1.5px, transparent 1.5px);
+    background-size: 12px 12px;
+    filter: blur(.2px);
+  }
+  .left-dots { left: -10px; top: 120px; }
+  .right-dots { right: -20px; bottom: -10px; }
+
+  .header {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #f5fbff;
+    text-shadow:
+      0 2px 0 rgba(255,255,255,.18),
+      0 0 18px rgba(98,221,255,.18);
+  }
+
+  .top-line {
+    position: absolute;
+    top: 112px;
+    left: 0;
+    width: 100%;
+    height: 26px;
+  }
+
+  .top-line .line-left,
+  .top-line .line-right,
+  .top-line .line-center {
+    position: absolute;
+    height: 4px;
+    top: 7px;
+    background: linear-gradient(90deg, rgba(100,170,255,.95), rgba(82,243,255,.95));
+    box-shadow: 0 0 10px rgba(77,224,255,.85), 0 0 20px rgba(77,224,255,.3);
+    border-radius: 999px;
+  }
+
+  .top-line .line-left {
+    left: 0;
+    width: 390px;
+  }
+  .top-line .line-right {
+    right: 0;
+    width: 390px;
+  }
+  .top-line .line-center {
+    left: 430px;
+    width: 420px;
+  }
+
+  .top-line .curve-left,
+  .top-line .curve-right {
+    position: absolute;
+    width: 58px;
+    height: 22px;
+    top: -1px;
+    border-bottom: 4px solid rgba(95,228,255,.95);
+    box-shadow: 0 6px 14px rgba(77,224,255,.24);
+  }
+
+  .top-line .curve-left {
+    left: 380px;
+    border-right: 4px solid rgba(95,228,255,.95);
+    border-bottom-right-radius: 36px 22px;
+  }
+
+  .top-line .curve-right {
+    right: 380px;
+    border-left: 4px solid rgba(95,228,255,.95);
+    border-bottom-left-radius: 36px 22px;
+  }
+
+  .metrics {
+    position: absolute;
+    top: 238px;
+    left: 90px;
+    right: 90px;
+    display: flex;
+    justify-content: space-between;
+    gap: 54px;
+  }
+
+  .card {
+    width: 350px;
+    height: 180px;
+    position: relative;
+    border-radius: 16px;
+    background:
+      linear-gradient(180deg, rgba(201,231,255,.16), rgba(162,214,255,.08)),
+      radial-gradient(circle at 50% 55%, rgba(86,224,255,.10), transparent 50%);
+    border: 2px solid rgba(88,220,255,.82);
+    box-shadow:
+      inset 0 0 30px rgba(255,255,255,.10),
+      0 0 20px rgba(72,213,255,.22),
+      0 0 60px rgba(59,153,255,.08);
+    backdrop-filter: blur(2px);
+  }
+
+  .card:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    box-shadow: inset 0 0 40px rgba(70, 211, 255, .14);
+    pointer-events: none;
+  }
+
+  .icon-badge {
+    position: absolute;
+    left: 50%;
+    top: -58px;
+    transform: translateX(-50%);
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    border: 2px solid rgba(101,226,255,.82);
+    background:
+      radial-gradient(circle at 50% 35%, rgba(87,243,255,.20), rgba(87,243,255,.04) 52%, rgba(0,0,0,.22) 72%),
+      linear-gradient(180deg, rgba(175,215,255,.25), rgba(35,78,145,.30));
+    box-shadow:
+      0 0 20px rgba(80,229,255,.48),
+      inset 0 0 20px rgba(255,255,255,.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-badge .emoji {
+    font-size: 40px;
+    filter: drop-shadow(0 0 10px rgba(99,239,255,.45));
+  }
+
+  .metric-title {
+    position: absolute;
+    top: 34px;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(220,247,255,.92);
+    letter-spacing: .5px;
+    text-shadow: 0 0 12px rgba(94,227,255,.25);
+  }
+
+  .metric-value {
+    position: absolute;
+    top: 68px;
+    width: 100%;
+    text-align: center;
+    font-size: 56px;
+    line-height: 1;
+    font-weight: 900;
+    color: #f7fdff;
+    text-shadow:
+      0 0 16px rgba(149,239,255,.22),
+      0 0 28px rgba(149,239,255,.10);
+  }
+
+  .pill {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    min-width: 152px;
+    padding: 10px 24px;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #c9fbff;
+    background:
+      linear-gradient(180deg, rgba(113,152,214,.28), rgba(63,91,142,.18)),
+      radial-gradient(circle at 50% 50%, rgba(80,233,255,.35), rgba(80,233,255,0) 52%);
+    border: 1px solid rgba(118,206,255,.34);
+    box-shadow:
+      inset 0 0 12px rgba(255,255,255,.06),
+      0 0 12px rgba(80,233,255,.12);
+  }
+
+  .chart-wrap {
+    position: absolute;
+    left: 90px;
+    right: 90px;
+    bottom: 56px;
+    height: 250px;
+  }
+
+  .chart-panel {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    border: 2px solid rgba(89,223,255,.84);
+    background:
+      linear-gradient(180deg, rgba(184,220,255,.14), rgba(145,196,255,.07)),
+      radial-gradient(circle at 50% 60%, rgba(88,224,255,.08), transparent 62%);
+    box-shadow:
+      inset 0 0 36px rgba(255,255,255,.08),
+      0 0 24px rgba(72,213,255,.18);
+  }
+
+  .chart-title {
+    position: absolute;
+    top: 18px;
+    left: 24px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #dffaff;
+    text-shadow: 0 0 10px rgba(94,227,255,.22);
+  }
+
+  .plot {
+    position: absolute;
+    left: 54px;
+    right: 28px;
+    top: 52px;
+    bottom: 28px;
+    border-left: 2px solid rgba(192,241,255,.25);
+    border-bottom: 2px solid rgba(192,241,255,.14);
+  }
+
+  .grid-h {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(186,238,255,.10);
+  }
+
+  .g1 { top: 20px; }
+  .g2 { top: 48px; }
+  .g3 { top: 76px; }
+  .g4 { top: 104px; }
+  .g5 { top: 132px; }
+  .g6 { top: 160px; }
+
+  .y-tick {
+    position: absolute;
+    left: -30px;
+    width: 18px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(180,240,255,.85);
+    box-shadow: 0 0 8px rgba(110,233,255,.5);
+  }
+
+  .yt1 { top: 16px; }
+  .yt2 { top: 44px; }
+  .yt3 { top: 72px; }
+  .yt4 { top: 100px; }
+  .yt5 { top: 128px; }
+  .yt6 { top: 156px; }
+
+  .x-tick {
+    position: absolute;
+    bottom: -16px;
+    width: 22px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(180,240,255,.85);
+    box-shadow: 0 0 8px rgba(110,233,255,.5);
+    transform: translateX(-50%);
+  }
+
+  .x1 { left: 16%; }
+  .x2 { left: 33%; }
+  .x3 { left: 50%; }
+  .x4 { left: 67%; }
+  .x5 { left: 84%; }
+  .x6 { left: 99%; }
+
+  .series {
+    position: absolute;
+    inset: 0;
+  }
+
+  .line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .point {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    margin-left: -5.5px;
+    margin-top: -5.5px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px currentColor;
+  }
+
+  .blue { color: #4ba7ff; }
+  .cyan { color: #42f0e2; }
+  .teal { color: #57d6ff; }
+
+  .blue .point { background: #4ba7ff; }
+  .cyan .point { background: #42f0e2; }
+  .teal .point { background: #57d6ff; }
+
+  .poly {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(0% 100%, 16% 78%, 33% 46%, 50% 53%, 67% 24%, 84% 48%, 99% 14%, 99.2% 15.2%, 84% 49.2%, 67% 25.2%, 50% 54.2%, 33% 47.2%, 16% 79.2%, 0% 101%);
+    background: currentColor;
+    opacity: .9;
+  }
+
+  .blue .poly {
+    clip-path: polygon(0% 100%, 16% 78%, 33% 46%, 50% 53%, 67% 24%, 84% 48%, 99% 4%, 99.2% 5.2%, 84% 49.2%, 67% 25.2%, 50% 54.2%, 33% 47.2%, 16% 79.2%, 0% 101%);
+  }
+
+  .cyan .poly {
+    clip-path: polygon(0% 100%, 16% 56%, 33% 67%, 50% 32%, 67% 60%, 84% 18%, 99% 15%, 99.2% 16.2%, 84% 19.2%, 67% 61.2%, 50% 33.2%, 33% 68.2%, 16% 57.2%, 0% 101%);
+  }
+
+  .teal .poly {
+    clip-path: polygon(0% 100%, 16% 72%, 33% 78%, 50% 56%, 67% 40%, 84% 66%, 99% 31%, 99.2% 32.2%, 84% 67.2%, 67% 41.2%, 50% 57.2%, 33% 79.2%, 16% 73.2%, 0% 101%);
+    opacity: .55;
+  }
+
+  .fill {
+    position: absolute;
+    inset: 0;
+    opacity: .14;
+    filter: blur(.2px);
+  }
+
+  .blue .fill {
+    background: linear-gradient(180deg, rgba(75,167,255,.32), rgba(75,167,255,0));
+    clip-path: polygon(0% 100%, 16% 78%, 33% 46%, 50% 53%, 67% 24%, 84% 48%, 99% 4%, 99% 100%);
+  }
+
+  .cyan .fill {
+    background: linear-gradient(180deg, rgba(66,240,226,.28), rgba(66,240,226,0));
+    clip-path: polygon(0% 100%, 16% 56%, 33% 67%, 50% 32%, 67% 60%, 84% 18%, 99% 15%, 99% 100%);
+  }
+
+  .teal .fill {
+    background: linear-gradient(180deg, rgba(87,214,255,.18), rgba(87,214,255,0));
+    clip-path: polygon(0% 100%, 16% 72%, 33% 78%, 50% 56%, 67% 40%, 84% 66%, 99% 31%, 99% 100%);
+  }
+</style>
+
+<div class="slide">
+  <div class="left-dots"></div>
+  <div class="right-dots"></div>
+
+  <div class="header">
+    <div class="title">Q4 2025 비즈니스 성과 대시보드</div>
+  </div>
+
+  <div class="top-line">
+    <div class="line-left"></div>
+    <div class="curve-left"></div>
+    <div class="line-center"></div>
+    <div class="curve-right"></div>
+    <div class="line-right"></div>
+  </div>
+
+  <div class="metrics">
+    <div class="card">
+      <div class="icon-badge"><div class="emoji">💰</div></div>
+      <div class="metric-title">매출</div>
+      <div class="metric-value">₩128억</div>
+      <div class="pill">+23% YoY</div>
+    </div>
+
+    <div class="card">
+      <div class="icon-badge"><div class="emoji">👥</div></div>
+      <div class="metric-title">활성 사용자</div>
+      <div class="metric-value">2.4M</div>
+      <div class="pill">+15% MoM</div>
+    </div>
+
+    <div class="card">
+      <div class="icon-badge"><div class="emoji">⭐</div></div>
+      <div class="metric-title">고객 만족도</div>
+      <div class="metric-value">4.7/5.0</div>
+      <div class="pill">+0.3</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-panel"></div>
+    <div class="chart-title">월별 매출 추이</div>
+
+    <div class="plot">
+      <div class="grid-h g1"></div>
+      <div class="grid-h g2"></div>
+      <div class="grid-h g3"></div>
+      <div class="grid-h g4"></div>
+      <div class="grid-h g5"></div>
+      <div class="grid-h g6"></div>
+
+      <div class="y-tick yt1"></div>
+      <div class="y-tick yt2"></div>
+      <div class="y-tick yt3"></div>
+      <div class="y-tick yt4"></div>
+      <div class="y-tick yt5"></div>
+      <div class="y-tick yt6"></div>
+
+      <div class="x-tick x1"></div>
+      <div class="x-tick x2"></div>
+      <div class="x-tick x3"></div>
+      <div class="x-tick x4"></div>
+      <div class="x-tick x5"></div>
+      <div class="x-tick x6"></div>
+
+      <div class="series blue line">
+        <div class="fill"></div>
+        <div class="poly"></div>
+        <div class="point" style="left:0%;top:100%;"></div>
+        <div class="point" style="left:16%;top:78%;"></div>
+        <div class="point" style="left:33%;top:46%;"></div>
+        <div class="point" style="left:50%;top:53%;"></div>
+        <div class="point" style="left:67%;top:24%;"></div>
+        <div class="point" style="left:84%;top:48%;"></div>
+        <div class="point" style="left:99%;top:4%;"></div>
+      </div>
+
+      <div class="series cyan line">
+        <div class="fill"></div>
+        <div class="poly"></div>
+        <div class="point" style="left:0%;top:100%;"></div>
+        <div class="point" style="left:16%;top:56%;"></div>
+        <div class="point" style="left:33%;top:67%;"></div>
+        <div class="point" style="left:50%;top:32%;"></div>
+        <div class="point" style="left:67%;top:60%;"></div>
+        <div class="point" style="left:84%;top:18%;"></div>
+        <div class="point" style="left:99%;top:15%;"></div>
+      </div>
+
+      <div class="series teal line">
+        <div class="fill"></div>
+        <div class="poly"></div>
+        <div class="point" style="left:0%;top:100%;"></div>
+        <div class="point" style="left:16%;top:72%;"></div>
+        <div class="point" style="left:33%;top:78%;"></div>
+        <div class="point" style="left:50%;top:56%;"></div>
+        <div class="point" style="left:67%;top:40%;"></div>
+        <div class="point" style="left:84%;top:66%;"></div>
+        <div class="point" style="left:99%;top:31%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
