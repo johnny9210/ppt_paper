@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이크로서비스 아키텍처</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom right, #001d3d, #1a1a40);
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+        }
+        .card {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #a6f6f1;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            text-align: center;
+        }
+        .card > div {
+            margin: 5px 0;
+        }
+        .card .emoji {
+            font-size: 24px;
+        }
+        #hub {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+        }
+        #hub .emoji {
+            font-size: 32px;
+        }
+        #title {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: #a6f6f1;
+            font-size: 24px;
+        }
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="title">마이크로서비스 아키텍처</div>
+    <div id="hub">
+        <div class="emoji">🌐</div>
+        <div>API Gateway</div>
+    </div>
+    <div class="card" style="top: 30%; left: 5%;">
+        <div class="emoji">☁️</div>
+        <div>클라우드 스토리지</div>
+        <div>S3, MinIO 기반 객체 저장소</div>
+    </div>
+    <div class="card" style="top: 30%; right: 5%;">
+        <div class="emoji">📡</div>
+        <div>실시간 스트리밍</div>
+        <div>Kafka 이벤트 브로커</div>
+    </div>
+    <div class="card" style="bottom: 30%; left: 5%;">
+        <div class="emoji">🗄️</div>
+        <div>데이터베이스</div>
+        <div>PostgreSQL + MongoDB</div>
+    </div>
+    <div class="card" style="bottom: 30%; right: 5%;">
+        <div class="emoji">🔒</div>
+        <div>인증/보안</div>
+        <div>OAuth2 + JWT 토큰</div>
+    </div>
+    <div class="card" style="bottom: 5%; left: 30%;">
+        <div class="emoji">🤖</div>
+        <div>AI 서비스</div>
+        <div>LLM 추론 엔진</div>
+    </div>
+    <div class="card" style="bottom: 5%; right: 30%;">
+        <div class="emoji">🌍</div>
+        <div>CDN/Edge</div>
+        <div>글로벌 콘텐츠 배포</div>
+    </div>
+    <svg>
+        <line x1="640" y1="360" x2="140" y2="230" stroke="#0ff" stroke-width="2"/>
+        <line x1="640" y1="360" x2="1140" y2="230" stroke="#0ff" stroke-width="2"/>
+        <line x1="640" y1="360" x2="140" y2="490" stroke="#0ff" stroke-width="2"/>
+        <line x1="640" y1="360" x2="1140" y2="490" stroke="#0ff" stroke-width="2"/>
+        <line x1="640" y1="360" x2="340" y2="615" stroke="#0ff" stroke-width="2"/>
+        <line x1="640" y1="360" x2="940" y2="615" stroke="#0ff" stroke-width="2"/>
+    </svg>
+</div>
+</body>
+</html></div>
+</body></html>

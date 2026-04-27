@@ -1,0 +1,5 @@
+
+z=0: type=background, count=1, label=circuit pattern background  
+z=1: type=connector, count=1, label=central glow radiating lines  
+z=2: type=panel, count=6, label=translucent panels  
+z=3: type=icon, count=7, label=various technology-related icons

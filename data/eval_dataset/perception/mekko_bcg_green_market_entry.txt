@@ -1,0 +1,10 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=container, count=1, label=market segment sections  
+z=2: type=title, count=1, label=main title text  
+z=3: type=headline, count=1, label=market size subtitle  
+z=4: type=panel, count=6, label=segment and channel blocks  
+z=5: type=text, count=1, label=source information at bottom right  
+z=6: type=value, count=12, label=dollar amounts in each block  
+z=7: type=label, count=3, label=segment percentages at bottom  
+z=8: type=label, count=3, label=segment names at bottom  
+z=9: type=label, count=4, label=channel names in each block  

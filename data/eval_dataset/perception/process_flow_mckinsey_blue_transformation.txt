@@ -1,0 +1,10 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=text, count=1, label=heading text "Five-phase transformation roadmap delivers value in 18 months"  
+z=2: type=text, count=1, label=subheading text "Digital transformation phases, Q1 2026 - Q2 2027"  
+z=3: type=container, count=5, label=phase containers  
+z=4: type=title, count=5, label=phase titles ("1. Diagnose", "2. Design", etc.)  
+z=5: type=text, count=5, label=phase descriptions  
+z=6: type=arrow, count=4, label=transition arrows between phases  
+z=7: type=label, count=5, label=phase timeline labels (e.g., "Q1 2026")  
+z=8: type=label, count=1, label=source text "Source: Transformation PMO, 2026"  
+z=9: type=label, count=1, label=page number text "4"

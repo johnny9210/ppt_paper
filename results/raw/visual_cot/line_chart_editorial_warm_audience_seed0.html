@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Design</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FAF3E8;
+        }
+        .container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            padding: 50px;
+        }
+        .title {
+            font-size: 36px;
+            color: #3B2B29;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #736D6B;
+            margin-top: 10px;
+        }
+        .chart-container {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            right: 50px;
+            height: 60%;
+        }
+        .line-chart {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        .line {
+            stroke: #C56752;
+            stroke-width: 3;
+            fill: none;
+            filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2));
+        }
+        .dotted-line {
+            stroke: #E2AA68;
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 5,5;
+        }
+        .axis {
+            stroke: #736D6B;
+            stroke-width: 1;
+        }
+        .chart-label {
+            font-size: 14px;
+            fill: #736D6B;
+        }
+        .highlight-label {
+            position: absolute;
+            top: 30px;
+            right: 60px;
+            background-color: #B8471C;
+            color: #FFF;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Newsletter subscribers reached 1.4M, growing 8% MoM</div>
+        <div class="subtitle">Subscriber count, last 18 months</div>
+        <div class="chart-container">
+            <svg class="line-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
+                <line class="axis" x1="0" y1="0" x2="0" y2="300"></line>
+                <line class="axis" x1="0" y1="300" x2="600" y2="300"></line>
+                <path class="line" d="M0,240 L50,230 L100,220 L150,210 L200,200 L250,180 L300,170 L350,150 L400,130 L450,110 L500,90 L550,70 L600,50"></path>
+                <path class="dotted-line" d="M0,280 L50,270 L100,260 L150,250 L200,240 L250,220 L300,210 L350,190 L400,170 L450,150 L500,140 L550,120 L600,100"></path>
+                <text class="chart-label" x="10" y="20">1.6M</text>
+                <text class="chart-label" x="10" y="100">1.2M</text>
+                <text class="chart-label" x="10" y="200">0.8M</text>
+                <text class="chart-label" x="50" y="320">Jul '24</text>
+                <text class="chart-label" x="150" y="320">Jan '25</text>
+                <text class="chart-label" x="250" y="320">Jul '25</text>
+                <text class="chart-label" x="450" y="320">Jan '26</text>
+            </svg>
+            <div class="highlight-label">1.4M Subscribers, +8% MoM Growth</div>
+        </div>
+    </div>
+</body>
+</html></div>
+</body></html>

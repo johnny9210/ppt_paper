@@ -1,0 +1,14 @@
+```
+z=0: type=background, count=1, label=light beige with abstract lines
+z=1: type=decoration, count=2, label=geometric line patterns
+z=2: type=title, count=1, label=Brand story rests on three values: craftsmanship, trust, and continuity
+z=3: type=headline, count=1, label=Brand pyramid
+z=4: type=container, count=1, label=pyramid with sections
+z=5: type=label, count=1, label=‘Timeless craftsmanship’
+z=6: type=card, count=3, label=value cards for Craftsmanship, Trust, Continuity
+z=7: type=icon, count=3, label=craftsmanship, trust, continuity icons
+z=8: type=panel, count=1, label=lower section with detailed descriptions
+z=9: type=value, count=6, label=descriptions for each value
+z=10: type=text, count=1, label=Source: Brand strategy, 2026
+z=11: type=badge, count=1, label=slide number 3
+```

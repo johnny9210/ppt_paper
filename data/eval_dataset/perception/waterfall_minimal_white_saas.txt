@@ -1,0 +1,9 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=text, count=3, label=main title text
+z=2: type=chart, count=1, label=revenue bridge chart
+z=3: type=line, count=5, label=step lines in chart
+z=4: type=value, count=8, label=monetary values on chart bars
+z=5: type=label, count=5, label=phase labels under chart bars
+z=6: type=text, count=1, label=source text at bottom
+```

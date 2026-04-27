@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비즈니스 성과 대시보드</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(145deg, #0d1a33, #1f3a55);
+            color: white;
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+        .title {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            width: 25%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .emoji {
+            font-size: 2em;
+        }
+
+        .metric-title {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .metric-value {
+            font-size: 1.5em;
+            margin: 5px 0;
+        }
+
+        .change {
+            color: lightgreen;
+            font-size: 0.9em;
+        }
+
+        .chart {
+            width: 80%;
+            height: 40%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .chart-title {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 1.2em;
+        }
+        
+        /* Placeholder for chart */
+        .line-chart {
+            position: absolute;
+            bottom: 20px;
+            width: 90%;
+            height: 70%;
+            margin: 0 5%;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 10% 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Q4 2025 비즈니스 성과 대시보드</div>
+    <div class="card-container">
+        <div class="card">
+            <div class="emoji">💰</div>
+            <div class="metric-title">매출</div>
+            <div class="metric-value">₩128억</div>
+            <div class="change">+23% YoY</div>
+        </div>
+        <div class="card">
+            <div class="emoji">👥</div>
+            <div class="metric-title">활성 사용자</div>
+            <div class="metric-value">2.4M</div>
+            <div class="change">+15% MoM</div>
+        </div>
+        <div class="card">
+            <div class="emoji">⭐</div>
+            <div class="metric-title">고객 만족도</div>
+            <div class="metric-value">4.7/5.0</div>
+            <div class="change">+0.3</div>
+        </div>
+    </div>
+    <div class="chart">
+        <div class="chart-title">월별 매출 추이</div>
+        <div class="line-chart"></div>
+    </div>
+</body>
+</html></div>
+</body></html>

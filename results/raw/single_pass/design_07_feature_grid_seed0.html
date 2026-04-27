@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #141539, #030315);
+    font-family: 'Arial', sans-serif;
+  }
+  .container {
+    width: 1280px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+  }
+  .header {
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+  .icon {
+    font-size: 30px;
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background: linear-gradient(135deg, #a24dd8, #f15bff);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 0 0 15px rgba(241, 91, 255, 0.7);
+  }
+  .feature-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+  .feature-description {
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 10px;
+  }
+  .tag {
+    background: linear-gradient(135deg, #a24dd8, #f15bff);
+    border-radius: 12px;
+    padding: 5px 15px;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    width: fit-content;
+  }
+</style>
+<div class="container">
+  <div class="header">플랫폼 핵심 기능</div>
+  <div class="card">
+    <div class="icon">💬</div>
+    <div class="feature-title">AI 채팅</div>
+    <div class="feature-description">멀티턴 대화형 AI 어시스턴트</div>
+    <div class="tag">Core</div>
+  </div>
+  <div class="card">
+    <div class="icon">🔄</div>
+    <div class="feature-title">워크플로우</div>
+    <div class="feature-description">노코드 업무 자동화 빌더</div>
+    <div class="tag">Automation</div>
+  </div>
+  <div class="card">
+    <div class="icon">📄</div>
+    <div class="feature-title">문서 처리</div>
+    <div class="feature-description">PDF/엑셀 자동 분석 및 요약</div>
+    <div class="tag">RAG</div>
+  </div>
+  <div class="card">
+    <div class="icon">📊</div>
+    <div class="feature-title">데이터 분석</div>
+    <div class="feature-description">자연어 SQL 변환 및 시각화</div>
+    <div class="tag">Analytics</div>
+  </div>
+  <div class="card">
+    <div class="icon">🎨</div>
+    <div class="feature-title">PPT 생성</div>
+    <div class="feature-description">AI 기반 프레젠테이션 자동 생성</div>
+    <div class="tag">Creative</div>
+  </div>
+  <div class="card">
+    <div class="icon">🔗</div>
+    <div class="feature-title">API 연동</div>
+    <div class="feature-description">외부 시스템 MCP 연결</div>
+    <div class="tag">Integration</div>
+  </div>
+</div></div>
+</body></html>

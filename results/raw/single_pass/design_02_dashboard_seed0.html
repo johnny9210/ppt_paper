@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(180deg, #091236, #1E215D);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .dashboard {
+    width: 1280px;
+    height: 720px;
+    color: white;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+
+  .title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .metrics {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+  }
+  
+  .metric {
+    width: 300px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+  }
+  
+  .metric .emoji {
+    font-size: 50px;
+  }
+  
+  .metric .title {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .metric .value {
+    font-size: 24px;
+    margin-top: 5px;
+  }
+  
+  .metric .change {
+    font-size: 16px;
+    color: #99ff99;
+    margin-top: 5px;
+  }
+  
+  .chart-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .chart {
+    width: 800px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+  }
+</style>
+
+<div class="dashboard">
+  <div class="title">Q4 2025 비즈니스 성과 대시보드</div>
+  <div class="metrics">
+    <div class="metric">
+      <div class="emoji">💰</div>
+      <div class="title">매출</div>
+      <div class="value">₩128억</div>
+      <div class="change">+23% YoY</div>
+    </div>
+    <div class="metric">
+      <div class="emoji">👥</div>
+      <div class="title">활성 사용자</div>
+      <div class="value">2.4M</div>
+      <div class="change">+15% MoM</div>
+    </div>
+    <div class="metric">
+      <div class="emoji">⭐</div>
+      <div class="title">고객 만족도</div>
+      <div class="value">4.7/5.0</div>
+      <div class="change">+0.3</div>
+    </div>
+  </div>
+  <div class="chart-container">
+    <div class="chart">
+      <div class="chart-title">월별 매출 추이</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

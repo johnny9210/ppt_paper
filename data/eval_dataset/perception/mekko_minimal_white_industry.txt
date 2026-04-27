@@ -1,0 +1,10 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=title, count=1, label=main slide caption  
+z=2: type=headline, count=1, label=subtitle description  
+z=3: type=table, count=1, label=industry breakdown table  
+z=4: type=text, count=4, label=industry labels  
+z=5: type=container, count=5, label=industry segments  
+z=6: type=container, count=3, label=role segments within industry  
+z=7: type=value, count=15, label=financial value per segment  
+z=8: type=text, count=3, label=role titles within segments  
+z=9: type=text, count=1, label=source and date at bottom

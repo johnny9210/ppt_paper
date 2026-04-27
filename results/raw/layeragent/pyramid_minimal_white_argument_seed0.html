@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .pyramid_minimal_white_argument-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, #ECEDED 0%, #FFF 100%);
+  }
+
+  .pyramid_minimal_white_argument-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .line {
+    position: absolute;
+    background-color: rgba(104, 109, 112, 0.8);
+    width: 2px;
+    height: 20%;
+    left: 49%;
+    top: 25%;
+  }
+
+  .hero-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 14px; /* Reduced to address vertical overflow */
+    line-height: 1.2; /* Adjustment to handle vertical overflow */
+  }
+  .hero-1 .hero-value {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #1F2932;
+  }
+  .hero-1 .hero-subtitle {
+    font-size: 1.625rem;
+    color: #4D555D;
+    margin-top: 10px;
+  }
+
+  body {
+    background-color: #ffffff;
+  }
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(252, 193, 193, 0.6);
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    max-width: 300px;
+    margin: 0 auto;
+    font-size: 13px; /* Reduced to address vertical overflow */
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f5f5, #ffffff);
+    border-radius: 16px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .card-1 .card-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  .card-1 .card-value {
+    flex-grow: 1;
+    font-size: 1.25rem;
+    color: #1a1a1a;
+  }
+  .card-1 .card-label {
+    font-size: 0.875rem;
+    color: #4f4f4f;
+    text-align: center;
+    padding: 8px;
+    background: linear-gradient(135deg, #f5f5f5, #ffffff);
+    width: 100%;
+    border-radius: 8px;
+  }
+  .card-accent {
+    height: 6px;
+    background: linear-gradient(90deg, #f5f5f5, #ffffff);
+    width: 80%;
+    border-radius: 3px;
+    margin-top: 12px;
+  }
+
+  .card-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(252, 193, 193, 0.6);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    background-color: #8E8E8F;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+  }
+  .card-2 .card-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #F2F3F3;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    font-size: 0.8rem; /* Reduced by roughly 20% to address horizontal and vertical overflow */
+  }
+  .card-2 .card-value {
+    font-size: 1.125rem;
+    color: #1E2021;
+  }
+  .card-body {
+    text-align: center;
+  }
+  .card-2 .card-label {
+    font-size: 0.875rem;
+    color: #56595D;
+    margin-top: 0.5rem;
+  }
+
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background-color: #FDFDFD;
+    padding: 8px 16px;
+    border-radius: 25px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    width: 90%;
+  }
+
+  .card-3 .card-icon {
+    flex-shrink: 0;
+    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #FEFEFF, #FEFEFC);
+    font-size: 0.8rem; /* Reduced by roughly 20% to address horizontal and vertical overflow */
+  }
+
+  .card-3 .card-value {
+    flex-grow: 1;
+    text-align: center;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .card-3 .card-label {
+    width: 90%;
+    background-color: #FEFEFE;
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+    color: #4f4f4f;
+    font-size: 0.875rem;
+  }
+</style>
+
+<div class="slide-container pyramid_minimal_white_argument" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <div class="pyramid_minimal_white_argument-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;">
+            <defs>
+                <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="0.6" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <g filter="url(#neon-glow)">
+                <path d="M50.00,17.50 Q31.50,20.25 20.00,35.00" stroke="#60A5FA" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,17.50 Q46.50,26.25 50.00,35.00" stroke="#60A5FA" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,17.50 Q61.50,32.25 80.00,35.00" stroke="#60A5FA" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+            </g>
+        </svg>
+    </div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+        <div class="pyramid_minimal_white_argument-decor">
+            <div class="line"></div>
+        </div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+
+    <div style="position:absolute;left:42.0%;top:9.5%; width:16.0%;aspect-ratio:1;z-index:15;display:flex; align-items:center;justify-content:center;border-radius:50%; background:radial-gradient(circle, rgba(74,222,222,0.25) 0%, transparent 70%); box-shadow:0 0 60px #60A5FA55, 0 0 120px #60A5FA30, inset 0 0 40px #60A5FA44; border:2px solid #60A5FA;">
+        <i class="fas fa-network-wired" style="font-size:3rem;color:#60A5FA;filter:drop-shadow(0 0 10px #60A5FA);"></i>
+    </div>
+    <div class="hero-wrap-1" style="position:absolute;left:15.0%;top:10.0%;width:70.0%;height:15.0%;z-index:20;">
+        <div style="position:absolute;inset:0;">
+
+            <div class="hero-1">
+                <div class="hero-value">main conclusion</div>
+                <div class="hero-subtitle">Strategic argument hierarchy</div>
+            </div>
+        </div>
+        <div style="position:absolute;inset:0;border:1px solid rgba(104,109,112,0.8);opacity:1.0;pointer-events:none;"></div>
+        <div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="5,40 5,5 40,5" stroke="#60A5FA" stroke-width="2" fill="none" opacity="0.7" />
+            </svg>
+        </div>
+    </div>
+    <div class="card-wrap-1" style="position:absolute;left:10.0%;top:30.0%;width:20.0%;height:10.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+
+            <div class="card-1">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-chart-bar" style="font-size:1.8rem;color:#96999B;"></i></div>
+                    <div class="card-value">reason 1</div>
+                </div>
+                <div class="card-label"></div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-2" style="position:absolute;left:35.0%;top:30.0%;width:30.0%;height:10.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+
+            <div class="card-2">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-arrow-trend-up" style="font-size:1.8rem;color:#96999B;"></i></div>
+                    <div class="card-value">reason 2</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-3" style="position:absolute;left:70.0%;top:30.0%;width:20.0%;height:10.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+
+            <div class="card-3">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-lock" style="font-size:1.8rem;color:#96999B;"></i></div>
+                    <div class="card-value"></div>
+                </div>
+                <div class="card-label"></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#60A5FA;letter-spacing:0.08em;text-transform:uppercase;">The case for restructuring rests on 3 compounding factors</div>
+        <div style="font-size:0.75rem;color:#F1F5F9;margin-top:4px;opacity:0.85;">Strategic argument hierarchy</div>
+    </div>
+</div></div>
+</body></html>

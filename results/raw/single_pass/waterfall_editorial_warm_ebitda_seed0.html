@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f2eb;
+  }
+  .container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    padding: 20px;
+  }
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  .description {
+    font-size: 24px;
+    color: #9e8d71;
+    margin-bottom: 50px;
+  }
+  .chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 300px;
+    position: relative;
+  }
+  .chart div {
+    width: 100px;
+    text-align: center;
+  }
+  .bar {
+    display: inline-block;
+    width: 100px;
+    position: relative;
+  }
+  .bar-start, .bar-end {
+    background-color: #9b9b9b;
+  }
+  .bar-volume, .bar-price, .bar-mix {
+    background-color: #bb4b23;
+  }
+  .bar-inflation {
+    background-color: #d9a306;
+  }
+  .bar-opex {
+    background-color: #bfbfbf;
+  }
+  .bar-title {
+    position: absolute;
+    width: 100%;
+    bottom: 100%;
+    left: 0;
+    font-size: 16px;
+    color: #555;
+  }
+  .metric-value {
+    margin-top: 10px;
+    font-size: 24px;
+    color: #000;
+  }
+</style>
+<div class="container">
+  <div class="title">EBITDA bridge reveals 11% YoY uplift from operational excellence</div>
+  <div class="description">EBITDA $128M → $142M decomposition</div>
+  <div class="chart">
+    <div class="bar">
+      <div class="bar-start" style="height: 128px;"></div>
+      <div class="metric-value">$128M</div>
+      <div class="bar-title">Start</div>
+    </div>
+    <div class="bar">
+      <div class="bar-volume" style="height: 80px;"></div>
+      <div class="metric-value">+8M</div>
+      <div class="bar-title">+Volume</div>
+    </div>
+    <div class="bar">
+      <div class="bar-price" style="height: 110px;"></div>
+      <div class="metric-value">+11M</div>
+      <div class="bar-title">+Price</div>
+    </div>
+    <div class="bar">
+      <div class="bar-inflation" style="height: 60px;"></div>
+      <div class="metric-value">-6M</div>
+      <div class="bar-title">-Inflation</div>
+    </div>
+    <div class="bar">
+      <div class="bar-mix" style="height: 30px;"></div>
+      <div class="metric-value">+3M</div>
+      <div class="bar-title">+Mix</div>
+    </div>
+    <div class="bar">
+      <div class="bar-opex" style="height: 20px;"></div>
+      <div class="metric-value">-2M</div>
+      <div class="bar-title">-OpEx</div>
+    </div>
+    <div class="bar">
+      <div class="bar-end" style="height: 142px;"></div>
+      <div class="metric-value">$142M</div>
+      <div class="bar-title">End</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

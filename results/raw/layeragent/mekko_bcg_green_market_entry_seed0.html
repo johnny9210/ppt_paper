@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .mekko_bcg_green_market_entry-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to right, #029952, #3ea977);
+  }
+
+  .hero-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1C1C1C;
+    color: #FFFFFF;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 13px; /* Reduced font size to solve overflow */
+  }
+
+  .hero-1 .hero-value {
+    font-size: 3.75rem; /* Approx 60px for "marketing" */
+    font-weight: bold;
+    color: #007A3B; /* Accent color for emphasis */
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-1 .hero-subtitle {
+    font-size: 1.5rem; /* Matches smaller subtitle text */
+    color: #E7E7E7; /* Lighter text for subtitle */
+    text-align: center;
+  }
+
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #1C1C1C;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgba(207, 234, 223, 0.8);
+    border-radius: 0.5rem 0.5rem 0 0;
+    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+  }
+  .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1rem;
+    color: #CFEADF;
+  }
+  .card-1 .card-icon {
+    font-size: 1.375rem;
+    margin-right: 0.5rem;
+  }
+  .card-1 .card-value {
+    font-size: 1.625rem;
+  }
+  .card-1 .card-label {
+    font-size: 1.375rem;
+    color: #8CBAA5;
+  }
+  .card-accent {
+    background-color: #45A678;
+    height: 1.25rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+</style>
+
+<div class="slide-container mekko_bcg_green_market_entry" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <div class="mekko_bcg_green_market_entry-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;">
+        <div style="position:absolute;left:8.0%;top:80.0%;width:84.0%;height:15.0%;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2%;">
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:8px;font-weight:600;">Market size by segment × channel</div>
+            <svg width="600" height="108" viewBox="0 0 600 108">
+                <rect x="44.4" y="39.5" width="111.1" height="48.5" fill="#3EA977" opacity="0.85" rx="3"/>
+                <text x="100.0" y="104" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">Premium</text>
+                <rect x="244.4" y="10.0" width="111.1" height="78.0" fill="#3EA977" opacity="0.85" rx="3"/>
+                <text x="300.0" y="104" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">Mid</text>
+                <rect x="444.4" y="41.2" width="111.1" height="46.8" fill="#3EA977" opacity="0.85" rx="3"/>
+                <text x="500.0" y="104" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">Value</text>
+            </svg>
+        </div>
+    </div>
+    <div class="hero-wrap-1" style="position:absolute;left:5.0%;top:10.0%;width:50.0%;height:10.0%;z-index:20;">
+        <div style="position:absolute;inset:0;">
+            <div class="hero-1">
+                <div class="hero-value">Premium and Mid tier segments justify</div>
+                <div class="hero-subtitle">73% of next-year marketing spend</div>
+            </div>
+        </div>
+        <div style="position:absolute;inset:0;border:1px solid rgba(91, 91, 91, 0.8);opacity:1.0;pointer-events:none;"></div>
+        <div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="5,40 5,5 40,5" stroke="#60A5FA" stroke-width="2" fill="none" opacity="0.7"/>
+            </svg>
+        </div>
+    </div>
+    <div class="card-wrap-1" style="position:absolute;left:5.0%;top:25.0%;width:25.0%;height:65.0%;z-index:10;box-shadow:0 3px 0 0 #60A5FA;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-1">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-file-lines" style="font-size:1.8rem;color:#3EA977;"></i></div>
+                    <div class="card-value">28%</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Premium</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-2" style="position:absolute;left:35.0%;top:25.0%;width:25.0%;height:65.0%;z-index:10;box-shadow:0 3px 0 0 #60A5FA;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-2">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-arrow-trend-up" style="font-size:1.8rem;color:#3EA977;"></i></div>
+                    <div class="card-value">45%</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Mid</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-3" style="position:absolute;left:65.0%;top:25.0%;width:25.0%;height:65.0%;z-index:10;box-shadow:0 3px 0 0 #60A5FA;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-3">
+                <div class="card-body">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#3EA977;"></i></div>
+                        <div class="card-value">27%</div>
+                    </div>
+                    <div class="card-panel">
+                        <div class="card-label">Value</div>
+                    </div>
+                    <div class="card-panel">
+                        <div class="card-label">Label Here</div>
+                    </div>
+                    <div class="card-panel">
+                        <div class="card-label">Label Here</div>
+                    </div>
+                    <div class="card-panel">
+                        <div class="card-label">Label Here</div>
+                    </div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#60A5FA;letter-spacing:0.08em;text-transform:uppercase;">Premium and Mid-tier segments justify 73% of next-year marketing spend</div>
+        <div style="font-size:0.75rem;color:#F1F5F9;margin-top:4px;opacity:0.85;">Market size by segment × channel</div>
+    </div>
+</div></div>
+</body></html>

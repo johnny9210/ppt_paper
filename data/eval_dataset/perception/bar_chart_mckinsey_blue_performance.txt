@@ -1,0 +1,9 @@
+```
+z=0: type=background, count=1, label=white backdrop
+z=1: type=title, count=1, label=Q4 revenue exceeded plan headline
+z=2: type=headline, count=1, label=Revenue vs plan by business unit
+z=3: type=graph, count=1, label=bar chart
+z=4: type=label, count=10, label=business unit labels (BU1 to BU10)
+z=5: type=value, count=20, label=revenue and plan values on bars
+z=6: type=text, count=1, label=Source: Q4 2025 performance review
+```

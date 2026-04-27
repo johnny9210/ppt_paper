@@ -1,0 +1,11 @@
+```plaintext
+z=0: type=background, count=1, label=white chart background
+z=1: type=graph, count=1, label=MAU line graph
+z=2: type=connector, count=5, label=axis lines and markers
+z=3: type=title, count=1, label=monthly active users growth headline
+z=4: type=headline, count=1, label=MAU trajectory subheadline
+z=5: type=label, count=2, label=event callout boxes
+z=6: type=text, count=2, label=month labels on x-axis
+z=7: type=text, count=5, label=MAU labels on y-axis
+z=8: type=text, count=1, label=source information
+```

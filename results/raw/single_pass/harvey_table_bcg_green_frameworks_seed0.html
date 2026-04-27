@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    width: 1280px;
+    height: 720px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #f7f7f7;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .header-row {
+    background-color: #eaeaea;
+  }
+
+  .header, .cell {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .header {
+    font-weight: bold;
+  }
+
+  .row:nth-child(even) .cell {
+    background-color: #f9f9f9;
+  }
+
+  .harvey-ball {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .full {
+    background-color: #00a651;
+  }
+
+  .half {
+    background: radial-gradient(circle, transparent 50%, #fff 50%), conic-gradient(#00a651 50%, #fff 0);
+    border: 1px solid #00a651;
+  }
+
+  .description-section {
+    display: flex;
+    align-items: center;
+  }
+</style>
+
+<div class="container">
+  <div class="title">Framework Y delivers superior outcomes on 4 of 6 capabilities</div>
+  <div class="description">Capability framework comparison</div>
+  <table class="table">
+    <tr class="header-row">
+      <th class="header">Capability</th>
+      <th class="header">Framework X</th>
+      <th class="header">Framework Y</th>
+      <th class="header">Framework Z</th>
+    </tr>
+    <tr class="row">
+      <td class="cell">Scalability</td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Limited vertical scale;<br>bottlenecks.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="full harvey-ball"></div>High horizontal scale;<br>cloud-native.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Moderate scale;<br>complex management.
+        </div>
+      </td>
+    </tr>
+    <tr class="row">
+      <td class="cell">Cost efficiency</td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>High initial capex;<br>lower opex.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="full harvey-ball"></div>Pay-as-you-go;<br>optimized usage.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>High license &<br>support fees.
+        </div>
+      </td>
+    </tr>
+    <tr class="row">
+      <td class="cell">Vendor lock-in risk</td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Moderate; some<br>open standards.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="full harvey-ball"></div>Agnostic design;<br>open APIs.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>High dependence<br>on single vendor.
+        </div>
+      </td>
+    </tr>
+    <tr class="row">
+      <td class="cell">Time to market</td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Slow development<br>cycle; rigid.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="full harvey-ball"></div>Rapid iteration;<br>CI/CD enabled.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Average; requires<br>custom config.
+        </div>
+      </td>
+    </tr>
+    <tr class="row">
+      <td class="cell">Talent availability</td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="full harvey-ball"></div>Large, established<br>talent pool.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Growing, but<br>specialized skills.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Niche skillset;<br>scarce resources.
+        </div>
+      </td>
+    </tr>
+    <tr class="row">
+      <td class="cell">Total ecosystem</td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="full harvey-ball"></div>Mature, extensive<br>partner network.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Developing; fewer<br>integrated tools.
+        </div>
+      </td>
+      <td class="cell">
+        <div class="description-section">
+          <div class="half harvey-ball"></div>Moderately integrated;<br>focused.
+        </div>
+      </td>
+    </tr>
+  </table>
+</div></div>
+</body></html>

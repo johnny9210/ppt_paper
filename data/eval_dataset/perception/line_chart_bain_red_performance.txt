@@ -1,0 +1,13 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=text, count=1, label=Cost-to-serve dropped below industry benchmark in Q3 2025
+z=2: type=text, count=1, label=Cost per transaction, our co. vs benchmark
+z=3: type=chart, count=1, label=Cost per Transaction Trend (Q4 2023 - Q3 2025)
+z=4: type=line, count=1, label=Industry Benchmark line
+z=5: type=line, count=1, label=Our Cost line
+z=6: type=value, count=6, label=cost values on Our Cost line
+z=7: type=value, count=1, label=$3.10 on Industry Benchmark line
+z=8: type=connector, count=1, label=arrow to crossover point
+z=9: type=label, count=1, label=Crossover point: Our cost fell below benchmark in Q2 2025
+z=10: type=text, count=1, label=Source: Operations benchmarking, Q3 2025 9
+```

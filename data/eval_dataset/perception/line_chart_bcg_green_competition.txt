@@ -1,0 +1,12 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=title, count=1, label=main title text  
+z=2: type=headline, count=1, label=subheadline text  
+z=3: type=chart, count=1, label=line graph  
+z=4: type=line, count=8, label=graph axes and grid lines  
+z=5: type=label, count=3, label=competitor labels on graph  
+z=6: type=value, count=3, label=market share end values  
+z=7: type=connector, count=1, label=green line with arrow  
+z=8: type=icon, count=4, label=colored squares in legend  
+z=9: type=text, count=4, label=legend labels and percentages  
+z=10: type=label, count=2, label=axis titles  
+z=11: type=text, count=1, label=source attribution text  

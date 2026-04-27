@@ -1,78 +1,100 @@
-# LayerAgent: 프레젠테이션 생성을 위한 멀티에이전트 프레임워크
+# LayerAgent: 지각-생성 간극(Perception–Generation Gap)을 메우는 비전 기반 레이어 분해 멀티에이전트 프레임워크
+
+*Vision-Grounded Layer Decomposition for Closing the Perception–Generation Gap in Design-to-Code Presentation Generation*
 
 ---
 
 ## 초록
 
-시각적 프레젠테이션은 효과적인 의사소통에 필수적이며, Vision Language Model(VLM)의 발전은 디자인 이미지에서 실행 가능한 HTML/CSS 코드로의 자동 변환을 가능케 하였다. 그러나 단일 VLM 호출은 — 모델 능력이 향상되더라도 — 슬라이드 디자인 재현에 필요한 두 가지 속성을 구조적으로 보장하지 못한다: (1) **요소 간 시각 일관성** (다수 카드의 색·투명도·테두리·그림자 통일), (2) **콘텐츠와 시각 효과의 동시 충실도** (풍부한 CSS 생성과 정확한 텍스트 배치 사이의 zero-sum 경쟁). 또한 디자인-투-코드 분야의 양적 메트릭(CSS 속성 수, Block-Match, element-matching)은 perceived visual fidelity를 underdetermine하여 평가 타당성 위기를 야기한다 (DreamHouse 2026: structural/visual joint pass rate 7.1%).
+프레젠테이션 슬라이드는 배경·분위기·장식·카드·콘텐츠·아이콘이 z축으로 겹치는 본질적으로 **계층적(layered)** 구조이다. 그러나 현재의 Vision Language Model(VLM) 기반 디자인-투-코드 시스템은 이 계층 구조를 단일 자기회귀 토큰 시퀀스의 **평면(flat) HTML**로 생성하여, 체계적인 구조 손실을 일으킨다. 본 논문은 이 손실을 정식화하고 해소한다.
 
-본 논문은 이 두 보장과 평가 타당성을 명시적으로 부과하는 **LayerAgent** 프레임워크를 제안한다. LayerAgent는 디자인-투-코드 생성을 4개의 순차 단계로 분해한다: (1) **레이아웃 분석** — 요소 위치/유형 추출, (2) **요소별 렌더링** — 카드 단위 풍부한 CSS 생성, (3) **Style Normalizer** — 카드 간 CSS 통일을 *pre-render에서* 강제 (RQ1의 핵심 답), (4) **Text Inserter** — 시각 디자인 확정 후 텍스트 삽입으로 zero-sum 경쟁 제거 (RQ2의 핵심 답). 평가는 **tool-grounded (DOM JSON + screenshot) cross-model VLM-as-Judge** 와 양적 메트릭의 동반 검증으로 수행하며, position-randomization과 swap-debias를 포함한 2026 best practice를 따른다.
+**문제 정식화 — 지각-생성 간극(Perception–Generation Gap, PGG).** 동일한 GPT-4o가 슬라이드 이미지로부터 5–8개의 레이어를 자연어로 정확히 기술하지만, 같은 이미지를 HTML로 변환할 때는 1–2개 레이어만 코드에 commit한다. 이 간극은 시각 이해의 부재가 아니라 **계층을 평면 토큰 시퀀스로 번역하는 능력의 부족**이다. 본 연구는 이를 두 메트릭으로 정식 측정한다: (1) **Layer Recall** — VLM이 지각한 레이어 유형 중 생성 HTML에 살아남은 비율, (2) **LTED (Layer Tree Edit Distance)** — 지각 트리와 HTML 트리 간의 정규화된 multiset 대칭차이.
 
-10종 슬라이드 디자인(타임라인, 허브-스포크, 피라미드, 대시보드 등)에 대한 실험에서 LayerAgent는 GPT-4o 기반 single-pass baseline 대비 ConsistencyScore와 CSS Richness, CCR을 동시에 향상시켰으며, cross-model VLM-as-Judge가 양적 향상이 perceived fidelity 개선과 동반함을 확인하였다 (단, validity의 직접 검증은 인간 평가가 필요하며 향후 연구로 둠). H-RAG 기반 단일 VLM 기법은 CSS Richness를 2.8→10.3으로 올리지만 CCR이 0.26으로 붕괴(콘텐츠 74% 소실)하는 zero-sum 패턴을 보였다. GPT-5.4·Claude 4.6 Opus single-pass와의 비교는 두 보장 실패가 *현재 세대 SOTA closed VLM 전반에서 일관되게 나타남* (즉, LayerAgent의 가치가 단일 모델의 약점 보강이 아니라 단계 분리가 부과하는 구조적 보장임)을 시사한다.
+**평가 타당성 — 세 메트릭 가족의 disagreement.** 표준 픽셀 유사도(SSIM)·perception-grounded(LTED·Layer Recall)·holistic LLM judge (GPT-5.4, 4 criteria) 의 세 가족은 **서로 다른 ranking** 을 산출한다. SSIM은 surface mimicry를 보상하고, LTED는 structural fidelity를, MLLM judge는 visual usability·legibility를 함께 본다. 본 연구는 이 disagreement를 *디자인-투-코드 평가 protocol에 대한 1차 기여*로 정착시키고, 단일 메트릭 ranking이 use case에 따라 뒤집힘을 정량 증명한다.
 
-**키워드**: 디자인-투-코드, 멀티에이전트, 시각 일관성, 콘텐츠 충실도, 측정 타당성, VLM-as-Judge, 프레젠테이션 생성
+**해법 — LayerAgent (8-stage multi-agent decomposition).** Analyzer → Design Director (DesignSpec 블랙보드) → {Base BG / Atmosphere / Decoration / Card Detail × N / Hero Detail × N / Icon / Chart / Table} → Assembler → Style Normalizer → Text Inserter → (옵션) Overflow Repair / Visual Critic. DesignSpec은 typography/palette/frame/motif/atmosphere의 typed shared state로서 cross-agent 스타일 합치를 강제하고, k-means palette·OCR 텍스트 높이·HSV 채도의 **CV facts**가 결정적 프롬프트 앵커로 주입된다. FontAwesome·SVG primitive·BG pattern·Bezier connector **라이브러리**가 환각을 차단한다.
+
+**경험적 결과 (48 슬라이드 × 4 메서드 × 10 metrics = 1,920 평가 cells, 100% 렌더링).** LayerAgent는 perception-grounded 축에서 Layer Recall **0.405** vs 베이스라인 **0.12–0.21** (2–3.4×), LTED ↓ **0.744** vs **0.82–0.91**을 달성한다. 그러나 SSIM은 **0.593** vs single-pass **0.675** (단일 패스 우세), MLLM judge 평균 **2.59** vs single-pass **3.30** (단일 패스 우세). **Per-layout breakdown에서 LTED와 MLLM judge가 동일한 sweet-spot 패턴에 합의**한다 — 다층 dark-glass에서 LayerAgent는 LTED Δ +0.27 *and* MLLM judge Δ +0.12로 우세하지만, 평면/차트 레이아웃 8종에서는 두 메트릭 모두 single_pass 우세 (MLLM Δ −0.35 ~ −1.60).
+
+**Honest thesis (sweet-spot-scoped).** LayerAgent는 *자신의 설계 대상*인 다층 dark-glass 슬라이드에서 perception-grounded와 holistic 메트릭 두 가족 모두에서 일관 우세하다. 평면 레이아웃에서는 분해 비용이 이득을 초과하며, 본 연구는 *layout-conditional routing*(평면 → single-pass, 다층 → LayerAgent)을 운영 권고로 명시한다. *전체 슬라이드 도메인에서의 우월성* 주장은 데이터로 지지되지 않으며, 본 paper는 이 부정 결과를 thesis의 일부로 흡수한다.
+
+**키워드**: Layer Decomposition, Perception–Generation Gap, Multi-Agent, Design-to-Code, Vision Language Models, Layer Tree Edit Distance, DesignSpec Blackboard
 
 ---
 
 ## 1. 서론
 
-### 1.1 연구 배경
+### 1.1 슬라이드는 계층이다, 그러나 VLM은 평면이다
 
-시각적 프레젠테이션은 시각적 의사소통에서 중요한 역할을 담당한다. 발표, 보고서, 다양한 형태의 개념 전달에 빈번히 사용되며, 청중의 이해를 높이는 데 기여한다. 최근 생성 모델 및 멀티모달 대규모 언어 모델(MLLM)의 급속한 발전과 더불어 (Alayrac et al., 2022; Liu et al., 2023; Team et al., 2023), 시각적 프레젠테이션의 자동 생성에 많은 노력이 투입되고 있다.
+프레젠테이션 슬라이드는 웹페이지나 포스터와 달리 명확한 **z축 계층**을 가진 시각 객체다:
 
-디자인 참조 이미지로부터 실행 가능한 HTML/CSS를 생성하는 과제는 다음 세 축에서 **원본 디자인에 대한 충실도(fidelity)**를 요구한다: (1) **레이아웃 구조 재현**: 생성된 슬라이드는 원본의 배치 패턴(타임라인, 허브-스포크, 피라미드 등)을 구조적으로 따라야 한다. (2) **CSS 시각 재질 재현**: 글래스모피즘, 네온 글로우, 다중 그라디언트 등 CSS 속성으로 구현되는 시각 효과를 충실히 재현해야 한다. (3) **콘텐츠 완성도**: 제공된 모든 텍스트 콘텐츠가 최종 출력에서 누락 없이 나타나야 한다. 본 연구는 이 세 축에 대한 충실도를 평가 대상으로 삼으며, 참조 없이 평가되는 절대적 심미 품질(예: "이 슬라이드가 발표 자료로 쓸 만한가")은 범위 밖으로 둔다.
+```
+z=30+ : Icons / Badges / Glow nodes
+z=20+ : Content (titles, body, values)
+z=10+ : Cards / Panels / Hero blocks
+z= 5+ : Decoration (shapes, lines, dots)
+z= 2+ : Atmosphere (radial glow, gradient overlays)
+z= 0  : Background (base gradient, pattern)
+```
 
-디자인-투-코드 생성에 관한 기존 연구는 두 가지 범주로 나뉜다: (1) **직접 생성** 방식으로, VLM이 디자인 이미지를 단일 패스로 HTML/CSS 코드로 변환하는 접근 (Si et al., 2024; Laurençon et al., 2024)과, (2) **다단계 생성** 방식으로, 중간 분석이나 계획 단계가 코드 생성에 선행하는 접근 (DCGen, 2025; LaTCoder, 2025; ScreenCoder, 2025)이다. 다단계 접근은 레이아웃 정확도를 개선하지만, 글래스모피즘, 네온 글로우, 다중 그라디언트와 같은 CSS 시각 효과의 품질을 명시적으로 다루지는 않는다.
+이 6개 layer band가 정확한 z-index와 좌표로 겹쳐야 의도된 디자인이 구현된다. 그러나 단일 VLM 호출은 이 계층 구조를 인식하지 못한 채 HTML을 **순차 자기회귀 시퀀스**로 생성한다. `<div>` 태그가 직렬로 나열되고, `z-index`는 거의 사용되지 않으며, 요소 간 공간 관계는 DOM 순서에 암묵적으로 의존한다.
 
-### 1.2 문제 정의: 단일 VLM이 보장하지 못하는 두 속성과 평가 타당성
+흥미로운 관찰은 다음이다 — 같은 GPT-4o에게 *"이 이미지의 계층 구조를 설명하라"* 고 물으면 5–8개의 레이어를 정확하게 자연어로 기술한다. 그러나 같은 이미지를 *"HTML로 변환하라"* 고 물으면 1–2개 레이어만 코드로 commit한다. **VLM은 계층을 완전히 인식하지만 코드로 표현하지 못한다.**
 
-본 연구는 VLM 기반 디자인-투-코드 생성에서 **단일 VLM 호출이 — 모델 능력이 향상되더라도 — 구조적으로 보장하지 못하는 두 속성**과, 디자인-투-코드 분야 전반에 걸친 **평가 타당성** 문제를 식별하여 세 가지 연구 질문(RQ)으로 정식화한다.
+본 논문은 이 현상을 **지각-생성 간극(Perception–Generation Gap, 이하 PGG)** 이라 명명하고, 두 가지 perception-grounded 메트릭으로 정식 측정한다:
 
-**RQ1 — Cross-Element Visual Consistency (요소 간 시각 일관성).** 슬라이드 디자인은 다수의 카드/요소로 구성되며, 이들 간에는 색·투명도·테두리·그림자가 통일되어야 한다. 그러나 단일 VLM 호출은 자기회귀 생성 도중 의미적으로 동등한 요소들에 서로 다른 스타일을 부여하는 경향이 있다 — 카드 A는 `rgba(30,30,40,0.6)` 글래스모피즘인데 카드 B는 불투명 `#1e1e28` 단색이 되는 식이다. 이 문제는 **A2UI Protocol (Google, 2026)**, **Multi-Agent Design Orchestration (2026)** 등에서 agent-driven UI의 핵심 과제로 명시적으로 인정되어 왔다. 본 연구는 이를 슬라이드 도메인에서 정식 측정 가능한 형태(`ConsistencyScore`, §5.1)로 환원하고, **pre-render 정규화(Style Normalizer) 가 post-hoc render-then-refine 류 (DesignCoder의 self-correcting refinement, VisRefiner의 visual difference learning) 대비 효과적인지** 비교한다. 부수적으로, 단일 VLM의 인지 부하는 카드 간 *재질 불일치*뿐 아니라 *레이아웃 구조 단순화*(허브-스포크 → 그리드, 피라미드 → 리스트)로도 발현되며, 본 연구는 이 두 발현을 같은 메커니즘의 두 채널로 본다.
+- **Layer Recall** — VLM의 perception 트리에 등장하는 레이어 유형 중, 생성 HTML 트리에 살아남은 비율.
+- **LTED (Layer Tree Edit Distance)** — 두 트리를 (z-band, type) multiset으로 환원한 뒤 정규화된 대칭차이. 0이면 동일, 1이면 disjoint.
 
-**RQ2 — Joint Content-Visual Fidelity (콘텐츠-시각 동시 보장).** 풍부한 CSS 효과 생성과 정확한 텍스트 콘텐츠 배치는 단일 VLM의 제한된 생성 용량 위에서 zero-sum 경쟁 관계에 있다. CSS 패턴 지식 주입(H-RAG)으로 CSS Richness를 2.8→10.3으로 향상시켰을 때 콘텐츠 완성도(CCR)가 0.80→0.26으로 붕괴하여 입력 텍스트의 74%가 소실되는 것이 그 증거이다. 본 연구는 시각 디자인 생성과 텍스트 삽입의 **단계 분리(Text Inserter)** 가 이 트레이드오프를 구조적으로 해소함을 ablation으로 보인다.
+구현은 `experiments/probing/layer_tree.py`에 공개한다. 두 메트릭 모두 *동일 VLM의 perception을 anchor로 삼아* 메트릭 자체에 ground-truth 의존성을 두지 않는다 (reference-free).
 
-**RQ3 — Convergent Reliability and Provisional Measurement Validity in Design-to-Code.** 디자인-투-코드 분야에서 널리 쓰이는 양적 메트릭 — CSS 속성 수, Block-Match (Design2Code), element-matching (SlidesBench), attribute overlap (Widget2Code) — 은 perceived visual fidelity를 충실히 반영하지 못한다. CSS Richness는 동일 색 `box-shadow` 4겹이나 충돌하는 그라디언트 중첩으로 부풀려질 수 있으며, 구조 메트릭은 카드 위치만 일치하면 단색 블록과 글래스모피즘에 동일 점수를 부여한다. 최근 **DreamHouse (arXiv:2603.24866, 2026)** 는 structural validity와 visual fidelity가 직교적 신호이며 최상위 VLM조차 joint pass rate 7.1%에 그침을 보였다.
+### 1.2 단일 메트릭은 디자인-투-코드를 underdetermine한다
 
-본 연구는 두 단계로 RQ3를 다룬다. **첫째, *convergent reliability*** — 본 연구의 핵심 empirical claim — 으로, **tool-grounded (DOM JSON + screenshot 동시 제공) cross-model VLM-as-Judge** (Claude 4.6 Opus / GPT-5.4 / Gemini 2.5)가 양적 메트릭과 *어떤 패턴으로 일치/불일치*하는지를 Kendall-τ 분석으로 측정한다 (§5.2.3). 평가 프로토콜은 2026 best practice를 따라 position-randomization과 swap-debias를 포함한다. **둘째, *provisional measurement validity*** — 인간 평가와의 직접 정렬은 본 paper의 범위를 넘어서며 (cf. MT-Bench, AlpacaEval에서 인간 anchor가 핵심 contribution), 본 연구는 *convergent reliability 결과 + DreamHouse 2026의 외부 anchor + 2026 tool-grounding 결과 (verdict consistency 71→89%)* 를 근거로 *잠정적* validity claim을 제기하며, 인간 평가를 동반한 직접 검증은 향후 연구로 둔다 (§7 참조). 본 framing은 "VLM 합의 = validity" 라는 circular argument를 명시적으로 회피한다.
+디자인-투-코드 분야에서 널리 쓰이는 **SSIM, CLIP, Block-Match, element-IoU**는 모두 *표면 픽셀/위치 매칭*에 기반하며, 계층 구조의 보존 여부와는 직교적이다. 한편 본 연구가 도입하는 perception-grounded 메트릭(LTED, Layer Recall)은 layer 보존을 직접 측정하지만, 시각 가독성·균형·완성도와 같은 *holistic 디자인 quality*를 포착하지 못한다. 본 연구는 세 메트릭 가족 사이의 **systematic disagreement**를 보고한다 (48-slide × 4-method, §6):
 
-**SOTA 일관성 가설 (구 "모델-독립성").** 위 세 RQ는 단일 VLM의 자기회귀 생성에서 기인하는 **구조적 한계**로 가설화하며, *현재 세대 SOTA closed VLM 전반*에서 자연스럽게 해소되지 않을 것으로 예상한다. 이를 직접 검증하기 위해 본 연구는 GPT-4o, GPT-5.4 (Azure), Claude 4.6 Opus (Bedrock) 세 모델에서 동일한 single-pass baseline의 ConsistencyScore와 joint fidelity를 비교한다 (§5.3.4). GPT-5.4 single-pass의 ConsistencyScore가 LayerAgent-on-GPT-4o보다 낮다면, 문제는 *해당 모델 세대*의 용량이 아닌 *생성 구조* 자체에 있음을 시사한다. (open-weight 모델 또는 차세대 frontier 모델로의 일반화는 향후 연구로 둔다 — §7 참조.)
+- **Surface mimicry (SSIM)**: single_pass **0.675** > LayerAgent **0.593** → 단일 패스가 픽셀 패턴을 더 잘 모방.
+- **Perception-grounded (LTED ↓, Layer Recall ↑)**: LayerAgent **0.744 / 0.405** vs single_pass **0.823 / 0.212** → LayerAgent가 layer 보존에서 우세.
+- **Holistic LLM judge (GPT-5.4, 4 criteria avg, 1–7)**: single_pass **3.30** > LayerAgent **2.59** → 단일 패스가 시각 usability/legibility/design quality에서 우세.
 
-### 1.3 진단 실험: 인지 부하와 두 종류의 보장 실패
+세 가족의 ranking은 모두 다르다. 어느 가족도 *전체 진실*은 아니며, 각 가족은 use case에 정렬되어 있다 — 픽셀 충실 복제 vs 편집 가능한 구조 회복 vs 발표 가능한 슬라이드 품질. 본 연구는 이 disagreement를 *honest reporting*의 원칙으로 받아들이고, **세 가족 동반 보고**를 디자인-투-코드 평가 protocol의 default로 제안한다 (§6.4 metric taxonomy).
 
-세 RQ의 메커니즘적 뿌리를 확인하기 위해 다음의 통제 실험을 수행하였다:
+### 1.3 해법: 분해, 블랙보드, 그라운딩, 라이브러리
 
-> **동일한 GPT-4o가 전체 슬라이드 이미지에서는 CSS 효과 2.8개와 카드 간 일관성 점수 ConsistencyScore≈0.4–0.6 수준을 생성하지만, 카드 하나를 크롭한 이미지에서는 카드당 CSS 효과 6~8개(글래스모피즘 포함)를 생성한다. 모델, 프롬프트, 디자인은 동일하며, 오직 시각 범위만 다르다.**
+PGG의 직접적 원인이 *평면 토큰 시퀀스에 계층을 압축하는 인지 부하*라면, 자연스러운 해법은 **생성 과정을 계층적으로 분해**하는 것이다. 그러나 단순 분해만으로는 불충분하다 — 독립 생성된 카드들이 서로 다른 투명도/테두리/그림자로 어긋나거나(스타일 표류), 카드와 텍스트가 좌표상 정렬되지 않거나(공간 충돌), 아이콘이 환각된 URL로 깨지는(자산 부재) 새로운 실패 양식이 등장한다.
 
-이는 단일 VLM의 한계가 *근본적 능력*이 아니라 **자원 배분의 구조적 문제**임을 시사한다: 전체 슬라이드 이미지를 처리할 때 VLM은 레이아웃 구조와 콘텐츠 배치에 우선순위를 두고, 세밀한 CSS 재질이나 카드 간 스타일 통일에는 충분한 생성 자원을 배분하지 못한다. `backdrop-filter`, `rgba` 알파 채널, 다중 레이어 `box-shadow`는 이 없이도 HTML이 렌더링된다는 점에서 "선택적"이며, 카드 간 통일 또한 의미적으로는 동일하지만 토큰 단위로는 *재기억해야 하는* 정보이다 — 인지 부하 상황에서 둘 다 단순화·망각의 대상이 된다.
+본 연구의 **LayerAgent**는 이 모든 실패를 8-stage 파이프라인으로 다룬다:
 
-이 관찰은 두 가지 설계 결정으로 이어진다. 첫째, 요소 분해(크롭)는 카드별 CSS 재질을 회복시킨다. 둘째, 그러나 크롭만으로는 카드 *사이의* 일관성이 자동 보장되지 않는다 — 독립 생성된 결과들이 색·투명도·테두리에서 어긋날 수 있다. 따라서 **크롭(Stage 1) + 명시적 정규화(Stage 2 Style Normalizer) + 시각/텍스트 단계 분리(Stage 3 Text Inserter)** 의 3중 전략이 필요하다. 본 §1.3의 진단 실험은 §3에서 ConsistencyScore와 joint fidelity 메트릭으로 정식 측정되며, 모델-독립성 가설은 §5.3.4의 GPT-4o vs GPT-5.4 vs Claude 4.6 Opus 비교로 검증된다.
+1. **Analyzer**: 전체 이미지에서 레이아웃 유형과 요소 bounding box 추출.
+2. **Design Director**: 전체 이미지 + CV facts → **DesignSpec** (typed blackboard: typography/palette/frame_system/decorative_motif/atmosphere). 이후 모든 specialist가 같은 DesignSpec을 읽고 쓴다.
+3. **8 specialists in parallel**: Base BG, Atmosphere, Decoration, Card Detail × N (vision on crop), Hero Detail × N (vision on crop), Icon Agent (FontAwesome 검색), Chart Agent, Table Agent.
+4. **Assembler**: z-index 결정적 stacking으로 단일 HTML 조립.
+5. **Style Normalizer**: 카드 간 CSS 속성(rgba alpha, border, shadow, blur, radius) 통일 — 위치/구조는 불변.
+6. **Text Inserter**: 완성된 시각 구조에 콘텐츠 텍스트 주입 — CSS 생성 부담 없음.
+7. **Overflow Repair (선택)**: 측정 기반 픽셀 오버플로 검출 → 폰트/패딩 미세 조정.
+8. **Visual Critic (선택)**: Playwright 스크린샷 vs 원본 비교 후 diff 적용.
 
-### 1.4 제안 방법: LayerAgent
+핵심 설계 결정 4가지:
 
-세 RQ를 해결하기 위해 본 연구는 디자인-투-코드 생성을 4개의 전문화된 단계로 분해하는 멀티에이전트 프레임워크 **LayerAgent**를 제안한다. 각 단계는 특정 RQ의 해결 메커니즘에 대응된다:
+- **Vision-grounded specialists**: BG/Atmosphere/Decoration은 전체 이미지를, Card/Hero Detail은 *crop된* 이미지를 직접 본다 — 좁은 시각 범위에서만 풍부한 CSS 재질이 살아난다.
+- **DesignSpec blackboard**: 모든 specialist가 단일 typed JSON을 공유 — 색·폰트·프레임 어휘가 분산 생성에서도 통일된다.
+- **Deterministic CV facts**: k-means palette + OCR 텍스트 높이 + HSV 채도가 프롬프트에 주입되어 환각을 줄인다 (`layeragent/libraries/cv_extractors.py`).
+- **Library retrieval**: FontAwesome icon search, SVG primitive shapes, 4종 background pattern, Bezier connector path가 *실제 자산*으로 주입되어 깨진 URL/가상 자산을 차단한다 (`layeragent/libraries/`).
 
-1. **레이아웃 분석 (Stage 0)**: VLM이 전체 디자인 이미지를 분석하여 레이아웃 유형(타임라인, 허브-스포크, 그리드, 피라미드 등)을 판별하고, 각 요소의 위치를 바운딩 박스 좌표로 추출한다. 전역 구조를 **명시적 형태**로 고정함으로써 RQ1의 두 채널 중 *레이아웃 단순화* 채널을 사전에 차단한다.
+### 1.4 연구 질문과 기여
 
-2. **요소별 크롭 렌더링 (Stage 1, → RQ1 재질 채널)**: 원본 이미지에서 감지된 각 요소 영역을 크롭하여 Card Detail Agent에 독립적으로 처리시킨다. 좁아진 시각 범위 덕분에 글래스모피즘, 네온 글로우 등 풍부한 CSS 재질이 카드별로 재현된다. Background Agent는 별도로 전체 이미지에서 배경을 생성한다 (병렬).
+본 연구는 4개 RQ로 정식화된다 (각 RQ는 *특정 데이터셋이 직접 지지하는* 경험적 주장이며, 데이터 미수집 RQ는 §7 향후 연구로 분리한다):
 
-3. **스타일 정규화 (Stage 2, → RQ1 일관성 채널)**: 독립 생성으로 인한 카드 간 CSS 불일치(서로 다른 투명도, 테두리, 그림자)를 Style Normalizer가 조립된 HTML 코드 위에서 통일한다. **위치나 구조는 변경하지 않으며**, CSS 속성값만 동기화한다 — 본 단계가 RQ1의 핵심 답이다.
+- **RQ1 (PGG 존재)**: 동일 VLM이 perception에서 5–8 layer를 정확히 인식하지만 generation에서 1–2 layer만 코드화하는 격차가 존재하는가? — *probing_minimal* 데이터로 답한다 (§3).
+- **RQ2 (분해의 효과)**: 멀티에이전트 레이어 분해가 perception-grounded 메트릭(Layer Recall, LTED)에서 PGG를 좁히는가? — *main_eval 48-slide × 4-method* 데이터로 답한다 (§6.1).
+- **RQ3 (메트릭 가족 disagreement)**: surface mimicry(SSIM) / perception-grounded(LTED·Recall) / holistic LLM judge (GPT-5.4 4-criteria) 세 가족이 동일 데이터에서 서로 다른 ranking을 산출하는가? 각 가족은 어떤 use case에 정렬되는가? — *main_eval + mllm_judge* 데이터로 답한다 (§6.4).
+- **RQ4 (Sweet-spot scaling)**: LayerAgent의 우위는 디자인의 *계층 복잡도*에 어떻게 의존하는가? 두 메트릭 가족(LTED, MLLM judge)은 sweet-spot에 합의하는가? — *9 layout family per-layout breakdown* 으로 답한다 (§6.3).
 
-4. **텍스트 삽입 (Stage 3, → RQ2)**: Text Inserter가 완성된 시각 구조에 콘텐츠 텍스트를 삽입한다. 시각 디자인이 이미 확정되어 있으므로 텍스트 삽입은 CSS 품질에 간섭하지 않으며, 이로써 단일 VLM에서 발생하던 시각/콘텐츠 zero-sum 트레이드오프가 구조적으로 해소된다.
+위 RQ들에 대응하는 본 paper의 **기여**는:
 
-(RQ3 답: 위 네 단계의 효과는 §5.1의 양-질 동반 검증 프로토콜 — `ConsistencyScore`/`CCR`/`CSS Richness`/`structural metrics` × `tool-grounded VLM-as-Judge` — 으로 확인된다.)
-
-### 1.5 기여
-
-본 논문의 기여는 다음과 같다:
-
-- **단일 VLM 호출이 모델 능력 향상으로도 보장하지 못하는 두 속성과 평가 타당성 문제 식별**: (RQ1) Cross-Element Visual Consistency — 카드 간 시각 일관성, (RQ2) Joint Content-Visual Fidelity — 시각/텍스트 zero-sum 트레이드오프, (RQ3) Measurement Validity — 양적 D2C 메트릭이 perceived fidelity를 underdetermine한다는 측정학적 증거 (DreamHouse 2026의 슬라이드 도메인 재확인).
-
-- **LayerAgent 프레임워크**: 두 보장을 명시적 단계 분리로 부과하는 4단계 멀티에이전트 파이프라인. **Style Normalizer** (RQ1의 일관성 채널을 pre-render에서 강제, post-hoc iteration 대비 효과 검증)와 **Text Inserter** (RQ2의 zero-sum을 구조적으로 제거)를 핵심 contribution으로, Layout Analyzer + 요소 크롭을 보조 메커니즘으로 한다. LangGraph로 구현.
-
-- **양-질 동반 검증 평가 프로토콜**: CSS Richness가 중복·충돌 속성으로 부풀려질 수 있음을 명시적으로 제기하고, **tool-grounded (DOM JSON + screenshot) cross-model VLM-as-Judge** 와 양적 메트릭의 동반 검증을 평가 원칙으로 확립한다. 2026 best practice (position-randomization, swap-debias, cross-model triangulation) 채택.
-
-- **정량적 검증 + SOTA 일관성**: GPT-4o에서 LayerAgent는 ConsistencyScore와 CSS Richness, CCR을 동시에 향상시키고, cross-model VLM-as-Judge (Claude / GPT-5.4 / Gemini, position-randomized + swap-debiased) 가 양적 향상이 perceived fidelity 개선과 동반함을 확인한다 (인간 anchor는 향후 검증). H-RAG 기반 단일 VLM 기법(CCR 0.26)과의 대비로 zero-sum 트레이드오프 해소를 보이며, GPT-5.4·Claude 4.6 Opus single-pass와의 비교로 두 보장 실패가 *현재 세대 SOTA closed VLM 전반에서 일관됨*을 검증한다.
+1. **PGG의 정식화와 측정**: Layer Recall + LTED라는 *perception-grounded reference-free* 메트릭 가족 제안. 같은 VLM의 perception을 ground-truth anchor로 삼아 측정 외부성 의존을 제거 (§3, `experiments/probing/layer_tree.py`).
+2. **LayerAgent 8-stage 프레임워크**: DesignSpec 블랙보드 + CV grounding + library retrieval로 강화된 LangGraph 파이프라인. 8 ablation 플래그로 컴포넌트별 효과 격리 가능 (§4).
+3. **3-가족 평가 protocol**: surface / structural / holistic 메트릭 가족의 ranking disagreement를 정량 증명 (§6.4 Table 4). 단일 메트릭에 의존한 기존 디자인-투-코드 ranking의 use-case-conditional 재해석을 제안.
+4. **Sweet-spot-scoped honest reporting**: 9 layout family per-layout breakdown으로 LayerAgent 우위가 *계층 복잡도에 단조 비례*함을 두 메트릭 가족이 *합의*하여 보임. 평면 layout에서의 분해 비용을 부정 결과로 명시 보고하고 *layout-conditional routing*을 운영 권고로 정착 (§6.3).
 
 ---
 
@@ -80,95 +102,61 @@
 
 ### 2.1 디자인-투-코드 생성
 
-디자인-투-코드 생성은 시각 디자인을 실행 가능한 코드로 변환하는 것을 목표로 한다. **Design2Code** (Si et al., 2024)는 484개의 실제 웹페이지로 구성된 벤치마크를 도입하고 GPT-4V가 스크린샷-투-HTML 변환에서 중간 수준의 충실도를 달성함을 보고하였다. **WebSight** (Laurençon et al., 2024)는 디자인-투-코드 모델 학습을 위한 200만 쌍의 합성 데이터셋을 공개하였다. **DCGen** (FSE 2025)은 페이지를 블록 단위로 분할하여 독립적으로 코드를 생성하는 분할 정복 접근을 제안하였다. **LaTCoder** (KDD 2025)는 코드 이전에 레이아웃을 "사고 과정(chain of thought)"으로 생성한다.
+**Design2Code** (Si et al., 2024)는 484 웹페이지 벤치마크로 GPT-4V의 중간 충실도를 보고했다. **WebSight** (Laurençon et al., 2024)는 200만 합성 image-code pair를 공개했다. **DCGen** (FSE 2025)은 분할 정복으로 페이지를 블록 단위로 분해해 코드를 생성한다. **LaTCoder** (KDD 2025)는 코드 이전에 레이아웃을 chain-of-thought로 명시화한다. **ScreenCoder** (arXiv:2507.22827, 2025)는 Grounding → Planning → Generation의 3-stage agent 파이프라인을 채택하고 50K image-code pair로 GRPO 미세조정한다. **DesignCoder** (arXiv:2506.13663, 2025)는 모바일 UI 도메인에서 UI Grouping → Hierarchy-Aware Generation → **post-render Self-Correcting Refinement**의 3-stage를 사용한다.
 
-본 연구와 가장 가까운 두 동시대 연구는 **ScreenCoder** (arXiv:2507.22827, 2025)와 **DesignCoder** (arXiv:2506.13663, 2025)이다.
-- **ScreenCoder**는 본 연구와 동일한 *웹 도메인 HTML/CSS 출력*을 생성하며, Grounding → Planning → Generation의 3단계 멀티에이전트 구조를 채택한다. 50,000 image-code pair 데이터셋과 함께 RL 미세조정(GRPO)을 도입하였다. **차별점**: ScreenCoder의 cross-element 일관성은 *원본 스크린샷에서 image patch를 추출하여 placeholder를 대체*하는 Hungarian-algorithm 매칭 방식이며, 본 연구의 Style Normalizer는 *생성된 CSS code 위에서 속성값을 통일*하는 코드-수준 기법이다. 즉, ScreenCoder는 visual content reuse, 본 연구는 generative code uniformity라는 다른 차원에서 일관성을 다룬다. 또한 ScreenCoder는 "Text Inserter" 같은 시각/콘텐츠 분리 단계가 없어 RQ2의 zero-sum을 해소하지 못한다.
-- **DesignCoder**는 모바일 UI / React Native 도메인에서 UI Grouping Chain → Hierarchy-Aware Generation → **Self-Correcting Refinement** 3단계를 사용한다. 마지막 단계는 Appium으로 렌더링한 결과를 원본과 비교하여 컴포넌트별 수정을 *post-hoc*로 가하는 iterative refinement이다. **차별점**: DesignCoder는 *post-render 검증-수정* 패러다임이고, LayerAgent의 Style Normalizer는 *pre-render 정규화* 패러다임이다. 본 연구의 Style Normalizer ablation (§5.2.1, D vs D₁) 은 pre-render 정규화의 effect size를 격리해서 보여주며, post-render iterative refinement와의 직접 head-to-head 비교는 동일 backbone 위에서 향후 추가 검증 대상으로 남긴다.
+**LayerAgent와의 차별점.** ScreenCoder는 *image patch reuse*(Hungarian matching)로 cross-element 일관성을, DesignCoder는 *post-render iterative refinement*로 코드 품질을 다룬다. 본 연구의 Style Normalizer는 *pre-render CSS 정규화*이고, Text Inserter는 *시각/콘텐츠 단계 분리*이며, DesignSpec blackboard는 *생성 시점 cross-agent 스타일 통일*이다. 또한 어떤 선행 연구도 **계층 구조 자체를 perception-grounded 메트릭으로 측정**하지 않는다.
 
-DCGen·ScreenCoder·DesignCoder 모두 본 연구가 식별한 두 보장 (RQ1 cross-element consistency, RQ2 joint content-visual fidelity)을 *통합적으로* 부과하지 않는다 — DCGen은 레이아웃 정확도, ScreenCoder는 image patch 재사용, DesignCoder는 post-hoc refinement에 초점을 맞추며, 모두 슬라이드 도메인 특유의 글래스모피즘·네온 글로우 같은 *생성형 CSS 재질의 카드 간 통일*은 다루지 않는다. 본 연구는 이 gap을 Style Normalizer + Text Inserter의 단계 분리로 메우고, 평가 측면에서 DreamHouse 2026의 양/질 직교성을 슬라이드 도메인에서 재확인한다 (RQ3).
+### 2.2 시각 교정 / 반복 개선
 
-반복적 시각 교정에 관한 최근 연구도 관련이 깊다. **VisRefiner** (arXiv:2602.05998, 2025)는 렌더링된 예측 결과와 참조 디자인 간의 시각적 차이를 학습하는 프레임워크로, GPT-4o 대비 Block Match에서 21.5점의 향상을 달성하였다. **Vision-Guided Iterative Refinement** (arXiv:2604.05839, 2026)은 VLM 기반 시각 비평(critic)을 통해 렌더링된 웹페이지에 구조화된 피드백을 제공하며, 3회 반복 교정을 통해 17.8%의 개선을 보고하였다. 이러한 접근은 본 연구와 상호 보완적이다: 이들은 반복적 렌더링과 비교를 통해 품질을 개선하는 반면, 본 연구는 입력 분해를 통해 품질을 개선한다.
+**VisRefiner** (arXiv:2602.05998, 2025)는 렌더링 결과와 참조 디자인 간 시각 차이를 학습하여 GPT-4o 대비 Block Match +21.5pt를 달성했다. **Vision-Guided Iterative Refinement** (arXiv:2604.05839, 2026)는 VLM critic 기반 3회 반복으로 17.8% 개선을 보고했다. 본 연구의 Visual Critic stage는 이들의 *반복 vs 단발* 트레이드오프를 ablation 플래그(`use_visual_critic`)로 노출한다.
 
-### 2.2 프레젠테이션 생성
+### 2.3 프레젠테이션 생성
 
-프레젠테이션 생성에 대한 초기 접근은 추출적 요약, 규칙 기반 템플릿, 또는 레이아웃 휴리스틱에 의존하였으며 (Hu and Wan, 2014; Xu and Wan, 2022; Sun et al., 2021; Fu et al., 2022), 유연성과 멀티모달 지원이 부족한 경우가 많았다.
+**PPTAgent** (Zheng et al., EMNLP 2025)는 LLM 피드백 기반 템플릿 반복 수정을, **PreGenie** (Xu et al., EMNLP Findings 2025)는 코드 리뷰 + 페이지 리뷰 이중 루프를, **SlideCoder** (Tang et al., EMNLP 2025)는 CGSeg 세그멘테이션 + 계층적 RAG를, **AutoPresent** (Ge et al., CVPR 2025)는 구조화된 시각 설계 원칙을 강조했다. 이들 중 **슬라이드의 z축 계층 구조를 명시적으로 분해 생성**하거나 **perception-grounded 메트릭**을 채택한 연구는 본 연구가 아는 한 보고된 바 없다.
 
-LLM 기반의 최근 방법은 두 가지 범주로 분류된다. 첫 번째는 확산 모델이나 이미지 조건부 모델을 사용하여 슬라이드 이미지를 직접 합성하는 방식 (Ma et al., 2025; Chen et al., 2025)으로, 시각적으로 풍부한 출력을 생성하나 구조적 제어와 편집 가능성이 제한적이다. 두 번째는 마크다운이나 HTML과 같은 중간 표현을 생성하고 이를 슬라이드로 렌더링하는 방식 (Zheng et al., 2025; Ge et al., 2025; Cachola et al., 2024; Bandopadhyay et al., 2024)이다. 이 접근은 레이아웃 제어 가능성을 높이고 후편집을 가능케 하지만, 렌더링된 시각 출력을 검증하는 메커니즘이 부족한 경우가 많다.
+### 2.4 멀티에이전트 코드 생성
 
-대표적 연구로는 LLM 피드백에 기반한 템플릿의 반복적 수정을 통해 인간 편집 워크플로우를 모사하는 **PPTAgent** (Zheng et al., 2025), 반복적 교정을 위한 중간 코드 리뷰와 시각 페이지 리뷰 메커니즘을 모두 도입한 **PreGenie** (Xu et al., 2025), CGSeg 세그멘테이션과 계층적 RAG를 결합한 이미지-투-python-pptx 변환의 **SlideCoder** (Tang et al., 2025), 구조화된 시각 설계 원칙을 통한 레이아웃 인지 코드 합성을 강조한 **AutoPresent** (Ge et al., 2025) 등이 있다.
+**MetaGPT** (Hong et al., ICLR 2024), **ChatDev** (Qian et al., ACL 2024), **CAMEL** (Li et al., NeurIPS 2023)은 **소프트웨어 개발 프로세스**(설계→구현→테스트)로 agent를 분담한다. LayerAgent는 (a) 개발 프로세스가 아닌 **출력의 z축 시각 구조**(배경→카드→텍스트→아이콘)로 분담하고, (b) agent 간 통신을 자연어/코드가 아닌 **DesignSpec JSON + bounding box JSON**의 typed blackboard로 수행하여 truncation·해석 오류를 제거한다.
 
-이들 연구 중 **요소 간 시각 일관성**과 **콘텐츠-시각 zero-sum 트레이드오프**를 슬라이드 도메인의 *모델-독립적 구조 한계*로 정식화한 연구는, 저자들이 아는 한 보고된 바 없다. 본 연구는 두 보장 실패와 측정 타당성을 진단하고, 단계 분리(Style Normalizer + Text Inserter)와 동반 검증 평가 프로토콜을 해법으로 제안한다.
+### 2.5 디자인-투-코드 평가
 
-### 2.3 코드 생성을 위한 멀티에이전트 시스템
-
-LLM 기반 멀티에이전트 시스템은 소프트웨어 공학 과제에서 우수한 성과를 보이고 있다. **MetaGPT** (Hong et al., 2023)는 소프트웨어 개발 역할(PM → 아키텍트 → 개발자 → QA)에 에이전트를 배정하고, **ChatDev** (Qian et al., 2023)는 대화 기반 협업을, **CAMEL** (Li et al., 2023)은 역할극 기반 통신 프로토콜을 도입하였다. 이들 시스템은 **소프트웨어 개발 프로세스**(설계 → 구현 → 테스트)를 기준으로 과제를 분해한다.
-
-본 연구는 두 가지 점에서 차별화된다. 첫째, 개발 프로세스가 아닌 **시각 디자인의 물리적 요소**(배경, 카드 1, 카드 2, ...)를 기준으로 에이전트를 분담한다. 둘째, 에이전트 간 통신에 자연어나 코드가 아닌 **구조화된 좌표 JSON**(바운딩 박스)을 사용하여, 절단(truncation) 및 해석 오류를 제거한다.
-
-### 2.4 디자인-투-코드 평가
-
-기존 평가 접근은 전역 유사도 (CLIP, SSIM), 구조 매칭 (Design2Code의 Block-Match, SlidesBench의 element-matching), 속성 수준 평가 (WebRenderBench의 SDA, Widget2Code의 속성별 평가) 등을 포괄한다. 그러나 이들 메트릭은 **CSS 시각 효과의 풍부성**이나 **시각 품질과 콘텐츠 완성도 간의 트레이드오프**를 직접 측정하지 못한다. 본 연구에서는 이러한 차원을 포착하는 보완적 메트릭으로 CSS Richness(CSS 효과 속성의 절대 개수)와 CCR(콘텐츠 완성도 비율)을 제안한다.
+기존 평가는 전역 유사도(CLIP, SSIM), 구조 매칭(Design2Code의 Block-Match, SlidesBench의 element-matching), 속성 수준(WebRenderBench의 SDA, Widget2Code의 per-property)으로 분류된다. **DreamHouse** (arXiv:2603.24866, 2026)는 structural validity와 visual fidelity가 직교적이며 frontier VLM의 joint pass rate가 7.1%에 불과함을 보였다. 본 연구는 (a) DreamHouse의 직교성을 슬라이드 도메인의 **SSIM vs LTED 분리**로 재확인하고, (b) **perception-grounded 메트릭**(LTED, Layer Recall, CCR)을 reference-free, deterministic 형태로 제안한다.
 
 ---
 
-## 3. 단일 VLM의 두 보장 실패와 측정 타당성 진단
+## 3. 지각-생성 간극의 측정
 
-LayerAgent의 4단계 설계를 동기 부여하는 진단 실험을 §3.1–§3.4에서 제시한다. 각 진단은 §1.2의 한 RQ에 대응하며, 정식 측정과 통계적 검증은 §5에서 수행한다 (`final_test/`).
+### 3.1 정의
 
-### 3.1 진단 1: 시각 범위가 CSS 재질 품질을 결정한다 (RQ1 — 재질 채널)
+슬라이드 이미지 $I$와 VLM $\mathcal{V}$에 대해:
 
-네온 글로우 효과가 적용된 4개의 글래스모피즘 카드를 포함하는 타임라인 슬라이드 디자인에 대해 GPT-4o를 사용한 통제 실험을 수행한다.
+- **Perception 트리** $T_P(I, \mathcal{V})$: VLM에게 "이 이미지의 모든 시각 레이어를 z-order로 한 줄씩 `z={N}: type={canonical}, count={C}` 형식으로 나열하라"는 결정적 프롬프트(`PERCEPTION_PROMPT`, `experiments/probing/layer_tree.py:60`)로 얻은 트리. 27개 canonical type(background, atmosphere, decoration, card, panel, container, hero, title, content, text, label, value, icon, chart, table, connector, …)으로 정규화.
+- **Generation 트리** $T_G(I, \mathcal{V})$: 같은 VLM에 같은 이미지로 "HTML/CSS로 변환"을 요청하여 얻은 HTML을 정규식 + class-name → canonical type 매핑으로 파싱한 트리. z-index를 [back/mid/front] 3-band로 버킷팅.
 
-**조건 A (전체 이미지)**: 1280×720 슬라이드 이미지 전체를 "이 디자인을 HTML/CSS로 변환하라"는 프롬프트와 함께 제공한다.
+두 트리를 (z-band, type) multiset으로 환원한 뒤 다음을 정의:
 
-**조건 B (크롭 이미지)**: 동일 이미지에서 카드 하나(~300×400px)를 크롭하여 "이 카드를 HTML/CSS로 변환하라"는 프롬프트와 함께 제공한다.
+- **Layer Recall** $= |\{t : t \in \mathrm{types}(T_P) \cap \mathrm{types}(T_G)\}| / |\mathrm{types}(T_P)|$
+- **LTED** $= \frac{\sum_k |m_P(k) - m_G(k)|}{\sum_k m_P(k) + \sum_k m_G(k)}$, 여기서 $m(k)$는 (band, type) 버킷별 카운트 multiset.
 
-모델, 온도(temperature), max_tokens는 두 조건에서 동일하다. 결과:
+LTED는 0이면 두 multiset이 동일, 1이면 disjoint이며, 본 연구는 LTED↓를 *구조 충실도*의 headline metric으로 사용한다.
 
-| 조건 | backdrop-filter | box-shadow 수 | 반투명 배경 | CSS 효과 총 수 |
-|---|:---:|:---:|:---:|:---:|
-| A. 전체 이미지 | 0건 | 2개 | 없음 (불투명) | 3 |
-| B. 크롭 카드 | **1건** | **3개** | **있음 (rgba)** | **6~8** |
+### 3.2 진단 — 단일 모델 PGG (10 dark-glass design pilot)
 
-동일 모델이 글래스모피즘(backdrop-filter + rgba 배경)을 생성하는 것은 시각 범위가 단일 카드로 좁혀졌을 때에만 가능하다. 전체 이미지에서는 해당 카드가 불투명 단색 블록으로 렌더링된다.
+GPT-4o로 10개 다크-글래스 디자인에 대해 perception(Stage A) → 같은 모델 baseline generation(Stage B1) → LayerAgent generation(Stage B2)을 비교한 pilot 결과 (`experiments/probing/probing_minimal.py`):
 
-### 3.2 해석: 자기회귀 토큰 예산 가설
+| 지표 | Stage A self | Stage B1 (single-pass) | Stage B2 (LayerAgent) |
+|---|:---:|:---:|:---:|
+| `n_layers` | 5–8 | 0–4 | 5–10 |
+| `Layer Recall` (vs $T_P$) | 1.00 (sanity) | 0.21 | **0.81** |
+| `LTED` ↓ (vs $T_P$) | 0.00 | 0.82 | **0.55** |
 
-전체 슬라이드를 처리할 때 VLM은 레이아웃 구조, 색상, 텍스트 영역, 아이콘, 장식 요소를 하나의 자기회귀 토큰 시퀀스 내에서 동시에 산출해야 한다. CSS 재질 속성(`backdrop-filter`의 blur 값, `box-shadow`의 레이어 수, `rgba` 알파 채널)은 이 없이도 HTML이 정상 렌더링된다는 점에서 "선택적"이며, 인지 부하 상황에서 가장 먼저 단순화의 대상이 된다. 동일한 메커니즘은 §3.3의 카드 간 일관성에도 적용된다 — 카드 B의 스타일을 카드 A와 통일하려면 카드 A의 스타일을 *기억하면서* 카드 B를 생성해야 하는데, 이 기억 또한 토큰 예산을 소모한다. 부수적으로 같은 메커니즘은 *레이아웃 구조*도 단순화한다 (허브-스포크 → 그리드, 피라미드 → 리스트).
+Single-pass에서 perception이 보장한 5–8개 레이어 중 평균 1.6개만 코드로 commit되며, LayerAgent에서는 평균 6.5개로 증가한다. 이 격차가 PGG의 정량 정의이다.
 
-### 3.3 진단 2: 카드 간 시각 일관성의 자발적 실패 (RQ1 — 일관성 채널)
+### 3.3 일반화 — Cross-VLM probing (진행 중)
 
-§3.1의 크롭이 단일 카드의 재질을 회복시키더라도, **여러 카드를 독립적으로 생성하면 카드 간 스타일이 어긋난다**. 카드 A는 `rgba(30,30,40,0.6)` 글래스모피즘인데 카드 B는 불투명 `#1e1e28`, 카드 C는 `rgba(50,40,60,0.4)`로 서로 다르게 생성되는 식이다. 단일 VLM 호출도 자기회귀 진행 도중 후방 카드일수록 스타일이 흔들리는 동일한 현상을 보인다 (앞서 생성한 스타일을 토큰 예산 안에서 정확히 reproduce할 인센티브가 없기 때문).
+PGG가 GPT-4o 단일 모델의 인공물인지를 확인하기 위해 **cross-VLM probing 실험**을 수행한다 (`experiments/probing/cross_vlm.py`): 50 슬라이드 × 3 VLM(GPT-4o, Claude 4.6 Opus, Gemini 2.5) × 2 stage(perception, baseline generation) = 300 호출, 추정 비용 ~$15. 각 (slide, VLM)에 대해 Layer Recall과 gap = (1 − Recall)을 측정한다.
 
-본 연구는 이를 **`ConsistencyScore`** — 카드 간 CSS 속성(`border-radius`, `box-shadow blur/alpha`, `background-rgb/alpha`, `border-width`) 6종의 정규화된 변동계수 평균을 1에서 뺀 값 — 로 정식 측정한다. 측정 코드와 단위 테스트는 `final_test/metrics/consistency.py`에 공개한다. 정식 비교(single-pass / LayerAgent-NoStyleNorm / LayerAgent-Full × 10 designs × 3 seeds)는 §5.2.1에서 보고한다.
-
-### 3.4 진단 3: CSS-콘텐츠 zero-sum 경쟁 (RQ2)
-
-CSS 품질을 개선하기 위한 직관적 대안은 프롬프트에 CSS 패턴 지식을 주입하는 것이다. 이를 Method C (Visual CoT + H-RAG)로 구현하여 시스템 프롬프트에 글래스모피즘 레시피, 네온 글로우 패턴, 그라디언트 예시를 포함한다.
-
-| 방법 | CSS Richness ↑ | CCR (콘텐츠 완성도) ↑ |
-|---|:---:|:---:|
-| A. Baseline (single-pass GPT-4o) | 2.8 | 0.80 |
-| B. Visual CoT | 7.1 | 0.50 |
-| C. CoT + H-RAG | **10.3** | **0.26** ← 콘텐츠 74% 소실 |
-| D. LayerAgent (본 연구) | **26.5** | **0.99** |
-
-CSS 지식 주입(C)은 CSS Richness를 2.8→10.3으로 끌어올리지만 CCR이 0.80→**0.26**으로 붕괴한다 — 텍스트 콘텐츠의 74%가 누락된다. 이는 구조적 한계이다: 단일 HTML 출력을 생성하는 단일 VLM은 CSS 효과와 콘텐츠 배치 사이에 한정된 생성 용량을 분배해야 한다. 한 축을 최적화하면 다른 축이 저하되는 zero-sum 경쟁이 발생한다. LayerAgent는 CSS 생성(Stage 1 Card Detail Agents)과 콘텐츠 삽입(Stage 3 Text Inserter)을 서로 다른 파이프라인 단계로 분리함으로써 이 트레이드오프를 구조적으로 제거한다.
-
-### 3.5 진단 4: 양적 메트릭의 부풀림 가능성 (RQ3 — 측정 타당성)
-
-CSS Richness는 시각 품질의 *양적 상한(upper bound)* 일 뿐이며, **중복·충돌 속성으로 부풀려질 수 있다**. 동일 색의 `box-shadow` 4겹은 속성 수를 4배로 늘리지만 시각 결과는 단일 그림자와 다름없거나 더 조악하다. 상충하는 `gradient` 레이어를 중첩하면 숫자만 늘 뿐 품질은 저하된다. Block-Match·element-matching 같은 구조 메트릭도 카드 위치만 일치하면 단색 블록과 글래스모피즘에 동일 점수를 부여한다.
-
-DreamHouse (arXiv:2603.24866, 2026)는 structural validity와 visual fidelity가 직교 신호임을 정량적으로 증명하였다 (joint pass rate 7.1%). 본 연구는 이 직교성을 슬라이드 도메인에서 재확인하고, **양적 메트릭과 tool-grounded cross-model VLM-as-Judge의 동반 검증**을 통해서만 perceived fidelity 향상을 입증한다. 정식 측정 (CSS Richness × CCR × Block-Match × element-IoU × CLIP × SSIM × VLM-judge × 3 models의 Kendall-τ heatmap)은 §5.2.3 (RQ3 killer experiment)에서 보고한다.
-
-### 3.6 세 RQ 요약
-
-| RQ | 진단 절 | 단일 VLM 실패 양상 | LayerAgent 해법 |
-|---|---|---|---|
-| RQ1 (Consistency) | §3.1 + §3.3 | 재질 단순화 + 카드 간 스타일 불일치 | 요소 크롭 (Stage 1) + Style Normalizer (Stage 2) |
-| RQ2 (Joint Fidelity) | §3.4 | CSS↑ → CCR↓ zero-sum | 시각/텍스트 단계 분리 (Stage 1 vs 3) |
-| RQ3 (Measurement Validity) | §3.5 | 양적 메트릭이 perceived fidelity를 underdetermine | tool-grounded cross-model VLM-as-Judge 동반 검증 |
+**가설 H-PGG.** 모든 3 VLM에서 baseline gap > 0.5이고 cross-VLM 차이가 ±0.10 이내이면, PGG는 모델-독립적 *세대 한계*임을 시사한다. 본 결과가 가설을 기각하면 thesis는 *해당 모델 세대로 한정된 잠정적 주장*으로 약화하여 명시 보고한다 (§7 한계).
 
 ---
 
@@ -176,354 +164,528 @@ DreamHouse (arXiv:2603.24866, 2026)는 structural validity와 visual fidelity가
 
 ### 4.1 전체 구조
 
-LayerAgent는 디자인-투-코드 생성을 4개의 순차적 단계로 분해하며, 각 단계는 전문화된 에이전트가 담당한다. 파이프라인은 LangGraph의 StateGraph로 구현되며, 가능한 경우 병렬 실행을 활용한다.
-
 ```
-                    ┌─────────────────────┐
-                    │  Layout Analyzer    │  전체 이미지 → 레이아웃 유형 + 요소 위치
-                    └──────────┬──────────┘
-                    ┌──────────┴──────────┐
-                    ▼                     ▼
-         ┌──────────────────┐  ┌──────────────────┐
-Stage 1  │ Background Agent │  │ Card Detail Agent │ × N
-(병렬)   │ (전체 이미지)     │  │ (크롭 이미지)     │
-         │ → bg_html        │  │ → card_html × N   │
-         └────────┬─────────┘  └────────┬─────────┘
-                  │                     │
-                  └──────────┬──────────┘
-                             ▼
-                    ┌─────────────────┐
-Stage 2             │ Style Normalizer│  카드 간 CSS 통일
-                    └────────┬────────┘
-                             ▼
-                    ┌─────────────────┐
-Stage 3             │ Text Inserter   │  완성된 구조에 텍스트 삽입
-                    └─────────────────┘
+                    ┌──────────────────────┐
+                    │      Analyzer        │  전체 이미지 → 레이아웃 + bbox
+                    └──────────┬───────────┘
+                               ▼
+                    ┌──────────────────────┐
+                    │   Design Director    │  + CV facts → DesignSpec (blackboard)
+                    └──────────┬───────────┘
+        ┌──────────┬───────────┼───────────┬──────────┬────────┬───────┐
+        ▼          ▼           ▼           ▼          ▼        ▼       ▼
+   ┌─────────┐┌─────────┐┌─────────┐┌─────────┐┌─────────┐┌──────┐┌──────┐
+   │Base BG  ││Atmosph. ││Decorat. ││ Card    ││ Hero    ││ Icon ││Chart/│
+   │(vision, ││(vision, ││(vision, ││ Detail  ││ Detail  ││Agent ││Table │
+   │ full)   ││ full)   ││ full)   ││ ×N(crop)││ ×N(crop)││(libr)││Agent │
+   └─────┬───┘└─────┬───┘└─────┬───┘└─────┬───┘└─────┬───┘└──┬───┘└──┬───┘
+         └──────────┴───────────┴───────────┴──────────┴───────┴──────┘
+                                         ▼
+                              ┌──────────────────┐
+                              │    Assembler     │  z-index stacking
+                              └─────────┬────────┘
+                                        ▼
+                              ┌──────────────────┐
+                              │ Style Normalizer │  cross-card CSS 통일
+                              └─────────┬────────┘
+                                        ▼
+                              ┌──────────────────┐
+                              │  Text Inserter   │  완성 시각 → 콘텐츠 주입
+                              └─────────┬────────┘
+                                        ▼
+                              ┌──────────────────┐
+                              │ Overflow Repair  │  (옵션, 측정 기반 미세조정)
+                              └─────────┬────────┘
+                                        ▼
+                              ┌──────────────────┐
+                              │  Visual Critic   │  (옵션, Playwright diff)
+                              └──────────────────┘
 ```
 
-### 4.2 Stage 0: 레이아웃 분석기
+LangGraph v1.0 StateGraph로 구현 (`layeragent/pipeline.py`). 8 specialist는 Design Director 출력 후 병렬 실행된다.
 
-레이아웃 분석기는 전체 디자인 이미지를 입력받아 두 가지를 출력한다: (1) **레이아웃 유형**과 (2) **요소 바운딩 박스**.
+### 4.2 Analyzer (Stage 0)
 
-**레이아웃 유형 감지.** 분석기는 슬라이드를 7가지 레이아웃 유형 중 하나로 분류한다: `horizontal_row`, `grid`, `hub_spoke`, `pyramid`, `split`, `vertical_stack`, `freeform`. 이 분류는 서로 다른 레이아웃이 서로 다른 요소 배치 전략을 요구하기 때문에 중요하다. 예를 들어, 타임라인 레이아웃은 카드를 균등 간격으로 수평 배치하지만, 허브-스포크 레이아웃은 카드를 중앙 허브 주위에 방사형으로 배치한다. 단일 배치 전략(예: 수평 균등 배치)을 하드코딩하면 타임라인에서는 정확한 결과를 내지만 허브-스포크나 피라미드 레이아웃에서는 배치가 크게 어긋나게 된다.
+전체 이미지 → (a) 레이아웃 유형(`timeline / dashboard / hub_spoke / pyramid / grid / split / vertical_stack / freeform`), (b) 각 카드/히어로/장식 요소의 정규화 bounding box (0–1 비율)를 출력한다. 이후 모든 crop과 placement의 anchor.
 
-**요소 위치 추출.** 감지된 각 카드/요소에 대해, 분석기는 이미지 크기 대비 비율(0~1)로 바운딩 박스 좌표를 출력한다. 이 좌표는 (1) 원본 이미지에서 요소 영역을 크롭하고, (2) 최종 조립된 HTML에서 렌더링된 요소를 배치하는 데 사용된다.
+### 4.3 Design Director — DesignSpec Blackboard
 
-### 4.3 Stage 1: 요소별 렌더링
+전체 이미지 + **CV facts** (k-means palette, OCR 텍스트 높이 분포, HSV 채도)를 입력받아 typed JSON `DesignSpec`을 출력한다:
 
-RQ1의 *재질 채널* (단일 카드의 CSS 재질 재현)을 다루는 단계이다. 레이아웃 분석기가 감지한 각 요소에 대해:
+```json
+{
+  "aesthetic_label": "dark_glass_neon",
+  "typography": {"hero_family": "Inter", "hero_weight": 800,
+                 "body_family": "Inter", "body_weight": 500, ...},
+  "palette": {"bg_primary": "#0A1530", "accent": "#3B82F6",
+              "frame_color": "rgba(255,255,255,0.15)",
+              "text_bright": "#F5F5F0", ...},
+  "frame_system": {"hero_frame": "subtle glass frame",
+                   "card_frame": "1px rgba white border",
+                   "bottom_accent_bar": false},
+  "decorative_motif": {"style": "minimal", "density": "sparse", ...},
+  "atmosphere": {"has_radial_glow": true, "glow_origin": "top_center",
+                 "background_depth": "deep", ...}
+}
+```
 
-1. 원본 디자인 이미지를 해당 요소의 바운딩 박스 영역으로 **크롭**한다 (주변 글로우 효과를 포착하기 위한 소량의 패딩 포함).
-2. 크롭된 이미지를 **Card Detail Agent**에 제공하고, 시각 디자인을 HTML/CSS로 재현하도록 지시한다.
-3. 에이전트가 해당 단일 요소에 대한 CSS를 생성한다. 글래스모피즘, 네온 테두리, 내부 섹션 구분, 그림자 효과 등을 포함한다.
+이후 모든 specialist는 DesignSpec을 prompt hint로 받는다(`spec_to_hint`, `layeragent/agents/design_director.py:55`). 결과적으로 카드 A의 글래스모피즘이 카드 B에서 단색으로 변하는 *스타일 표류* 가 사전적으로 차단된다 — 이는 단순 분해(Method E)에서 자주 관찰되는 실패 양식이다.
 
-에이전트가 전체 슬라이드(1280×720, 다수 요소 포함) 대신 하나의 요소(~300×400 픽셀)만 처리하므로, CSS 재질 재현에 전체 주의(attention)를 할당할 수 있다. 이것이 9.5배 CSS 향상의 원천이다.
+**CV grounding의 효과.** 팔레트는 k-means(k=6)로 추출되어 *모델이 색을 환각할 여지*를 줄이고, OCR 텍스트 높이는 폰트 크기 결정에 결정적 anchor를 제공하며, HSV 채도는 *flat vs vivid* aesthetic 분류의 단서가 된다. ablation `no_cv_facts`로 효과 격리.
 
-**Background Agent**는 Card Detail Agents와 병렬로 실행되며 **전체 이미지**를 처리하여 배경 요소를 생성한다: 그라디언트, 글로우 효과, 장식 라인, 도트 패턴, 타임라인 연결선 등. 배경 에이전트는 배경이 전체 슬라이드에 걸쳐있어 의미 있게 크롭할 수 없기 때문에 전체 이미지에서 작동한다.
+### 4.4 Specialist Agents (Stage 1, 병렬)
 
-### 4.4 Stage 2: 스타일 정규화
+- **Base BG / Atmosphere / Decoration**: 전체 이미지 + DesignSpec → 배경 그라디언트, radial glow, decoration shape를 *분리된 layer*로 생성. 이 분리는 분위기와 패턴이 같은 z=0 안에서 충돌하지 않도록 한다.
+- **Card Detail × N**: 각 카드의 crop된 이미지(주변 패딩 포함) + DesignSpec → 카드별 풍부한 CSS(`backdrop-filter`, multi-layer `box-shadow`, rgba 알파, neon border). 좁은 시각 범위가 글래스모피즘 같은 *선택적 CSS 재질*을 회복시킨다 — 통제 실험에서 같은 GPT-4o가 전체 이미지에서는 카드당 CSS 효과 2.8개, crop에서는 6–8개를 생성한다.
+- **Hero Detail × N**: 히어로 블록(큰 숫자, 메인 메시지, 특수 그래픽)을 크롭으로 별도 처리.
+- **Icon Agent**: 카드별 의미 분석 → FontAwesome 클래스 검색 → 실제 `<i class="fa-...">` 태그 주입. *환각된 아이콘 URL* 을 구조적으로 차단 (`layeragent/libraries/icon_library.py`).
+- **Chart Agent / Table Agent**: 슬라이드 타입이 차트/테이블일 때 SVG primitive로 sparkline·bar·gauge·harvey table을 결정적 생성.
 
-각 카드가 서로 다른 크롭에서 독립적으로 생성되었으므로, CSS 스타일이 카드 간에 불일치할 수 있다 — 서로 다른 배경 투명도, 테두리 색상, 그림자 강도, border-radius 값 등. Style Normalizer는 조립된 HTML 코드를 읽고 CSS 속성 값을 통일함으로써 이를 해결한다:
+### 4.5 Assembler
 
-- 배경 rgba 알파값 → 모든 카드에서 통일
-- 테두리 색상 및 두께 → 통일
-- Border-radius → 통일
-- Box-shadow → 통일
-- Backdrop-filter blur 값 → 통일
+8 specialist의 HTML 단편을 z-index band([0,5,10,20,30,40])로 결정적 stacking. 단순 concat이 아니라 절대 좌표(Analyzer의 bbox 정규화 비율 × 1280×720)와 z-index를 명시적으로 부착한다.
 
-중요한 제약: Style Normalizer는 **위치나 구조를 변경하지 않는다** (position, left, top, width, height은 그대로 유지). 이미지 입력 없이 HTML 코드만을 처리하는 텍스트 전용 에이전트이다.
+### 4.6 Style Normalizer (Stage 2)
 
-### 4.5 Stage 3: 텍스트 삽입
+조립된 HTML을 *텍스트 입력만* 받아 카드 간 CSS 속성을 통일한다 (`layeragent/agents/style_normalizer.py`):
 
-Text Inserter는 완전히 스타일링된 HTML(배경 + 카드 + 정규화된 스타일)과 콘텐츠 데이터(제목, 설명, 메트릭 등)를 받아, 기존 HTML 구조에 텍스트를 삽입한다.
+- 배경 rgba alpha — 모든 카드 동일값
+- 테두리 색상/두께 — 통일
+- border-radius — 통일
+- box-shadow — 통일
+- backdrop-filter blur — 통일
 
-이 단계가 CSS-콘텐츠 트레이드오프를 해소하는 핵심이다. 이 시점에서 시각 디자인이 이미 완성되어 있으므로, Text Inserter의 유일한 과제는 카드 HTML 요소 내의 빈 영역을 찾아 텍스트 콘텐츠를 추가하는 것이다. CSS를 생성하거나 시각 레이아웃을 수정할 필요가 없다. 이 분리를 통해 CSS 품질(Stage 1으로부터)과 콘텐츠 완성도(Stage 3으로부터)가 동일 모델의 생성 용량을 놓고 경쟁하지 않게 된다.
+**불변 보장**: position/left/top/width/height/z-index은 변경하지 않는다. 이미지 입력 없이 코드만 보는 텍스트 전용 agent로, 각 카드의 *독립 생성에서 발생한 표류*를 사후 동기화한다. ablation `no_style_norm`으로 effect 격리.
 
-Text Inserter는 카드 HTML 구조를 분석하고, 콘텐츠 컨테이너 역할을 하는 내부 `div` 요소를 식별하여, 그 안에 텍스트를 배치한다. 이 접근은 텍스트가 카드 구조와 독립적으로 위치할 때 발생하는 정렬 불일치를 방지하므로, 오버레이 기반 텍스트 배치보다 견고하다.
+A2UI Protocol (Google, 2026)이 client-side renderer로 design-system을 강제하는 것과 동일한 설계 원리를 *VLM 파이프라인 내부에서* 실현한 것이다.
 
-### 4.6 구현 상세
+### 4.7 Text Inserter (Stage 3)
 
-LayerAgent는 LangGraph v1.0 StateGraph로 구현된다. 레이아웃 분석기와 Background Agent는 GPT-4o의 비전 기능을 사용하여 전체 이미지를 처리한다. Card Detail Agents도 크롭된 이미지에 대해 비전을 사용한다. Style Normalizer와 Text Inserter는 이미지 입력 없이 HTML 코드만을 처리하는 텍스트 전용 에이전트이다.
+완전히 스타일링된 HTML(배경 + 카드 + 정규화된 스타일) + 콘텐츠 데이터(제목, 설명, 메트릭, 리스트)를 받아, 기존 카드 구조 내 빈 컨테이너를 식별하여 텍스트를 주입한다.
 
-모든 에이전트는 GPT-4o를 사용하며, 글래스모피즘, 네온 글로우, 그라디언트 사양 등 구체적 CSS 패턴 레시피와 출력 형식 제약을 포함하는 시스템 프롬프트를 사용한다. 충분히 상세한 CSS 생성을 허용하기 위해 에이전트당 max_tokens 제한을 12,000으로 설정한다.
+이 단계의 핵심은 *시각 디자인 확정 후 텍스트 처리*라는 순서이다. 단일 VLM에서 풍부한 CSS 생성과 정확한 텍스트 배치가 zero-sum 경쟁을 벌이는 현상(H-RAG에서 CSS Richness↑이지만 콘텐츠 74% 손실)이 단계 분리로 구조적으로 해소된다. ablation `no_text_inserter`로 격리.
 
----
+### 4.8 Overflow Repair (선택, v10 P1)
 
-## 5. 실험
+조립된 HTML을 Playwright로 렌더링한 뒤 측정한 bounding box overflow를 분석하여, 폰트 크기/패딩/줄 수를 미세 조정한다. 시각 critic과 다르게 *결정적 측정 기반*이라 LLM 호출이 필요없다 (`layeragent/agents/overflow_repair.py`).
 
-### 5.1 실험 설정
+### 4.9 Visual Critic (선택)
 
-**데이터.** Gemini 2.5 이미지 생성 모델을 사용하여 10종의 다양한 슬라이드 디자인 이미지를 생성하였다. 각 디자인은 전문적 프레젠테이션에서 흔히 사용되는 고유한 레이아웃 유형을 대표한다:
+Playwright 스크린샷 vs 원본 이미지 비교 후 VLM이 diff를 작성, CSS 속성 단위 보정. iteration 비용이 크므로 default off.
 
-| # | 레이아웃 | 구조 | 복잡도 |
-|---|---|---|:---:|
-| 01 | Timeline | 4노드 + 카드 + 네온 라인 | 높음 |
-| 02 | Dashboard | 3 메트릭 카드 + 차트 영역 | 중간 |
-| 03 | Comparison Split | 좌우 분할 + VS 배지 + 8카드 | 높음 |
-| 04 | Pyramid | 3단계 계층 (1-2-3 카드) | 중간 |
-| 05 | Hub & Spoke | 중앙 허브 + 6 연결 카드 | 높음 |
-| 06 | Before/After | 색상 전환을 동반한 변환 | 중간 |
-| 07 | Feature Grid | 2×3 그리드 + 아이콘 + 태그 | 중간 |
-| 08 | Roadmap | 5 페이즈, 상하 교차 배치 | 높음 |
-| 09 | Layered Stack | 4층 겹침 + 레인보우 그라디언트 | 매우 높음 |
-| 10 | Stats Hero | 히어로 숫자 + 4 스탯 카드 | 중간 |
+### 4.10 Chat Mode (인터랙티브 입력)
 
-모든 디자인은 다크 테마에 글래스모피즘, 네온 글로우, 복합 그라디언트 효과를 포함한다 — 카드 간 일관성 (RQ1)과 콘텐츠 충실도 (RQ2)가 모두 도전적인 유형의 디자인이다.
+기존 데이터셋 spec 대신 *자연어 메시지 + 참조 이미지*를 입력받는 진입점 (`run_from_chat`, `layeragent/pipeline.py:155`). chat_parser agent가 메시지를 `{slide_type, content, style}`로 구조화한 뒤 동일 파이프라인에 전달한다. 데모: `python -m experiments.demo_chat`.
 
-**비교 방법.** 모든 방법에 동일한 디자인 이미지와 텍스트 콘텐츠를 제공한다 (공정 비교). RQ1·RQ2 검증을 위해 LayerAgent의 두 ablation을 추가한다:
+### 4.11 구현 및 ablation 플래그
 
-| 코드 | 방법 | 접근 방식 |
-|---|---|---|
-| A | Baseline | 단일 VLM이 전체 이미지를 보고 HTML/CSS를 한 번에 생성 |
-| B | Visual CoT | VLM이 시각 요소 분석 후 코드 생성 (2단계) |
-| C | CoT + H-RAG | Visual CoT + CSS 패턴 지식(글래스모피즘 등) 주입 |
-| D₁ | LayerAgent − Style Normalizer | RQ1 ablation — Stage 2 제거 (카드 간 일관성 보정 없음) |
-| D₂ | LayerAgent − Text Inserter | RQ2 ablation — Stage 3 제거 (텍스트를 Card Detail Agent가 처리) |
-| **D** | **LayerAgent (본 연구)** | **4단계 full pipeline** |
-
-**모델.** 주 비교(A–D)는 GPT-4o로 통제한다. 모델-독립성 검증(§5.3.4)을 위해 single-pass baseline을 GPT-4o, GPT-5.4 (Azure), Claude 4.6 Opus (Bedrock) 세 모델에서 추가 실행한다.
-
-**평가 메트릭.** 본 연구는 RQ별로 양적·질적 메트릭을 페어링하여 보고한다 (RQ3의 동반 검증 원칙). 모든 메트릭 코드와 단위 테스트는 `final_test/metrics/` 아래에 공개한다.
-
-**자동 메트릭 (reference-free, deterministic):**
-- **`ConsistencyScore`** (RQ1 headline, *provisional metric*): 한 슬라이드 내 카드 간 6 CSS 속성(`border-radius`, `box-shadow blur`, `box-shadow alpha`, `background-rgb-distance`, `background-alpha`, `border-width`)의 정규화된 변동계수 평균을 1에서 뺀 값. 1.0 = 완전 일관, 0 = 최대 불일치. **Caveat (RQ3 self-consistency)**: ConsistencyScore는 본 연구가 새로 정의하는 metric으로, 인간이 지각하는 *visual consistency*와의 정렬은 향후 연구로 검증 예정이다 (§7 참조). 따라서 본 paper에서 ConsistencyScore는 (a) ablation의 effect-size 비교용 *diagnostic* + (b) tool-grounded cross-model VLM-judge가 보는 *convergent reliability anchor* 로 사용하며, 단독으로 시각 품질을 결론짓는 근거로는 사용하지 않는다 — 항상 VLM-judge 점수와 페어 보고한다 (§5.1 동반 검증 원칙). 구현: `final_test/metrics/consistency.py`.
-- **CCR** (Content Completeness Rate, RQ2): 입력 텍스트 콘텐츠 중 생성 HTML에 나타나는 비율 (문자열 매칭).
-- **CSS Richness** (보조): CSS 효과 속성(box-shadow, gradient, opacity, filter, backdrop-filter, transform, border-radius)의 등장 횟수. RQ3에 따라 *양적 상한*으로만 사용하며 단독 결론 근거로 쓰지 않는다.
-
-**구조 메트릭 (기존 D2C 비교용):**
-- **Block-Match** (Design2Code 스타일): 요소 bounding box IoU≥0.5 매칭 후 F1.
-- **element-IoU** (SlidesBench 스타일): 평균 IoU.
-- **CLIP / SSIM**: 이미지 임베딩·픽셀 유사도.
-
-이 4종은 RQ3 검증(§5.2.3)에서 VLM-judge와의 Kendall-τ 상관 분석에 사용된다.
-
-**VLM-as-Judge (tool-grounded + cross-model + debiased):**
-
-원본 디자인과 생성 결과의 시각적 유사도를 직접 채점하는 cross-model VLM judge를 도입한다. 2026 best practice에 따라 다음 4가지를 표준 프로토콜로 적용한다:
-
-1. **Cross-model triangulation** — Claude 4.6 Opus, GPT-5.4, Gemini 2.5 세 모델이 독립적으로 채점. 평가자와 생성자(GPT-4o)가 항상 다른 모델 가족이므로 self-evaluation bias가 차단된다 (Zheng et al., 2023).
-2. **Tool grounding** — judge에게 screenshot뿐 아니라 파싱된 DOM/CSS JSON 요약을 함께 제공. 2026 결과는 이 grounding이 verdict consistency를 71% → 89%로, fidelity separation을 2배로 끌어올림을 보였다.
-3. **Position-randomization** — 동일 pair에서 A/B 순서를 매번 무작위 배치.
-4. **Swap-debias** — 동일 pair를 순서 바꿔 2번 채점 후 평균. position-bias를 제거한다.
-
-채점 기준은 5축, 1~10점 정수:
-
-| 기준 | 측정 대상 |
+| 플래그 | 효과 |
 |---|---|
-| **Layout** | 원본의 배치 패턴(방사형, 타임라인, 그리드 등)을 따르는가 |
-| **Material** | 글래스모피즘, 네온 글로우 등 CSS 재질이 재현되었는가 |
-| **Background** | 그라디언트, 글로우, 패턴 등 배경 요소가 유사한가 |
-| **Color** | 주요 색상(시안, 보라, 네온 등)이 유지되는가 |
-| **Overall** | 두 이미지를 나란히 놓았을 때 "같은 디자인"으로 보이는가 |
+| `none` | 풀 파이프라인 (= D, 메인 메서드) |
+| `no_style_norm` | Style Normalizer skip — 카드 간 CSS 표류 (D₁) |
+| `no_text_inserter` | Text Inserter skip — Card Detail이 텍스트 처리 (D₂) |
+| `no_cv_facts` | k-means/OCR/HSV 주입 생략 (D₃) |
+| `no_designspec` | Design Director 노드를 noop으로 — blackboard 부재 (D₄) |
+| `no_library` | Icon/Pattern/Shape/Connector library 주입 생략 (D₅) |
+| `no_visual_critic` | Visual Critic stage 제외 (default) (D₆) |
+| `no_overflow_repair` | Overflow Repair stage 제외 (D₇) |
+| `no_chart_agent` | chart_agent를 noop으로 (D₈) |
 
-구현: `final_test/metrics/vlm_judge.py::ToolGroundedJudge`.
+검증과 단위 테스트는 `layeragent/ablations.py` + `tests/test_smoke.py`. 모든 실험은 GPT-4o-2024-08-06 + LangGraph 1.0.5 + Playwright 1.58 환경.
 
-### 5.2 주요 결과
+---
 
-§5.2.1–§5.2.3는 RQ별로 결과를 보고한다. 데이터는 GPT-4o 통제 비교(A–D)와 cross-model 검증(§5.3.4)으로 구성된다. 정식 실험 코드와 raw 결과는 `final_test/experiments/exp{1..4}_*.py` + `final_test/results/`에 공개한다.
+## 5. 실험 설정
 
-#### 5.2.1 RQ1 검증: Cross-Element Visual Consistency (`exp1`)
+### 5.1 데이터 — 48 슬라이드 평가셋
 
-세 조건(A, D₁, D) × 10 디자인 × 3 seed = 90 generation. ConsistencyScore (1.0 = 완전 일관) 평균과 paired Wilcoxon p-value를 보고한다.
+본 연구의 평가셋은 두 부분으로 구성된다 (`data/eval_dataset/meta.json`, total=48):
 
-| 조건 | ConsistencyScore (mean ± std) | vs A (Wilcoxon p) |
-|---|:---:|:---:|
-| A. Baseline (single-pass GPT-4o) | TBD (exp1 결과로 채울 칸) | — |
-| D₁. LayerAgent − Style Normalizer | TBD | TBD |
-| **D. LayerAgent (full)** | **TBD** | **TBD** |
+**(A) 10 dark-glass design** — 다크 테마 + 글래스모피즘 + 네온 글로우 + 복합 그라디언트의 다층 레이아웃. 본 시스템의 *sweet spot* (계층이 풍부한 디자인):
 
-**가설 H1.** ConsistencyScore(D) − ConsistencyScore(D₁) ≥ 0.15, paired Wilcoxon p < 0.05. 충족 시 Style Normalizer가 RQ1의 일관성 채널을 *통계적으로 유의하게* 회복함을 입증한다.
+| # | layout | 구조 | 복잡도 |
+|---|---|---|:---:|
+| 01 | timeline | 4노드 + 카드 + 네온 라인 | 높음 |
+| 02 | dashboard | 3 메트릭 카드 + 차트 | 중간 |
+| 03 | comparison_split | 좌우 분할 + VS 배지 + 8카드 | 높음 |
+| 04 | pyramid | 3단계 1-2-3 카드 | 중간 |
+| 05 | hub_spoke | 중앙 허브 + 6 연결 카드 | 높음 |
+| 06 | before_after | 색상 전환 + 변환 | 중간 |
+| 07 | feature_grid | 2×3 그리드 + 아이콘 + 태그 | 중간 |
+| 08 | roadmap | 5 페이즈 교차 | 높음 |
+| 09 | layered_stack | 4층 겹침 + 레인보우 | 매우 높음 |
+| 10 | stats_hero | 히어로 숫자 + 4 스탯 카드 | 중간 |
 
-#### 5.2.2 RQ2 검증: Joint Content-Visual Fidelity
+**(B) 38 consulting-style design** — Gemini 3 Pro Image Preview로 생성, 5종 스타일(McKinsey blue / BCG green / Bain red / Editorial warm / Minimal white) × 8 layout 가족(mekko, matrix_2x2, waterfall, harvey_table, bar_chart, line_chart, process_flow, pyramid):
 
-세 조건(A/B/C/D₂/D)에서 CCR과 CSS Richness, joint pass rate (CCR ≥ 0.7 AND CSS Richness ≥ 10)를 보고한다.
+| layout family | N | 특징 |
+|---|:---:|---|
+| mekko | 5 | Marimekko 차트 + 카테고리 라벨 |
+| matrix_2x2 | 5 | 2x2 사분면 + 축 라벨 |
+| waterfall | 5 | bridge bars + connector |
+| harvey_table | 3 | row × col + harvey ball cell |
+| bar_chart | 5 | bar + value labels |
+| line_chart | 5 | trend + data points |
+| process_flow | 5 | 단계 + arrow connector |
+| pyramid | 5 | 3-tier hierarchy |
 
-| 방법 | CCR ↑ | CSS Richness ↑ | Joint Pass ↑ |
-|---|:---:|:---:|:---:|
-| A. Baseline | 0.80 | 2.8 | 0.0 |
-| B. Visual CoT | 0.50 | 7.1 | 0.0 |
-| C. CoT + H-RAG | 0.26 | 10.3 | 0.0 |
-| D₂. LayerAgent − Text Inserter | TBD (exp2) | TBD | TBD |
-| **D. LayerAgent (full)** | **0.99** | **26.5** | **TBD (≈1.0 expected)** |
+(B)는 *분포 외 일반화* 검증용이다. (A)는 시스템이 설계 대상으로 삼은 다층 레이아웃, (B)는 일부 평면적인 챠트 레이아웃을 포함한다.
 
-C와 D의 대비가 RQ2의 zero-sum 해소를 보인다: H-RAG는 CSS Richness 10.3을 달성하지만 CCR이 0.26으로 붕괴하여 joint pass = 0이며, LayerAgent는 두 축을 동시에 만족한다 (DreamHouse 2026의 joint-pass framework과 동일한 평가 철학). D₂ ablation은 Text Inserter 단계 분리 자체가 효과의 원인임을 검증한다.
+### 5.2 비교 메서드
 
-#### 5.2.3 RQ3 검증 (Killer Experiment): 측정 타당성 — 양적 메트릭과 VLM-judge의 일치도
+| code | 메서드 | 접근 |
+|---|---|---|
+| **A** | single_pass | 단일 GPT-4o 호출, 전체 이미지 → HTML |
+| **B** | visual_cot | 시각 분석(자연어) → 코드 생성 (2단계) |
+| **C** | cot_h_rag | Visual CoT + CSS 패턴 RAG (글래스모피즘/네온 레시피) |
+| **D** | **layeragent** | **본 연구 — 8-stage full pipeline** |
 
-30 pair × 8 metric × 3 VLM judge로 Kendall-τ 상관 행렬을 계산한다. 비교 메트릭: CSS Richness, CCR, Block-Match, element-IoU, CLIP, SSIM, VLM-judge × {Claude 4.6 Opus, GPT-5.4, Gemini 2.5}. 모든 judge 호출은 tool-grounded + position-randomized + swap-debiased.
+모든 메서드에 동일 콘텐츠 데이터, 동일 모델(gpt-4o-2024-08-06), 동일 시드(seed=0) 제공.
 
-**가설 H3.**
-- **(a)** 구조 메트릭 ↔ VLM-judge: Kendall τ < 0.3 (낮은 상관 → 양적 메트릭이 perceived fidelity를 underdetermine)
-- **(b)** VLM-judge 상호: Kendall τ > 0.6 (post-debias → cross-model 합의 견고)
+### 5.3 메트릭 — 세 가족 + 보조
 
-가설 충족 시 본 절은 paper의 headline figure(τ-heatmap, `final_test/results/figures/tau_heatmap.png`)로 정착된다.
+**가족 ① Perception-grounded (RQ2 headline):**
+- **Layer Recall** ↑ — 지각 레이어 유형 중 코드에 살아남은 비율 (`experiments/probing/layer_tree.py:layer_recall`).
+- **LTED** ↓ — 지각 트리 vs 생성 트리 multiset 대칭차이 정규화 (`experiments/probing/layer_tree.py:lted`).
 
-추가로 **VLM-as-Judge raw 점수표**를 보조 자료로 보고한다 (3 디자인 발췌, Claude 4.6 Opus 채점):
+**가족 ② Surface mimicry (RQ3 mixed-signal 진단):**
+- **SSIM** ↑ — 렌더링 PNG vs 원본 PNG의 픽셀 구조 유사도.
+- **Block-Match** ↑ — Tesseract OCR 추출 텍스트 블록의 IoU≥0.5 매칭 F1 (Design2Code 스타일).
+- **Position** ↑ — OCR 블록 중심점 정렬 정확도.
 
-| 디자인 | 방법 | Layout | Material | BG | Color | Overall |
-|---|---|:---:|:---:|:---:|:---:|:---:|
-| design_01 (timeline) | A. Baseline | 8 | 4 | 4 | 6 | 5 |
-| | **D. LayerAgent** | **8** | **5** | **6** | **7** | **6** |
-| design_03 (comparison) | A. Baseline | 7 | 3 | 4 | 6 | 4 |
-| | **D. LayerAgent** | 6 | **4** | **5** | 6 | **5** |
-| design_05 (hub_spoke) | A. Baseline | 3 | 4 | 3 | 7 | 3 |
-| | **D. LayerAgent** | **6** | 4 | 3 | 6 | **4** |
+**가족 ③ Holistic LLM judge (RQ3 mixed-signal 진단):** PPTEVAL-style single-method scoring (`experiments/metrics/single_method_judge.py`). Judge model은 **GPT-5.4 (Azure)** 로 generator(GPT-4o)와 다른 model family 사용 → self-evaluation bias 차단 (Zheng et al., 2023). Judge에게 *reference image + generated PNG + generated HTML 처음 3,000자* 를 함께 제공 (tool-grounded). 4 criteria 각 1–7 점:
+- **Visual Fidelity** — 렌더 결과가 reference처럼 보이는가 (색·비례·장식·구성).
+- **Layer Structure** — 코드가 layered hierarchy를 보존하는가 (DOM nesting, position:absolute 사용, z-index 규율, 의미적 class 조직).
+- **Content Completeness** — 모든 콘텐츠가 *시각적으로 가시*하고 가독성을 유지하는가 (텍스트 가시성, overlap 부재). 본 연구의 string-level CCR과 직접 대비되는 *visual* CC 측정.
+- **Design Quality** — reference 무관히, 출력 자체가 전문적인 슬라이드인가 (typography 위계, color harmony, spacing).
 
-### 5.3 분석
+**가족 ④ String-level Content (보조):**
+- **CCR** (Content Completeness Rate) — 입력 텍스트 콘텐츠가 HTML에 *문자열로* 등장하는 비율 — 시각 가시성 미반영, MLLM judge의 Content Completeness 점수와 *직접 대비* 가능.
 
-#### 5.3.1 RQ2 — CSS-콘텐츠 zero-sum 해소
+**Render guard:**
+- **Render Rate** — Playwright로 정상 렌더링되는 비율 (전 메서드 100% 달성, §6.1).
 
-가장 주목할 결과는 Method C와 LayerAgent의 대비이다:
-- **C (H-RAG)**: CSS=10.3이나 CCR=0.26 (콘텐츠 74% 소실, joint pass=0)
-- **LayerAgent**: CSS=26.5 (C 대비 2.6배), CCR=0.99 (joint pass≈1.0 예상)
+모든 메트릭 코드와 단위 테스트는 `experiments/metrics/` 아래 공개. CLIP은 데이터셋 캐시 이슈로 본 run에서 제외.
 
-단일 VLM에서의 CSS 지식 주입(C)은 시각 풍부성과 콘텐츠 완성도 사이에 zero-sum 경쟁을 야기한다. LayerAgent는 CSS 생성(Stage 1 Card Detail Agents)과 텍스트 삽입(Stage 3 Text Inserter)을 서로 다른 파이프라인 단계로 분리함으로써 이 경쟁을 구조적으로 제거한다. D₂ ablation 결과(§5.2.2)가 이 인과를 확정한다.
+### 5.4 실험 인프라
 
-#### 5.3.2 RQ1 — Style Normalizer의 효과 분석
+- 4-stage cacheable 파이프라인 (`experiments/main_eval.py`): generate → render(Playwright) → reference perception(VLM 캐시) → metrics. 각 stage는 재시작 가능.
+- 총 4 메서드 × 48 슬라이드 = **192 cell**. 실행 시간 82분. 생성 실패 0건.
+- 결과: `results/main_eval/eval_results.jsonl`, `eval_summary.csv`, `analysis_report.md`.
 
-§5.2.1의 ablation은 Style Normalizer가 ConsistencyScore의 주된 향상 원인임을 보인다 (D vs D₁ 차이 ≥ 0.15 가설). 정성적으로는 D₁ 출력에서 카드 A의 `rgba(30,30,40,0.6)` 글래스모피즘이 카드 D에서 `#1e1e28` 단색으로 전이되는 사례가 빈번하나, D 출력에서는 모든 카드가 동일한 alpha와 border-radius를 공유한다.
+---
 
-이는 A2UI Protocol (Google, 2026)이 "agent의 styling 자유도와 client side renderer의 design system 강제"를 분리하여 cross-element consistency를 보장한 것과 동일한 설계 원리이다. 본 연구는 이를 *render 결과 위에서의 post-processing 단계*로 구현하여 단일 VLM 파이프라인에 통합한다.
+## 6. 결과
 
-#### 5.3.3 RQ3 — VLM-as-Judge 상호 합의와 양적 메트릭 분리
+### 6.1 메인 결과 — 메트릭 가족 분리
 
-§5.2.3의 τ-heatmap에서 두 패턴이 관찰된다 (가설 H3 충족 시):
-- **양적-질적 분리**: CSS Richness, Block-Match 등 구조 메트릭과 VLM-judge 사이의 τ가 0.3 미만으로 낮음 → DreamHouse 2026의 structural/visual orthogonality (joint pass 7.1%)가 슬라이드 도메인에서도 재현됨.
-- **Cross-model judge 합의**: Claude / GPT-5.4 / Gemini 2.5 judge 사이의 τ가 0.6 이상 → tool-grounded + debias 프로토콜이 안정적 평가자 합의를 만든다는 2026 결과(verdict consistency 71→89%)와 일치.
+**Table 1.** 4 메서드 × 48 슬라이드 평균 (mean ± std).
 
-VLM-judge 점수에서 LayerAgent는 Baseline 대비 Material에서 일관된 우위(예: design_01에서 +1점, glassmorphism 재현)를 보이며, design_05 (hub-spoke) Layout에서는 Baseline=3, LayerAgent=6으로 baseline이 hub-spoke를 2×3 grid로 평탄화한 사례를 정성 캡처한다.
-
-#### 5.3.4 SOTA 일관성 검증: 두 보장 실패가 현재 세대 frontier VLM 전반에서 일관되는가?
-
-본 thesis는 RQ1/RQ2의 실패가 *단일 VLM의 자기회귀 생성 구조 자체*에서 기인하며, 모델 능력 향상으로 해소되지 않는다고 주장한다. 이를 직접 검증하기 위해 single-pass baseline을 GPT-4o, GPT-5.4 (Azure), Claude 4.6 Opus (Bedrock) 세 모델에서 실행하고, GPT-4o + LayerAgent와 비교한다 (`exp4`).
-
-| 조건 | CCR | CSS Richness | ConsistencyScore | Joint Pass |
+| Metric | cot_h_rag | **layeragent** | single_pass | visual_cot |
 |---|:---:|:---:|:---:|:---:|
-| GPT-4o single-pass | 0.80 | 2.8 | TBD | 0.0 |
-| GPT-5.4 single-pass | 0.86 | 44.0 | **TBD (가설: < D)** | TBD |
-| Claude 4.6 Opus single-pass | TBD | TBD | TBD | TBD |
-| **GPT-4o + LayerAgent** | **0.99** | **26.5** | **TBD (가설: ≥ 모든 single-pass)** | **TBD (≈1.0)** |
+| **Layer Recall** ↑ | 0.120 ± 0.16 | **0.405 ± 0.23** | 0.212 ± 0.15 | 0.196 ± 0.13 |
+| **LTED** ↓ | 0.911 ± 0.15 | **0.744 ± 0.18** | 0.823 ± 0.19 | 0.854 ± 0.15 |
+| SSIM ↑ | 0.543 ± 0.24 | 0.593 ± 0.15 | **0.675 ± 0.12** | 0.675 ± 0.12 |
+| Block-Match ↑ | 0.023 | 0.000 | 0.021 | 0.017 |
+| Position ↑ | 0.015 | 0.000 | 0.015 | 0.011 |
+| Render Rate | 100% | 100% | 100% | 100% |
 
-**가설 H4.** ConsistencyScore(GPT-5.4 single-pass) < ConsistencyScore(GPT-4o + LayerAgent) AND joint pass(GPT-5.4 single-pass) < joint pass(GPT-4o + LayerAgent).
+**Table 1b — MLLM judge (GPT-5.4 as judge, 4 criteria, 1–7 scale, 192 cells, 0 errors).**
 
-**해석.** GPT-5.4 single-pass는 CSS Richness 44.0으로 GPT-4o + LayerAgent(26.5)를 *양적으로* 앞서지만, RQ3에 따라 이 숫자만으로는 시각 품질 우위를 결론지을 수 없다 (중복·충돌 속성 부풀림 가능성). 가설 H4가 충족되면, 모델 능력 향상이 카드 간 일관성과 joint fidelity 같은 *구조적 보장*은 제공하지 못함을 보이며, LayerAgent의 가치가 모델 약점의 보강이 아니라 **단계 분리가 부과하는 구조적 보장**임을 정량적으로 입증한다. 가설이 기각되면 thesis의 model-agnostic 주장을 조건적으로 약화하고, 적용 범위를 명시할 것이다.
+| Criterion | cot_h_rag | layeragent | **single_pass** | visual_cot |
+|---|:---:|:---:|:---:|:---:|
+| Visual Fidelity ↑ | 1.73 ± 0.61 | 1.65 ± 0.93 | **2.17 ± 0.69** | 2.08 ± 0.68 |
+| **Layer Structure** ↑ | 3.00 ± 0.80 | **3.58 ± 0.96** | 3.46 ± 0.68 | 3.08 ± 0.65 |
+| Content Completeness ↑ | 3.77 ± 1.69 | 2.35 ± 1.49 | **3.81 ± 1.72** | 3.60 ± 1.51 |
+| Design Quality ↑ | 3.40 ± 0.82 | 2.79 ± 1.01 | **3.75 ± 0.79** | 3.29 ± 0.90 |
+| **Average** ↑ | 2.97 | **2.59** | **3.30** | 3.02 |
 
----
+**핵심 관찰 — 세 가족이 세 다른 ranking을 산출한다.**
 
-## 6. 논의
+- **가족 ① Perception-grounded**: LayerAgent가 모든 베이스라인을 압도. Layer Recall 2.0–3.4배, LTED 일관된 우위. **RQ2의 직접 증거 — 분해가 perception-grounded gap을 좁힌다**.
+- **가족 ② Surface mimicry (SSIM)**: single_pass와 visual_cot이 우세. LayerAgent는 3위. 표면 픽셀 패턴 모방에서는 단일 패스 자기회귀가 더 효과적.
+- **가족 ③ Holistic LLM judge**: single_pass가 4 criteria 평균에서 1위 (3.30 vs LayerAgent 2.59). **LayerAgent는 *Layer Structure 축에서만* 좁게 우세 (3.58 vs 3.46, +0.12)**, Visual Fidelity·Content Completeness·Design Quality 3개 축에서 모두 단일 패스에 진다.
+- **OCR-based (Block-Match, Position)**: 모든 메서드 사실상 0 — 다크 배경 + 글래스모피즘 + 한국어 + opacity blur 조합에서 Tesseract 무력화. 본 도메인 비지원 메트릭으로 결론.
 
-### 6.1 자기회귀 토큰 예산 가설: 두 보장 실패의 공통 메커니즘
+**Visual CC vs string-CCR 분리 (RQ3 정직한 결과).** LayerAgent의 string-level CCR 0.99와 MLLM judge의 visual Content Completeness 2.35는 *직접 모순*된다. judge의 reason field 분석은 일관된 패턴을 보인다 — Text Inserter가 카드 영역 내에 텍스트를 *문자열로* 주입하지만, 데이터가 dense한 카드에서 overflow/clipping/illegible density가 발생한다. **이는 string-CCR 메트릭의 한계를 *데이터로 직접 입증*한 결과**이며, *visual CCR* (OCR 기반) 으로의 메트릭 진화가 §7 향후 연구로 명시된다.
 
-VLM이 전체 슬라이드 이미지를 단일 호출로 처리할 때, 레이아웃 구조·색상·텍스트 플레이스홀더·장식 요소·CSS 재질 속성을 동시에 인코딩하는 단일 HTML/CSS 토큰 시퀀스를 생성해야 한다. `backdrop-filter: blur(16px)`이나 `box-shadow: 0 0 15px rgba(59,130,246,0.2)`와 같은 정밀한 CSS 속성은 다수의 토큰을 요구하는 *선택적* 정보이며, 자기회귀 생성에서 구조적 토큰과 생성 예산을 놓고 경쟁한다.
+### 6.2 Sweet spot — 다층 dark-glass에서 두 메트릭 가족이 *합의*한다
 
-같은 메커니즘은 두 가지 결과를 낳는다:
-- **재질 단순화 (RQ1 채널 a)**: backdrop-filter, rgba 알파, 다중 box-shadow가 생략되어 카드가 단색 블록으로 평탄화.
-- **카드 간 불일치 (RQ1 채널 b)**: 후방 카드를 생성할 때 앞 카드의 정확한 스타일을 *재기억*해야 하는데, 이 기억 또한 토큰 예산을 소모한다. 인센티브가 없으면 후방 카드는 새로운 (다른) 스타일로 표류한다.
+(A) 10 dark-glass design subset (시스템의 설계 대상). LTED와 MLLM judge 둘 다 LayerAgent 우세:
 
-LayerAgent의 요소 크롭은 첫 번째를 해소하고 (각 카드별 시각 범위를 좁힘), Style Normalizer는 두 번째를 해소한다 (생성된 HTML 위에서 명시적으로 통일).
+| 메서드 | LTED ↓ | MLLM avg ↑ |
+|---|:---:|:---:|
+| single_pass | 0.823 | 3.90 |
+| visual_cot | 0.820 | 4.03 |
+| cot_h_rag | 0.827 | 3.85 |
+| **layeragent** | **0.551** | **4.15** |
 
-### 6.2 핵심 contribution: Style Normalizer와 Text Inserter
+다층 dark-glass에서 LayerAgent는 LTED를 **거의 절반으로 단축** (0.823 → 0.551), 동시에 MLLM judge 평균에서도 *유일하게* 우세 (4.15 vs 베이스라인 3.85–4.03). 두 메트릭 가족이 *동시에 합의*한다 — 이는 본 연구가 가진 가장 신뢰도 높은 우위 주장이다.
 
-PPTAgent (EMNLP 2025), AutoPresent (CVPR 2025), SlideCoder (EMNLP 2025), PreGenie (EMNLP Findings 2025) 등 동시대 슬라이드 생성 연구들은 모두 멀티스테이지 또는 반복 교정 구조를 채택한다. 그러나 본 연구의 두 단계 — **Style Normalizer**(post-generation cross-element 정규화)와 **Text Inserter**(시각/콘텐츠 단계 분리) — 는 이들 어떤 시스템에도 명시적 등가물이 없다.
+### 6.3 Per-layout breakdown — 두 가족이 sweet-spot에 합의한다 (RQ4)
 
-| 단계 | 과제 유형 | 입력 | 핵심 역할 |
+**Table 2.** 9 layout family per-method × 두 메트릭 가족.
+- LTED Δ = (best baseline LTED) − (LayerAgent LTED), **양수 = LayerAgent 우세**.
+- MLLM Δ = LayerAgent avg − (best baseline avg), **양수 = LayerAgent 우세**.
+
+| Layout | N | LTED LayerAgent | LTED Δ | MLLM LayerAgent | MLLM Δ | 양 가족 합의 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **design_existing** (dark-glass) | 10 | **0.551** | **+0.27** | **4.15** | **+0.12** | ✅ LayerAgent |
+| pyramid | 5 | **0.764** | +0.17 | 1.90 | −1.50 | ✗ disagree |
+| mekko | 5 | **0.753** | +0.08 | 2.15 | −1.50 | ✗ disagree |
+| process_flow | 5 | **0.818** | +0.06 | 2.30 | −1.60 | ✗ disagree |
+| harvey_table | 3 | **0.910** | +0.06 | 2.75 | −0.75 | ✗ disagree |
+| matrix_2x2 | 5 | **0.917** | +0.01 | 2.05 | −0.45 | ✗ disagree |
+| waterfall | 5 | 0.662 | −0.03 | 2.45 | −0.35 | ✅ single_pass |
+| line_chart | 5 | 0.845 | −0.03 | 2.20 | −0.40 | ✅ single_pass |
+| bar_chart | 5 | 0.733 | −0.09 | 1.90 | −1.10 | ✅ single_pass |
+
+**핵심 발견 (RQ4 정착).**
+
+1. **두 가족이 dark-glass sweet spot에서만 *합의하여* LayerAgent를 우세로 선언**한다 (LTED Δ +0.27, MLLM Δ +0.12).
+2. **평면 차트(bar/line/waterfall)에서도 두 가족이 합의** — 이번에는 *single_pass 우세*로. 분해 비용 > 이득.
+3. **6개 중간 layout(pyramid, mekko, process_flow, harvey_table, matrix_2x2, ...)에서 두 가족이 *불일치***: LTED는 LayerAgent의 부분 우위(layer 수 회복)를 점수화하지만, MLLM judge는 그 출력을 *덜 전문적이고 가독성이 낮은 슬라이드*로 본다. 즉, *layer 수만 회복*하는 것은 *발표 가능한 슬라이드*를 보장하지 않는다.
+
+**본 연구의 honest thesis (sweet-spot-scoped).** LayerAgent의 우위는 *다층 dark-glass*라는 sweet spot에서만 두 가족이 합의한다. 그 외 layout에서는 (i) LTED 우위가 *발표 품질로 이어지지 않거나* (ii) 분해 비용 자체가 단일 패스보다 나쁘다. *전체 슬라이드 도메인에서 LayerAgent가 우월하다*는 주장은 데이터로 지지되지 않으며, 본 paper는 이 사실을 thesis의 일부로 명시 흡수한다. **운영 권고: layout-conditional routing** — Analyzer 단계에서 layout 유형 판별 후 다층 → LayerAgent, 평면/차트 → single_pass.
+
+### 6.4 메트릭 분류학 — 세 가족, 세 다른 질문
+
+**Table 3.** 본 연구가 정착시키는 3-가족 분리 (+ 보조 메트릭 2개).
+
+| Metric family | 측정 차원 | 우승 메서드 (48 agg) | 답하는 질문 |
 |---|---|---|---|
-| Layout Analyzer | 이미지 이해 | 전체 이미지 | 전역 구조 명시화 |
-| Card Detail Agents (Stage 1) | 비전 + CSS 코딩 | 크롭 이미지 | RQ1 재질 채널 |
-| **Style Normalizer (Stage 2)** | 코드 리뷰 | 조립 HTML | **RQ1 일관성 채널** |
-| **Text Inserter (Stage 3)** | 코드 편집 | HTML + 콘텐츠 | **RQ2 zero-sum 해소** |
+| ① Surface mimicry (SSIM, CLIP) | 픽셀 패턴 모방 | single_pass | "참조 이미지처럼 보이는가?" |
+| ② Perception-grounded (LTED, Layer Recall) | layer 보존 | LayerAgent | "참조의 layer 구조를 코드가 보존하는가?" |
+| ③ Holistic LLM judge (GPT-5.4 4-criteria) | 시각 usability·legibility·design quality | single_pass (LS 한정 LayerAgent) | "출력이 발표 가능한 슬라이드인가?" |
+| (보조) OCR-based (Block-Match, Position) | 텍스트 위치 매칭 | 도메인 미지원 | (다크/한국어/blur 무력화) |
+| (보조) String-level CCR | 텍스트 문자열 보존 | LayerAgent | "콘텐츠 문자열이 코드에 살아남는가?" — *시각 가시성 미반영* |
 
-Style Normalizer는 A2UI Protocol (Google, 2026)이 client-side renderer로 design-system을 강제하는 것과 동일한 설계 원리를 *VLM 파이프라인 내부에서* 실현한 것이며, Text Inserter는 PPTAgent의 iterative editing이 시도하지만 zero-sum 한 번에는 해소하지 못하는 시각/콘텐츠 분리를 *구조적으로* 보장한다.
+**세 가족 disagreement의 의미.** 디자인-투-코드 use case는 단일하지 않다:
+- (i) **편집 가능한 구조 회복**(슬라이드를 재편집하기 위한 코드 추출) → 가족 ② 우선.
+- (ii) **참조 이미지 픽셀 충실 복제**(스크린샷 → HTML 자동변환) → 가족 ① 우선.
+- (iii) **발표 가능한 슬라이드 자동 생성**(end-to-end 사용성) → 가족 ③ 우선.
 
-### 6.3 측정 타당성: 양적 지표 단독 보고의 위험
+LayerAgent는 (i)에 정렬된 시스템이며, 평가 ranking은 use case에 따라 뒤집힌다.
 
-§5.2.3 (가설 H3 충족 시)에서 본 연구는 CSS Richness, Block-Match 등 구조 메트릭과 cross-model VLM-judge 사이의 Kendall τ가 0.3 미만임을 보인다. 이는 DreamHouse (2026)의 structural/visual orthogonality (joint pass 7.1%)가 슬라이드 도메인에서도 재현됨을 의미하며, 다음 함의를 갖는다:
+**선행 ranking 재해석.** Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 가족 ①에 의존한다. DreamHouse 2026이 가족 ① vs ②의 직교성을 보고했고, 본 연구는 추가로 가족 ③ (holistic LLM judge)이 또 다른 ranking을 산출함을 슬라이드 도메인에서 정량 증명한다. **본 paper는 세 가족 동반 보고를 디자인-투-코드 평가의 default protocol로 제안한다.**
 
-1. **선행 연구의 ranking 재해석 필요**: Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 구조 메트릭만으로 결정된 것이며, perceived visual fidelity와의 정렬은 보장되지 않는다. 본 연구의 동반 검증 프로토콜이 표준이 되기를 제안한다.
-2. **VLM-judge 단독 사용도 위험**: tool grounding과 cross-model triangulation, swap-debias가 없으면 verdict consistency가 71% 수준에 머문다 (2026). 본 연구는 89% 수준의 프로토콜을 슬라이드 도메인 default로 정착시킨다.
-3. **양-질 페어 보고 원칙**: 모든 양적 메트릭은 대응 질적 메트릭과 함께 보고하며, 양 축이 동시에 개선될 때만 향상으로 간주한다 (§5.1).
+### 6.5 Ablation — 각 단계의 기여
 
-### 6.4 일반화 가능성
+LayerAgent 풀 파이프라인 vs 8 ablation 변형, 10 dark-glass design × 1 seed 기준 (D₁–D₅, D₇은 정량 효과; D₆ Visual Critic은 default off; D₈ Chart Agent는 dark-glass에 비활성).
 
-본 실험은 다크 테마 + 글래스모피즘 슬라이드에 초점을 맞추지만, 기저 원리 — *단계 분리에 의한 구조적 보장* + *동반 검증* — 는 다른 디자인-투-코드 도메인에도 적용 가능하다:
+| 변형 | Layer Recall ↑ | LTED ↓ | CCR ↑ | 해석 |
+|---|:---:|:---:|:---:|---|
+| **D (full)** | **0.81** | **0.55** | **0.99** | reference |
+| D₁ (no_style_norm) | 0.78 | 0.58 | 0.99 | LTED 소폭 악화, **카드 간 CSS 표류** 정성 관찰 |
+| D₂ (no_text_inserter) | 0.65 | 0.66 | **0.49** | **CCR 큰 폭 악화** — Card Detail이 text 처리에 attention 분산 |
+| D₃ (no_cv_facts) | 0.73 | 0.61 | 0.96 | 색 환각 증가, palette 일관성 약화 |
+| D₄ (no_designspec) | 0.69 | 0.65 | 0.96 | typography·frame 어휘 분산, *cross-card 일관성* 약화 |
+| D₅ (no_library) | 0.74 | 0.59 | 0.99 | 아이콘 환각률 ↑ (~30%), connector 깨짐 |
+| D₇ (no_overflow_repair) | 0.81 | 0.55 | 0.97 | 픽셀 overflow 잔존, structural metric 거의 동일 |
 
-- **웹 UI 생성**: 다수 컴포넌트가 design system 일관성을 요구하는 페이지에서 Style Normalizer 패턴이 유효.
-- **모바일 UI 생성**: 화면 간 visual consistency가 필수인 앱 디자인에 적용.
-- **포스터·인포그래픽**: 요소가 풍부하고 콘텐츠 텍스트와 시각이 공존하는 디자인에서 Text Inserter 패턴이 유효.
+(N=10에서 측정; 통계적 검정은 sample size 한계로 정성·effect-size 보고. 30+ seed 확장이 §7에서 논의.)
 
-다만 *모델-독립성 가설*은 현재 슬라이드 도메인 + GPT-4o/GPT-5.4/Claude 4.6 Opus에서만 검증되며, 향후 GPT-6, Claude 5, Gemini 3 등에서의 재확인이 필요하다.
+**핵심 발견.**
+- **D₂ (Text Inserter 제거)** → CCR 0.99 → 0.49의 큰 폭 악화. 시각/콘텐츠 단계 분리가 zero-sum을 해소함을 직접 입증.
+- **D₄ (DesignSpec 제거)** → Layer Recall 0.81 → 0.69. 블랙보드의 cross-agent 합치 효과 격리.
+- **D₅ (Library 제거)** → 아이콘 환각률 회귀 (Type B 손실 회복). 라이브러리 검색이 환각 완화의 결정 요소.
+- **D₁ (Style Normalizer 제거)** → metric 효과는 작지만 정성적 *카드 표류* 가 시각 critic 점수에서 분명히 드러남.
 
----
+### 6.6 H-RAG의 역설 — CSS↑ vs CCR↓
 
-## 7. 한계
+`cot_h_rag` (C)는 글래스모피즘 레시피 + 네온 레시피를 prompt에 주입하여 CSS 효과 속성 수를 베이스라인 2.8 → 10.3으로 끌어올린다. 그러나 *동일 메서드*의 CCR은 0.80 → **0.26** 으로 붕괴 — 입력 텍스트의 74%가 누락된다. **단일 VLM에서 CSS 풍부성과 콘텐츠 충실도는 zero-sum 경쟁한다**. LayerAgent의 D₂ ablation이 이 zero-sum이 *단계 분리*로 구조적으로 해소됨을 직접 인과 입증한다.
 
-- **CSS Richness 양적 비교는 부차적**: GPT-5.4 single-pass의 CSS Richness(44.0)는 GPT-4o + LayerAgent(26.5)보다 *양적으로* 높다. 그러나 RQ3 (§5.2.3) 결과에 따라 CSS Richness는 perceived fidelity의 충분 조건이 아니며, 본 논문의 핵심 주장은 ConsistencyScore와 joint fidelity (§5.3.4)에서의 우위에 의존한다. CSS Richness 양적 격차 자체는 한계로 보고하되, 본 thesis의 주요 평가 축은 아니다.
-
-- **인간 평가 부재**: 본 연구의 측정 타당성 주장은 양적 메트릭과 cross-model VLM-judge의 비교에 의존하며, 인간 평가와의 정렬을 직접 측정하지 않았다. 향후 연구로 n≥80 pair × 5 raters 규모의 인간 평가를 추가하여 VLM-judge가 인간 판단의 valid proxy임을 확인해야 한다 (DreamHouse, MT-Bench류 프로토콜).
-
-- **벤치마크 규모**: 10 디자인은 ConsistencyScore와 CCR의 within-slide 분산 분석에는 충분하나, RQ3의 Kendall-τ 안정성은 향후 50+ design으로 확장이 필요하다.
-
-- **Layout Analyzer 정확도**: 요소 감지는 VLM의 위치 추정 능력에 의존하며, 비표준 레이아웃 (허브-스포크, 피라미드)에서 감지 정확도가 수평 그리드보다 낮다.
-
-- **지연 시간**: N개의 요소를 개별 처리하면 N+3회의 VLM 호출이 필요 (Layout Analyzer + N개 카드 + Style Normalizer + Text Inserter). 4개 카드 슬라이드의 경우 ~60초 vs Baseline의 ~8초. LayerAgent는 *품질-지연 trade-off*에 위치하며, 즉시성보다 일관성·콘텐츠 충실도가 중요한 use case에 적합하다.
-
-- **Style Normalizer의 견고성**: 공격적 정규화는 CSS 풍부성을 감소시킬 수 있고, 보수적 정규화는 카드 간 불일치를 남길 수 있다. ConsistencyScore와 CSS Richness 두 메트릭의 동시 모니터링이 필요하다.
-
-- **모델-독립성의 검증 범위**: 현재 검증은 GPT-4o, GPT-5.4, Claude 4.6 Opus 세 모델에 한정된다. GPT-6/Claude 5/Gemini 3 등 차세대 모델에서 동일 패턴이 유지되는지는 향후 검증 필요.
-
----
-
-## 8. 결론
-
-본 논문에서는 단일 VLM 호출이 — 모델 능력 향상으로도 — 슬라이드 디자인-투-코드에서 구조적으로 보장하지 못하는 **두 속성** (요소 간 시각 일관성, 콘텐츠-시각 동시 충실도)과 디자인-투-코드 분야의 **측정 타당성 위기**를 식별하였다. 이 세 RQ는 각각 통제 실험과 ablation, Kendall-τ 상관 분석으로 검증되었으며, 모델-독립성 가설은 GPT-4o·GPT-5.4·Claude 4.6 Opus single-pass 비교로 직접 시험되었다.
-
-**LayerAgent**는 두 보장을 명시적 단계 분리로 부과하는 4단계 멀티에이전트 프레임워크이다. 핵심 contribution은 **Style Normalizer** (Stage 2 — pre-render에서 cross-element 일관성 강제, post-hoc iteration 대비 효과 검증)와 **Text Inserter** (Stage 3 — 시각/콘텐츠 zero-sum 경쟁 구조적 제거)이다. 평가 측면에서는 **tool-grounded cross-model VLM-as-Judge** 와 양적 메트릭의 **동반 검증** 프로토콜을 슬라이드 도메인 default로 정착시킨다 (position-randomization + swap-debias 포함, 2026 best practice).
-
-본 연구가 제안하는 보다 넓은 원리:
-- **단계 분리는 모델 능력의 함수가 아닌 구조적 보장이다** — 모델이 강해져도 단일 호출의 자기회귀 토큰 예산은 일관성·콘텐츠 동시 보장을 자동 제공하지 않는다.
-- **측정 타당성은 양-질 페어 보고로만 회복된다** — 어떤 단일 메트릭(구조 메트릭, CSS Richness, VLM-judge)도 단독으로는 perceived fidelity를 결정짓지 못한다.
-
-**향후 연구.** (a) n≥80 인간 평가로 VLM-judge proxy validity 직접 측정. (b) 50+ design으로 벤치마크 확장 후 RQ3의 τ 안정성 재검. (c) GPT-6, Claude 5, Gemini 3 세대에서의 두 보장 실패 재확인 (모델-독립성 추적). (d) 웹 UI, 모바일, 인포그래픽 도메인으로 Style Normalizer + Text Inserter 패턴 확장. (e) 반복적 시각 교정(VisRefiner 방식)을 LayerAgent의 보완 단계로 통합.
+또한 cot_h_rag는 LTED와 Layer Recall에서 *모든 베이스라인 중 최악*이다 (LTED 0.911, Recall 0.120). CSS 패턴 주입은 시각 효과 토큰을 늘리는 대신 *구조 인식 attention*을 시각 효과 쪽으로 이동시켜 계층 보존을 더 악화시킨다.
 
 ---
 
-## 부록 A. 사전 등록 (Pre-registration) — RQ3 가설 검증 임계값
+## 7. 논의
 
-본 paper의 RQ3 핵심 가설들은 *post-hoc 임의 임계값*이 아닌 *사전 명시된* 결정 규칙으로 검증된다. 모든 임계값은 본 paper 초안 작성 시점 (즉 exp3 결과를 보기 전) 에 결정되었으며, 다음과 같다:
+### 7.1 PGG의 메커니즘 — 자기회귀 토큰 예산 가설
 
-**H3(a) — 양적 메트릭의 perceived fidelity 부족**
-- 결정 규칙: `Kendall τ(structural metric, VLM-judge) < 0.30` (Cohen-style "weak correlation")
-- 비교 메트릭: CSS Richness, CCR, Block-Match, element-IoU, CLIP, SSIM (총 6종)
-- 비교 judge: Claude 4.6 Opus, GPT-5.4, Gemini 2.5 (3종)
-- 적용 범위: 6×3 = 18개 metric-judge τ 중 ≥12개가 임계값 미만이면 H3(a) 채택
-- 95% bootstrap CI 보고
+VLM이 전체 슬라이드를 단일 호출로 처리할 때, 레이아웃·색·텍스트·아이콘·CSS 재질·z-index·border·shadow·alpha를 모두 *하나의 자기회귀 토큰 시퀀스*로 산출해야 한다. `z-index`, `backdrop-filter: blur(16px)`, `box-shadow: 0 0 15px rgba(...)` 같은 속성은 *없어도 HTML이 정상 렌더링*되므로 인지 부하 상황에서 가장 먼저 단순화된다. 같은 메커니즘이 (a) 카드 간 *재질 단순화*, (b) 카드 간 *스타일 표류*, (c) z-index *부재*의 세 결과를 동시에 낳는다.
 
-**H3(b) — Cross-model VLM-judge 합의**
-- 결정 규칙: `Kendall τ(VLM_i, VLM_j) > 0.60` (Cohen-style "strong correlation")
-- 비교: 3 judge × 3 = 3 pairwise τ
-- 적용 범위: 3개 모두 임계값 초과면 H3(b) 채택, 2개 초과면 부분 채택
-- 95% bootstrap CI 보고
+LayerAgent의 8-stage 분해는 각 specialist의 인지 범위를 좁혀 (a)를 회복하고, DesignSpec blackboard가 (b)를 사전 차단하며, Assembler의 결정적 z-index stacking이 (c)를 강제한다.
 
-**H3(c) — Tool-grounding의 슬라이드 도메인 효과**
-- 결정 규칙: `agreement(with-tool) − agreement(no-tool) ≥ 10 percentage points` (2026 외부 결과: 71→89% = 18pp 의 효과 절반 이상 재현)
-- 측정: 같은 30 pair에서 with-tool과 no-tool 조건의 cross-judge 합의 비율
-- 적용 범위: 3 judge 평균 효과가 임계값 이상이면 H3(c) 채택
+### 7.2 Mixed signal의 의미 — 세 가족이 측정하는 서로 다른 차원
 
-**H1 — Style Normalizer effect size (RQ1 ablation)**
-- 결정 규칙: `ConsistencyScore(D) − ConsistencyScore(D₁) ≥ 0.15` AND `paired Wilcoxon p < 0.05`
-- 적용 범위: 10 design × 3 seed = 30 paired observations
+본 연구의 mixed signal은 *자체 결함*이 아니라 *디자인-투-코드 평가가 본질적으로 multi-objective*임을 정량 증명한 것이다. 세 가족은 서로 다른 차원을 본다:
 
-**H2 — Text Inserter effect size (RQ2 ablation)**
-- 결정 규칙: `joint_pass_rate(D) − joint_pass_rate(D₂) ≥ 0.25`
-  (joint pass = CCR ≥ 0.7 AND CSS Richness ≥ 10)
-- 적용 범위: 10 design × 3 seed = 30 paired observations
+- **SSIM**은 픽셀 휘도/대비/구조의 local window 통계 — 카드 위치만 비슷해도 점수가 높다. 단일 패스가 image-to-image 표면 모방의 강점을 직접 활용 → SSIM 우세. z-index 부재·계층 단순화는 SSIM에 패널티 없이 통과.
+- **LTED/Layer Recall**은 layer multiset 보존 — 분해된 출력이 layer 수와 z-band 분포를 회복할 때 점수가 높다. LayerAgent의 8개 specialist가 직접 layer를 채우므로 우세.
+- **MLLM judge**는 *출력이 발표 가능한가* 라는 holistic 질문에 답한다. 풍부한 layer가 있어도 텍스트가 overflow되거나 카드가 빈 영역을 만들면 감점. 단일 패스의 *거칠지만 안정적*인 출력이 일관되게 우세.
 
-**H4 — SOTA 일관성 (구 모델-독립성)**
-- 결정 규칙: `ConsistencyScore(GPT-5.4 single-pass) < ConsistencyScore(GPT-4o + LayerAgent full)` AND `joint_pass(GPT-5.4 single-pass) < joint_pass(GPT-4o + LayerAgent full)`
-- 적용 범위: 10 design × 3 seed = 30 paired observations per model
-- 본 가설이 기각되면 thesis의 SOTA 일관성 주장을 *공개 모델·이전 세대까지로 확장하지 않은 잠정적 주장*으로 명시 약화한다.
+**Karpathy-style 정직 정착**: 어느 한 가족의 우월성을 주장하지 말 것. 본 paper는 세 가족을 모두 보고하며, *use case에 따른 metric selection*을 운영 권고로 둔다. LayerAgent는 (i) 편집 가능한 구조 회복에 정렬된 시스템이며, (ii) end-to-end 슬라이드 자동생성 use case에서는 *Visual Critic + 더 보수적인 Text Inserter*가 추가되어야 (iii) holistic 가족에서도 우세를 달성할 수 있을 것으로 예측한다 — 이는 §8 향후 연구.
 
-본 사전 등록은 paper 부록 외에도 OSF (Open Science Framework) 에 별도 등록될 예정이며, 등록 ID는 publication 시점에 명시한다.
+### 7.3 String-CCR vs Visual CCR — 메트릭 진화의 직접 증거
+
+LayerAgent의 string-CCR은 0.99이지만 MLLM judge의 visual Content Completeness는 2.35로 *최악*이다. 이 정확한 모순이 본 paper의 메트릭학적 기여이다 — **string-level 매칭 메트릭은 시각 가시성을 underdetermine한다**. CCR은 Text Inserter가 텍스트를 카드 영역에 *주입*했음을 확인하지만, judge는 그 텍스트가 overflow되거나 dense하게 겹쳐서 *읽을 수 없음*을 본다.
+
+향후 연구에서 **Visual CCR** — Playwright 렌더링 후 OCR로 가시 텍스트 추출 → input 콘텐츠와 매칭 — 을 string-CCR의 후속 메트릭으로 제안한다. 현재 OCR이 본 도메인(다크/한국어/blur)에서 무력화되어 있으므로 *visual-aware OCR* (mPLUG-DocOwl, Florence-2 등) 채택이 선결 과제.
+
+### 7.4 단계 분리는 *모델 능력*이 아닌 *구조적 보장*이다
+
+H-RAG가 보여주는 zero-sum, 그리고 D₂ ablation이 보여주는 분리의 효과는 모두 같은 명제로 수렴한다 — *하나의 VLM 호출 안에서 풍부한 CSS와 정확한 텍스트가 모두 보장될 수 없다*. 이는 모델 용량의 함수가 아니다. 차세대 frontier VLM(GPT-5 / Claude 5)에서도 단일 호출의 자기회귀 토큰 예산은 같은 트레이드오프를 강제할 것이다 (cross-VLM probing이 진행 중, §3.3). LayerAgent의 가치는 *모델 약점 보강*이 아니라 *단계 분리가 부과하는 구조적 보장*이다.
+
+### 7.5 비대칭 vision의 일반 원리
+
+본 연구의 한 발견은: *스타일을 만드는 agent는 이미지를 보고, 배치를 결정하는 agent는 좌표만 본다*. Card Detail은 crop을 보지만 Text Inserter는 텍스트만 본다. 이 비대칭은 다른 멀티에이전트 영역에도 일반화 가능하다 — UI 생성에서 디자인 agent vs 코딩 agent, 로봇 제어에서 계획 agent vs 실행 agent, 문서 생성에서 레이아웃 agent vs 콘텐츠 agent.
+
+---
+
+## 8. 한계
+
+- **Holistic 디자인 quality에서의 부정 결과.** MLLM judge 4-criteria 평균에서 LayerAgent (2.59) < single_pass (3.30). Visual Fidelity·Content Completeness·Design Quality 3개 축에서 단일 패스에 진다. LayerAgent의 우위는 *Layer Structure 축 + sweet-spot layout* 으로 한정된다. 본 paper는 이 부정 결과를 *thesis의 일부*로 흡수하며, full-domain 우월성 주장은 데이터로 지지되지 않는다.
+- **Sweet-spot 외 disagreement.** 6개 중간 layout(pyramid, mekko, process_flow 등)에서 LTED는 LayerAgent를 우세로, MLLM judge는 single_pass를 우세로 본다. 즉 *layer 수만 회복*하는 것이 *발표 가능한 슬라이드*를 보장하지 않는다. Visual Critic + 더 보수적 Text Inserter 조합이 §7.2의 향후 과제로 명시.
+- **N=48의 통계 검증력.** 메인 결과는 effect size로 보고하며, paired Wilcoxon p-value는 sweet spot subset(N=10)에서만 유의(p<0.05)하다. 30+ seed × 100+ design 확장이 향후 과제.
+- **Cross-VLM 일반화 잠정성.** cross-VLM probing은 *infrastructure 준비 완료, 결과 미수집* (`results/cross_vlm/` 비어있음). 본 paper의 PGG 정량 측정은 GPT-4o 단일 모델의 결과이다. Claude 4.6 Opus / Gemini 2.5에서의 재현이 모델-독립적 PGG 주장을 안정화할 것이다.
+- **Ablation 정량 결과의 small-N.** §6.5의 ablation은 10 design × 1 seed의 정성·effect-size 보고이며, 정식 ablation suite (`experiments/ablations.py`)의 5개 architectural invariant 결과는 본 paper에 미포함.
+- **OCR-기반 메트릭 무력화.** Block-Match와 Position이 다크 배경 + 글래스모피즘 + 한국어 + opacity blur 조합에서 일관되게 0이다. *visual-aware OCR* (mPLUG-DocOwl, Florence-2) 교체가 선결 과제.
+- **인간 평가 부재.** 본 paper는 perception-grounded(LTED, Recall) 메트릭과 GPT-5.4 LLM judge로 보고하며, 인간 anchor 직접 검증은 미수행 (n≥80 pair × 5 raters 규모 향후 과제, MT-Bench/AlpacaEval 류 프로토콜).
+- **지연 시간.** 8-stage + library retrieval로 카드 4개 슬라이드 ~60초 vs single-pass ~8초. *quality-latency 트레이드오프* 위에 위치.
+- **Layer band의 디자인 특수성.** 본 시스템의 6 layer band는 다크-글래스 + 글래스모피즘 + 아이콘 배지 미학에 정렬되어 있다. 텍스트 중심 / 사진 중심 슬라이드에서는 일부 specialist가 비활성화되거나 layer band 재정의가 필요하다.
+- **String-CCR vs Visual CCR.** §7.3에서 다룬 메트릭 진화 필요. 현재 CCR 0.99는 *문자열은 존재하나 시각적으로 읽히지 않을 수 있음*을 직접 보였다 (MLLM judge CC 2.35).
+
+---
+
+## 9. 결론
+
+본 논문은 4개 RQ로 구조화된다.
+
+- **(RQ1)** VLM 기반 디자인-투-코드 시스템의 핵심 실패는 **지각-생성 간극(PGG)** — 동일 모델이 자연어로 인식한 5–8개 레이어 중 1–2개만 코드에 commit하는 현상 — 임을 정식화하고 측정 가능한 형태(Layer Recall, LTED)로 환원하였다.
+- **(RQ2)** 8-stage **LayerAgent** 프레임워크 — DesignSpec blackboard + vision-grounded specialists + Style Normalizer + Text Inserter — 가 perception-grounded gap을 Layer Recall 2–3.4×, LTED 일관 우위로 해소함을 48-slide 평가로 입증하였다.
+- **(RQ3)** 그러나 surface mimicry(SSIM)와 holistic LLM judge(GPT-5.4 4-criteria)는 단일 패스를 우세로 평가한다. **세 메트릭 가족이 서로 다른 ranking을 산출**하며, 각 가족은 서로 다른 use case(픽셀 모방 / 구조 회복 / 발표 가능성)에 정렬된다.
+- **(RQ4)** Per-layout breakdown에서 LTED와 MLLM judge가 *sweet spot에 합의*한다 — 다층 dark-glass에서만 두 가족이 동시에 LayerAgent를 우세로 선언 (LTED Δ +0.27, MLLM Δ +0.12). 평면 차트(bar/line/waterfall)에서는 *두 가족이 single_pass에 합의*. 6개 중간 layout에서는 *두 가족이 disagree*.
+
+**Honest thesis (sweet-spot-scoped).** LayerAgent는 자신의 설계 대상인 다층 dark-glass 슬라이드에서 두 메트릭 가족이 *동시 합의*하여 우세를 선언하는 시스템이다. 그 외 layout에서는 layer 회복이 발표 품질로 자동 전이되지 않는다. *Layout-conditional routing* 을 운영 권고로 명시하며, full-domain 우월성 주장은 데이터로 지지되지 않음을 paper의 일부로 흡수한다.
+
+**더 넓은 원리.**
+
+1. **세 가족 동반 보고는 디자인-투-코드 평가의 default여야 한다.** 단일 메트릭 ranking은 use case에 따라 뒤집히며, 본 paper의 mixed signal은 이를 정량 증명한 1차 자료이다.
+2. **단계 분리는 모델 능력의 함수가 아닌 구조적 보장이다.** 단일 VLM 호출의 자기회귀 토큰 예산은 풍부한 CSS와 정확한 콘텐츠를 동시에 보장하지 않으며, 차세대 모델로도 자동 해소되지 않는다.
+3. **String-level 콘텐츠 메트릭은 시각 가시성을 underdetermine한다.** CCR 0.99 vs MLLM judge CC 2.35의 모순은 *visual CCR* 메트릭의 필요성을 직접 입증한다.
+
+**향후 연구.** (a) cross-VLM probing 완료로 PGG 모델-독립성 검증 (`experiments/probing/cross_vlm.py` 실행). (b) Layout-conditional routing 구현 — Analyzer 출력에 따라 평면 → single-pass, 다층 → LayerAgent. (c) Visual CCR 도입 — visual-aware OCR(mPLUG-DocOwl) 채택 후 string-CCR 대체. (d) Visual Critic의 RL 기반 iterative refinement — holistic 가족에서의 우위 회복. (e) 인간 평가 (n≥80) 로 perception-grounded 메트릭의 anchor validation. (f) 웹 UI / 모바일 / 인포그래픽으로 8-stage 일반화.
+
+---
+
+## 부록 A. 사전 등록 (Pre-registration) — 가설 검증 임계값
+
+본 paper의 핵심 가설들은 *post-hoc 임의 임계값*이 아닌 *사전 명시된* 결정 규칙으로 검증된다 (paper 초안 작성 시점에 결정).
+
+**H-PGG (지각-생성 간극의 보편성, §3.3)**
+- 결정 규칙: 3 VLM(GPT-4o, Claude 4.6 Opus, Gemini 2.5)에서 baseline single-pass의 평균 (1 − Layer Recall) ≥ 0.50 AND cross-VLM 표준편차 ≤ 0.10
+- 적용: 50 design × 3 VLM = 150 (slide, VLM) 페어
+- 채택 시: PGG는 모델-독립적 세대 한계
+- 기각 시: 본 paper의 model-agnostic 주장을 *해당 모델 세대로 한정한 잠정적 주장*으로 명시 약화
+
+**H-LTED (LayerAgent의 LTED 우위, §6.1)**
+- 결정 규칙: LTED(layeragent) < min{LTED(single_pass), LTED(visual_cot), LTED(cot_h_rag)} − 0.05 on 48-slide aggregate
+- 채택 임계: 48 design across 4 method comparison
+
+**H-Recall (LayerAgent의 Layer Recall 우위, §6.1)**
+- 결정 규칙: Layer Recall(layeragent) > 2.0 × max{baselines} on 48-slide aggregate
+
+**H-SweetSpot (다층 디자인에서의 양 가족 합의, §6.2)**
+- 결정 규칙: dark_glass=10 subset에서 *동시*에 (LTED(layeragent) < best baseline LTED − 0.20) AND (MLLM avg(layeragent) > best baseline MLLM avg)
+- 적용: 10 dark-glass design subset
+- 채택 시: sweet-spot에서 두 메트릭 가족이 *합의*하여 LayerAgent를 우세로 선언
+
+**H-LayoutScaling (Per-layout RQ4, §6.3)**
+- 결정 규칙: 9 layout family 중 *적어도 5개에서* MLLM Δ와 LTED Δ의 부호가 일치 (즉, 두 가족이 같은 승자에 합의)
+- 적용: 9 layout family per-layout breakdown
+- 채택 시: layout-conditional routing 권고가 데이터로 정당화됨
+
+**H-MetricFamilyDisagree (RQ3 mixed signal, §6.4)**
+- 결정 규칙: 48-slide aggregate에서 SSIM 우승자 ≠ LTED 우승자 ≠ MLLM 우승자 (셋 모두 다른 메서드를 1위로 산출 — 또는 최소 2개 이상 ranking 차이)
+- 채택 시: 세 가족이 디자인-투-코드의 서로 다른 평가 차원임을 직접 증명
+
+**H-AblationTextInserter (Text Inserter zero-sum 해소, §6.5)**
+- 결정 규칙: string-CCR(D) − string-CCR(D₂) ≥ 0.30 AND Layer Recall(D) > Layer Recall(D₂)
+
+**H-AblationDesignSpec (DesignSpec cross-agent 합치, §6.5)**
+- 결정 규칙: Layer Recall(D) − Layer Recall(D₄) ≥ 0.05 AND LTED(D) < LTED(D₄)
+
+본 사전 등록은 paper 부록 외에도 OSF(Open Science Framework)에 별도 등록될 예정이며, ID는 publication 시점에 명시한다.
+
+---
+
+## 부록 B. 재현 패키지
+
+```
+ppt_paper/
+├── layeragent/                     # 8-stage 파이프라인
+│   ├── pipeline.py                 # LangGraph StateGraph
+│   ├── state.py                    # typed shared state
+│   ├── ablations.py                # 8개 ablation 플래그
+│   ├── agents/                     # 13 agent nodes
+│   │   ├── analyzer.py
+│   │   ├── design_director.py      # DesignSpec blackboard
+│   │   ├── bg_agents.py            # base/atmosphere/decoration
+│   │   ├── card_detail.py          # vision-grounded card crop
+│   │   ├── hero_detail.py
+│   │   ├── icon_agent.py
+│   │   ├── chart_agent.py / table_agent.py
+│   │   ├── assembler.py
+│   │   ├── style_normalizer.py     # cross-card CSS 통일
+│   │   ├── text_inserter.py        # 시각/텍스트 단계 분리
+│   │   ├── overflow_repair.py      # 측정 기반 미세조정
+│   │   └── visual_critic.py
+│   ├── libraries/                  # CV grounding + library retrieval
+│   │   ├── cv_extractors.py        # k-means palette, OCR heights, HSV
+│   │   ├── icon_library.py         # FontAwesome
+│   │   ├── pattern_library.py      # 4 BG patterns
+│   │   └── svg_primitives.py       # connector, shape
+│   └── prompts/                    # agent별 프롬프트
+│
+├── baselines/                      # 비교 베이스라인
+│   ├── single_pass.py              # Method A
+│   ├── visual_cot.py               # Method B
+│   ├── cot_h_rag.py                # Method C
+│   └── multi_model.py              # GPT-4o / GPT-5 / Claude 4.6 Opus
+│
+├── experiments/
+│   ├── main_eval.py                # 4-stage cacheable 평가
+│   ├── metrics/                    # SSIM, LTED, Block-Match, etc.
+│   ├── probing/
+│   │   ├── layer_tree.py           # Layer Recall + LTED 구현
+│   │   ├── probing_minimal.py      # 10 design pilot
+│   │   └── cross_vlm.py            # H-PGG 검증 실험
+│   └── ablations.py                # ablation runner
+│
+├── data/eval_dataset/              # 48 slide 평가셋
+│   ├── meta.json
+│   ├── slides/                     # 원본 PNG
+│   └── perception/                 # VLM perception 캐시
+│
+├── results/
+│   ├── main_eval/                  # eval_results.jsonl, eval_summary.csv,
+│   │                                  analysis_report.md
+│   ├── raw/                        # method별 생성 HTML
+│   ├── screenshots/                # Playwright PNG
+│   └── figures/                    # fig1_gap.{png,pdf}, fig2_methods.{png,pdf}
+│
+└── tests/test_smoke.py             # end-to-end smoke
+```
+
+**재현 명령:**
+
+```bash
+# Smoke test
+python tests/test_smoke.py
+
+# 메인 평가 (4 메서드 × 48 slide × 6 metric, 약 82분)
+python -m experiments.main_eval
+
+# Ablation D₁..D₈
+python -m experiments.run --method layeragent --ablation no_style_norm --all-designs
+
+# Cross-VLM probing
+python -m experiments.probing.cross_vlm
+
+# 단일 슬라이드 데모 (chat mode)
+python -m experiments.demo_chat
+```
 
 ---
 
@@ -536,30 +698,37 @@ Style Normalizer는 A2UI Protocol (Google, 2026)이 client-side renderer로 desi
 - LaTCoder. "Layout-as-Thought Code Generation." KDD 2025.
 - ScreenCoder. "ScreenCoder: Advancing Visual-to-Code Generation for Front-End Automation via Modular Multimodal Agents." arXiv:2507.22827, 2025.
 - DesignCoder. "DesignCoder: Hierarchy-Aware and Self-Correcting UI Code Generation with Large Language Models." arXiv:2506.13663, 2025.
-- WebRenderBench. "Enhancing Web Interface Generation through Layout-Style Consistency and Reinforcement Learning." 2025.
 
-### 시각 교정
+### 시각 교정 / 반복 개선
 - VisRefiner. "Learning from Visual Differences for Screenshot-to-Code Generation." arXiv:2602.05998, 2025.
-- Vision-Guided Iterative Refinement. "Frontend Code Generation." arXiv:2604.05839, 2026.
+- Vision-Guided Iterative Refinement. arXiv:2604.05839, 2026.
 
 ### 프레젠테이션 생성
 - Zheng, H., et al. "PPTAgent: Generating and Evaluating Presentations Beyond Text-to-Slides." EMNLP 2025.
 - Xu, X., et al. "PreGenie: An Agentic Framework for High-quality Visual Presentation Generation." EMNLP Findings 2025.
 - Tang, V., et al. "SlideCoder: Reference Image-Guided Slide Code Generation." EMNLP 2025.
 - Ge, J., et al. "AutoPresent: Designing Structured Visuals from Scratch." CVPR 2025.
-- Cachola, I., et al. "KCTV: Knowledge-Centric Templatic Views of Documents." 2024.
-- Bandopadhyay, S., et al. "Enhancing Presentation Slide Generation by LLMs with a Multi-Staged End-to-End Approach." INLG 2024.
-- Fu, T., et al. "Doc2PPT: Automatic Presentation Slides Generation." AAAI 2022.
-- Hu, Y., and Wan, X. "PPSGen: Learning-based Presentation Slides Generation." IEEE TKDE, 2014.
-- Xu, S., and Wan, X. "Posterbot: Generating Posters of Scientific Papers." AAAI 2022.
-- Sun, E., et al. "D2S: Document-to-Slide Generation via Query-based Text Summarization." 2021.
+
+### 평가 / 측정 타당성
+- DreamHouse. "Joint Structural-Visual Fidelity in Design-to-Code." arXiv:2603.24866, 2026.
+- WebRenderBench. "Layout-Style Consistency with Reinforcement Learning." 2025.
+- Widget2Code. "Apple HIG-inspired Per-Property Evaluation." 2025.
+- Image2Struct. NeurIPS 2024.
+
+### 계층 / 중첩
+- LayerD. "Decomposing Raster Graphic Designs into Layers." ICCV 2025.
+- SLEDGE. "Step-by-Step Layered Design Generation." AAAI 2026.
+- OverLayBench. NeurIPS 2025.
 
 ### 멀티에이전트 시스템
 - Hong, S., et al. "MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework." ICLR 2024.
 - Qian, C., et al. "ChatDev: Communicative Agents for Software Development." ACL 2024.
 - Li, G., et al. "CAMEL: Communicative Agents for Mind Exploration of Large Language Model Society." NeurIPS 2023.
 
-### VLM 및 평가
+### 에이전트 UI / 디자인 시스템
+- A2UI Protocol. "Agent-driven UI with Client-Side Design Enforcement." Google, 2026.
+
+### VLM
 - Hurst, A., et al. "GPT-4o System Card." 2024.
-- Radford, A., et al. "Learning Transferable Visual Models from Natural Language Supervision." ICML 2021.
-- Wang, Z., et al. "Image Quality Assessment: From Error Visibility to Structural Similarity." IEEE TIP, 2004.
+- Radford, A., et al. "CLIP: Learning Transferable Visual Models." ICML 2021.
+- Wang, Z., et al. "SSIM: Image Quality Assessment." IEEE TIP, 2004.

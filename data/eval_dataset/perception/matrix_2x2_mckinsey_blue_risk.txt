@@ -1,0 +1,10 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=chart, count=1, label=risk assessment matrix
+z=2: type=panel, count=2, label=colored quadrants in chart
+z=3: type=badge, count=9, label=circles with risk events
+z=4: type=title, count=1, label=main slide title
+z=5: type=headline, count=1, label=subtitle
+z=6: type=text, count=1, label=axis labels
+z=7: type=text, count=1, label=source note
+```

@@ -1,0 +1,14 @@
+```plaintext
+z=0: type=background, count=1, label=white background
+z=1: type=chart, count=1, label=revenue bridge chart
+z=2: type=bar, count=9, label=revenue bars
+z=3: type=line, count=5, label=horizontal grid lines
+z=4: type=arrow, count=5, label=connecting arrows
+z=5: type=title, count=1, label=revenue growth title
+z=6: type=headline, count=1, label=revenue bridge headline
+z=7: type=text, count=2, label=revenue figures text
+z=8: type=value, count=6, label=revenue figures on bars
+z=9: type=label, count=5, label=descriptions under arrows
+z=10: type=text, count=1, label=60% of total growth annotation
+z=11: type=text, count=1, label=source text
+```

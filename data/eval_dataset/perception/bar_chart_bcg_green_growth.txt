@@ -1,0 +1,7 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=chart, count=1, label=bar graph of LTV by cohort  
+z=2: type=line, count=5, label=horizontal grid lines  
+z=3: type=value, count=10, label=bar values ($800-$1,375)  
+z=4: type=title, count=1, label=customer LTV growth headline  
+z=5: type=headline, count=1, label=LTV by acquisition cohort  
+z=6: type=text, count=1, label=source note at bottom right

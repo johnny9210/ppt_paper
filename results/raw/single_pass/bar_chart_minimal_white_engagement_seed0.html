@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+  }
+  .container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    background: white;
+    overflow: hidden;
+  }
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 40px;
+  }
+  .description {
+    font-size: 20px;
+    color: #555;
+    margin-left: 40px;
+    margin-bottom: 40px;
+  }
+  .chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 400px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .bar {
+    width: 120px;
+    background: #222;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+  .bar.mon, .bar.tue, .bar.wed, .bar.thu, .bar.fri {
+    height: 340px;
+  }
+  .bar.sat, .bar.sun {
+    height: 264px;
+    background: #6c757d;
+  }
+  .label {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  .source {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 14px;
+    color: #999;
+  }
+</style>
+<div class="container">
+  <div class="title">Engagement dropped 22% on weekends across the user base</div>
+  <div class="description">Daily active users by day-of-week</div>
+  <div class="chart">
+    <div class="bar mon">85K</div>
+    <div class="bar tue">85K</div>
+    <div class="bar wed">85K</div>
+    <div class="bar thu">85K</div>
+    <div class="bar fri">85K</div>
+    <div class="bar sat">66K</div>
+    <div class="bar sun">66K</div>
+  </div>
+  <div class="label">Mon</div>
+  <div class="label">Tue</div>
+  <div class="label">Wed</div>
+  <div class="label">Thu</div>
+  <div class="label">Fri</div>
+  <div class="label">Sat</div>
+  <div class="label">Sun</div>
+  <div class="source">Source: Product analytics, Nov 2025</div>
+</div></div>
+</body></html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0b0f19;
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #141e30, #243b55);
+  }
+  .timeline {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #36d1dc, #5b86e5);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .marker {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  }
+  .card {
+    position: absolute;
+    width: 150px;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  .card-title {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  .card-description {
+    font-size: 14px;
+    color: #ccc;
+  }
+  .line {
+    position: absolute;
+    width: 2px;
+    height: 60px;
+    background: white;
+  }
+  .card:nth-child(1) {
+    top: 10%;
+    left: 10%;
+  }
+  .card:nth-child(1) .line {
+    bottom: -60px;
+    background: rgba(54, 209, 220, 0.5);
+  }
+  .card:nth-child(2) {
+    top: 10%;
+    left: 32%;
+  }
+  .card:nth-child(2) .line {
+    bottom: -60px;
+    background: rgba(248, 177, 149, 0.5);
+  }
+  .card:nth-child(3) {
+    top: 10%;
+    left: 54%;
+  }
+  .card:nth-child(3) .line {
+    bottom: -60px;
+    background: rgba(106, 210, 186, 0.5);
+  }
+  .card:nth-child(4) {
+    top: 10%;
+    left: 76%;
+  }
+  .card:nth-child(4) .line {
+    bottom: -60px;
+    background: rgba(249, 216, 35, 0.5);
+  }
+  .card:nth-child(5) {
+    bottom: 10%;
+    left: 54%;
+  }
+  .card:nth-child(5) .line {
+    top: -60px;
+    background: rgba(154, 96, 227, 0.5);
+  }
+</style>
+
+<div class="container">
+  <div class="timeline">
+    <div class="marker">1</div>
+    <div class="marker">2</div>
+    <div class="marker">3</div>
+    <div class="marker">4</div>
+    <div class="marker">5</div>
+  </div>
+
+  <div class="card">
+    <div class="line"></div>
+    <div class="card-title">🎯 Q1<br>MVP 출시</div>
+    <div class="card-description">핵심 기능 3종 런칭</div>
+  </div>
+  <div class="card">
+    <div class="line"></div>
+    <div class="card-title">📈 Q2<br>성장 가속</div>
+    <div class="card-description">사용자 1만명 돌파 목표</div>
+  </div>
+  <div class="card">
+    <div class="line"></div>
+    <div class="card-title">🌏 Q3<br>글로벌 확장</div>
+    <div class="card-description">일본·동남아 시장 진출</div>
+  </div>
+  <div class="card">
+    <div class="line"></div>
+    <div class="card-title">🏆 Q4<br>엔터프라이즈</div>
+    <div class="card-description">대기업 맞춤 솔루션 출시</div>
+  </div>
+  <div class="card">
+    <div class="line"></div>
+    <div class="card-title">🚀 2026<br>플랫폼화</div>
+    <div class="card-description">3rd party 앱 마켓플레이스</div>
+  </div>
+</div></div>
+</body></html>

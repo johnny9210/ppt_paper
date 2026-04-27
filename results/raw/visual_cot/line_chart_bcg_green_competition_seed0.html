@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Share Chart</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 1280px;
+            height: 720px;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .title {
+            font-size: 24px;
+            color: black;
+            margin: 20px;
+        }
+        .description {
+            font-size: 18px;
+            color: grey;
+            margin: 20px;
+            margin-top: 0;
+        }
+        .chart {
+            width: 1000px;
+            height: 400px;
+            position: absolute;
+            top: 150px;
+            left: 140px;
+        }
+        .line {
+            stroke-width: 3;
+            fill: none;
+        }
+        .line-our-firm {
+            stroke: #006400;
+        }
+        .line-competitor-a {
+            stroke: #606060;
+        }
+        .line-competitor-b {
+            stroke: #909090;
+        }
+        .line-competitor-c {
+            stroke: #b0b0b0;
+        }
+        .legend {
+            position: absolute;
+            right: 40px;
+            top: 150px;
+            font-size: 16px;
+        }
+        .legend div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+        .color-our-firm {
+            background-color: #006400;
+        }
+        .color-competitor-a {
+            background-color: #606060;
+        }
+        .color-competitor-b {
+            background-color: #909090;
+        }
+        .color-competitor-c {
+            background-color: #b0b0b0;
+        }
+        .source {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Our market share grew while top 2 competitors lost ground</div>
+        <div class="description">Market share by quarter, top 4 players</div>
+        <svg class="chart">
+            <polyline class="line line-our-firm" points="0,280 90,270 180,260 270,250 360,240 450,230 540,220 630,210 720,200" />
+            <polyline class="line line-competitor-a" points="0,60 90,80 180,100 270,120 360,140 450,160 540,180 630,200 720,220" />
+            <polyline class="line line-competitor-b" points="0,120 90,130 180,140 270,150 360,160 450,170 540,180 630,190 720,200" />
+            <polyline class="line line-competitor-c" points="0,200 90,205 180,210 270,215 360,220 450,225 540,230 630,235 720,240" />
+        </svg>
+        <div class="legend">
+            <div>
+                <div class="legend-color color-our-firm"></div>
+                Our Firm
+            </div>
+            <div>
+                <div class="legend-color color-competitor-a"></div>
+                Competitor A
+            </div>
+            <div>
+                <div class="legend-color color-competitor-b"></div>
+                Competitor B
+            </div>
+            <div>
+                <div class="legend-color color-competitor-c"></div>
+                Competitor C
+            </div>
+        </div>
+        <div class="source">Source: Industry tracker, 2025</div>
+    </div>
+</body>
+</html></div>
+</body></html>

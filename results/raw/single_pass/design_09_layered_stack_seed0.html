@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    position: relative;
+    width: 800px;
+    height: 500px;
+  }
+  .layer {
+    position: absolute;
+    width: 100%;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  .layer:nth-child(1) {
+    top: 0;
+    background: linear-gradient(45deg, red, yellow);
+  }
+  .layer:nth-child(2) {
+    top: 100px;
+    background: linear-gradient(45deg, orange, lightgreen);
+  }
+  .layer:nth-child(3) {
+    top: 200px;
+    background: linear-gradient(45deg, lightblue, blue);
+  }
+  .layer:nth-child(4) {
+    top: 300px;
+    background: linear-gradient(45deg, purple, pink);
+  }
+  .layer-content {
+    margin-left: 15px;
+  }
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  .description {
+    font-size: 16px;
+    margin: 5px 0 0;
+  }
+</style>
+<div class="container">
+  <div class="layer">
+    <div class="emoji">🎨</div>
+    <div class="layer-content">
+      <h2 class="title">프레젠테이션 계층</h2>
+      <p class="description">React + Ant Design UI</p>
+    </div>
+  </div>
+  <div class="layer">
+    <div class="emoji">⚡</div>
+    <div class="layer-content">
+      <h2 class="title">API 계층</h2>
+      <p class="description">Express Gateway + Moleculer</p>
+    </div>
+  </div>
+  <div class="layer">
+    <div class="emoji">🧠</div>
+    <div class="layer-content">
+      <h2 class="title">서비스 계층</h2>
+      <p class="description">FastAPI + LangGraph AI 에이전트</p>
+    </div>
+  </div>
+  <div class="layer">
+    <div class="emoji">💾</div>
+    <div class="layer-content">
+      <h2 class="title">인프라 계층</h2>
+      <p class="description">MongoDB + OpenSearch + Redis + MinIO</p>
+    </div>
+  </div>
+</div></div>
+</body></html>

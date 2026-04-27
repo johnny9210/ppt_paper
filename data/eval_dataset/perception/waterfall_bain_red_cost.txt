@@ -1,0 +1,11 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=chart, count=1, label=bar chart  
+z=2: type=value, count=2, label=values on bars ($820M, $700M)  
+z=3: type=title, count=1, label=$120M cost reduction unlocks 4-pp margin gain by year 2  
+z=4: type=headline, count=1, label=Cost-out program contribution  
+z=5: type=text, count=5, label=categories below bars (Start, Procurement, Headcount, Tech consolidation, Real estate, End)  
+z=6: type=value, count=4, label=cost values on bars ($45M, $40M, $25M, $10M)  
+z=7: type=connector, count=1, label=bracket under bars for total reduction  
+z=8: type=value, count=4, label=reduction values under bars (-$45M, -$40M, -$25M, -$10M)  
+z=9: type=text, count=1, label=Total Reduction: $120M  
+z=10: type=text, count=1, label=Source: Operations review, 2025

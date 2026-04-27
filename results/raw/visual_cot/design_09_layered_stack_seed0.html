@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+        .layer {
+            position: absolute;
+            width: 60%;
+            height: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            opacity: 0.9;
+        }
+        .layer1 {
+            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+            top: 10%;
+        }
+        .layer2, .layer3, .layer4 {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .layer2 { top: 30%; }
+        .layer3 { top: 50%; }
+        .layer4 { top: 70%; }
+        .decorative-lines {
+            position: absolute;
+            right: 10%;
+            top: 5%;
+            height: 90%;
+            width: 5px;
+            background: linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="layer layer1">
+            <div>🎨 프레젠테이션 계층</div>
+            <small>React + Ant Design UI</small>
+        </div>
+        <div class="layer layer2">
+            <div>⚡ API 계층</div>
+            <small>Express Gateway + Moleculer</small>
+        </div>
+        <div class="layer layer3">
+            <div>🧠 서비스 계층</div>
+            <small>FastAPI + LangGraph AI 에이전트</small>
+        </div>
+        <div class="layer layer4">
+            <div>💾 인프라 계층</div>
+            <small>MongoDB + OpenSearch + Redis + MinIO</small>
+        </div>
+        <div class="decorative-lines"></div>
+    </div>
+</body>
+</html></div>
+</body></html>

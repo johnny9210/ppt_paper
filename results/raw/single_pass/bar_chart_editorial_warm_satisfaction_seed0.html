@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f4ea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background-color: #f7f4ea;
+    box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  .title {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #3a3a3a;
+  }
+  .description {
+    position: absolute;
+    top: 100px;
+    left: 40px;
+    font-size: 18px;
+    color: #b98552;
+  }
+  .chart {
+    position: absolute;
+    bottom: 100px;
+    left: 40px;
+    width: 90%;
+    height: 60%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .bar {
+    width: calc(100% / 8 - 20px);
+    height: 50%;
+    background-color: #a53a00;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    border-radius: 5px 5px 0 0;
+    position: relative;
+  }
+  .bar:nth-child(8) {
+    height: 85%;
+    box-shadow: 0 15px 15px rgba(0,0,0,0.2);
+  }
+  .line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, #ce992f);
+    z-index: 1;
+  }
+  .arrow {
+    position: absolute;
+    right: -10px;
+    top: -80px;
+    font-size: 24px;
+    color: #ce992f;
+  }
+  .annotation {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translateX(-50%);
+    background-color: #fff3e0;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    font-size: 14px;
+    color: #3a3a3a;
+  }
+  .footer {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+<div class="slide">
+  <div class="title">NPS rose to 67 driven by support quality improvements</div>
+  <div class="description">NPS by quarter, last 8 quarters</div>
+  <div class="chart">
+    <div class="line"></div>
+    <div class="bar" style="height: 50%"></div>
+    <div class="bar" style="height: 55%"></div>
+    <div class="bar" style="height: 60%"></div>
+    <div class="bar" style="height: 65%"></div>
+    <div class="bar" style="height: 70%"></div>
+    <div class="bar" style="height: 75%"></div>
+    <div class="bar" style="height: 80%"></div>
+    <div class="bar">
+      <div class="arrow">67</div>
+      <div class="annotation">Key Driver: Enhanced support response time & resolution</div>
+    </div>
+  </div>
+  <div class="footer">Source: Customer survey panel, 2025</div>
+</div></div>
+</body></html>

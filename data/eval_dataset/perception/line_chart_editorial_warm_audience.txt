@@ -1,0 +1,11 @@
+Sure, here's the output based on your request:
+
+```
+z=0: type=background, count=1, label=beige fill
+z=1: type=chart, count=1, label=line graph of subscriber growth
+z=2: type=title, count=1, label=main title text
+z=3: type=text, count=1, label=subtitle text
+z=4: type=label, count=2, label=x-axis and y-axis labels
+z=5: type=label, count=1, label=axis titles
+z=6: type=label, count=1, label=highlighted subscribers and growth rate
+```

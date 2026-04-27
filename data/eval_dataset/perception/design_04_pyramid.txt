@@ -1,0 +1,7 @@
+z=0: type=background, count=1, label=dark geometric pattern  
+z=1: type=decoration, count=1, label=glowing corners  
+z=2: type=connector, count=1, label=lines connecting elements  
+z=3: type=panel, count=1, label=top golden panel with crown  
+z=4: type=card, count=2, label=middle silver cards  
+z=5: type=card, count=3, label=bottom bronze cards  
+z=6: type=icon, count=1, label=crown in top panel  

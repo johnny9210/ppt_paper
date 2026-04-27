@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            background: #0a0f2c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+        }
+        .container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+        }
+        .central-circle {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #00ffcc, #005555);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px #00ffcc;
+            text-align: center;
+            z-index: 10;
+        }
+        .central-circle p {
+            margin: 5px;
+        }
+        .spoke {
+            position: absolute;
+            width: 220px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        .spoke p {
+            margin: 5px;
+        }
+        .spoke1 { top: 5%; left: 10%; }
+        .spoke2 { top: 5%; right: 10%; }
+        .spoke3 { bottom: 13%; left: 10%; }
+        .spoke4 { bottom: 13%; right: 10%; }
+        .spoke5 { bottom: 5%; left: 50%; transform: translateX(-170%); }
+        .spoke6 { bottom: 5%; right: 50%; transform: translateX(170%); }
+        .connector {
+            position: absolute;
+            width: 4px;
+            height: 280px;
+            background: linear-gradient(to bottom, #00ffcc, #005555);
+        }
+        .connector1 { top: 15%; left: 25%; transform: rotate(-45deg); }
+        .connector2 { top: 15%; right: 25%; transform: rotate(45deg); }
+        .connector3 { top: 55%; left: 25%; transform: rotate(45deg); }
+        .connector4 { top: 55%; right: 25%; transform: rotate(-45deg); }
+        .connector5 { top: 68%; left: 50%; transform: translateX(-100%); }
+        .connector6 { top: 68%; right: 50%; transform: translateX(100%); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="central-circle">
+            <p>🌐</p>
+            <p>API Gateway</p>
+        </div>
+        <div class="spoke spoke1">
+            <p>☁️</p>
+            <p>클라우드 스토리지</p>
+            <p>S3, MinIO 기반 객체 저장소</p>
+        </div>
+        <div class="spoke spoke2">
+            <p>📡</p>
+            <p>실시간 스트리밍</p>
+            <p>Kafka 이벤트 브로커</p>
+        </div>
+        <div class="spoke spoke3">
+            <p>🗄️</p>
+            <p>데이터베이스</p>
+            <p>PostgreSQL + MongoDB</p>
+        </div>
+        <div class="spoke spoke4">
+            <p>🔒</p>
+            <p>인증/보안</p>
+            <p>OAuth2 + JWT 토큰</p>
+        </div>
+        <div class="spoke spoke5">
+            <p>🤖</p>
+            <p>AI 서비스</p>
+            <p>LLM 추론 엔진</p>
+        </div>
+        <div class="spoke spoke6">
+            <p>🌍</p>
+            <p>CDN/Edge</p>
+            <p>글로벌 콘텐츠 배포</p>
+        </div>
+        <div class="connector connector1"></div>
+        <div class="connector connector2"></div>
+        <div class="connector connector3"></div>
+        <div class="connector connector4"></div>
+        <div class="connector connector5"></div>
+        <div class="connector connector6"></div>
+    </div>
+</body>
+</html></div>
+</body></html>

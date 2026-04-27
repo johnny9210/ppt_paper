@@ -1,0 +1,9 @@
+```  
+z=0: type=background, count=1, label=light beige
+z=1: type=title, count=1, label=Candidate B exceeds requirements on culture and execution dimensions
+z=2: type=headline, count=1, label=Senior leadership candidate scoring
+z=3: type=table, count=1, label=Candidate evaluation grid
+z=4: type=text, count=15, label=Attribute and candidate descriptions
+z=5: type=icon, count=15, label=Evaluation circles
+z=6: type=text, count=1, label=Source: Executive search panel, Q4 2025
+```

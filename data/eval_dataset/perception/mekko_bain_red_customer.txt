@@ -1,0 +1,9 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=chart, count=1, label=stacked bar chart
+z=2: type=panel, count=3, label=colored tier blocks
+z=3: type=text, count=12, label=product line labels and percentages
+z=4: type=headline, count=1, label=title above the chart
+z=5: type=title, count=1, label=subtitle with account count and revenue contribution
+z=6: type=label, count=1, label=source information
+```

@@ -1,0 +1,10 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=title, count=1, label=The case for restructuring rests on 3 compounding factors
+z=2: type=headline, count=1, label=Strategic argument hierarchy
+z=3: type=container, count=1, label=central restructuring argument panel
+z=4: type=connector, count=6, label=connecting lines between panels
+z=5: type=panel, count=3, label=Market Dynamics Shift, Operational Inefficiencies, Financial Pressure panels
+z=6: type=panel, count=6, label=fact panels with data and sources
+z=7: type=text, count=1, label=Source: Strategy review, 2025
+```

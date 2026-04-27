@@ -1,0 +1,8 @@
+z=0: type=background, count=1, label=gray background  
+z=1: type=text, count=2, label=axis labels  
+z=2: type=chart, count=1, label=competitive landscape map  
+z=3: type=hero, count=6, label=vendor circles  
+z=4: type=text, count=6, label=vendor names  
+z=5: type=text, count=1, label=title at top  
+z=6: type=arrow, count=1, label=market leader indicator  
+z=7: type=text, count=1, label=market leader label

@@ -1,0 +1,5 @@
+z=0: type=background, count=1, label=gradient background  
+z=1: type=atmosphere, count=1, label=glowing effects  
+z=2: type=arrow, count=1, label=central glowing arrow  
+z=3: type=panel, count=2, label=red and green rectangular panels  
+z=4: type=icon, count=16, label=symbolic icons representing concepts

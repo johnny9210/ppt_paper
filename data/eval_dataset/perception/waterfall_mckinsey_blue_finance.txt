@@ -1,0 +1,12 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=chart, count=1, label=bar chart
+z=2: type=title, count=1, label=Operating margin expanded 320 bps...
+z=3: type=headline, count=1, label=FY2024 → FY2025 margin bridge
+z=4: type=text, count=1, label=Start FY2024
+z=5: type=text, count=1, label=End FY2025
+z=6: type=value, count=5, label=percentage values (12.4%, 15.6%)
+z=7: type=connector, count=3, label=dotted lines between bars
+z=8: type=label, count=4, label=COGS reduction, Pricing power, SG&A increase, Mix shift
+z=9: type=text, count=1, label=Source: Financial review, Q4 2025
+```

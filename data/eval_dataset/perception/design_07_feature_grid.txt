@@ -1,0 +1,8 @@
+z=0: type=background, count=1, label=dark gradient backdrop  
+z=1: type=atmosphere, count=2, label=soft purple glows in corners  
+z=2: type=container, count=1, label=central horizontal transparent section  
+z=3: type=card, count=6, label=glassy feature cards  
+z=4: type=icon, count=6, label=circular icons in cards  
+z=5: type=title, count=6, label=feature titles in cards  
+z=6: type=text, count=6, label=descriptive text in cards  
+z=7: type=label, count=6, label=bottom button-like accent

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    font-family: Arial, sans-serif;
+    width: 1280px;
+    height: 720px;
+    background-color: #ffffff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 10px;
+  }
+  .description {
+    font-size: 18px;
+    color: #888;
+    margin-bottom: 40px;
+  }
+  .chart {
+    display: flex;
+    align-items: flex-end;
+    width: 1000px;
+    height: 400px;
+    position: relative;
+  }
+  .bar {
+    background-color: #777777;
+    margin: 0 10px;
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  .bar.new-customers {
+    width: 100px;
+    height: 43px;
+    background-color: #28A745;
+  }
+  .bar.cross-sell {
+    width: 100px;
+    height: 77px;
+    background-color: #28A745;
+  }
+  .bar.price {
+    width: 100px;
+    height: 18px;
+    background-color: #28A745;
+  }
+  .bar.churn {
+    width: 100px;
+    height: 9px;
+    background-color: #DC3545;
+  }
+  .bar.fx {
+    width: 100px;
+    height: 6px;
+    background-color: #28A745;
+  }
+  .bar.baseline,
+  .bar.actual {
+    width: 100px;
+    height: 256px;
+  }
+  .bar-label {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .note {
+    font-size: 16px;
+    color: #28A745;
+    position: absolute;
+    left: 305px;
+    top: 265px;
+    width: 200px;
+    text-align: center;
+  }
+  .source {
+    font-size: 14px;
+    color: #888;
+    margin-top: 60px;
+  }
+</style>
+
+<div class="title">Revenue grew $4.2B from $12.8B base, 60% from cross-sell expansion</div>
+<div class="description">Revenue bridge $12.8B → $17.0B</div>
+<div class="chart">
+  <div class="bar baseline">
+    <div class="bar-label">$12.8B</div>
+  </div>
+  <div class="bar new-customers">
+    <div class="bar-label">+🔁 $1.4B</div>
+  </div>
+  <div class="bar cross-sell">
+    <div class="bar-label">+🔁 $2.5B</div>
+  </div>
+  <div class="bar price">
+    <div class="bar-label">+🔁 $0.6B</div>
+  </div>
+  <div class="bar churn">
+    <div class="bar-label">-🔁 $0.3B</div>
+  </div>
+  <div class="bar fx">
+    <div class="bar-label">+🔁 $0.2B</div>
+  </div>
+  <div class="bar actual">
+    <div class="bar-label">$17.0B</div>
+  </div>
+  <div class="note">60% of total growth</div>
+</div>
+<div class="source">Source: Revenue analysis, FY2025</div></div>
+</body></html>

@@ -1,0 +1,11 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=graph, count=1, label=ARR growth rate trajectory  
+z=2: type=line, count=14, label=graph data lines and axis  
+z=3: type=title, count=1, label=ARR growth accelerated to 43% YoY by FY2025-end  
+z=4: type=headline, count=1, label=ARR growth rate trajectory  
+z=5: type=line, count=1, label=inflection connector line  
+z=6: type=arrow, count=1, label=inflection indicator  
+z=7: type=value, count=5, label=growth rate percentage values  
+z=8: type=text, count=2, label=axis labels (quarter, year)  
+z=9: type=label, count=1, label=inflection at Q2 2024  
+z=10: type=text, count=1, label=source information  

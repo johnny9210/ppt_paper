@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    background: linear-gradient(to right, #16222a, #3a6073);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    display: flex;
+    width: 1280px;
+    height: 720px;
+    position: relative;
+  }
+  .panel {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  }
+  .panel.left {
+    background: rgba(255, 0, 0, 0.1);
+    margin-right: 2%;
+  }
+  .panel.right {
+    background: rgba(0, 255, 0, 0.1);
+    margin-left: 2%;
+  }
+  .panel h2 {
+    color: #fff;
+    text-align: center;
+    margin: 0;
+  }
+  .item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+  .item .emoji {
+    font-size: 2rem;
+    margin-right: 15px;
+  }
+  .item .details {
+    display: flex;
+    flex-direction: column;
+  }
+  .arrow {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255,255,255,0.4), rgba(0,0,0,0));
+    transform: rotate(45deg);
+    top: 47.5%;
+    left: 49%;
+    box-shadow: 0 0 15px #fff;
+  }
+</style>
+<div class="container">
+  <div class="panel left">
+    <h2>도입 전</h2>
+    <div class="item">
+      <div class="emoji">📝</div>
+      <div class="details">
+        <strong>수작업 보고서 작성</strong>
+        <span>주 8시간 소요</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="emoji">🔍</div>
+      <div class="details">
+        <strong>수동 데이터 검색</strong>
+        <span>건당 30분</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="emoji">📞</div>
+      <div class="details">
+        <strong>전화/이메일 응대</strong>
+        <span>평균 응답 4시간</span>
+      </div>
+    </div>
+  </div>
+  <div class="arrow"></div>
+  <div class="panel right">
+    <h2>도입 후</h2>
+    <div class="item">
+      <div class="emoji">🤖</div>
+      <div class="details">
+        <strong>자동 보고서 생성</strong>
+        <span>주 30분으로 단축</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="emoji">⚡</div>
+      <div class="details">
+        <strong>RAG 기반 즉시 검색</strong>
+        <span>건당 5초</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="emoji">💬</div>
+      <div class="details">
+        <strong>AI 챗봇 자동 응대</strong>
+        <span>평균 응답 10초</span>
+      </div>
+    </div>
+  </div>
+</div></div>
+</body></html>

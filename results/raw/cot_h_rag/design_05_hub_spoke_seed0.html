@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+  body {
+    margin: 0;
+    background: #0a0f1c;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('circuit-pattern.png');
+    z-index: 1;
+  }
+  .card {
+    width: 180px;
+    height: 100px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ffffff;
+    z-index: 5;
+  }
+  .center-card {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(0, 255, 200, 0.15), transparent 70%);
+    filter: blur(60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.1);
+    margin-bottom: 8px;
+  }
+  .lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  .line {
+    position: absolute;
+    width: 4px;
+    height: 160px;
+    background: linear-gradient(to bottom, blue, green);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="background"></div>
+  <div class="lines">
+    <div class="line" style="top: 140px; left: 450px;"></div>
+    <div class="line" style="top: 140px; right: 450px;"></div>
+    <div class="line" style="bottom: 140px; left: 450px;"></div>
+    <div class="line" style="bottom: 140px; right: 450px;"></div>
+  </div>
+
+  <div class="card" style="position: absolute; top: 0; left: 0;">
+    <div class="icon">☁️</div>
+    <div>클라우드 스토리지</div>
+  </div>
+
+  <div class="card" style="position: absolute; top: 0; right: 0;">
+    <div class="icon">📡</div>
+    <div>실시간 스트리밍</div>
+  </div>
+
+  <div class="card" style="position: absolute; bottom: 0; left: 0;">
+    <div class="icon">🗄️</div>
+    <div>데이터베이스</div>
+  </div>
+
+  <div class="card" style="position: absolute; bottom: 0; right: 0;">
+    <div class="icon">🔒</div>
+    <div>인증/보안</div>
+  </div>
+  
+  <div class="card" style="position: absolute; top: 140px; left: calc(50% - 200px)">
+    <div class="icon">🤖</div>
+    <div>AI 서비스</div>
+  </div>
+
+  <div class="card" style="position: absolute; bottom: 140px; right: calc(50% - 200px)">
+    <div class="icon">🌍</div>
+    <div>CDN/Edge</div>
+  </div>
+
+  <div class="center-card">
+    <div class="icon" style="background: none;">🌐</div>
+  </div>
+</div>
+</body>
+</html></div>
+</body></html>

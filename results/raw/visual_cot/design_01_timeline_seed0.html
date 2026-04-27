@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, darkblue, purple);
+        }
+        .container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+        .title {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .description {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 50px;
+            position: relative;
+        }
+        .card {
+            width: 250px;
+            height: 320px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .card .emoji {
+            font-size: 48px;
+        }
+        .card .card-title {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .card .card-description {
+            font-size: 16px;
+            padding: 0 10px;
+        }
+        .line {
+            position: absolute;
+            top: 35%;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: linear-gradient(to right, cyan, purple);
+            z-index: -1;
+        }
+        .icon {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, cyan, purple);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .icon:nth-child(3n+1) { left: calc(15%); }
+        .icon:nth-child(3n+2) { left: calc(37% + 40px); }
+        .icon:nth-child(3n+3) { left: calc(59% + 54px); }
+        .icon:nth-child(3n+4) { left: calc(81% + 68px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">디지털 전환 로드맵 2025</div>
+        <div class="description">4단계 전환 마일스톤과 핵심 목표</div>
+        <div class="cards">
+            <div class="card">
+                <div class="emoji">📊</div>
+                <div class="card-title">현황 진단</div>
+                <div class="card-description">레거시 시스템 분석 및 디지털 성숙도 평가</div>
+            </div>
+            <div class="card">
+                <div class="emoji">🏗️</div>
+                <div class="card-title">기반 구축</div>
+                <div class="card-description">클라우드 마이그레이션 및 API 플랫폼 설계</div>
+            </div>
+            <div class="card">
+                <div class="emoji">🔄</div>
+                <div class="card-title">프로세스 혁신</div>
+                <div class="card-description">업무 자동화 및 데이터 기반 의사결정 체계 도입</div>
+            </div>
+            <div class="card">
+                <div class="emoji">🚀</div>
+                <div class="card-title">스케일업</div>
+                <div class="card-description">AI/ML 적용 확대 및 전사 디지털 문화 정착</div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+    </div>
+</body>
+</html></div>
+</body></html>

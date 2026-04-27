@@ -1,0 +1,10 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=chart, count=1, label=bar graph for daily active users  
+z=2: type=title, count=1, label="Engagement dropped 22% on weekends across the user base"  
+z=3: type=label, count=1, label="Daily active users by day-of-week"  
+z=4: type=y-axis label, count=1, label="DAU"  
+z=5: type=value, count=6, label=bars' values (85K, 66K)  
+z=6: type=label, count=7, label=day labels (Mon-Sun)  
+z=7: type=arrow, count=1, label=arrow indicating drop  
+z=8: type=text, count=1, label="22% drop" text  
+z=9: type=text, count=1, label="Source: Product analytics, Nov 2025"

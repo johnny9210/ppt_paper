@@ -1,0 +1,17 @@
+
+z=0: type=background, count=1, label=white background  
+z=1: type=title, count=1, label=Framework Y delivers superior outcomes  
+z=2: type=headline, count=1, label=Capability framework comparison  
+z=3: type=table, count=1, label=Comparison of Framework X, Y, Z  
+z=4: type=text, count=1, label=Scalability  
+z=5: type=text, count=1, label=Cost efficiency  
+z=6: type=text, count=1, label=Vendor lock-in risk  
+z=7: type=text, count=1, label=Time to market  
+z=8: type=text, count=1, label=Talent availability  
+z=9: type=text, count=1, label=Total ecosystem  
+z=10: type=text, count=1, label=Framework X  
+z=11: type=text, count=1, label=Framework Y  
+z=12: type=text, count=1, label=Framework Z  
+z=13: type=label, count=18, label=Details for each framework feature  
+z=14: type=icon, count=18, label=Visual indicators for feature ratings  
+z=15: type=text, count=1, label=Source: Architecture review, 2025

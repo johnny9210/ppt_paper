@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1b1f29, #252b3a);
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+  }
+  .container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .box {
+    width: 300px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+  }
+  .title {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #ffd700, #ff8c00);
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .box.underline::after {
+    content: '';
+    width: 100px;
+    height: 2px;
+    background: #ffd700;
+    position: absolute;
+    bottom: -25px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .emoji {
+    font-size: 24px;
+  }
+  .desc {
+    margin-top: 5px;
+    color: #ccc;
+    font-size: 14px;
+  }
+</style>
+
+<div class="container">
+  <div class="box underline">
+    <div class="title">데이터 거버넌스 프레임워크</div>
+    <div class="emoji">👑</div>
+    <div class="desc">데이터 전략<br>경영진 주도 데이터 비전 및 정책 수립</div>
+  </div>
+  <div class="row">
+    <div class="box">
+      <div class="emoji">📋</div>
+      <div class="title">품질 관리</div>
+      <div class="desc">데이터 표준화 및 품질 모니터링</div>
+    </div>
+    <div class="box">
+      <div class="emoji">🔐</div>
+      <div class="title">보안 통제</div>
+      <div class="desc">접근 권한 및 개인정보 보호</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="box">
+      <div class="emoji">🗄️</div>
+      <div class="title">수집</div>
+      <div class="desc">원천 데이터 통합</div>
+    </div>
+    <div class="box">
+      <div class="emoji">⚙️</div>
+      <div class="title">처리</div>
+      <div class="desc">ETL 파이프라인</div>
+    </div>
+    <div class="box">
+      <div class="emoji">📈</div>
+      <div class="title">분석</div>
+      <div class="desc">BI 대시보드 운영</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

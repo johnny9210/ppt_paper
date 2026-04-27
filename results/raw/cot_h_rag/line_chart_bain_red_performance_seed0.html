@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div style="width: 1280px; height: 720px; background-color: #f8f8f8; padding: 20px;">
+  <div style="background: linear-gradient(90deg, #ffffff, #f0f0f0); padding: 20px; border-radius: 16px;">
+    <h1 style="color: #b22222;">Cost-to-serve <span style="background-color: #b22222; color: white; padding: 4px; border-radius: 4px;">dropped below industry benchmark</span> in Q3 2025</h1>
+    <p style="color: #555;">Cost per transaction, our co. vs benchmark</p>
+  </div>
+  <div style="margin-top: 40px; border: 1px solid #e0e0e0; padding: 20px; border-radius: 16px; backdrop-filter: blur(12px); background: rgba(255,255,255,0.08);">
+    <h2>Cost per Transaction Trend (Q4 2023 - Q3 2025)</h2>
+    <svg width="100%" height="400" style="background-color: white; border-radius: 8px;">
+      <!-- Industry Benchmark -->
+      <line x1="50" y1="250" x2="600" y2="250" style="stroke:gray; stroke-width:2; stroke-dasharray: 5,5" />
+      <!-- Our Cost Line -->
+      <polyline points="50,200 150,210 250,230 350,260 450,280 550,300 600,320 650,350"
+                style="fill:none; stroke:#b22222; stroke-width:3" />
+      <!-- Crossover Point -->
+      <circle cx="550" cy="300" r="5" style="fill:#b22222;" />
+      <text x="560" y="300" fill="black">Crossover point: Our cost fell below benchmark in Q2 2025</text>
+    </svg>
+  </div>
+</div></div>
+</body></html>

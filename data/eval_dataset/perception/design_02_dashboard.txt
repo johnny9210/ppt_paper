@@ -1,0 +1,9 @@
+z=0: type=background, count=1, label=dark blue patterned backdrop  
+z=1: type=atmosphere, count=1, label=gradient glow around elements  
+z=2: type=title, count=1, label="TITLE HERE" at top center  
+z=3: type=container, count=1, label=rounded rectangle with three card slots  
+z=4: type=card, count=3, label=glowing cards with numerical values  
+z=5: type=icon, count=3, label=icons above each card (arrow, person, cloud)  
+z=6: type=value, count=3, label=numerical figures (800000, 000000, 400000)  
+z=7: type=graph, count=1, label=line graph at bottom  
+z=8: type=line, count=1, label=axes grid lines within graph

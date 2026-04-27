@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f6f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 720px;
+  }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: #ffffff;
+    position: relative;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .title {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  .description {
+    font-size: 20px;
+    color: #777;
+    margin-bottom: 30px;
+  }
+  .matrix {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    width: calc(100% - 60px);
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature {
+    font-size: 18px;
+    color: #fff;
+    background: #d5585d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    height: 120px;
+    width: 120px;
+  }
+  .feature.ideas { background: #c0a95b; }
+  .feature.deprioritize { background: #cacaca; }
+  .feature.emoji {
+    font-size: 24px;
+  }
+  .annotations {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 60px);
+    bottom: 0;
+  }
+  .annotations div {
+    font-size: 14px;
+    color: #333;
+  }
+  .user-importance, .feasibility {
+    position: absolute;
+    font-size: 14px;
+    color: #333;
+  }
+  .user-importance {
+    writing-mode: vertical-rl;
+    top: 60px;
+    left: 0;
+  }
+  .feasibility {
+    bottom: 0;
+    right: 30px;
+  }
+</style>
+
+<div class="slide">
+  <div class="title">Six features rank as 'must-have' on importance and feasibility</div>
+  <div class="description">Feature prioritization matrix</div>
+  <div class="matrix">
+    <div class="feature"><span class="feature emoji">🟢</span>Feature 1</div>
+    <div class="feature"><span class="feature emoji">🟢</span>Feature 2</div>
+    <div class="feature"><span class="feature emoji">🟢</span>Feature 3</div>
+    <div class="feature"><span class="feature emoji">🟢</span>Feature 4</div>
+    <div class="feature ideas"><span class="feature emoji">🟢</span>Feature 5</div>
+    <div class="feature ideas"><span class="feature emoji">🟢</span>Feature 6</div>
+  </div>
+  <div class="user-importance">User Importance</div>
+  <div class="feasibility">Feasibility</div>
+  <div class="annotations">
+    <div>DEPRIORITIZE (1)</div>
+    <div>IDEAS-TO-VALIDATE (4)</div>
+    <div>MUST-HAVE (6)</div>
+    <div>STRATEGIC BETS (3)</div>
+  </div>
+</div></div>
+</body></html>

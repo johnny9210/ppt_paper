@@ -1,0 +1,9 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=chart, count=1, label=bar and line chart  
+z=2: type=title, count=1, label=main title at top  
+z=3: type=label, count=6, label=category labels on bars  
+z=4: type=value, count=5, label=savings values on bars  
+z=5: type=line, count=1, label=cumulative percentage line  
+z=6: type=value, count=5, label=percentage values on line  
+z=7: type=text, count=1, label=savings opportunity subheading  
+z=8: type=text, count=1, label=source text at bottom right

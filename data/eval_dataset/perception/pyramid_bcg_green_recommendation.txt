@@ -1,0 +1,11 @@
+```plaintext
+z=0: type=background, count=1, label=light backdrop
+z=1: type=title, count=1, label=main recommendation title
+z=2: type=headline, count=1, label=investment recommendation pyramid
+z=3: type=container, count=1, label=green investment box
+z=4: type=connector, count=3, label=lines connecting investment to imperatives
+z=5: type=container, count=3, label=imperative boxes
+z=6: type=connector, count=6, label=lines connecting imperatives to supporting points
+z=7: type=container, count=6, label=supporting point boxes
+z=8: type=label, count=1, label=image source note
+```

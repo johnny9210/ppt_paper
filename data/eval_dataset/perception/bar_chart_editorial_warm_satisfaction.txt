@@ -1,0 +1,10 @@
+z=0: type=background, count=1, label=cream background  
+z=1: type=chart, count=1, label=bar graph  
+z=2: type=title, count=1, label=NPS rose to 67 driven by support quality improvements  
+z=3: type=headline, count=1, label=NPS by quarter, last 8 quarters  
+z=4: type=line, count=1, label=trend line on bar graph  
+z=5: type=arrow, count=1, label=arrow pointing to the value 67  
+z=6: type=value, count=1, label=67  
+z=7: type=container, count=1, label=key driver box  
+z=8: type=label, count=1, label=Key Driver: Enhanced support response time & resolution  
+z=9: type=text, count=1, label=Source: Customer survey panel, 2025

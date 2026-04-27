@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  .container {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+  }
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .description {
+    font-size: 24px;
+    color: grey;
+    margin-bottom: 20px;
+  }
+  .chart {
+    display: flex;
+    width: 100%;
+    height: 60%;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+  .region {
+    text-align: center;
+    width: 22%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .region-label {
+    font-size: 18px;
+    margin-top: 10px;
+    color: grey;
+  }
+  .box {
+    width: 100%;
+    margin-top: 5px;
+    background-color: #0084ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+  }
+  .apac { height: 45%; }
+  .nam, .emea { background-color: #b0b0b0; }
+  .nam { height: 28%; }
+  .emea { height: 18%; }
+  .latam { height: 9%; background-color: #d0d0d0; }
+  .chart-title {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: grey;
+  }
+</style>
+
+<div class="container">
+  <div class="title">APAC retail drove 67% of FY2025 revenue growth, led by China and India</div>
+  <div class="description">Revenue contribution by region × product category</div>
+  <div class="chart">
+    <div class="region">
+      <div class="box apac">APAC<br><span>45%</span></div>
+      <div class="region-label">📐</div>
+    </div>
+    <div class="region">
+      <div class="box nam">NAM<br><span>28%</span></div>
+      <div class="region-label">📐</div>
+    </div>
+    <div class="region">
+      <div class="box emea">EMEA<br><span>18%</span></div>
+      <div class="region-label">📐</div>
+    </div>
+    <div class="region">
+      <div class="box latam">LATAM<br><span>9%</span></div>
+      <div class="region-label">📐</div>
+    </div>
+  </div>
+  <div class="chart-title">Revenue contribution by region × product category</div>
+</div></div>
+</body></html>

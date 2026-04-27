@@ -1,0 +1,12 @@
+```
+z=0: type=background, count=1, label=cream background
+z=1: type=headline, count=1, label=orange headline
+z=2: type=text, count=1, label=ad spend descriptor
+z=3: type=chart, count=1, label=country and media channel chart
+z=4: type=text, count=4, label=digital, TV, print labels
+z=5: type=value, count=12, label=spend values on chart
+z=6: type=container, count=4, label=country spend containers
+z=7: type=label, count=4, label=country label and percentage
+z=8: type=text, count=1, label=source information
+z=9: type=text, count=1, label=page number
+```

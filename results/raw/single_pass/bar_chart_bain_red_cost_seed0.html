@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+  }
+  .container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+  }
+  .title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #a51e30;
+    margin-top: 30px;
+    margin-left: 40px;
+  }
+  .description {
+    font-size: 20px;
+    color: grey;
+    margin-left: 40px;
+  }
+  .bar-container {
+    margin-top: 50px;
+    margin-left: 40px;
+  }
+  .bar {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .label {
+    width: 150px;
+    font-size: 18px;
+    color: black;
+    margin-right: 10px;
+  }
+  .bar-content {
+    height: 30px;
+    background: linear-gradient(90deg, #a51e30 0%, #a51e30 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    border-radius: 5px;
+  }
+  .value {
+    position: absolute;
+    margin-top: 0;
+    margin-left: 5px;
+    font-size: 16px;
+    color: white;
+    transform: translateX(-50%);
+  }
+  .percent {
+    position: absolute;
+    font-size: 16px;
+    color: #a51e30;
+    margin-left: 5px;
+    transform: translateX(-50%);
+  }
+  .line-container {
+    position: absolute;
+    bottom: 70px;
+    left: 190px;
+  }
+  .line {
+    height: 2px;
+    width: 870px;
+    background-color: #a51e30;
+    position: relative;
+    z-index: 1;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #a51e30;
+    border-radius: 50%;
+    position: absolute;
+    top: -4px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 14px;
+    color: grey;
+  }
+</style>
+
+<div class="container">
+  <div class="title">3 cost categories represent 78% of total addressable savings</div>
+  <div class="description">Savings opportunity by cost category</div>
+  
+  <div class="bar-container">
+    <div class="bar">
+      <div class="label">Procurement</div>
+      <div class="bar-content" style="width: 320px;"><div class="value">$320M</div></div>
+    </div>
+    <div class="bar">
+      <div class="label">Workforce</div>
+      <div class="bar-content" style="width: 250px;"><div class="value">$250M</div></div>
+    </div>
+    <div class="bar">
+      <div class="label">Tech</div>
+      <div class="bar-content" style="width: 180px;"><div class="value">$180M</div></div>
+    </div>
+    <div class="bar" style="color: grey;">
+      <div class="label">Real estate</div>
+      <div class="bar-content" style="width: 90px; background: grey;"><div class="value">$90M</div></div>
+    </div>
+    <div class="bar" style="color: grey;">
+      <div class="label">T&E</div>
+      <div class="bar-content" style="width: 60px; background: grey;"><div class="value">$60M</div></div>
+    </div>
+    <div class="bar" style="color: grey;">
+      <div class="label">Marketing</div>
+      <div class="bar-content" style="width: 45px; background: grey;"><div class="value">$45M</div></div>
+    </div>
+    <div class="bar" style="color: grey;">
+      <div class="label">Other</div>
+      <div class="bar-content" style="width: 15px; background: grey;"><div class="value">$15M</div></div>
+    </div>
+  </div>
+
+  <div class="line-container">
+    <div class="line"></div>
+    <div class="dot" style="left: 15px;"></div>
+    <div class="percent" style="left: 20px;">33%</div>
+    <div class="dot" style="left: 165px;"></div>
+    <div class="percent" style="left: 170px;">59%</div>
+    <div class="dot" style="left: 295px;"></div>
+    <div class="percent" style="left: 300px;">78%</div>
+    <div class="dot" style="left: 430px;"></div>
+    <div class="percent" style="left: 435px;">87%</div>
+    <div class="dot" style="left: 620px;"></div>
+    <div class="percent" style="left: 625px;">98%</div>
+    <div class="dot" style="left: 870px;"></div>
+    <div class="percent" style="left: 875px;">100%</div>
+  </div>
+
+  <div class="footer">Source: Cost diagnostic, 2025</div>
+</div></div>
+</body></html>

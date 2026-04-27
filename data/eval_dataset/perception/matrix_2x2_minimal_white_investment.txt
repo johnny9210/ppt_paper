@@ -1,0 +1,12 @@
+z=0: type=background, count=1, label=white background  
+z=1: type=title, count=1, label=Quadrant analysis isolates 4 high-priority investments  
+z=2: type=headline, count=1, label=Strategic investment prioritization  
+z=3: type=chart, count=1, label=quadrant graph  
+z=4: type=text, count=1, label=Quick Wins (Priority Investments)  
+z=5: type=text, count=1, label=Low-hanging Fruit  
+z=6: type=text, count=1, label=Major Projects  
+z=7: type=text, count=1, label=Deprioritize/Reassess  
+z=8: type=text, count=2, label=Strategic Value and Effort axes  
+z=9: type=badge, count=10, label=circles for projects and initiatives  
+z=10: type=text, count=10, label=labels inside badges  
+z=11: type=text, count=1, label=source note

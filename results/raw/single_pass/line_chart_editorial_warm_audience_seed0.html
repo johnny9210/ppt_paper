@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide">
+    <div class="header">
+        Newsletter subscribers reached 1.4M, growing 8% MoM
+    </div>
+    <div class="subtitle">
+        Subscriber count, last 18 months
+    </div>
+    <div class="chart">
+        <div class="line line-subscribers"></div>
+        <div class="line line-growth"></div>
+        <div class="label label-subscribers">1.4M Subscribers, +8% MoM Growth</div>
+        <div class="label label-growth">+8% MoM</div>
+    </div>
+    <div class="source">
+        Source: Audience analytics, Dec 2025
+    </div>
+    <div class="page-number">6</div>
+</div>
+
+<style>
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background-color: #FAF5EB;
+        position: relative;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+    .header {
+        font-size: 48px;
+        font-weight: bold;
+        position: absolute;
+        top: 30px;
+        left: 40px;
+    }
+    .subtitle {
+        font-size: 24px;
+        color: #888;
+        position: absolute;
+        top: 100px;
+        left: 40px;
+    }
+    .chart {
+        position: absolute;
+        top: 150px;
+        left: 40px;
+        width: 1200px;
+        height: 500px;
+        border-left: 2px solid #ccc;
+        border-bottom: 2px solid #ccc;
+    }
+    .line {
+        width: 98%;
+        height: 2px;
+        position: absolute;
+        top: 75%;
+        left: 1%;
+    }
+    .line-subscribers {
+        background: linear-gradient(to right, transparent, #D64A2E);
+        box-shadow: 0 4px 8px rgba(214, 74, 46, 0.4);
+    }
+    .line-growth {
+        height: 0;
+        border-top: 2px dotted #D6882E;
+        width: 114%;
+        left: 3%;
+        top: 75%;
+        transform: translateY(-35px);
+    }
+    .label {
+        position: absolute;
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 16px;
+    }
+    .label-subscribers {
+        background-color: #D64A2E;
+        top: 350px;
+        left: 980px;
+    }
+    .label-growth {
+        background-color: #D6882E;
+        top: 315px;
+        left: 1160px;
+    }
+    .source {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 16px;
+        color: #888;
+    }
+    .page-number {
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+        font-size: 16px;
+        color: #888;
+    }
+</style></div>
+</body></html>

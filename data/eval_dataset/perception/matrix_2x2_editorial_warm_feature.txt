@@ -1,0 +1,9 @@
+z=0: type=background, count=1, label=beige background  
+z=1: type=title, count=1, label=slide title "Six features rank as ‘must-have’ on importance and feasibility"  
+z=2: type=headline, count=1, label="Feature prioritization matrix"  
+z=3: type=chart, count=1, label=feature prioritization matrix  
+z=4: type=text, count=3, label=section labels "IDEAS-TO-VALIDATE (4)", "MUST-HAVE (6)", "DEPRIORITIZE (1)"  
+z=5: type=label, count=1, label=axis label "User Importance"  
+z=6: type=label, count=1, label=axis label "Feasibility"  
+z=7: type=text, count=8, label=feature labels, e.g. "Voice Control"  
+z=8: type=badge, count=14, label=circles around feature labels  

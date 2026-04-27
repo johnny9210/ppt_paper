@@ -1,0 +1,10 @@
+z=0: type=background, count=1, label=dark blue background  
+z=1: type=decoration, count=5, label=geometric shapes (circles, triangles)  
+z=2: type=panel, count=1, label=dark area with hero and text  
+z=3: type=container, count=4, label=statistic panels with icons and text  
+z=4: type=hero, count=1, label=main number placeholder on left  
+z=5: type=title, count=1, label=subtitle text placeholder on left  
+z=6: type=title, count=1, label=main title "HERO IMPACT SLIDE"  
+z=7: type=icon, count=4, label=icons next to statistics  
+z=8: type=value, count=4, label=percentage placeholders next to icons  
+z=9: type=label, count=4, label=stat label placeholders next to percentages  

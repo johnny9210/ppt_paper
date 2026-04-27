@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+  }
+  .container {
+    position: relative;
+    width: 540px;
+    height: 400px;
+  }
+  .gradient {
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 16px;
+  }
+  .card {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+  }
+  .card1 { top: 0; z-index: 2; }
+  .card2 { top: 80px; z-index: 3; }
+  .card3 { top: 160px; z-index: 4; }
+  .card4 { top: 240px; z-index: 5; }
+  .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    margin-right: 10px;
+  }
+</style>
+
+<div class="container">
+  <div class="gradient"></div>
+  <div class="card card1">
+    <div class="icon">🎨</div>
+    <div>
+      <div>프레젠테이션 계층</div>
+      <div style="font-size: 12px; font-weight: normal;">React + Ant Design UI</div>
+    </div>
+  </div>
+  <div class="card card2">
+    <div class="icon">⚡</div>
+    <div>
+      <div>API 계층</div>
+      <div style="font-size: 12px; font-weight: normal;">Express Gateway + Moleculer</div>
+    </div>
+  </div>
+  <div class="card card3">
+    <div class="icon">🧠</div>
+    <div>
+      <div>서비스 계층</div>
+      <div style="font-size: 12px; font-weight: normal;">FastAPI + LangGraph AI 에이전트</div>
+    </div>
+  </div>
+  <div class="card card4">
+    <div class="icon">💾</div>
+    <div>
+      <div>인프라 계층</div>
+      <div style="font-size: 12px; font-weight: normal;">MongoDB + OpenSearch + Redis + MinIO</div>
+    </div>
+  </div>
+</div></div>
+</body></html>

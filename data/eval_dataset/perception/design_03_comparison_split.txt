@@ -1,0 +1,9 @@
+```  
+z=0: type=background, count=1, label=dark circuit board pattern
+z=1: type=container, count=1, label=glowing central divide
+z=2: type=decoration, count=2, label=glowing neon borders
+z=3: type=panel, count=6, label=glowing rounded rectangles
+z=4: type=icon, count=8, label=neon symbols in circles
+z=5: type=text, count=6, label=placeholder lines for information
+z=6: type=hero, count=1, label=VS badge
+```

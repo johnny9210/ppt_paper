@@ -1,0 +1,8 @@
+z=0: type=background, count=1, label=white backdrop  
+z=1: type=title, count=1, label=six-step GTM motion title  
+z=2: type=headline, count=1, label=sales pipeline workflow subtitle  
+z=3: type=container, count=6, label=stages of sales pipeline  
+z=4: type=content, count=12, label=leads numbers and conversions  
+z=5: type=arrow, count=7, label=conversion arrows between stages  
+z=6: type=text, count=1, label=key insight note at the bottom  
+z=7: type=text, count=1, label=source and page number in corner

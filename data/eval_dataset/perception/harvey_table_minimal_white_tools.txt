@@ -1,0 +1,12 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=title, count=1, label=Tool 2 is best for 5 of 7 use cases reviewed
+z=2: type=subtitle, count=1, label=Tool capability matrix
+z=3: type=table, count=1, label=use case analysis table
+z=4: type=text, count=1, label=Use Case
+z=5: type=text, count=3, label=Tool 1, Tool 2, Tool 3
+z=6: type=text, count=8, label=use case descriptions and tool features
+z=7: type=icon, count=21, label=circle ratings for each tool and use case
+z=8: type=text, count=1, label=Source: Tooling evaluation, 2025
+z=9: type=text, count=1, label=page number 6
+```

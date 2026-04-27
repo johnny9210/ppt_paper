@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            width: 1280px;
+            height: 720px;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        .title {
+            font-size: 24px;
+            color: black;
+            margin: 20px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: gray;
+            margin-left: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80%;
+            position: relative;
+        }
+
+        .quadrant {
+            border: 1px solid #ddd;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+        }
+
+        .features {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            margin-left: 20px;
+        }
+
+        .feature-item {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .quadrants-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-width: 1px 1px 0 0;
+            border-color: black;
+            border-style: solid;
+            box-sizing: border-box;
+        }
+
+        .stars {
+            position: absolute;
+            right: 25%;
+            top: 25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: green;
+            color: white;
+            text-align: center;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .circle.glow {
+            box-shadow: 0 0 10px #00ff00;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">Three product lines are in the Stars quadrant, justifying 70% of capex</div>
+    <div class="description">BCG Growth-Share Matrix</div>
+    <div class="container">
+        <div class="quadrants-lines"></div>
+        <div class="quadrant"></div>
+        <div class="features">
+            <div class="feature-item">🟢 ProdA: largest with glow</div>
+            <div class="feature-item">🟢 ProdB: BCG green</div>
+            <div class="feature-item">🟢 ProdC: BCG green</div>
+            <div class="feature-item">🟢 ProdD: lighter green</div>
+            <div class="feature-item">🟢 ProdE: lighter green</div>
+            <div class="feature-item">🟢 ProdF: gray</div>
+        </div>
+        <div class="stars">
+            <div class="circle glow">ProdA</div>
+            <div class="circle">ProdB</div>
+            <div class="circle">ProdC</div>
+            <div class="circle" style="background-color: lightgreen;">ProdD</div>
+            <div class="circle" style="background-color: lightgreen;">ProdE</div>
+            <div class="circle" style="background-color: gray;">ProdF</div>
+        </div>
+    </div>
+</body>
+
+</html></div>
+</body></html>

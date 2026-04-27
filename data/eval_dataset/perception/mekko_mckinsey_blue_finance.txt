@@ -1,0 +1,11 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=title, count=1, label=APAC retail drove 67% of FY2025 revenue growth, led by China and India
+z=2: type=headline, count=1, label=Revenue contribution by region x product category
+z=3: type=chart, count=1, label=treemap showing revenue by region and product
+z=4: type=text, count=1, label=APAC 45%
+z=5: type=text, count=1, label=NAM 28%
+z=6: type=text, count=1, label=EMEA 18%
+z=7: type=text, count=1, label=LATAM 9%
+z=8: type=text, count=1, label=Source: Internal financial data, FY2025
+```
