@@ -33,12 +33,20 @@ DARK_GLASS = [
     "design_10_stats_hero",
 ]
 
+
+def _load_all_designs() -> list[str]:
+    """N=48 mixed: read all design IDs from slide_specs.jsonl."""
+    specs_path = _ROOT / "data" / "slide_specs.jsonl"
+    return [json.loads(l)["id"] for l in specs_path.read_text().splitlines() if l.strip()]
+
 METHODS = {
     # Table 1: same-model GPT-4o comparison
     "single_pass":               "results/raw/single_pass",
     "visual_cot":                "results/raw/visual_cot",
     "cot_h_rag":                 "results/raw/cot_h_rag",
     "layeragent":                "results/raw/layeragent",
+    # §6.7 ablation: D₄ no_designspec (H-AblationDesignSpec, Appendix A)
+    "layeragent-no_designspec":  "results/raw/layeragent-no_designspec",
     # Table 2: cross-model cost-efficiency
     "single_pass_gpt_5_4":       "results/raw/single_pass_gpt_5_4",
     "single_pass_claude_4_6_opus": "results/raw/single_pass_claude_4_6_opus",
@@ -152,7 +160,18 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--skip-dom", action="store_true")
     p.add_argument("--skip-vis", action="store_true")
+    p.add_argument("--all-designs", action="store_true",
+                   help="N=48 mixed (default: N=10 dark-glass)")
+    p.add_argument("--out-suffix", default="",
+                   help="suffix for output files (e.g. '_n48')")
     args = p.parse_args()
+
+    if args.all_designs:
+        DARK_GLASS = _load_all_designs()
+        print(f"[run_new_eval] mode=N={len(DARK_GLASS)} mixed")
+        if args.out_suffix:
+            OUT = _ROOT / "results" / f"new_eval{args.out_suffix}"
+            OUT.mkdir(parents=True, exist_ok=True)
 
     dom_rows = []
     visual_rows = []

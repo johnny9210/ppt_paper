@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+  }
+  .waterfall_minimal_white_saas-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, #000, #888);
+  }
+  
+  .card-1 .card-icon {
+    background-color: #56585A;
+    border-radius: 20%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem; /* Reduced by 20% */
+  }
+  
+  .card-2 .card-icon {
+    background: #4E4F50;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    font-size: 0.8rem; /* Reduced by 20% */
+  }
+</style>
+
+<div class="slide-container waterfall_minimal_white_saas" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><div class="waterfall_minimal_white_saas-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"><div style="position:absolute;left:8.0%;top:63.0%;
+                        width:84.0%;height:32.0%;z-index:8;
+                        display:flex;flex-direction:column;align-items:center;justify-content:center;
+                        padding:2%;">
+  <div style="font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:8px;font-weight:600;">Annual recurring revenue bridge</div>
+  <svg width="600" height="230" viewBox="0 0 600 230">
+      <rect x="33.3" y="10.0" width="83.3" height="200.0" fill="#D4AF37" opacity="0.85" rx="3"/><text x="75.0" y="226" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">New</text><rect x="183.3" y="81.4" width="83.3" height="128.6" fill="#D4AF37" opacity="0.85" rx="3"/><text x="225.0" y="226" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">Expansio</text><rect x="333.3" y="267.1" width="83.3" height="-57.1" fill="#D4AF37" opacity="0.85" rx="3"/><text x="375.0" y="226" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">Contract</text><rect x="483.3" y="252.9" width="83.3" height="-42.9" fill="#D4AF37" opacity="0.85" rx="3"/><text x="525.0" y="226" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">Churn</text>
+    </svg>
+</div></div>
+    
+    
+    <div class="card-wrap-1" style="position:absolute;left:5.0%;top:20.0%;width:10.0%;height:40.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #242D37;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    color: #E8EAEB;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .card-1 .card-value {
+    font-size: 1.125rem;
+  }
+  .card-body {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #8C8E8F;
+  }
+  .card-accent {
+    height: 6px;
+    background: linear-gradient(90deg, #8C8E8F, #BCBEC0);
+    border-radius: 3px;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<div class="card-1">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-file-lines" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+    <div class="card-value">28</div>
+  </div>
+  <div class="card-body">
+    New
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-2" style="position:absolute;left:15.0%;top:20.0%;width:20.0%;height:20.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: linear-gradient(to right, #E9EAEA, #E9EAEA);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: #1D1F20;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 4px 8px;
+  }
+  
+  .card-2 .card-value {
+    background: #BFBFC1;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 1rem;
+    padding: 4px 8px;
+  }
+  .card-body {
+    background: #88898A;
+    border-radius: 4px;
+    padding: 8px;
+    width: 100%;
+  }
+  .card-2 .card-label {
+    background: #E9EAEA;
+    border-radius: 4px;
+    color: #1D1F20;
+    font-size: 0.875rem;
+    padding: 4px;
+    margin-top: 4px;
+  }
+  .card-2 .card-value {
+    padding: 4px 8px;
+  }
+</style>
+
+<div class="card-2">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-globe" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+    <div class="card-value">18</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">Expansion</div>
+  </div>
+</div></div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:35.0%;top:20.0%;width:20.0%;height:15.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to right, #E9EAEA, #E9EAEA);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .card-3 .card-value {
+    font-size: 1.2rem;
+    color: #454C54;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-3 .card-label {
+    background: linear-gradient(to right, #A0A5AC, #C8CACC);
+    font-size: 0.75rem;
+    color: #EFF2F3;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+  }
+</style>
+
+<div class="card-3">
+  <div class="card-value">-8</div>
+  <div class="card-label">Contraction</div>
+</div></div>
+</div>
+<div class="card-wrap-4" style="position:absolute;left:55.0%;top:20.0%;width:20.0%;height:15.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to right, #E9EAEA, #E9EAEA);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #e5e8eb;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #9ea5b0, #a0a6b1);
+    border-radius: 20px;
+    padding: 5px 10px;
+    backdrop-filter: blur(5px);
+  }
+
+  
+  .card-4 .card-value {
+    font-size: 1.2rem;
+    color: #000;
+    opacity: 0.9;
+  }
+
+  .card-body {
+    margin-top: 10px;
+    background: #f7f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-4 .card-label {
+    font-size: 0.9rem;
+    color: #9da1aa;
+    line-height: 1.5;
+  }
+
+  .card-accent {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(90deg, #a0a6b1, #9ea5b0);
+    border-radius: 2px;
+    margin-top: auto;
+  }
+</style>
+
+<div class="card-4">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+    <div class="card-value">-6</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">Churn</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#60A5FA;letter-spacing:0.08em;text-transform:uppercase;">ARR grew 28% with $32M net new contributions despite $14M churn</div>
+    <div style="font-size:0.75rem;color:#F1F5F9;margin-top:4px;opacity:0.85;">Annual recurring revenue bridge</div>
+</div></div>
+</body></html>

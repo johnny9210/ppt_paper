@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .pyramid_bcg_green_recommendation-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, #000, #888);
+  }
+
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #b9bfbc, #f3f9f8);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 13px; /* Reduced font size by ~18.75% */
+    line-height: 1.2; /* Added line-height to reduce vertical overflow */
+  }
+
+  .card-header {
+    background-color: #25895a;
+    border-radius: 8px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    width: 100%;
+  }
+
+  .card-1 .card-icon {
+    width: 24px;
+    height: 24px;
+    background: #036c03;
+    border-radius: 50%;
+    margin-right: 8px;
+    font-size: 12px; /* Reduced font size by 25% */
+  }
+
+  .card-1 .card-value {
+    color: #ffffff;
+    font-size: 1.5625rem;
+    /* 25px */
+  }
+
+  .card-1 .card-label {
+    color: #000000;
+    font-size: 0.875rem;
+    /* 14px */
+    text-align: center;
+    width: 100%;
+    background: #d4dad8;
+    padding: 4px;
+    border-radius: 4px;
+  }
+
+  .pyramid_bcg_green_recommendation-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .triangle {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4vw solid transparent;
+    border-right: 4vw solid transparent;
+    border-bottom: 8vw solid #888;
+  }
+</style>
+
+<div class="slide-container pyramid_bcg_green_recommendation" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+  <div style="position:absolute;inset:0;z-index:0;">
+    <div class="pyramid_bcg_green_recommendation-bg-base"></div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+    <div class="pyramid_bcg_green_recommendation-decor">
+      <div class="triangle"></div>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+  <div class="card-wrap-1" style="position:absolute;left:38.0%;top:15.0%;width:24.0%;height:8.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <div class="card-1">
+        <div class="card-header">
+          <div class="card-icon"><i class="fas fa-circle-info" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+          <div class="card-value">Strategy</div>
+        </div>
+        <div class="card-label">Expand market presence in Asia</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#60A5FA;letter-spacing:0.08em;text-transform:uppercase;">Recommendation: invest $40M in Asia expansion, supported by 3 imperatives</div>
+    <div style="font-size:0.75rem;color:#F1F5F9;margin-top:4px;opacity:0.85;">Investment recommendation pyramid</div>
+  </div>
+</div></div>
+</body></html>
