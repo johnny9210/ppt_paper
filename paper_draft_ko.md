@@ -138,7 +138,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 
 §3.2의 perception–generation 격차가 GPT-4o에 한정된 인공물인지를 검증하기 위해 10 다층 시각 효과 디자인 × 3 frontier VLM (GPT-4o, GPT-5.4, Claude 4.6 Opus) × 일괄 생성의 cross-VLM probing을 수행했다. 측정은 §3.1의 보조 metric (class-name regex 기반) 위에서 수행되므로 frontier 간 baseline 비교에 한정 해석한다.
 
-세 frontier 모두 baseline gap이 0.69–0.78 범위에 있어 frontier model upgrade만으로 layer 반영 격차가 크게 닫히지 않는다. 자세한 수치는 부록 B에 보고한다. LayerAgent와 frontier의 공정 비교는 §8.3의 다면적 평가 결과를 우선하며, 그곳에서 GPT-5.4가 LayerAgent를 능가한다.
+Layer Recall(class-name-aligned, LayerAgent vocabulary에 정렬) 기준에서 세 frontier 모두 baseline gap이 0.69–0.78 범위에 분포한다. 단 본 측정은 §3.1에서 명시한 클래스명 편향을 가지므로 절대 결론(frontier가 element omission을 해결하는가)이 아니라 frontier 간 상대 비교(frontier 간에는 격차 차이가 작은가)로만 해석한다 — frontier 모델이 LayerAgent와 다른 vocabulary로 시각적으로 풍부한 element를 생성하는 경우 거짓 negative로 보고될 수 있다. 자세한 수치는 부록 B에 보고하며, class-name-independent한 다면적 평가 기준의 LayerAgent vs frontier 비교는 §8.3에서 보고한다 (그곳에서 GPT-5.4 일괄 생성이 자동 지표 6개 모두에서 LayerAgent를 능가한다).
 
 ---
 
@@ -496,9 +496,9 @@ LayerAgent의 string-CCR은 0.99이지만 MLLM judge의 visual Content Completen
 
 제4절 단계 분리의 효과 — 다면적 평가 + cross-VLM 데이터에서의 일관성
 
-H-RAG의 zero-sum, D₂ ablation의 분리 효과, §3.3의 cross-VLM frontier baseline, §6.2의 z-explicit prompt baseline — 이들이 한 방향을 가리킨다 (보조 metric 기준): 단순 prompt 조정이나 frontier model upgrade만으로 perception–generation gap이 닫히지 않는다. 단 다면적 평가 기준의 §8.3 비교에서는 GPT-5.4가 LayerAgent를 능가하므로, 본 절의 관찰은 분해 motivation 보강 신호로 해석한다.
+H-RAG의 zero-sum, D₂ ablation의 분리 효과, §3.3의 cross-VLM frontier baseline, §6.2의 z-explicit prompt baseline — 이들이 한 방향을 가리킨다 (단, 보조 metric인 Layer Recall 기준이며 클래스명 편향 위험 있음): 단순 prompt 조정이나 frontier model upgrade만으로 LayerAgent vocabulary 정렬 metric상의 gap은 크게 닫히지 않는다. 다만 class-name-independent한 다면적 평가 기준의 §8.3 비교에서는 GPT-5.4가 자동 지표 6개 모두에서 LayerAgent를 능가하므로, 본 절의 관찰은 frontier 능가 주장이 아니라 분해의 motivation 보강 신호로만 해석한다.
 
-Cross-VLM frontier baseline(§3.3)에서 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두 baseline gap이 0.69–0.78 범위에 분포한다. frontier upgrade만으로는 격차의 약화가 작다. LayerAgent와 frontier의 공정 비교는 §8.3의 다면적 평가 결과를 따르며, 그곳에서 GPT-5.4가 LayerAgent를 능가한다.
+Cross-VLM frontier baseline(§3.3)에서 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두 Layer Recall(class-name-aligned) 기준 baseline gap이 0.69–0.78 범위에 분포한다. 단 본 측정은 LayerAgent vocabulary에 정렬된 보조 metric이므로 frontier 간 상대 비교에 한정 해석한다. class-name-independent한 다면적 평가 기준에서는 §8.3에서 GPT-5.4가 LayerAgent를 자동 지표 6개 모두에서 능가하므로, frontier가 element omission 자체를 해결하지 못한다는 결론은 본 paper에서 도출하지 않는다.
 
 본 장의 종합. LayerAgent의 가치는 frontier model의 능가가 아니라 same-model 조건에서 단계 분리가 부여하는 구조적 일관성에 있다. Same-model GPT-4o에서는 분해가 DOM 구조 지표 5개 전부에서 우세를 보이는 반면 render-based 시각 유사도 3개에서는 일괄 생성이 우세하며(MLLM judge 차원에서도 우세에 미달), prompt engineering(§6.2)만으로는 같은 격차가 관찰되지 않는다. 한편 frontier model upgrade는 별개의 cost-quality 차원에서 LayerAgent를 능가할 수 있으며(§8.3 GPT-5.4 비교에서 LayerAgent의 우세가 관찰되지 않는다), 본 논문은 이를 적용 범위 외부의 결과로 명시한다.
 
@@ -536,7 +536,7 @@ LayerAgent의 우위는 평가 차원과 비교 모델 두 측면에서 한정�
 
 GPT-5.4 일괄 생성은 본 표의 자동 지표 6개 모두에서 LayerAgent보다 우수하며 비용도 약 1/3이다 ($0.075 vs $0.232). Claude 4.6 Opus도 자동 시각 지표 4개에서 LayerAgent보다 우세하다. 따라서 본 연구의 평가 setup에서 frontier 일괄 생성이 GPT-4o + LayerAgent 분해를 직접 능가한다.
 
-이 결과는 LayerAgent가 frontier 모델의 대체재가 아님을 직접 보여주며, 본 연구의 기여는 두 경로로 한정된다 — (i) GPT-4o의 layer-level element omission이 frontier model upgrade만으로 자동 해결되지 않는 패턴임을 보이는 phenomenon documentation(§3.3 cross-VLM probing), (ii) 동일 GPT-4o 위에서 분해가 DOM 구조 지표를 회복함을 보임으로써 model scaling과 분리된 process-level intervention으로 정식화. 두 경로는 동일한 quality 차원에서 직접 경쟁하지 않으며, LayerAgent의 실용적 적용 범위는 frontier 모델 사용이 제약된 조건(GPT-4o급 lock-in, on-prem 배포, 검사 가능한 생성 과정 요구 등)에 한정된다. Method-level 상세 비교(자동 지표 breakdown과 비용·시간 분석)는 부록 C에 보고한다.
+이 결과는 LayerAgent가 frontier 모델의 대체재가 아님을 직접 보여준다. 본 연구의 기여는 frontier 능가가 아니라 두 가지 독립적 경로로 정리된다 — (i) GPT-4o급 VLM에서의 layer-level element omission 현상의 정식화(§3.2 명명 규칙 비의존 layer count 격차 + §3.3 cross-VLM probing의 frontier 간 상대 비교), (ii) 동일 GPT-4o 위에서 분해가 DOM 구조 지표를 회복함을 보임으로써 model scaling과 분리된 process-level intervention으로 정식화. 두 경로는 frontier 능가 주장과 무관하며, LayerAgent의 실용적 적용 범위는 frontier 모델 사용이 제약된 조건(GPT-4o급 lock-in, on-prem 배포, 검사 가능한 생성 과정 요구 등)에 한정된다. Method-level 상세 비교(자동 지표 breakdown과 비용·시간 분석)는 부록 C에 보고한다.
 
 ---
 
@@ -660,7 +660,7 @@ B.2 §3.3 Cross-VLM probing 표
 | single_pass (Claude 4.6 Opus) | 0.693 | 0.312 | 0.688 | 7,116 | $0.421 | 108s |
 | LayerAgent (GPT-4o, 클래스명 편향 위험) | (0.551) | (0.759) | (0.241) | 54,310 | $0.232 | ~60s |
 
-세 frontier 모두 baseline gap이 0.69–0.78 범위에 있으며, frontier model upgrade만으로 layer 반영 격차가 크게 닫히지 않는다. LayerAgent와 frontier의 공정 비교는 §8.3의 다면적 평가 결과를 따르며, 그곳에서 GPT-5.4가 품질과 비용 양 측면에서 LayerAgent를 능가한다.
+세 frontier 모두 Layer Recall(class-name-aligned) 기준 baseline gap이 0.69–0.78 범위에 있으며, frontier 간 상대 비교에서 격차 차이가 작다. 본 측정은 LayerAgent vocabulary 정렬 metric이므로 frontier가 다른 vocabulary로 시각적으로 풍부한 element를 생성하더라도 거짓 negative로 보고될 수 있어, 본 표는 frontier 간 비교에 한정 해석한다 (§3.1 클래스명 편향). class-name-independent한 다면적 평가 기준의 LayerAgent vs frontier 비교는 §8.3에 보고되며, 그곳에서 GPT-5.4가 자동 지표 6개 모두에서 LayerAgent를 능가한다.
 
 (사전등록 가설 H-EO는 "3개 VLM에서 baseline gap > 0.5"라는 frontier 간 비교 부분에 대해서만 보조적으로 적용된다. 가설의 명명 규칙 의존성에 대한 한계는 부록 A에서 명시한다.)
 
