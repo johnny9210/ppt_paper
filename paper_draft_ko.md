@@ -583,7 +583,7 @@ Cross-VLM frontier baseline(§3.3)에서 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두
 2. Same-model 분해 효과와 frontier scaling은 서로 분리된 두 개선 경로이다. RQ는 same-model decomposition에 한정하고 frontier 비교는 적용 범위의 경계를 명시하는 보조 분석으로 분리해야 서사의 혼동을 막을 수 있다. Table 1(same-model RQ2)과 §6.2 Boundary Analysis(frontier 참고 비교)의 분리가 본 논문이 채택하는 범위 정의 방식이다.
 3. String-level 콘텐츠 메트릭은 시각 가시성을 underdetermine한다. CCR 0.99와 MLLM CC 2.35의 격차가 이를 직접 보여주며, visual CCR 메트릭의 도입이 필요하다.
 
-향후 연구는 다음 일곱 가지로 정리된다. (a) cross-judge 평가(Claude·Gemini 추가)를 통한 holistic 축의 single-judge bias 제거, (b) 인간 평가(n=8–10 규모)를 통한 다면적 평가 지표의 인간 anchor 검증, (c) multi-seed 설정(3 seed × 4 method × 48 design)에서의 통계 검정 보강, (d) layout-conditional routing의 구현과 검증, (e) visual-aware OCR 기반 visual CCR 메트릭의 도입, (f) AutoPresent의 element matching 프로토콜과의 직접 비교(cross-paper validation), (g) component-level ablation 확장 — style normalization, library retrieval, CV grounding의 인과 효과 격리이다.
+향후 연구는 다음 일곱 가지로 정리된다. (a) cross-judge 평가(Claude·Gemini 추가)를 통한 holistic 축의 single-judge bias 제거, (b) 인간 평가(n=8–10 규모)를 통한 다면적 평가 지표의 인간 anchor 검증, (c) multi-seed 설정(3 seed × 4 method × 50 design)에서의 통계 검정 보강, (d) layout-conditional routing의 구현과 검증, (e) visual-aware OCR 기반 visual CCR 메트릭의 도입, (f) AutoPresent의 element matching 프로토콜과의 직접 비교(cross-paper validation), (g) component-level ablation 확장 — style normalization, library retrieval, CV grounding의 인과 효과 격리이다.
 
 ---
 
