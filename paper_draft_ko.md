@@ -260,7 +260,7 @@ Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이�
 
 제3절 평가 방식 — 다면적 평가
 
-본 논문은 main result를 다면적 평가 지표 — DOM 구조, 렌더링 기반 시각 유사도, 멀티모달 LLM 판단 — 위에서 보고한다. 본 평가 protocol의 신규성은 새로운 단일 metric의 발명이 아니라, 세 축을 class-name-independent하게 결합·동반 보고하여 메서드별 명명 규칙에 따른 평가 편향을 줄이는 구성에 있다. Layer Recall과 LTED는 §3.1에 정리한 클래스명 편향 위험으로 인해 보조 metric으로 분류되어 §3.2 (현상 가시화)와 부록 B·§6.2·§6.3 (sanity check)에 한정해 사용된다. 평가 protocol은 4개의 main 축과 1개의 보조 축으로 구성된다.
+본 논문은 main result를 다면적 평가 지표 — DOM 구조, 렌더링 기반 시각 유사도, 멀티모달 LLM 판단 — 위에서 보고한다. 본 평가 protocol의 신규성은 새로운 단일 metric의 발명이 아니라, 세 축을 class-name-independent하게 결합·동반 보고하여 메서드별 명명 규칙에 따른 평가 편향을 줄이는 구성에 있다. Layer Recall과 LTED는 §3.1에 정리한 클래스명 편향 위험으로 인해 보조 metric으로 분류되어 §3.2 (현상 가시화)와 부록 B·§6.2·§6.3 (sanity check)에 한정해 사용된다. 평가 protocol은 3개의 main 축(① DOM 구조, ② render-based 시각 유사도, ③ multimodal LLM-as-judge)과 2개의 보조 축(④ string-CCR, ⑤ class-name-aligned Layer Recall/LTED)으로 구성된다.
 
 축 ① DOM-based Structural Metrics:
 
@@ -436,7 +436,7 @@ Table 5. 본 연구가 정착시키는 메트릭 축 분리.
 
 본 절은 두 mechanism의 정량 격리 측정 결과를 보고한다 — Text Inserter 분리(D₂)와 DesignSpec blackboard(D₄). 두 ablation 모두 N=50 main_eval과 N=10 다층 시각 효과 디자인 subset에서 측정된다.
 
-D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=50 main_eval, Joint Pass threshold: CCR≥0.7 ∧ CSS Richness≥10):
+D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=50 main_eval). Joint Pass threshold(CCR≥0.7 ∧ CSS Richness≥10)는 본 연구의 metrics module(`experiments/metrics/ccr_cssrich.py`) default 값으로 사전 결정되었으며, post-hoc 임계값 조정이 아니다. DreamHouse(2026)의 joint pass rate 정의 방식과 정렬된다.
 
 | 조건 | CCR ↑ | CSS Richness ↑ | Joint Pass ↑ |
 |---|:---:|:---:|:---:|
@@ -504,7 +504,7 @@ Cross-VLM frontier baseline(§3.3)에서 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두
 
 제5절 비대칭적 시각 입력의 일반 원리
 
-본 연구의 한 가지 발견은 다음과 같다. 스타일을 생성하는 에이전트는 이미지를 입력으로 받고, 배치를 결정하는 에이전트는 좌표만을 입력으로 받는다. Card Detail은 crop을 입력받지만 Text Inserter는 텍스트만을 입력받는다. 이러한 비대칭은 다른 멀티에이전트 영역에도 일반화될 수 있으며, UI 생성에서의 디자인 에이전트와 코딩 에이전트, 로봇 제어에서의 계획 에이전트와 실행 에이전트, 문서 생성에서의 레이아웃 에이전트와 콘텐츠 에이전트의 분리에서 같은 원리가 적용된다.
+본 연구의 한 가지 관찰은 다음과 같다. 스타일을 생성하는 에이전트는 이미지를 입력으로 받고, 배치를 결정하는 에이전트는 좌표만을 입력으로 받는다. Card Detail은 crop을 입력받지만 Text Inserter는 텍스트만을 입력받는다. LayerAgent의 D₂ ablation은 이러한 단계별 입력 비대칭이 단일 specialist에 시각·콘텐츠 책임을 함께 부여할 때보다 콘텐츠 보존을 큰 폭으로 향상시킴을 보였다 (CCR Δ=0.343, §6.5). 다른 multi-agent 도메인(UI/code agent 분리, planning/execution agent 분리, layout/content agent 분리 등)으로의 일반화 가능성은 본 연구의 측정 범위 외이며, 본 paper는 슬라이드 도메인에 한정해 보고한다.
 
 ---
 
