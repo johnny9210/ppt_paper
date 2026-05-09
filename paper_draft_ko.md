@@ -430,6 +430,10 @@ Table 4. 9개 레이아웃 유형별 LayerAgent 효과 비교. Primary axis는 M
 
 표 주: LTED는 §3.1의 보조 진단 metric이며, primary axis는 MLLM judge이다.
 
+![Figure 3: Per-layout effect range (N=50)](results/figures/fig3_layouts.png)
+
+Figure 3. 9개 layout별 LayerAgent 효과 (양수=LayerAgent 우세). 좌측 패널은 primary axis(MLLM Δ), 우측 패널은 보조 axis(LTED Δ)이다. 다층 시각 효과 디자인(dark_glass)에서만 양 축이 LayerAgent 우세에 합의하며, 평면 차트·테이블 4개(harvey_table, waterfall, line_chart, bar_chart)에서는 두 축 모두 일괄 생성 우세에 합의한다. 나머지 4개 layout(pyramid, mekko, process_flow, matrix_2x2)에서는 두 축이 불일치한다.
+
 데이터 overlap caveat. 다층 시각 효과 디자인 subset N=10은 §3.2 perception–generation 격차의 motivation을 만든 pilot N=10과 동일한 슬라이드다 (§5.1). 따라서 본 subset의 positive 결과는 motivation과 검증이 같은 데이터 위에서 일어난다는 limitation 하에 해석되어야 한다. 다른 8개 layout 그룹의 결과는 별개의 N=40 슬라이드 위에서 측정된 independent 결과다.
 
 핵심 발견 (RQ3 정착).
@@ -493,6 +497,10 @@ D₄ (no_designspec) — DesignSpec blackboard 효과 (N=50 mixed main_eval fram
 DesignSpec blackboard를 제거하면 8개 다면적 평가 자동 지표 중 7개에서 D가 우세하며, 1개(HD)만 동률에 해당한다. 가장 큰 효과는 render-based 시각 fidelity에서 나타나며, SSIM Δ = +0.174, LPIPS Δ = −0.080, CRP Δ = +4.4이다. 이는 DesignSpec이 cross-agent 스타일 표류를 줄여 시각 일관성을 보존함을 직접적으로 보여준다 (사전등록 가설 H-AblationDesignSpec 채택, 부록 A).
 
 다층 시각 효과 디자인 subset(N=10)에서는 trade-off가 더 미묘하게 관찰된다. D는 시각 fidelity 4개 지표(CRP, SSIM, CLIP, LPIPS)에서 우세한 반면, D₄는 구조 다양성 4개 지표(VEC 21.3 vs 20.9, EDC 11.7 vs 9.7, VLC 3.8 vs 2.9, HD 7.8 vs 7.0)에서 약간 우세하다. 즉 다층 디자인 조건에서는 DesignSpec이 specialist의 free-form generation diversity를 일부 제약하지만, mixed N=50 평균에서는 시각 일관성 효과가 압도적이다. 이는 consistency와 raw diversity 사이의 trade-off를 시사하며, §1.3의 "DesignSpec이 cross-agent 스타일 표류를 줄인다"는 가설을 N=50 평균에서는 채택하고 다층 디자인 subset에서는 부분 채택하는 형태로 보고한다.
+
+![Figure 4: D₂ and D₄ ablation impact](results/figures/fig4_ablation.png)
+
+Figure 4. 두 mechanism 격리 측정 시각화. 좌측: D₂ (Text Inserter 분리)를 제거하면 CCR이 0.78 → 0.09로 급감하며(N=5 pilot), 시각·콘텐츠 단계 분리 효과를 보여준다. 우측: D₄ (DesignSpec blackboard)를 제거하면 N=50 다면적 평가 8개 지표 중 7개가 악화되며, 특히 render-based 시각 fidelity(SSIM, CLIP, LPIPS, CRP)에서 큰 차이를 보인다. 막대 위의 숫자는 raw 값(VEC/EDC/CRP는 정수 계열, SSIM/CLIP/LPIPS는 [0,1] 범위)이며, 막대 높이는 metric별 max로 정규화된다.
 
 
 제7장 논의
@@ -649,16 +657,16 @@ B.1 §3.2 probing pilot의 명명 규칙 정렬 수치
 
 | Method | Layer Recall ↑ (명명 규칙 정렬) | gap (1−Recall) ↓ (명명 규칙 정렬) |
 |---|:---:|:---:|
-| cot_h_rag | 0.120 ± 0.16 | 0.880 |
-| visual_cot | 0.196 ± 0.13 | 0.804 |
+| cot_h_rag | 0.115 ± 0.16 | 0.885 |
+| visual_cot | 0.197 ± 0.13 | 0.803 |
 | single_pass | 0.212 ± 0.15 | 0.788 |
-| layeragent | 0.405 ± 0.23 | 0.595 |
+| layeragent | 0.397 ± 0.23 | 0.603 |
 
 위 수치는 element omission의 정량적 가시화를 보조하지만, Layer Recall 절대값은 LayerAgent vocabulary에 정렬되어 있어 상대 비교에서 LayerAgent의 우위가 과대 평가될 가능성이 있다. 따라서 본 논문의 main 메시지는 §3.2 본문의 명명 규칙 비의존 n_layers 격차("일괄 생성이 perception이 보장한 layer 중 평균 1.6개만 HTML/CSS 구조에 반영한다")에 한정한다.
 
 ![Figure 1: Layer Recall × method (N=50)](results/figures/fig1_gap.png)
 
-Figure 1 (보조). 48개 슬라이드에 대한 메서드별 Layer Recall(명명 규칙 정렬 측정). 명명 규칙 정렬 한계 하에서 현상 가시화 용도로 제시되며, main result는 §6.1 Table 1의 다면적 평가 지표를 따른다.
+Figure 1 (보조). 50개 슬라이드에 대한 메서드별 Layer Recall(명명 규칙 정렬 측정). 명명 규칙 정렬 한계 하에서 현상 가시화 용도로 제시되며, main result는 §6.1 Table 1의 다면적 평가 지표를 따른다.
 
 B.2 §3.3 Cross-VLM probing 표
 
@@ -679,8 +687,8 @@ B.3 N=50 main_eval의 명명 규칙 정렬 보조 table
 
 | Metric | cot_h_rag | layeragent | single_pass | visual_cot |
 |---|:---:|:---:|:---:|:---:|
-| Layer Recall ↑ (명명 규칙 정렬) | 0.120 | 0.405 | 0.212 | 0.196 |
-| LTED ↓ (명명 규칙 정렬) | 0.911 | 0.744 | 0.823 | 0.854 |
+| Layer Recall ↑ (명명 규칙 정렬) | 0.115 | 0.397 | 0.212 | 0.197 |
+| LTED ↓ (명명 규칙 정렬) | 0.914 | 0.752 | 0.828 | 0.849 |
 
 위 두 metric은 LayerAgent의 class name 어휘에 정렬되어 있어 (§3.1) LayerAgent의 우세가 부분적으로 클래스명 편향에 기인한다. 본 논문의 main claim은 §6.1 Table 1의 다면적 평가 지표를 따르며, 본 표는 한계 명시 하에 sanity check 자료로 보존한다.
 
