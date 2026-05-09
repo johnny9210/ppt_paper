@@ -146,43 +146,9 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 
 제1절 전체 구조
 
-```
-                    ┌──────────────────────┐
-                    │      Analyzer        │  전체 이미지 → 레이아웃 + bbox
-                    └──────────┬───────────┘
-                               ▼
-                    ┌──────────────────────┐
-                    │   Design Director    │  + CV facts → DesignSpec (blackboard)
-                    └──────────┬───────────┘
-        ┌──────────┬───────────┼───────────┬──────────┬────────┬───────┐
-        ▼          ▼           ▼           ▼          ▼        ▼       ▼
-   ┌─────────┐┌─────────┐┌─────────┐┌─────────┐┌─────────┐┌──────┐┌──────┐
-   │Base BG  ││Atmosph. ││Decorat. ││ Card    ││ Hero    ││ Icon ││Chart/│
-   │(vision, ││(vision, ││(vision, ││ Detail  ││ Detail  ││Agent ││Table │
-   │ full)   ││ full)   ││ full)   ││ ×N(crop)││ ×N(crop)││(libr)││Agent │
-   └─────┬───┘└─────┬───┘└─────┬───┘└─────┬───┘└─────┬───┘└──┬───┘└──┬───┘
-         └──────────┴───────────┴───────────┴──────────┴───────┴──────┘
-                                         ▼
-                              ┌──────────────────┐
-                              │    Assembler     │  z-index stacking
-                              └─────────┬────────┘
-                                        ▼
-                              ┌──────────────────┐
-                              │ Style Normalizer │  cross-card CSS 통일
-                              └─────────┬────────┘
-                                        ▼
-                              ┌──────────────────┐
-                              │  Text Inserter   │  완성 시각 → 콘텐츠 주입
-                              └─────────┬────────┘
-                                        ▼
-                              ┌──────────────────┐
-                              │ Overflow Repair  │  (옵션, 측정 기반 미세조정)
-                              └─────────┬────────┘
-                                        ▼
-                              ┌──────────────────┐
-                              │  Visual Critic   │  (옵션, Playwright diff)
-                              └──────────────────┘
-```
+![Figure 5: LayerAgent architecture](results/figures/layeragent_architecture.png)
+
+Figure 5. LayerAgent 전체 파이프라인. Stage 0 (Analyzer, Design Director)에서 레이아웃과 DesignSpec blackboard를 산출한 뒤, Stage 1의 8개 specialist agent가 병렬로 layer 단편을 생성한다. Stage 2의 Assembler가 결정적 z-index 순서로 조립하고, Style Normalizer가 카드 간 CSS를 통일하며, Text Inserter가 시각 디자인 확정 후 콘텐츠를 주입한다. Overflow Repair와 Visual Critic은 선택 단계이다.
 
 전체 파이프라인은 LangGraph StateGraph로 구현되었으며, 8개 specialist는 Design Director의 출력 이후 병렬로 실행된다.
 
