@@ -184,7 +184,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
                               └──────────────────┘
 ```
 
-전체 파이프라인은 LangGraph v1.0 StateGraph로 구현되었으며, 8개 specialist는 Design Director의 출력 이후 병렬로 실행된다.
+전체 파이프라인은 LangGraph StateGraph로 구현되었으며, 8개 specialist는 Design Director의 출력 이후 병렬로 실행된다.
 
 제2절 Analyzer (Stage 0)
 
@@ -263,7 +263,7 @@ Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이�
 
 본 논문은 LayerAgent의 두 mechanism — DesignSpec blackboard와 Text Inserter — 의 인과 효과를 격리 측정한다 (§6.6). 각 ablation은 해당 component를 noop으로 대체하는 방식으로 구성된다 (`no_designspec` flag → D₄, `no_text_inserter` flag → D₂).
 
-모든 실험은 GPT-4o-2024-08-06, LangGraph 1.0.5, Playwright 1.58 환경에서 수행되었다. 전체 코드와 단위 테스트는 본 연구의 공개 저장소에 수록되어 있다.
+모든 실험은 GPT-4o, LangGraph, Playwright 환경에서 수행되었다. 전체 코드와 단위 테스트는 본 연구의 공개 저장소에 수록되어 있다.
 
 ---
 
@@ -290,7 +290,7 @@ Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이�
 | C | 패턴 주입 생성 (`cot_h_rag`) | 시각 분석 + CSS 효과 패턴 레시피(RAG)를 함께 제공해 코드 생성 |
 | D | LayerAgent (`layeragent`) | 본 연구 — 계층 단위로 생성 책임을 분해하는 multi-agent full pipeline |
 
-모든 메서드에 동일한 콘텐츠 데이터, 동일한 모델(gpt-4o-2024-08-06), 동일한 시드(seed=0)를 제공한다.
+모든 메서드에 동일한 콘텐츠 데이터, 동일한 모델(GPT-4o), 동일한 시드(seed=0)를 제공한다.
 
 제3절 평가 방식 — 다면적 평가
 
