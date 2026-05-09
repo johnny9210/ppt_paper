@@ -106,17 +106,17 @@ Element omission은 현상의 이름이다. Design-to-Code 선행 연구(Calò &
 
 Main 측정 — 다면적 평가 방식 (§5.3):
 
-(i) DOM-based structural metrics (`experiments/metrics/dom_structure.py`): Playwright로 렌더링한 DOM에 JS injection을 적용하여 모든 가시 element의 computed style과 bounding box를 추출한다. Class name과 무관하므로 메서드별 명명 규칙에 따른 평가 편향이 없다. 측정 항목은 styled element 수(VEC), distinct style fingerprint 수(EDC), distinct effective z-band 수(VLC), rich CSS property 총 사용 횟수(CRP), DOM nesting depth(HD), spatial coverage(SC)이다. 약어 표기는 본 연구의 측정 convention이며, 모두 element와 style 카운트의 변형이다.
+(i) DOM-based structural metrics: Playwright로 렌더링한 DOM에 JS injection을 적용하여 모든 가시 element의 computed style과 bounding box를 추출한다. Class name과 무관하므로 메서드별 명명 규칙에 따른 평가 편향이 없다. 측정 항목은 styled element 수(VEC), distinct style fingerprint 수(EDC), distinct effective z-band 수(VLC), rich CSS property 총 사용 횟수(CRP), DOM nesting depth(HD), spatial coverage(SC)이다. 약어 표기는 본 연구의 측정 convention이며, 모두 element와 style 카운트의 변형이다.
 
-(ii) Render-based visual similarity (`experiments/metrics/visual_similarity.py`): SSIM (skimage), CLIP (open_clip ViT-B/32), LPIPS (AlexNet)을 사용하며, 모두 기존 표준 메트릭이다.
+(ii) Render-based visual similarity: SSIM (skimage), CLIP (open_clip ViT-B/32), LPIPS (AlexNet)을 사용하며, 모두 기존 표준 메트릭이다.
 
-(iii) Multimodal LLM-as-judge (`experiments/metrics/single_method_judge.py`): GPT-5.4 (Azure)에 reference image, generated PNG, generated HTML 일부를 함께 제공하고 4개 기준(Visual Fidelity, Layer Structure, Content Completeness, Design Quality)에 대해 1–7점으로 채점한다.
+(iii) Multimodal LLM-as-judge: GPT-5.4 (Azure)에 reference image, generated PNG, generated HTML 일부를 함께 제공하고 4개 기준(Visual Fidelity, Layer Structure, Content Completeness, Design Quality)에 대해 1–7점으로 채점한다.
 
 세 축은 각각 코드 구조 풍부성 / 픽셀-퍼셉추얼 충실도 / 발표 가능성이라는 다른 차원을 본다 (§6.5 metric taxonomy).
 
 보조 metric (class-name-aligned):
 
-본 연구는 perception tree $T_P$와 generation tree $T_G$를 (z-band, type) multiset으로 환원하여 Layer Recall = $|\mathrm{types}(T_P) \cap \mathrm{types}(T_G)| / |\mathrm{types}(T_P)|$와 LTED = $\sum_k |m_P(k) - m_G(k)| / (\sum_k m_P(k) + m_G(k))$를 보조 metric으로 정의한다 (`experiments/probing/layer_tree.py`). 다만 generation tree 파싱이 class name regex에 의존하고 정규식이 LayerAgent의 class name (`card-wrap`, `bg-base`, `atmos`, `decor`)에 정렬되어 있어, Claude Opus의 `glass-card`나 `node-inner` 등 다른 어휘로 작성된 시각적으로 풍부한 element는 매칭되지 않아 거짓 negative로 보고된다. 이러한 클래스명 편향 위험으로 본 metric은 §3.2의 현상 가시화와 부록 B·§6.3의 robustness 진단(prompt 변형이 명명 규칙과 무관함을 활용한 sanity check)에 한정해 사용하며, main claim에는 사용하지 않는다.
+본 연구는 perception tree $T_P$와 generation tree $T_G$를 (z-band, type) multiset으로 환원하여 Layer Recall = $|\mathrm{types}(T_P) \cap \mathrm{types}(T_G)| / |\mathrm{types}(T_P)|$와 LTED = $\sum_k |m_P(k) - m_G(k)| / (\sum_k m_P(k) + m_G(k))$를 보조 metric으로 정의한다. 다만 generation tree 파싱이 class name regex에 의존하고 정규식이 LayerAgent의 class name (`card-wrap`, `bg-base`, `atmos`, `decor`)에 정렬되어 있어, Claude Opus의 `glass-card`나 `node-inner` 등 다른 어휘로 작성된 시각적으로 풍부한 element는 매칭되지 않아 거짓 negative로 보고된다. 이러한 클래스명 편향 위험으로 본 metric은 §3.2의 현상 가시화와 부록 B·§6.3의 robustness 진단(prompt 변형이 명명 규칙과 무관함을 활용한 sanity check)에 한정해 사용하며, main claim에는 사용하지 않는다.
 
 제2절 Element omission의 가시화 — 1차 진단
 
@@ -128,7 +128,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 | Stage B1 일괄 생성 (이미지 → HTML) | 1.8 (범위 0–4) |
 | Stage B2 LayerAgent (이미지 → HTML) | 8.2 (범위 5–10) |
 
-즉 일괄 생성에서 perception이 평균 6.6개(범위 5–10)로 기술한 layer 중 평균 1.8개만 HTML/CSS 구조에 반영되며, LayerAgent에서 평균 8.2개로 회복된다 (`experiments/probing/probing_minimal.py`). 이 격차의 양상은 다층 시각 효과 디자인 subset에서 두드러지고 평면 차트 layout에서 약화되며, 정량적 결과는 §6.4의 layout-dependent 효과 범위에서 다면적 평가 지표로 다시 보고된다.
+즉 일괄 생성에서 perception이 평균 6.6개(범위 5–10)로 기술한 layer 중 평균 1.8개만 HTML/CSS 구조에 반영되며, LayerAgent에서 평균 8.2개로 회복된다. 이 격차의 양상은 다층 시각 효과 디자인 subset에서 두드러지고 평면 차트 layout에서 약화되며, 정량적 결과는 §6.4의 layout-dependent 효과 범위에서 다면적 평가 지표로 다시 보고된다.
 
 본 절은 이 격차를 Layer Recall과 LTED 같은 class-name-aligned 메트릭으로도 정량화한다. 다만 이 메트릭들은 LayerAgent class name 어휘에 정렬된 regex에 의존하므로, 동일한 시각 구조를 구현하더라도 다른 class 이름을 사용하는 출력은 layer로 인식되지 않아 거짓 negative로 보고되는 클래스명 편향(class-name bias) 위험을 가진다 (§3.1, §8 한계). 본 논문은 element omission의 정량 main result를 §6.1 Table 1의 다면적 평가 지표로 보고하며, 본 절의 명명 규칙 정렬 수치(N=10 pilot, N=50 main_eval, Figure 1)는 현상 가시화의 보조 자료로 부록 B에 수록한다.
 
@@ -136,7 +136,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 
 제3절 Cross-VLM probing
 
-§3.2의 perception–generation 격차가 GPT-4o에 한정된 인공물인지를 검증하기 위해 10 다층 시각 효과 디자인 × 3 frontier VLM (GPT-4o, GPT-5.4, Claude 4.6 Opus) × 일괄 생성의 cross-VLM probing을 수행했다 (`experiments/probing/cross_vlm_frontier.py`). 측정은 §3.1의 보조 metric (class-name regex 기반) 위에서 수행되므로 frontier 간 baseline 비교에 한정 해석한다.
+§3.2의 perception–generation 격차가 GPT-4o에 한정된 인공물인지를 검증하기 위해 10 다층 시각 효과 디자인 × 3 frontier VLM (GPT-4o, GPT-5.4, Claude 4.6 Opus) × 일괄 생성의 cross-VLM probing을 수행했다. 측정은 §3.1의 보조 metric (class-name regex 기반) 위에서 수행되므로 frontier 간 baseline 비교에 한정 해석한다.
 
 세 frontier 모두 baseline gap이 0.69–0.78 범위에 있어 frontier model upgrade만으로 layer 반영 격차가 크게 닫히지 않는다. 자세한 수치는 부록 B에 보고한다. LayerAgent와 frontier의 공정 비교는 §6.2의 다면적 평가 결과를 우선하며, 그곳에서 GPT-5.4가 LayerAgent를 능가한다.
 
@@ -184,7 +184,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
                               └──────────────────┘
 ```
 
-전체 파이프라인은 LangGraph v1.0 StateGraph로 구현되었으며(`layeragent/pipeline.py`), 8개 specialist는 Design Director의 출력 이후 병렬로 실행된다.
+전체 파이프라인은 LangGraph v1.0 StateGraph로 구현되었으며, 8개 specialist는 Design Director의 출력 이후 병렬로 실행된다.
 
 제2절 Analyzer (Stage 0)
 
@@ -211,7 +211,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 }
 ```
 
-이후 모든 specialist는 DesignSpec을 prompt hint로 받는다(`spec_to_hint`, `layeragent/agents/design_director.py:55`). 결과적으로 카드 A의 반투명 효과가 카드 B에서 단색으로 변하는 스타일 표류가 사전적으로 차단된다 — 이는 단순한 분해 접근에서 자주 관찰되는 실패 양식이다.
+이후 모든 specialist는 DesignSpec을 prompt hint로 받는다. 결과적으로 카드 A의 반투명 효과가 카드 B에서 단색으로 변하는 스타일 표류가 사전적으로 차단된다 — 이는 단순한 분해 접근에서 자주 관찰되는 실패 양식이다.
 
 CV grounding의 효과. 팔레트는 k-means(k=6)로 추출되어 모델이 색을 환각할 여지를 줄이고, OCR 텍스트 높이는 폰트 크기 결정의 결정적 기준점이 되며, HSV 채도는 flat과 vivid 미학을 구분하는 단서로 작용한다. 이 효과는 `no_cv_facts` 플래그로 격리해 측정할 수 있다.
 
@@ -220,7 +220,7 @@ CV grounding의 효과. 팔레트는 k-means(k=6)로 추출되어 모델이 색�
 - Base BG · Atmosphere · Decoration: 전체 이미지와 DesignSpec을 입력받아 배경 그라디언트, radial glow, decoration shape를 분리된 layer로 생성한다. 이러한 분리는 분위기와 패턴이 같은 z=0 안에서 충돌하지 않도록 보장한다.
 - Card Detail × N: 각 카드의 crop 이미지(주변 패딩 포함)와 DesignSpec을 입력받아 카드별로 풍부한 CSS 효과(`backdrop-filter`, 다중 `box-shadow`, rgba 투명도, 테두리 효과)를 생성한다. 좁은 시각 범위가 선택적 CSS 재질(반투명, blur, gradient 등)을 회복시킨다 — 통제 실험에서 같은 GPT-4o가 전체 이미지에서는 카드당 CSS 효과 2.8개를, crop에서는 6–8개를 생성한다.
 - Hero Detail × N: 히어로 블록(큰 숫자, 메인 메시지, 특수 그래픽)을 crop 단위로 별도 처리한다.
-- Icon Agent: 카드별 의미 분석 → FontAwesome 클래스 검색 → 실제 `<i class="fa-...">` 태그 주입의 순서로 동작하며, 환각된 아이콘 URL을 구조적으로 차단한다 (`layeragent/libraries/icon_library.py`).
+- Icon Agent: 카드별 의미 분석 → FontAwesome 클래스 검색 → 실제 `<i class="fa-...">` 태그 주입의 순서로 동작하며, 환각된 아이콘 URL을 구조적으로 차단한다.
 - Chart Agent · Table Agent: 슬라이드 타입이 차트나 테이블일 때 SVG primitive로 sparkline, bar, gauge, harvey table을 결정적으로 생성한다.
 
 제5절 Assembler
@@ -229,7 +229,7 @@ CV grounding의 효과. 팔레트는 k-means(k=6)로 추출되어 모델이 색�
 
 제6절 Style Normalizer (Stage 2)
 
-조립된 HTML을 텍스트 입력만 받아 카드 간 CSS 속성을 통일한다 (`layeragent/agents/style_normalizer.py`):
+조립된 HTML을 텍스트 입력만 받아 카드 간 CSS 속성을 통일한다:
 
 - 배경 rgba alpha — 모든 카드 동일값
 - 테두리 색상/두께 — 통일
@@ -249,7 +249,7 @@ A2UI Protocol (Google, 2026)이 client-side renderer로 design-system을 강제�
 
 제8절 Overflow Repair (선택)
 
-조립된 HTML을 Playwright로 렌더링한 뒤 측정한 bounding box overflow를 분석하여 폰트 크기, 패딩, 줄 수를 미세 조정한다. 시각 critic과 달리 결정적 측정에 기반하므로 LLM 호출이 필요 없다 (`layeragent/agents/overflow_repair.py`).
+조립된 HTML을 Playwright로 렌더링한 뒤 측정한 bounding box overflow를 분석하여 폰트 크기, 패딩, 줄 수를 미세 조정한다. 시각 critic과 달리 결정적 측정에 기반하므로 LLM 호출이 필요 없다.
 
 제9절 Visual Critic (선택)
 
@@ -257,13 +257,13 @@ Playwright 스크린샷과 원본 이미지를 비교한 뒤 VLM이 diff를 작�
 
 제10절 Chat Mode (인터랙티브 입력)
 
-Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이미지를 입력받는 진입점이다 (`run_from_chat`, `layeragent/pipeline.py:155`). chat_parser agent가 메시지를 `{slide_type, content, style}` 형식으로 구조화한 뒤 동일 파이프라인에 전달한다. 데모는 `python -m experiments.demo_chat`로 실행할 수 있다.
+Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이미지를 입력받는 진입점이다. chat_parser agent가 메시지를 `{slide_type, content, style}` 형식으로 구조화한 뒤 동일 파이프라인에 전달한다.
 
 제11절 구현
 
 본 논문은 LayerAgent의 두 mechanism — DesignSpec blackboard와 Text Inserter — 의 인과 효과를 격리 측정한다 (§6.6). 각 ablation은 해당 component를 noop으로 대체하는 방식으로 구성된다 (`no_designspec` flag → D₄, `no_text_inserter` flag → D₂).
 
-모든 실험은 GPT-4o-2024-08-06, LangGraph 1.0.5, Playwright 1.58 환경에서 수행되었다. 코드와 단위 테스트는 `layeragent/ablations.py`와 `tests/test_smoke.py`에 있다.
+모든 실험은 GPT-4o-2024-08-06, LangGraph 1.0.5, Playwright 1.58 환경에서 수행되었다. 전체 코드와 단위 테스트는 본 연구의 공개 저장소에 수록되어 있다.
 
 ---
 
@@ -277,9 +277,9 @@ Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이�
 
 (b) 차트·다이어그램 그룹 (N=40): 8개 layout (mekko, matrix_2x2, waterfall, harvey_table, bar_chart, line_chart, process_flow, pyramid)에 5종 비즈니스 컨설팅 스타일(minimal_white, editorial_warm, bain_red, bcg_green, mckinsey_blue)을 적용한 슬라이드로, visual-effect density가 상대적으로 낮다.
 
-모든 슬라이드는 Gemini 3 Pro Image Preview로 생성됐다 (`data/eval_dataset/meta.json`). 본 연구는 전체 dataset에서 LayerAgent의 구조 복원 효과를 평가하며, layout/theme 그룹에 따른 효과 변화는 §6.4 per-layout breakdown에서 보고한다.
+모든 슬라이드는 Gemini 3 Pro Image Preview로 생성됐다. 본 연구는 전체 dataset에서 LayerAgent의 구조 복원 효과를 평가하며, layout/theme 그룹에 따른 효과 변화는 §6.4 per-layout breakdown에서 보고한다.
 
-데이터 overlap 명시. §3.2 perception–generation 격차의 motivation을 만든 N=10 pilot 슬라이드는 (a) 그룹의 N=10과 동일하다 (`design_01_timeline` ~ `design_10_stats_hero`, `experiments/probing/probing_minimal.py`). 따라서 §6.4의 다층 시각 효과 디자인 subset 결과는 §3.2와 동일한 슬라이드 위에서 측정되며, motivation과 검증이 같은 데이터 위에서 일어난다는 caveat 하에 해석되어야 한다 (§8 한계).
+데이터 overlap 명시. §3.2 perception–generation 격차의 motivation을 만든 N=10 pilot 슬라이드는 (a) 그룹의 N=10과 동일하다 (design_01_timeline ~ design_10_stats_hero). 따라서 §6.4의 다층 시각 효과 디자인 subset 결과는 §3.2와 동일한 슬라이드 위에서 측정되며, motivation과 검증이 같은 데이터 위에서 일어난다는 caveat 하에 해석되어야 한다 (§8 한계).
 
 제2절 비교 메서드
 
@@ -296,7 +296,7 @@ Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이�
 
 본 논문은 main result를 다면적 평가 지표 — DOM 구조, 렌더링 기반 시각 유사도, 멀티모달 LLM 판단 — 위에서 보고한다. 본 평가 protocol의 신규성은 새로운 단일 metric의 발명이 아니라, 세 축을 class-name-independent하게 결합·동반 보고하여 메서드별 명명 규칙에 따른 평가 편향을 줄이는 구성에 있다. Layer Recall과 LTED는 §3.1에 정리한 클래스명 편향 위험으로 인해 보조 metric으로 분류되어 §3.2 (현상 가시화)와 부록 B·§6.3·§6.4 (sanity check)에 한정해 사용된다. 평가 protocol은 4개의 main 축과 1개의 보조 축으로 구성된다.
 
-축 ① DOM-based Structural Metrics (`experiments/metrics/dom_structure.py`):
+축 ① DOM-based Structural Metrics:
 
 Playwright로 렌더링한 DOM에 JS injection을 적용하여 모든 가시 element의 computed style과 bounding box를 추출한다. Class name이나 사전 정의된 layer label에 의존하지 않으며 모든 메서드에 동일하게 적용된다(즉 method-agnostic). 측정 항목은 다음과 같으며, 모두 element와 style 카운트의 변형이다. 아래의 약어 표기는 본 연구의 측정 convention이다.
 
@@ -307,14 +307,14 @@ Playwright로 렌더링한 DOM에 JS injection을 적용하여 모든 가시 ele
 - 가시 element 중 max DOM nesting depth — HD
 - 슬라이드 영역 중 가시 element가 차지하는 면적 비율 — SC
 
-축 ② Render-based Visual Similarity (`experiments/metrics/visual_similarity.py`):
+축 ② Render-based Visual Similarity:
 
 - SSIM ↑ — local window 기반 픽셀 구조 유사도 (skimage)
 - CLIP ↑ — open_clip ViT-B/32 image embedding cosine similarity (semantic-level, AutoPresent/Design2Code/SlideCoder 표준)
 - LPIPS ↓ — AlexNet deep feature 거리 (perceptual-level, Zhang et al. CVPR 2018)
 - Block-Match, Position (OCR-based): 다크 배경, 한국어, blur가 결합된 본 도메인에서 모든 메서드의 점수가 0에 수렴하므로 도메인 미지원으로 처리하여 보고하지 않는다.
 
-축 ③ Multimodal LLM-as-Judge (`experiments/metrics/single_method_judge.py`):
+축 ③ Multimodal LLM-as-Judge:
 
 Judge 모델로 GPT-5.4 (Azure)를 사용한다. Generator(GPT-4o)와 다른 모델 계열을 사용함으로써 self-evaluation bias를 차단한다 (Zheng et al., 2023). Judge에게는 reference image, generated PNG, generated HTML의 처음 3,000자를 함께 제공하며(tool-grounded; WebDevJudge 2025의 code와 visual modality 결합 권고를 따름), 4개의 기준에 대해 각각 1–7점으로 채점한다.
 - Visual Fidelity (VF), Layer Structure (LS), Content Completeness (CC), Design Quality (DQ)
@@ -322,18 +322,18 @@ Judge 모델로 GPT-5.4 (Azure)를 사용한다. Generator(GPT-4o)와 다른 모
 축 ④ Content Completeness (auxiliary):
 - CCR ↑ — 입력 텍스트가 HTML에 문자열로 등장하는 비율 (시각 가시성 미반영; MLLM judge CC가 visual proxy)
 
-Legacy sanity check — Class-name-aligned (참고용, main claim 외) (`experiments/probing/layer_tree.py`):
+Legacy sanity check — Class-name-aligned (참고용, main claim 외):
 - Layer Recall, LTED — class name regex 기반(LayerAgent 어휘에 정렬). Vocabulary alignment 한계로 인해 §3.2(현상 가시화), 부록 B(보조 표), §6.3(prompt 변형이 명명 규칙과 무관하므로 방향성 해석이 안정적인 robustness sanity check)에 한정해 사용한다.
 
 Render guard 점검에서 모든 메서드가 Playwright로 100% 정상 렌더링됨을 확인했다.
 
-모든 메트릭 코드와 단위 테스트는 `experiments/metrics/` 디렉토리에 공개되어 있다.
+모든 메트릭 코드와 단위 테스트는 본 연구의 공개 저장소에 수록되어 있다.
 
 제4절 실험 인프라
 
-- 4-stage cacheable 파이프라인 (`experiments/main_eval.py`): generate → render(Playwright) → reference perception(VLM 캐시) → metrics 순서로 구성되며, 각 stage는 독립적으로 재시작이 가능하다.
+- 4-stage cacheable 파이프라인: generate → render(Playwright) → reference perception(VLM 캐시) → metrics 순서로 구성되며, 각 stage는 독립적으로 재시작이 가능하다.
 - 총 4 메서드 × 50 슬라이드 = 200 cell이며, 전체 실행 시간은 82분, 생성 실패는 0건이다.
-- 결과는 `results/main_eval/eval_results.jsonl`, `eval_summary.csv`, `analysis_report.md`에 저장된다.
+- 결과는 jsonl, csv, 리포트 형식으로 저장되어 후속 분석 단계에서 재사용된다.
 
 ---
 
@@ -341,7 +341,7 @@ Render guard 점검에서 모든 메서드가 Playwright로 100% 정상 렌더�
 
 제1절 Same-model GPT-4o 비교 — 구조 복원 효과 (RQ2)
 
-본 절은 동일 base model GPT-4o 위에서, 4가지 메서드(일괄 생성·시각 분석 생성·패턴 주입 생성·LayerAgent)를 본 연구의 layered slide dataset 전반에서 비교한다 (Table 1: 자동 지표, `results/new_eval_n50/summary.json`). 종합적 발표 품질 차원은 MLLM judge로 별도 보고한다 (Table 2, main_eval). Layout 의존성은 §6.4 per-layout breakdown에서 다룬다.
+본 절은 동일 base model GPT-4o 위에서, 4가지 메서드(일괄 생성·시각 분석 생성·패턴 주입 생성·LayerAgent)를 본 연구의 layered slide dataset 전반에서 비교한다 (Table 1: 자동 지표). 종합적 발표 품질 차원은 MLLM judge로 별도 보고한다 (Table 2, main_eval). Layout 의존성은 §6.4 per-layout breakdown에서 다룬다.
 
 Table 1. 전체 layered slide dataset 자동 지표 (N=50, DOM-based + render-based). 굵은 = 1위.
 
@@ -396,7 +396,7 @@ Table 3. Frontier 모델 기반 일괄 생성과의 적용 경계 비교 (bounda
 
 제3절 Trivial baseline check
 
-LayerAgent의 same-model 우세(Table 1)가 분해 효과인지 아니면 단순 prompt 조정만으로도 가능한지를 점검하기 위해 single_pass_zexplicit 변형을 구현했다 (`baselines/single_pass_zexplicit.py`). 일괄 생성 prompt에 z-index 6-band 명시 한 줄만을 추가한 변형이다.
+LayerAgent의 same-model 우세(Table 1)가 분해 효과인지 아니면 단순 prompt 조정만으로도 가능한지를 점검하기 위해 z-index 명시 일괄 생성(single_pass_zexplicit) 변형을 구현했다. 일괄 생성 prompt에 z-index 6-band 명시 한 줄만을 추가한 변형이다.
 
 | Method (N=10 다층 시각 효과 디자인) | 설명 | LTED ↓ | Layer Recall ↑ | avg layer count |
 |---|---|:---:|:---:|:---:|
@@ -471,7 +471,7 @@ Table 5. 본 연구가 정착시키는 메트릭 축 분리.
 
 본 절은 두 mechanism의 정량 격리 측정 결과를 보고한다 — Text Inserter 분리(D₂, N=5 pilot)와 DesignSpec blackboard(D₄, N=50 main_eval framework와 N=10 다층 시각 효과 디자인 조건의 다면적 평가 지표).
 
-D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=5 pilot, `layeragent/ablations.py` 의 `no_text_inserter` 플래그):
+D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=5 pilot):
 
 | 조건 | CCR ↑ | CSS Richness ↑ | Joint Pass ↑ |
 |---|:---:|:---:|:---:|
@@ -645,7 +645,7 @@ H-AblationDesignSpec (DesignSpec cross-agent 합치, §6.6) — 채택 (N=50 다
 
 B.1 §3.2 probing pilot의 명명 규칙 정렬 수치
 
-(A) probing_minimal pilot — N=10 다층 시각 효과 디자인, GPT-4o (`experiments/probing/probing_minimal.py`):
+(A) probing_minimal pilot — N=10 다층 시각 효과 디자인, GPT-4o:
 
 | 지표 | Stage A perception | Stage B1 (일괄 생성) | Stage B2 (LayerAgent) |
 |---|:---:|:---:|:---:|
@@ -653,7 +653,7 @@ B.1 §3.2 probing pilot의 명명 규칙 정렬 수치
 | `gap = 1 − Recall` (명명 규칙 정렬) | 0.00 | 0.805 | 0.324 |
 | `LTED` ↓ (명명 규칙 정렬) | 0.00 | 0.75 | 0.62 |
 
-(B) main_eval — N=50 mixed, 4-method (`experiments/main_eval.py`, `experiments/analyze_results.py`):
+(B) main_eval — N=50 mixed, 4-method:
 
 | Method | Layer Recall ↑ (명명 규칙 정렬) | gap (1−Recall) ↓ (명명 규칙 정렬) |
 |---|:---:|:---:|
