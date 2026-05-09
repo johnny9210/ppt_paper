@@ -190,3 +190,11 @@
 {"design_id": "pyramid_editorial_warm_narrative", "method": "visual_cot", "render_ok": true, "render_visible_count": 16, "ssim": 0.6633325274353512, "block_match": 0.0, "position": 0.0, "n_ref_blocks": 8, "n_gen_blocks": 4, "lted": 0.6296296296296297, "layer_recall": 0.25, "n_ref_layers": 12, "n_gen_layers": 3}
 {"design_id": "pyramid_editorial_warm_narrative", "method": "cot_h_rag", "render_ok": true, "render_visible_count": 19, "ssim": 0.7129165119050594, "block_match": 0.0, "position": 0.0, "n_ref_blocks": 8, "n_gen_blocks": 5, "lted": 1.0, "layer_recall": 0.0, "n_ref_layers": 12, "n_gen_layers": 0}
 {"design_id": "pyramid_editorial_warm_narrative", "method": "layeragent", "render_ok": true, "render_visible_count": 35, "ssim": 0.6668046848705751, "block_match": 0.0, "position": 0.0, "n_ref_blocks": 8, "n_gen_blocks": 3, "lted": 0.4222222222222222, "layer_recall": 0.5833333333333334, "n_ref_layers": 12, "n_gen_layers": 9}
+{"method": "single_pass", "design_id": "harvey_table_bain_red_vendors", "lted": 0.9565217391304348, "layer_recall": 0.14285714285714285, "n_ref_layers": 10, "n_gen_layers": 2}
+{"method": "visual_cot", "design_id": "harvey_table_bain_red_vendors", "lted": 0.47540983606557374, "layer_recall": 0.2857142857142857, "n_ref_layers": 10, "n_gen_layers": 3}
+{"method": "cot_h_rag", "design_id": "harvey_table_bain_red_vendors", "lted": 1.0, "layer_recall": 0.0, "n_ref_layers": 10, "n_gen_layers": 0}
+{"method": "layeragent", "design_id": "harvey_table_bain_red_vendors", "lted": 0.9166666666666666, "layer_recall": 0.2857142857142857, "n_ref_layers": 10, "n_gen_layers": 4}
+{"method": "single_pass", "design_id": "harvey_table_mckinsey_blue_options", "lted": 0.9402985074626866, "layer_recall": 0.2857142857142857, "n_ref_layers": 10, "n_gen_layers": 3}
+{"method": "visual_cot", "design_id": "harvey_table_mckinsey_blue_options", "lted": 0.9696969696969697, "layer_recall": 0.14285714285714285, "n_ref_layers": 10, "n_gen_layers": 2}
+{"method": "cot_h_rag", "design_id": "harvey_table_mckinsey_blue_options", "lted": 1.0, "layer_recall": 0.0, "n_ref_layers": 10, "n_gen_layers": 1}
+{"method": "layeragent", "design_id": "harvey_table_mckinsey_blue_options", "lted": 0.9701492537313433, "layer_recall": 0.14285714285714285, "n_ref_layers": 10, "n_gen_layers": 2}

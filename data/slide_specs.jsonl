@@ -46,3 +46,5 @@
 {"id": "pyramid_bain_red_thesis", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "bain_red", "_domain": "thesis"}
 {"id": "pyramid_minimal_white_argument", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "minimal_white", "_domain": "argument"}
 {"id": "pyramid_editorial_warm_narrative", "type": "pyramid", "complexity": "medium", "primary_rq": "RQ1", "_layout": "pyramid", "_theme": "editorial_warm", "_domain": "narrative"}
+{"id": "harvey_table_bain_red_vendors", "type": "table", "complexity": "high", "primary_rq": "RQ1", "_layout": "harvey_table", "_theme": "bain_red", "_domain": "vendors"}
+{"id": "harvey_table_mckinsey_blue_options", "type": "table", "complexity": "high", "primary_rq": "RQ1", "_layout": "harvey_table", "_theme": "mckinsey_blue", "_domain": "options"}

@@ -1630,6 +1630,117 @@
       "_layout": "pyramid",
       "_theme": "editorial_warm",
       "_domain": "narrative"
+    },
+    {
+      "id": "harvey_table_bain_red_vendors",
+      "type": "table",
+      "content": {
+        "title": "Vendor B leads on 4 of 5 evaluation criteria, justifying selection",
+        "description": "Vendor scoring matrix",
+        "headers": [
+          "Criterion",
+          "Vendor A",
+          "Vendor B",
+          "Vendor C"
+        ],
+        "rows": [
+          [
+            "Total Cost",
+            "Higher software fees, hidden costs.",
+            "Lowest TCO over 5 years, competitive proposal.",
+            "Average cost, but high maintenance."
+          ],
+          [
+            "Implementation speed",
+            "Estimates 9-12 months, resource intensive.",
+            "Proven 6-month plan, phased approach.",
+            "Slowest deployment, requires custom dev."
+          ],
+          [
+            "Feature completeness",
+            "Strong core features, lacks some analytics.",
+            "Comprehensive suite, meets all critical needs.",
+            "Basic functionality, significant gaps."
+          ],
+          [
+            "Vendor stability",
+            "Recent acquisition, uncertain roadmap.",
+            "Market leader, strong financial health.",
+            "High risk, declining market share."
+          ],
+          [
+            "Customer references",
+            "Positive feedback from similar firms.",
+            "Mixed reviews on support responsiveness.",
+            "Limited relevant case studies."
+          ]
+        ]
+      },
+      "_layout": "harvey_table",
+      "_theme": "bain_red",
+      "_domain": "vendors"
+    },
+    {
+      "id": "harvey_table_mckinsey_blue_options",
+      "type": "table",
+      "content": {
+        "title": "Option C scores highest on weighted criteria across 6 dimensions",
+        "description": "Strategic option comparison",
+        "headers": [
+          "Criterion",
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "rows": [
+          [
+            "Cost (5%)",
+            "High initial investment",
+            "Moderate initial investment",
+            "Low initial cost, efficient",
+            "Very high cost"
+          ],
+          [
+            "Speed (15%)",
+            "Moderate timeline, phased rollout",
+            "Fast implementation possible",
+            "Rapid deployment expected",
+            "Slow, multi-year timeline"
+          ],
+          [
+            "Risk (20%)",
+            "Significant technological risk",
+            "Operational risks present",
+            "Manageable risks, mitigation in place",
+            "Low risk profile"
+          ],
+          [
+            "Strategic fit (25%)",
+            "Strong alignment with core strategy",
+            "Partial alignment, some gaps",
+            "Perfect strategic alignment",
+            "Weak strategic fit"
+          ],
+          [
+            "Talent need (20%)",
+            "Requires specialized expertise",
+            "Leverages existing talent pool",
+            "Minimal new talent required",
+            "Significant new hires needed"
+          ],
+          [
+            "Reversibility (15%)",
+            "Difficult to undo after pilot",
+            "Partially reversible",
+            "Relatively easy to reverse",
+            "Fully reversible with minimal impact"
+          ]
+        ]
+      },
+      "_layout": "harvey_table",
+      "_theme": "mckinsey_blue",
+      "_domain": "options"
     }
   ]
 }

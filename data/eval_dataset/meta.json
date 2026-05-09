@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "total": 47,
-  "n_new": 37,
+  "total": 50,
+  "n_new": 40,
   "n_existing": 10,
   "failed": [],
   "model": "gemini-3-pro-image-preview",
@@ -407,6 +407,33 @@
       "domain": "narrative",
       "prompt": "Generate a single professional consulting slide image (1280×720 PNG).\n\nStyle: editorial. Background warm cream (#FAF7F0). Accent terracotta (#C2410C) and gold (#EAB308). Magazine-style hierarchy.\n\nSlide structure:\n- Action title at top (declarative insight, 1-2 lines): \"Brand story rests on three values: craftsmanship, trust, and continuity\"\n- Optional subtitle below in lighter color: \"Brand pyramid\"\n- Body (~75% of slide): Pyramid with 1 essence statement at top ('Timeless craftsmanship'), 3 brand values in middle (Craftsmanship, Trust, Continuity), 6-9 expressions at base. Terracotta and gold tones, serif typography.\n- Footer bottom-right: \"Source: Brand strategy, 2026\" with page number \"3\"\n- Typography: serif title (Playfair or Georgia), sans body (Inter), 2 fonts\n- One clear insight, no decorative clutter. Avoid dense paragraphs.",
       "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/pyramid_editorial_warm_narrative.png",
+      "_status": "generated"
+    },
+    {
+      "id": "mekko_bain_red_customer",
+      "layout": "mekko",
+      "theme": "bain_red",
+      "domain": "customer",
+      "prompt": "Generate a single professional consulting slide image (1280x720 PNG). Style: Bain-style consulting. Mekko/Marimekko chart layout, accent Bain red (#C8102E). Action title + chart body + source footer.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/mekko_bain_red_customer.png",
+      "_status": "generated"
+    },
+    {
+      "id": "mekko_bcg_green_market_entry",
+      "layout": "mekko",
+      "theme": "bcg_green",
+      "domain": "entry",
+      "prompt": "Generate a single professional consulting slide image (1280x720 PNG). Style: BCG-style consulting. Mekko/Marimekko chart layout, accent BCG green (#00A651). Action title + chart body + source footer.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/mekko_bcg_green_market_entry.png",
+      "_status": "generated"
+    },
+    {
+      "id": "mekko_mckinsey_blue_finance",
+      "layout": "mekko",
+      "theme": "mckinsey_blue",
+      "domain": "finance",
+      "prompt": "Generate a single professional consulting slide image (1280x720 PNG). Style: McKinsey-style consulting. Mekko/Marimekko chart layout, accent McKinsey navy (#001E62). Action title + chart body + source footer.",
+      "path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/mekko_mckinsey_blue_finance.png",
       "_status": "generated"
     }
   ]

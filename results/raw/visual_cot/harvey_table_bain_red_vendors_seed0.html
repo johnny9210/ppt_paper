@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Scoring Matrix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            height: 90%;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+        }
+        .header {
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2em;
+            color: red;
+            margin: 0;
+        }
+        .header p {
+            font-size: 1.2em;
+            color: grey;
+        }
+        .table {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-collapse: collapse;
+        }
+        .table div {
+            border: 1px solid black;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .table .header {
+            background-color: lightgrey;
+            font-weight: bold;
+            justify-content: center;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .vendor-a .icon { background-color: grey; }
+        .vendor-b .icon { background-color: red; }
+        .vendor-c .icon { background-color: grey; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vendor B leads on 4 of 5 evaluation criteria, justifying selection</h1>
+            <p>Vendor scoring matrix</p>
+        </div>
+        <div class="table">
+            <div class="header">Criterion</div>
+            <div class="header">Vendor A</div>
+            <div class="header">Vendor B</div>
+            <div class="header">Vendor C</div>
+
+            <!-- Total Cost -->
+            <div>Total Cost</div>
+            <div class="vendor-a"><div class="icon"></div>Higher software fees, hidden costs.</div>
+            <div class="vendor-b"><div class="icon"></div>Lowest TCO over 5 years, competitive proposal.</div>
+            <div class="vendor-c"><div class="icon"></div>Average cost, but high maintenance.</div>
+
+            <!-- Implementation speed -->
+            <div>Implementation speed</div>
+            <div class="vendor-a"><div class="icon"></div>Estimates 9-12 months, resource intensive.</div>
+            <div class="vendor-b"><div class="icon"></div>Proven 6-month plan, phased approach.</div>
+            <div class="vendor-c"><div class="icon"></div>Slowest deployment, requires custom dev.</div>
+
+            <!-- Feature completeness -->
+            <div>Feature completeness</div>
+            <div class="vendor-a"><div class="icon"></div>Strong core features, lacks some analytics.</div>
+            <div class="vendor-b"><div class="icon"></div>Comprehensive suite, meets all critical needs.</div>
+            <div class="vendor-c"><div class="icon"></div>Basic functionality, significant gaps.</div>
+
+            <!-- Vendor stability -->
+            <div>Vendor stability</div>
+            <div class="vendor-a"><div class="icon"></div>Recent acquisition, uncertain roadmap.</div>
+            <div class="vendor-b"><div class="icon"></div>Market leader, strong financial health.</div>
+            <div class="vendor-c"><div class="icon"></div>High risk, declining market share.</div>
+
+            <!-- Customer references -->
+            <div>Customer references</div>
+            <div class="vendor-a"><div class="icon"></div>Positive feedback from similar firms.</div>
+            <div class="vendor-b"><div class="icon"></div>Mixed reviews on support responsiveness.</div>
+            <div class="vendor-c"><div class="icon"></div>Limited relevant case studies.</div>
+        </div>
+    </div>
+</body>
+</html></div>
+</body></html>

@@ -1,0 +1,13 @@
+```
+z=0: type=background, count=1, label=white background
+z=1: type=title, count=1, label=Vendor B leads on 4 of 5 evaluation criteria, justifying selection
+z=2: type=subtitle, count=1, label=Vendor scoring matrix
+z=3: type=table, count=1, label=vendor scoring comparison table
+z=4: type=text, count=3, label=Vendor A, Vendor B, Vendor C
+z=5: type=text, count=5, label=Total Cost, Implementation speed, Feature completeness, Vendor stability, Customer references
+z=6: type=highlight, count=1, label=red rectangle border highlighting Vendor B column
+z=7: type=icon, count=15, label=pie chart circle ratings for each vendor and criterion
+z=8: type=text, count=15, label=descriptive notes for each vendor and criterion cell
+z=9: type=text, count=1, label=Source: Vendor RFP scoring, Dec 2025
+z=10: type=text, count=1, label=page number 8
+```

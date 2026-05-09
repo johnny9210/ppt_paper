@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+    body {
+        font-family: Arial, sans-serif;
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        background-color: #f4f4f4;
+    }
+    .container {
+        width: 90%;
+        background-color: white;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 20px;
+    }
+    .title {
+        color: #a33333;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .description {
+        color: gray;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .matrix {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .matrix th, .matrix td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
+        vertical-align: top;
+    }
+    .matrix th {
+        background-color: #ffffff;
+        color: #444;
+    }
+    .highlight {
+        background-color: rgba(255, 102, 102, 0.1);
+        border-left: 4px solid #cc0000;
+    }
+    .circle {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+        background: conic-gradient(#444 0 75%, transparent 75% 100%);
+    }
+    .circle.red {
+        background: conic-gradient(#cc0000 0 85%, transparent 85% 100%);
+    }
+</style>
+
+<div class="container">
+    <div class="title">Vendor B leads on 4 of 5 evaluation criteria, justifying selection</div>
+    <div class="description">Vendor scoring matrix</div>
+    <table class="matrix">
+        <tr>
+            <th>Criterion</th>
+            <th>Vendor A</th>
+            <th class="highlight">Vendor B</th>
+            <th>Vendor C</th>
+        </tr>
+        <tr>
+            <td>Total Cost</td>
+            <td><span class="circle"></span>Higher software fees, hidden costs.</td>
+            <td class="highlight"><span class="circle red"></span>Lowest TCO over 5 years, competitive proposal.</td>
+            <td><span class="circle"></span>Average cost, but high maintenance.</td>
+        </tr>
+        <tr>
+            <td>Implementation speed</td>
+            <td><span class="circle"></span>Estimates 9-12 months, resource intensive.</td>
+            <td class="highlight"><span class="circle red"></span>Proven 6-month plan, phased approach.</td>
+            <td><span class="circle"></span>Slowest deployment, requires custom dev.</td>
+        </tr>
+        <tr>
+            <td>Feature completeness</td>
+            <td><span class="circle"></span>Strong core features, lacks some analytics.</td>
+            <td class="highlight"><span class="circle red"></span>Comprehensive suite, meets all critical needs.</td>
+            <td><span class="circle"></span>Basic functionality, significant gaps.</td>
+        </tr>
+        <tr>
+            <td>Vendor stability</td>
+            <td><span class="circle"></span>Recent acquisition, uncertain roadmap.</td>
+            <td class="highlight"><span class="circle red"></span>Market leader, strong financial health.</td>
+            <td><span class="circle"></span>High risk, declining market share.</td>
+        </tr>
+        <tr>
+            <td>Customer references</td>
+            <td><span class="circle"></span>Positive feedback from similar firms.</td>
+            <td class="highlight"><span class="circle"></span>Mixed reviews on support responsiveness.</td>
+            <td><span class="circle"></span>Limited relevant case studies.</td>
+        </tr>
+    </table>
+</div></div>
+</body></html>
