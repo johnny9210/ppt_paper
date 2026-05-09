@@ -446,6 +446,8 @@ D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=50 main_eva
 
 Text Inserter를 제거하면 N=50 평균 CCR이 0.975 → 0.632로 감소(−35%)하며 — 입력 텍스트의 약 1/3이 코드에서 사라진다 — Joint Pass rate(CCR≥0.7 ∧ CSS≥10 동시 만족)는 0.76 → 0.16으로 4.75배 떨어진다. 다층 시각 효과 디자인 subset(N=10 dark_glass)에서는 효과가 훨씬 뚜렷해 CCR이 0.880 → 0.193으로 catastrophic하게 무너지며 (−78%, 텍스트 80% 이상 누락), 개별 design에서는 CCR 1.0 → 0.083(design_10_stats_hero, −92%), 1.0 → 0.125(design_08_roadmap, −88%) 같은 극단적 사례가 관찰된다. 반면 CSS Richness는 거의 동일하거나 (subset에서) 오히려 증가하는데, 이는 Card Detail Agent가 여전히 시각 생성을 담당하기 때문이며, 텍스트 삽입 부담을 동시에 지면 시각 생성에 attention이 분산되지 않기 때문이다. 이 결과는 시각·콘텐츠 단계 분리가 zero-sum을 구조적으로 줄이는 데 기여함을 N=50 규모에서 직접 확인시키며, 효과 강도는 visual-effect density가 높은 디자인에서 가장 강하게 나타난다 (사전등록 가설 H-AblationTextInserter 채택, 부록 A).
 
+본 design-conditional 패턴(subset 효과 강도 −0.687 > N=50 평균 효과 강도 −0.343, 약 2배)은 §3.2의 H-RAG zero-sum 패턴(다층 디자인 subset CCR −13% > N=50 평균 −4%) 및 §6.3 per-layout breakdown(다층 시각 효과 디자인에서만 두 평가 축이 LayerAgent 우세에 합의)과 정렬되며, paper 전반에서 visual-effect density가 process-level intervention의 효과 강도를 modulated하는 핵심 변수임을 일관되게 보여준다.
+
 D₄ (no_designspec) — DesignSpec blackboard 효과 (N=50 mixed main_eval framework, 다면적 평가 지표):
 
 | Metric | D (full) | D₄ (no_designspec) | Δ (D − D₄) |
