@@ -12,7 +12,7 @@ by 정일균 (Ilgyun Jeong)
 
 초록
 
-프레젠테이션 슬라이드는 배경·카드·콘텐츠·아이콘 등 여러 시각 층이 위아래로 겹쳐 구성되는 계층적 시각 구조다. 본 연구는 GPT-4o가 슬라이드 이미지를 자연어로는 5–8개 레이어로 기술하면서 같은 이미지를 HTML로 변환할 때는 평균 1.6개만 코드에 반영하는 perception–generation 격차를 관찰하고, 이를 슬라이드 도메인의 계층적 element omission 현상으로 정식화한다. 이를 다루기 위해 단일 VLM 호출을 8개 전문 에이전트의 layer 단위 분해로 재구성하는 multi-agent framework LayerAgent를 제안한다.
+프레젠테이션 슬라이드는 배경·카드·콘텐츠·아이콘 등 여러 시각 층이 위아래로 겹쳐 구성되는 계층적 시각 구조다. 본 연구는 GPT-4o가 슬라이드 이미지를 자연어로는 평균 6.6개(범위 5–10)의 레이어로 기술하면서 같은 이미지를 HTML로 변환할 때는 평균 1.8개만 코드에 반영하는 perception–generation 격차를 관찰하고, 이를 슬라이드 도메인의 계층적 element omission 현상으로 정식화한다. 이를 다루기 위해 단일 VLM 호출을 8개 전문 에이전트의 layer 단위 분해로 재구성하는 multi-agent framework LayerAgent를 제안한다.
 
 평가 결과는 두 방향으로 엇갈린다. 동일 GPT-4o 조건에서 LayerAgent는 DOM 구조 지표(VEC, EDC, VLC, CRP, HD)를 일괄 생성 대비 1.6–2.6배 개선하지만, MLLM judge로 측정한 종합적 발표 품질은 일괄 생성이 평균적으로 우세하다 (3.37 vs 2.65, N=50 4-criteria 평균). LayerAgent의 holistic 우위는 다층 시각 효과 디자인 조건(N=10, dark_glass theme)에서만 관찰되며(MLLM Δ=+0.12), 이 subset은 §3.2 perception–generation 격차의 motivation을 만든 pilot 슬라이드와 동일하다는 한계를 가진다. Frontier 모델 일괄 생성(GPT-5.4)은 자동 지표 6개 모두와 비용에서 LayerAgent를 능가한다.
 
@@ -30,9 +30,9 @@ by 정일균 (Ilgyun Jeong)
 
 이러한 시각 층들이 정확한 층 순서(stacking order)와 좌표로 겹쳐야 의도된 디자인이 구현된다. 그러나 단일 VLM 호출은 이 계층 구조를 충분히 반영하지 못한 채 HTML을 위에서 아래로 한 번에 생성한다 — `<div>` 태그가 직렬로 나열되고, 층의 명시적 순서 표기(CSS의 `z-index` 속성)는 거의 사용되지 않으며, 요소 간 공간 관계는 DOM 작성 순서에 암묵적으로 의존한다.
 
-본 연구의 출발점은 다음의 관찰이다. 같은 GPT-4o에게 "이 이미지의 계층 구조를 설명하라"고 물으면 5–8개의 레이어를 자연어로 기술하지만, 같은 이미지를 "HTML로 변환하라"고 물으면 그 계층 구조의 상당 부분을 코드에 반영하지 못한다 (§3.2 표). 즉 같은 모델이 기술 단계에서는 다층 구조를 인식하면서도 코드 생성 단계에서는 그 대부분을 잃는다.
+본 연구의 출발점은 다음의 관찰이다. 같은 GPT-4o에게 "이 이미지의 계층 구조를 설명하라"고 물으면 평균 6.6개(범위 5–10)의 레이어를 자연어로 기술하지만, 같은 이미지를 "HTML로 변환하라"고 물으면 그 계층 구조의 상당 부분을 코드에 반영하지 못한다 (§3.2 표). 즉 같은 모델이 기술 단계에서는 다층 구조를 인식하면서도 코드 생성 단계에서는 그 대부분을 잃는다.
 
-이러한 실패 양식은 본 연구의 사전 pilot 관찰(§3.2, N=10 다층 시각 효과 디자인)에서 반복적으로 확인된 패턴이다. 디자인 프롬프트가 배경, 장식 요소, 반투명 카드, 텍스트, 아이콘 등 여러 시각 계층과 복합 CSS 효과를 명시적으로 요구하더라도, 단일 VLM 호출의 HTML 출력은 일부 계층을 생략하고 단색 배경과 평면 카드의 단순 구조로 회귀하며, perception이 보장한 5–8 layer 중 평균 1.6개만 HTML/CSS 구조에 반영된다. 본 논문의 모든 경험적 주장은 §5에서 기술하는 통제 실험 결과에 한정해 보고한다.
+이러한 실패 양식은 본 연구의 사전 pilot 관찰(§3.2, N=10 다층 시각 효과 디자인)에서 반복적으로 확인된 패턴이다. 디자인 프롬프트가 배경, 장식 요소, 반투명 카드, 텍스트, 아이콘 등 여러 시각 계층과 복합 CSS 효과를 명시적으로 요구하더라도, 단일 VLM 호출의 HTML 출력은 일부 계층을 생략하고 단색 배경과 평면 카드의 단순 구조로 회귀하며, perception이 평균 6.6개(범위 5–10)의 layer를 기술하지만 그중 평균 1.8개만 HTML/CSS 구조에 반영된다. 본 논문의 모든 경험적 주장은 §5에서 기술하는 통제 실험 결과에 한정해 보고한다.
 
 본 논문은 이 현상을 (계층적) element omission이라고 부른다 — Design-to-Code 선행 연구에서 개별 요소 단위로 보고된 element omission이, 슬라이드 도메인에서는 시각 계층(layer) 단위로 통째 누락되는 형태로 확장되어 나타난다. 이는 메트릭 이름이 아니라 현상의 이름이며, 인식된 시각 계층·스타일 정보가 코드 생성 결과에서 충분히 구현되지 않는 현상을 가리킨다.
 
@@ -50,13 +50,13 @@ Element omission이 한 번의 호출 안에서 구조·스타일·콘텐츠가 
 
 본 연구의 LayerAgent는 이 모든 실패를 전체 이미지 분석 → 공유 디자인 명세 작성 → 8개 전문 에이전트의 병렬 레이어 생성 → 결정적 조립 → 카드 간 스타일 통일 → 텍스트 주입의 다단계 파이프라인으로 함께 다룬다 (각 단계의 자세한 구조와 역할은 §4). 본 시스템은 다섯 가지 mechanism으로 구성된다 — vision-grounded specialist (각 에이전트가 자신이 맡은 영역만 직접 본다), DesignSpec blackboard (공유 디자인 명세를 통한 cross-agent 스타일 통일), Text Inserter (시각 디자인 확정 후 텍스트 주입으로 시각과 콘텐츠 단계 분리), CV grounding (k-means 팔레트와 OCR 텍스트 높이 같은 결정적 시각 측정값으로 색과 크기의 환각 감소), library retrieval (아이콘과 도형의 환각된 자산 URL 차단). 본 논문은 이 중 DesignSpec blackboard와 Text Inserter 두 mechanism의 인과 효과를 격리 측정하고 (§6.6), 나머지는 통합 시스템의 architectural choice로 포함한다.
 
-통합 시스템은 동일 GPT-4o 단일 호출 대비 자동 지표 8개 중 7개에서 우위를 보였다 (§6.1). 격리 측정 결과는 다음과 같다(§6.6). DesignSpec 제거 시 N=50 다면적 평가 자동 지표 8개 중 7개가 악화되었으며(특히 SSIM −0.174, LPIPS +0.080, CRP −4.4), 이는 cross-agent 시각 일관성 보존 효과를 직접 확인시킨다. Text Inserter 제거 시 콘텐츠 보존율이 0.78에서 0.09로 감소하여(CCR Δ=0.69), 시각과 콘텐츠 단계 분리의 효과가 확인되었다.
+통합 시스템은 동일 GPT-4o 단일 호출 대비 DOM 구조 지표 5개(VEC/EDC/VLC/CRP/HD) 모두에서 우위를 보이며, render-based 시각 유사도 3개(SSIM/CLIP/LPIPS)에서는 단일 호출이 우세하다 (§6.1). 격리 측정 결과는 다음과 같다(§6.6). DesignSpec 제거 시 N=50 다면적 평가 자동 지표 8개 중 7개가 악화되었으며(특히 SSIM −0.174, LPIPS +0.080, CRP −4.4), 이는 cross-agent 시각 일관성 보존 효과를 직접 확인시킨다. Text Inserter 제거 시 콘텐츠 보존율이 0.78에서 0.09로 감소하여(CCR Δ=0.69), 시각과 콘텐츠 단계 분리의 효과가 확인되었다.
 
 제4절 연구 질문과 기여
 
 본 연구는 세 개의 연구 질문으로 정식화된다. 각 질문은 본 연구의 dataset이 직접 지지하는 경험적 주장에 한정된다. Frontier 모델 일괄 생성과의 비교는 별도의 연구 질문이 아니라 적용 범위의 경계를 명시하는 보조 분석으로 §6.2 (Boundary Analysis)와 부록 C에서 별도 보고하며, 본 연구의 주된 비교 대상은 동일 GPT-4o 조건의 생성 방식들이다.
 
-- RQ1 (현상 — 계층 반영 격차): GPT-4o 기반 일괄 생성은 perception 단계에서 기술된 5–8개의 시각 계층 중 어느 정도를 HTML/CSS 생성 단계에서 반영하지 못하는가? — §3.2·§3.3에서 답한다 (class name이나 사전 정의 layer label에 의존하지 않는 단순 layer 수 측정, 즉 명명 규칙 비의존(class-name-independent) n_layers 기준에서 일괄 생성은 평균 1.6개 layer만 반영).
+- RQ1 (현상 — 계층 반영 격차): GPT-4o 기반 일괄 생성은 perception 단계에서 기술된 평균 6.6개(범위 5–10)의 시각 계층 중 어느 정도를 HTML/CSS 생성 단계에서 반영하지 못하는가? — §3.2·§3.3에서 답한다 (class name이나 사전 정의 layer label에 의존하지 않는 단순 layer 수 측정, 즉 명명 규칙 비의존(class-name-independent) n_layers 기준에서 일괄 생성은 평균 1.8개 layer만 반영).
 - RQ2 (방법 — 동일 모델 분해 효과): 동일 모델 조건(same-model, 즉 모든 비교 메서드가 같은 GPT-4o를 사용하는 조건)에서, LayerAgent의 계층 분해 생성은 본 연구의 layered slide dataset 전반에서 편집 가능한 HTML/CSS 구조 지표를 개선하는가? — §6.1 Table 1로 답한다. 단, 종합적 발표 품질 차원은 RQ3의 평가 축 간 불일치 분석에서 별도 해석한다.
 - RQ3 (적용 범위와 평가 해석): LayerAgent의 효과는 어떤 layout 조건에서 유지되며, 자동 구조·시각 지표와 MLLM judge는 이 효과를 어떻게 다르게 평가하는가? — §6.4–§6.5의 레이아웃 유형별 분석과 평가 축 불일치 분석으로 답한다.
 
@@ -120,15 +120,15 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 
 제2절 Element omission의 가시화 — 1차 진단
 
-본 절은 element omission 현상을 가시화하는 1차 진단을 보고한다. 가장 신뢰할 수 있는 직접 증거는 다음과 같다. VLM이 같은 이미지에 대해 perception 단계에서는 평균 5–8개의 layer를 자연어로 기술하지만, code generation 단계에서는 0–4개의 layer만 HTML/CSS 구조에 반영한다. 이 layer 개수의 격차는 어떤 class name 어휘에도 의존하지 않는 단순 카운트이므로, element omission 현상이 실재한다는 사실 자체에 대해 가장 안정적인 근거를 제공한다.
+본 절은 element omission 현상을 가시화하는 1차 진단을 보고한다. 가장 신뢰할 수 있는 직접 증거는 다음과 같다. VLM이 같은 이미지에 대해 perception 단계에서는 평균 6.6개(범위 5–10)의 layer를 자연어로 기술하지만, code generation 단계에서는 평균 1.8개(범위 0–4)의 layer만 HTML/CSS 구조에 반영한다. 이 layer 개수의 격차는 어떤 class name 어휘에도 의존하지 않는 단순 카운트이므로, element omission 현상이 실재한다는 사실 자체에 대해 가장 안정적인 근거를 제공한다.
 
 | 단계 (probing_minimal pilot, N=10 다층 시각 효과 디자인, GPT-4o) | `n_layers` 평균 (명명 규칙 비의존) |
 |---|:---:|
-| Stage A perception (자연어로 layer 기술) | 5–8 |
-| Stage B1 일괄 생성 (이미지 → HTML) | 0–4 |
-| Stage B2 LayerAgent (이미지 → HTML) | 5–10 |
+| Stage A perception (자연어로 layer 기술) | 6.6 (범위 5–10) |
+| Stage B1 일괄 생성 (이미지 → HTML) | 1.8 (범위 0–4) |
+| Stage B2 LayerAgent (이미지 → HTML) | 8.2 (범위 5–10) |
 
-즉 일괄 생성에서 perception이 보장한 5–8 layer 중 평균 1.6개만 HTML/CSS 구조에 반영되며, LayerAgent에서 평균 5.4개로 회복된다 (`experiments/probing/probing_minimal.py`). 이 격차의 양상은 다층 시각 효과 디자인 subset에서 두드러지고 평면 차트 layout에서 약화되며, 정량적 결과는 §6.4의 layout-dependent 효과 범위에서 다면적 평가 지표로 다시 보고된다.
+즉 일괄 생성에서 perception이 평균 6.6개(범위 5–10)로 기술한 layer 중 평균 1.8개만 HTML/CSS 구조에 반영되며, LayerAgent에서 평균 8.2개로 회복된다 (`experiments/probing/probing_minimal.py`). 이 격차의 양상은 다층 시각 효과 디자인 subset에서 두드러지고 평면 차트 layout에서 약화되며, 정량적 결과는 §6.4의 layout-dependent 효과 범위에서 다면적 평가 지표로 다시 보고된다.
 
 본 절은 이 격차를 Layer Recall과 LTED 같은 class-name-aligned 메트릭으로도 정량화한다. 다만 이 메트릭들은 LayerAgent class name 어휘에 정렬된 regex에 의존하므로, 동일한 시각 구조를 구현하더라도 다른 class 이름을 사용하는 출력은 layer로 인식되지 않아 거짓 negative로 보고되는 클래스명 편향(class-name bias) 위험을 가진다 (§3.1, §8 한계). 본 논문은 element omission의 정량 main result를 §6.1 Table 1의 다면적 평가 지표로 보고하며, 본 절의 명명 규칙 정렬 수치(N=10 pilot, N=50 main_eval, Figure 1)는 현상 가시화의 보조 자료로 부록 B에 수록한다.
 
@@ -402,11 +402,11 @@ LayerAgent의 same-model 우세(Table 1)가 분해 효과인지 아니면 단순
 |---|---|:---:|:---:|:---:|
 | 일괄 생성 (`single_pass`, baseline A) | 기본 일괄 생성 | 0.823 ± 0.14 | 0.224 ± 0.13 | (main_eval) |
 | z-index 명시 일괄 생성 (`single_pass_zexplicit`, baseline A') | z-index 6-band를 prompt에 명시 추가 | 0.844 ± 0.12 | 0.292 ± 0.17 | 3.8 |
-| LayerAgent (`layeragent`, D) | 계층 단위 분해 생성 (full pipeline) | 0.551 ± 0.13 | 0.759 ± 0.16 | 8.5 |
+| LayerAgent (`layeragent`, D) | 계층 단위 분해 생성 (full pipeline) | 0.551 ± 0.13 | 0.759 ± 0.16 | 8.2 |
 
 표 주: LTED와 Layer Recall은 §3.1의 보조 metric이다. avg layer count는 명명 규칙과 무관한 단순 카운트이므로 방향성 해석은 안정적이다.
 
-z-explicit prompt는 보조 metric Recall을 0.224 → 0.292로 살짝 올리지만 LayerAgent의 0.759와는 거리가 있다. avg layer count(명명 규칙과 무관)도 z-explicit 3.8 vs LayerAgent 8.5로 차이가 유지된다. 즉 단순 z-index 명시만으로는 LayerAgent와 같은 수준의 계층적 element 반영이 나오지 않는다. generation capacity 증가에 대한 인과 주장은 본 표 단독이 아니라 §6.1 Table 1 + §6.6 ablation 결과와 함께 해석한다.
+z-explicit prompt는 보조 metric Recall을 0.224 → 0.292로 살짝 올리지만 LayerAgent의 0.759와는 거리가 있다. avg layer count(명명 규칙과 무관)도 z-explicit 3.8 vs LayerAgent 8.2로 차이가 유지된다. 즉 단순 z-index 명시만으로는 LayerAgent와 같은 수준의 계층적 element 반영이 나오지 않는다. generation capacity 증가에 대한 인과 주장은 본 표 단독이 아니라 §6.1 Table 1 + §6.6 ablation 결과와 함께 해석한다.
 
 ---
 
@@ -471,7 +471,7 @@ Table 5. 본 연구가 정착시키는 메트릭 축 분리.
 
 본 절은 두 mechanism의 정량 격리 측정 결과를 보고한다 — Text Inserter 분리(D₂, N=5 pilot)와 DesignSpec blackboard(D₄, N=50 main_eval framework와 N=10 다층 시각 효과 디자인 조건의 다면적 평가 지표).
 
-D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (`tables/exp2_summary.json` N=5 pilot):
+D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=5 pilot, `layeragent/ablations.py` 의 `no_text_inserter` 플래그):
 
 | 조건 | CCR ↑ | CSS Richness ↑ | Joint Pass ↑ |
 |---|:---:|:---:|:---:|
@@ -535,7 +535,7 @@ H-RAG의 zero-sum, D₂ ablation의 분리 효과, §3.3의 cross-VLM frontier b
 
 Cross-VLM frontier baseline(§3.3)에서 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두 baseline gap이 0.69–0.78 범위에 분포한다. frontier upgrade만으로는 격차의 약화가 작다. LayerAgent와 frontier의 공정 비교는 §6.2의 다면적 평가 결과를 따르며, 그곳에서 GPT-5.4가 LayerAgent를 능가한다.
 
-본 장의 종합. LayerAgent의 가치는 frontier model의 능가가 아니라 same-model 조건에서 단계 분리가 부여하는 구조적 일관성에 있다. Same-model GPT-4o에서는 분해가 DOM-based와 render-based 자동 지표 8개 중 7개에서 우세를 보이지만(MLLM judge 차원에서는 우세에 미달), prompt engineering(§6.3)만으로는 같은 격차가 관찰되지 않는다. 한편 frontier model upgrade는 별개의 cost-quality 차원에서 LayerAgent를 능가할 수 있으며(§6.2 GPT-5.4 비교에서 LayerAgent의 우세가 관찰되지 않는다), 본 논문은 이를 적용 범위 외부의 결과로 명시한다.
+본 장의 종합. LayerAgent의 가치는 frontier model의 능가가 아니라 same-model 조건에서 단계 분리가 부여하는 구조적 일관성에 있다. Same-model GPT-4o에서는 분해가 DOM 구조 지표 5개 전부에서 우세를 보이는 반면 render-based 시각 유사도 3개에서는 일괄 생성이 우세하며(MLLM judge 차원에서도 우세에 미달), prompt engineering(§6.3)만으로는 같은 격차가 관찰되지 않는다. 한편 frontier model upgrade는 별개의 cost-quality 차원에서 LayerAgent를 능가할 수 있으며(§6.2 GPT-5.4 비교에서 LayerAgent의 우세가 관찰되지 않는다), 본 논문은 이를 적용 범위 외부의 결과로 명시한다.
 
 제5절 비대칭적 시각 입력의 일반 원리
 
@@ -563,7 +563,7 @@ Cross-VLM frontier baseline(§3.3)에서 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두
 
 본 논문은 Design-to-Code 프레젠테이션 생성에서의 계층적 element omission — Design-to-Code 선행 연구의 element omission이 슬라이드의 시각 계층 단위로 확장된 형태 — 을 정의하고, 이를 분석하고 완화하기 위한 LayerAgent framework와 다면적 평가 방식을 제안했다. LayerAgent는 모든 layout과 모든 frontier model을 능가하지 않으며, 본 논문의 기여는 측정으로 직접 지지되는 세 가지 한정된 사실로 정리된다.
 
-- (Problem) 슬라이드 도메인의 계층적 element omission 정식화 (§3): 같은 VLM이 이미지를 자연어로 기술할 때는 평균 5–8개의 layer를 인식하지만, 같은 이미지를 HTML로 변환할 때는 일괄 생성 기준 평균 1.6개의 layer만 HTML/CSS 구조에 반영된다 — 이 perception–generation 격차가 슬라이드 도메인의 시각 계층 단위 element omission 현상이며, 명명 규칙과 무관한 layer count 측정에서도 신뢰성 있게 가시화된다.
+- (Problem) 슬라이드 도메인의 계층적 element omission 정식화 (§3): 같은 VLM이 이미지를 자연어로 기술할 때는 평균 6.6개(범위 5–10)의 layer를 인식하지만, 같은 이미지를 HTML로 변환할 때는 일괄 생성 기준 평균 1.8개의 layer만 HTML/CSS 구조에 반영된다 — 이 perception–generation 격차가 슬라이드 도메인의 시각 계층 단위 element omission 현상이며, 명명 규칙과 무관한 layer count 측정에서도 신뢰성 있게 가시화된다.
 
 - (Method) LayerAgent framework (§4): DesignSpec blackboard, vision-grounded specialist agents, style normalization, text insertion 분리를 포함한 multi-agent layer decomposition framework이다. 본 논문은 DesignSpec blackboard(D₄, N=50 다면적 평가에서 8개 자동 지표 중 7개 악화 — 특히 SSIM Δ=0.174, LPIPS Δ=0.080)와 Text Inserter(D₂, CCR Δ=0.69) 두 mechanism의 인과 효과를 격리 측정한다 (§6.6).
 
@@ -651,9 +651,9 @@ B.1 §3.2 probing pilot의 명명 규칙 정렬 수치
 |---|:---:|:---:|:---:|
 | `Layer Recall` (vs $T_P$, 명명 규칙 정렬) | 1.00 (sanity) | 0.195 | 0.676 |
 | `gap = 1 − Recall` (명명 규칙 정렬) | 0.00 | 0.805 | 0.324 |
-| `LTED` ↓ (명명 규칙 정렬) | 0.00 | 0.82 | 0.55 |
+| `LTED` ↓ (명명 규칙 정렬) | 0.00 | 0.75 | 0.62 |
 
-(B) main_eval — N=50 mixed, 4-method (`experiments/main_eval.py`, `analyze_results.py`):
+(B) main_eval — N=50 mixed, 4-method (`experiments/main_eval.py`, `experiments/analyze_results.py`):
 
 | Method | Layer Recall ↑ (명명 규칙 정렬) | gap (1−Recall) ↓ (명명 규칙 정렬) |
 |---|:---:|:---:|
@@ -662,7 +662,7 @@ B.1 §3.2 probing pilot의 명명 규칙 정렬 수치
 | single_pass | 0.212 ± 0.15 | 0.788 |
 | layeragent | 0.397 ± 0.23 | 0.603 |
 
-위 수치는 element omission의 정량적 가시화를 보조하지만, Layer Recall 절대값은 LayerAgent vocabulary에 정렬되어 있어 상대 비교에서 LayerAgent의 우위가 과대 평가될 가능성이 있다. 따라서 본 논문의 main 메시지는 §3.2 본문의 명명 규칙 비의존 n_layers 격차("일괄 생성이 perception이 보장한 layer 중 평균 1.6개만 HTML/CSS 구조에 반영한다")에 한정한다.
+위 수치는 element omission의 정량적 가시화를 보조하지만, Layer Recall 절대값은 LayerAgent vocabulary에 정렬되어 있어 상대 비교에서 LayerAgent의 우위가 과대 평가될 가능성이 있다. 따라서 본 논문의 main 메시지는 §3.2 본문의 명명 규칙 비의존 n_layers 격차("일괄 생성이 perception이 기술한 평균 6.6개 layer 중 평균 1.8개만 HTML/CSS 구조에 반영한다")에 한정한다.
 
 ![Figure 1: Layer Recall × method (N=50)](results/figures/fig1_gap.png)
 
