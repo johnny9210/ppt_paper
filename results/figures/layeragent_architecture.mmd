@@ -1,43 +1,44 @@
-flowchart TD
+flowchart TB
     A["<b>Analyzer</b><br/>전체 이미지 → 레이아웃 + bbox"]
     B["<b>Design Director</b><br/>+ CV facts → DesignSpec (blackboard)"]
-    S1["Base BG<br/><i>vision, full</i>"]
-    S2["Atmosphere<br/><i>vision, full</i>"]
-    S3["Decoration<br/><i>vision, full</i>"]
-    S4["Card Detail × N<br/><i>crop</i>"]
-    S5["Hero Detail × N<br/><i>crop</i>"]
-    S6["Icon Agent<br/><i>library</i>"]
-    S7["Chart Agent"]
-    S8["Table Agent"]
-    C["<b>Assembler</b><br/>z-index stacking"]
-    D["<b>Style Normalizer</b><br/>cross-card CSS 통일"]
-    E["<b>Text Inserter</b><br/>완성 시각 → 콘텐츠 주입"]
+
+    subgraph G1 ["Always-active Layer Specialists"]
+        direction TB
+        S1["Base BG<br/><i>vision, full</i>"]
+        S2["Atmosphere<br/><i>vision, full</i>"]
+        S3["Decoration<br/><i>vision, full</i>"]
+        S4["Card Detail × N<br/><i>crop</i>"]
+    end
+
+    subgraph G2 ["Conditional Specialists (slide_type · content별)"]
+        direction TB
+        S5["Hero Detail × N<br/><i>crop</i>"]
+        S6["Icon Agent<br/><i>library</i>"]
+        S7["Chart Agent<br/><i>type=chart</i>"]
+        S8["Table Agent<br/><i>type=table</i>"]
+    end
+
+    C["<b>Assembler</b> · z-index stacking"]
+    D["<b>Style Normalizer</b> · cross-card CSS 통일"]
+    E["<b>Text Inserter</b> · 완성 시각 → 콘텐츠 주입"]
 
     A --> B
-    B --> S1
-    B --> S2
-    B --> S3
-    B --> S4
-    B --> S5
-    B --> S6
-    B --> S7
-    B --> S8
-    S1 --> C
-    S2 --> C
-    S3 --> C
-    S4 --> C
-    S5 --> C
-    S6 --> C
-    S7 --> C
-    S8 --> C
+    B --> G1
+    B --> G2
+    G1 --> C
+    G2 --> C
     C --> D
     D --> E
 
     classDef stage0 fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#000
-    classDef stage1 fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#000
-    classDef specialist fill:#E0E7FF,stroke:#4F46E5,stroke-width:1.5px,color:#000
+    classDef specAlways fill:#E0E7FF,stroke:#4F46E5,stroke-width:1.5px,color:#000
+    classDef specCond fill:#F5F3FF,stroke:#7C3AED,stroke-width:1.5px,stroke-dasharray:4 2,color:#000
     classDef stage2 fill:#D1FAE5,stroke:#059669,stroke-width:2px,color:#000
 
     class A,B stage0
+    class S1,S2,S3,S4 specAlways
+    class S5,S6,S7,S8 specCond
     class C,D,E stage2
-    class S1,S2,S3,S4,S5,S6,S7,S8 specialist
+
+    style G1 fill:#F0F4FF,stroke:#4F46E5,stroke-width:1.5px,color:#000
+    style G2 fill:#FAF5FF,stroke:#7C3AED,stroke-width:1.5px,color:#000
