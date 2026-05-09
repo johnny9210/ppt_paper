@@ -132,7 +132,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 
 본 절은 이 격차를 Layer Recall과 LTED 같은 class-name-aligned 메트릭으로도 정량화한다. 다만 이 메트릭들은 LayerAgent class name 어휘에 정렬된 regex에 의존하므로, 동일한 시각 구조를 구현하더라도 다른 class 이름을 사용하는 출력은 layer로 인식되지 않아 거짓 negative로 보고되는 클래스명 편향(class-name bias) 위험을 가진다 (§3.1, §8 한계). 본 논문은 element omission의 정량 main result를 §6.1 Table 1의 다면적 평가 지표로 보고하며, 본 절의 명명 규칙 정렬 수치(N=10 pilot, N=50 main_eval, Figure 1)는 현상 가시화의 보조 자료로 부록 B에 수록한다.
 
-핵심 발견 — Pattern injection의 zero-sum (H-RAG 역설). 패턴 주입 생성(`cot_h_rag`, 복합 CSS 효과 레시피 RAG 주입)은 N=5 pilot 측정에서 CSS Richness 2.8 → 10.3으로 상승하는 동시에 string-CCR이 0.80 → 0.26으로 감소한다 — 텍스트 약 74%가 코드에서 사라진다. 이 zero-sum은 콘텐츠 보존 측정(CCR, 명명 규칙과 무관)에서 직접 관찰되며, 단일 VLM의 자기회귀 토큰 예산이 시각 표현과 텍스트 사이에서 경쟁한다는 메커니즘 가설(§7.1)에 부합한다. LayerAgent의 D₂ ablation(§6.5)은 이 zero-sum이 단계 분리로 줄어들 수 있음을 시사한다.
+핵심 발견 — Pattern injection의 design-conditional zero-sum (H-RAG 역설). 패턴 주입 생성(`cot_h_rag`, 복합 CSS 효과 레시피 RAG 주입)에서 zero-sum 현상은 design 유형에 따라 강도가 극적으로 달라진다. 텍스트 밀도가 높은 chart·table 계열에서는 catastrophic한 zero-sum이 발생해 입력 텍스트의 절반 이상이 코드에서 사라진다 — mekko_mckinsey_finance에서 CCR 1.0 → 0.36 (−64%), harvey_table_editorial_warm에서 1.0 → 0.43 (−57%), waterfall_editorial_warm에서 1.0 → 0.55 (−45%). 시각 효과 밀도가 높은 다층 시각 효과 디자인 subset(N=10 dark_glass)에서도 zero-sum이 평균 수준에서 명확하게 관찰되며, CSS Richness가 10.2 → 17.8 (+75%)로 크게 상승하는 동시에 CCR이 0.956 → 0.828 (−13%)로 감소한다. N=50 dataset 평균(CCR 0.869 → 0.832, CSS 5.08 → 7.82)은 평면 layout이 평균을 희석하기 때문에 −4%로 작아지지만, design별 분포는 zero-sum이 visual-effect density 또는 text density가 높은 조건에서 가장 강하게 발현됨을 보여준다. 이는 콘텐츠 보존 측정(CCR, 명명 규칙과 무관)에서 직접 관찰되며, 단일 VLM의 자기회귀 토큰 예산이 시각 표현과 텍스트 사이에서 경쟁한다는 메커니즘 가설(§7.1)에 부합한다. LayerAgent의 D₂ ablation(§6.5)은 이 zero-sum이 단계 분리로 줄어들 수 있음을 시사한다.
 
 제3절 Cross-VLM probing
 
@@ -211,7 +211,7 @@ A2UI Protocol (Google, 2026)이 client-side renderer로 design-system을 강제�
 
 완전히 스타일링된 HTML(배경, 카드, 정규화된 스타일)과 콘텐츠 데이터(제목, 설명, 메트릭, 리스트)를 입력받아, 기존 카드 구조 내의 빈 컨테이너를 식별하고 텍스트를 주입한다.
 
-이 단계의 핵심은 시각 디자인을 먼저 확정한 뒤 텍스트를 주입한다는 순서에 있다. 단일 VLM에서 풍부한 CSS 생성과 정확한 텍스트 배치가 zero-sum 경쟁을 벌이는 현상(H-RAG에서 CSS Richness가 상승하지만 콘텐츠가 74% 손실되는 양상)이 단계 분리에 의해 구조적으로 해소된다. 이 효과는 `no_text_inserter` 플래그로 격리해 측정할 수 있다.
+이 단계의 핵심은 시각 디자인을 먼저 확정한 뒤 텍스트를 주입한다는 순서에 있다. 단일 VLM에서 풍부한 CSS 생성과 정확한 텍스트 배치가 zero-sum 경쟁을 벌이는 현상(H-RAG에서 다층 디자인 subset 평균 CCR −13% / CSS +75%, chart·table 계열의 개별 design에서는 CCR 1.0 → 0.36–0.55까지 catastrophic하게 하락)이 단계 분리에 의해 구조적으로 해소된다. 이 효과는 `no_text_inserter` 플래그로 격리해 측정할 수 있다.
 
 제8절 Overflow Repair (선택)
 
