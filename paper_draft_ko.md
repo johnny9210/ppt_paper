@@ -419,11 +419,11 @@ Table 4. 9개 레이아웃 유형별 LayerAgent 효과 비교. Primary axis는 M
 | Layout | N | MLLM LayerAgent (primary) | MLLM Δ (primary) | LTED LayerAgent (aux) | LTED Δ (aux) | Primary 해석 |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
 | 다층 시각 효과 디자인 | 10 | 4.15 | +0.12 | 0.551 | +0.27 | LayerAgent 우세 (보조 지표 동방향) |
-| pyramid | 5 | 1.90 | −1.50 | 0.764 | +0.17 | 일괄 생성 우세 (보조 지표만 LayerAgent 우세) |
+| pyramid | 5 | 1.90 | −1.50 | 0.764 | +0.08 | 일괄 생성 우세 (보조 지표만 LayerAgent 우세) |
 | mekko | 5 | 2.15 | −1.50 | 0.753 | +0.08 | 일괄 생성 우세 (보조 지표만 LayerAgent 우세) |
 | process_flow | 5 | 2.30 | −1.60 | 0.818 | +0.06 | 일괄 생성 우세 (보조 지표만 LayerAgent 우세) |
 | harvey_table | 5 | 3.25 | −0.85 | 0.923 | −0.05 | 일괄 생성 우세 (양 축 동방향) |
-| matrix_2x2 | 5 | 2.05 | −0.45 | 0.917 | +0.01 | 일괄 생성 우세 (보조 지표만 LayerAgent 우세) |
+| matrix_2x2 | 5 | 2.05 | −0.45 | 0.917 | +0.00 | 일괄 생성 우세 (보조 지표만 LayerAgent 우세) |
 | waterfall | 5 | 2.45 | −0.35 | 0.662 | −0.03 | 일괄 생성 우세 (양 축 동방향) |
 | line_chart | 5 | 2.20 | −0.40 | 0.845 | −0.03 | 일괄 생성 우세 (양 축 동방향) |
 | bar_chart | 5 | 1.90 | −1.10 | 0.733 | −0.09 | 일괄 생성 우세 (양 축 동방향) |
@@ -626,9 +626,9 @@ H-AblationTextInserter (Text Inserter 분리 효과, §6.6) — 채택
 H-AblationDesignSpec (DesignSpec cross-agent 합치, §6.6) — 채택 (N=50 다면적 평가), 부분 채택 (N=10 다층 디자인 subset)
 - 결정 규칙 (재정식화): EDC/CRP/CLIP 3개 지표 중 ≥ 2개에서 D > D₄ (또는 EDC Δ ≥ 1.0 AND CLIP(D) ≥ CLIP(D₄)).
 - 측정 결과 (N=50 mixed main_eval framework, 다면적 평가 지표):
-  - 다수결 규칙: EDC ✓ (+0.4), CRP ✓ (+4.6), CLIP ✓ (+0.027) — 3/3 채택.
+  - 다수결 규칙: EDC ✓ (+0.4), CRP ✓ (+4.4), CLIP ✓ (+0.027) — 3/3 채택.
   - Strict 규칙: EDC Δ = +0.4 < 1.0 ❌, CLIP Δ = +0.027 ≥ 0 ✓ — strict 부분 충족.
-  - 8개 다면적 평가 자동 지표 종합: D 우세 7개 (VEC/EDC/VLC/CRP/SSIM/CLIP/LPIPS), 동률 1개 (HD, Δ −0.1). 가장 큰 효과는 SSIM Δ = +0.172, LPIPS Δ = −0.082, CRP Δ = +4.6.
+  - 8개 다면적 평가 자동 지표 종합: D 우세 7개 (VEC/EDC/VLC/CRP/SSIM/CLIP/LPIPS), 동률 1개 (HD). 가장 큰 효과는 SSIM Δ = +0.174, LPIPS Δ = −0.080, CRP Δ = +4.4.
 - 측정 결과 (N=10 다층 시각 효과 디자인 조건 subset):
   - 8개 다면적 평가 자동 지표: D 우세 4개 (CRP/SSIM/CLIP/LPIPS, 시각 fidelity 4개), D₄ 우세 4개 (VEC/EDC/VLC/HD, 구조 다양성 4개)로 consistency vs raw diversity trade-off가 관찰된다.
   - 다수결 규칙: CRP ✓, CLIP ✓, EDC ✗ — 2/3 채택 (경계).
