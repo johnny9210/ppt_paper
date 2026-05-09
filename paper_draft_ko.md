@@ -229,7 +229,7 @@ Chat Mode는 기존 데이터셋 spec 대신 자연어 메시지와 참조 이�
 
 본 논문은 LayerAgent의 두 mechanism — DesignSpec blackboard와 Text Inserter — 의 인과 효과를 격리 측정한다 (§6.5). 각 ablation은 해당 component를 noop으로 대체하는 방식으로 구성된다 (`no_designspec` flag → D₄, `no_text_inserter` flag → D₂).
 
-모든 실험은 GPT-4o, LangGraph, Playwright 환경에서 수행되었다. 전체 코드와 단위 테스트는 본 연구의 공개 저장소에 수록되어 있다.
+모든 실험은 GPT-4o, LangGraph, Playwright 환경에서 수행되었다.
 
 ---
 
@@ -293,7 +293,6 @@ Legacy sanity check — Class-name-aligned (참고용, main claim 외):
 
 Render guard 점검에서 모든 메서드가 Playwright로 100% 정상 렌더링됨을 확인했다.
 
-모든 메트릭 코드와 단위 테스트는 본 연구의 공개 저장소에 수록되어 있다.
 
 제4절 실험 인프라
 
