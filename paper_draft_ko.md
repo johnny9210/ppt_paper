@@ -50,7 +50,7 @@ Element omission이 한 번의 호출 안에서 구조·스타일·콘텐츠가 
 
 본 연구의 LayerAgent는 이 모든 실패를 전체 이미지 분석 → 공유 디자인 명세 작성 → 8개 전문 에이전트의 병렬 레이어 생성 → 결정적 조립 → 카드 간 스타일 통일 → 텍스트 주입의 다단계 파이프라인으로 함께 다룬다 (각 단계의 자세한 구조와 역할은 §4). 본 시스템은 다섯 가지 mechanism으로 구성된다 — vision-grounded specialist (각 에이전트가 자신이 맡은 영역만 직접 본다), DesignSpec blackboard (공유 디자인 명세를 통한 cross-agent 스타일 통일), Text Inserter (시각 디자인 확정 후 텍스트 주입으로 시각과 콘텐츠 단계 분리), CV grounding (k-means 팔레트와 OCR 텍스트 높이 같은 결정적 시각 측정값으로 색과 크기의 환각 감소), library retrieval (아이콘과 도형의 환각된 자산 URL 차단). 본 논문은 이 중 DesignSpec blackboard와 Text Inserter 두 mechanism의 인과 효과를 격리 측정하고 (§6.5), 나머지는 통합 시스템의 architectural choice로 포함한다.
 
-통합 시스템은 동일 GPT-4o 단일 호출 대비 DOM 구조 지표 5개(VEC/EDC/VLC/CRP/HD) 모두에서 우위를 보이며, render-based 시각 유사도 3개(SSIM/CLIP/LPIPS)에서는 단일 호출이 우세하다 (§6.1). 격리 측정 결과는 다음과 같다(§6.5). DesignSpec 제거 시 N=50 다면적 평가 자동 지표 8개 중 7개가 악화되었으며(특히 SSIM −0.174, LPIPS +0.080, CRP −4.4), 이는 cross-agent 시각 일관성 보존 효과를 직접 확인시킨다. Text Inserter 제거 시 콘텐츠 보존율이 0.78에서 0.09로 감소하여(CCR Δ=0.69), 시각과 콘텐츠 단계 분리의 효과가 확인되었다.
+통합 시스템은 동일 GPT-4o 단일 호출 대비 DOM 구조 지표 5개(VEC/EDC/VLC/CRP/HD) 모두에서 우위를 보이며, render-based 시각 유사도 3개(SSIM/CLIP/LPIPS)에서는 단일 호출이 우세하다 (§6.1). 격리 측정 결과는 다음과 같다(§6.5). DesignSpec 제거 시 N=50 다면적 평가 자동 지표 8개 중 7개가 악화되었으며(특히 SSIM −0.174, LPIPS +0.080, CRP −4.4), 이는 cross-agent 시각 일관성 보존 효과를 직접 확인시킨다. Text Inserter 제거 시 N=50 평균 CCR이 0.975에서 0.632로 감소하고(Δ=−0.343), 다층 디자인 subset에서는 0.880 → 0.193(−0.687)으로 더 강하게 나타나, 시각과 콘텐츠 단계 분리의 효과가 N=50 규모에서 직접 확인되었다.
 
 제4절 연구 질문과 기여
 
@@ -64,7 +64,7 @@ Element omission이 한 번의 호출 안에서 구조·스타일·콘텐츠가 
 
 1. Problem — 슬라이드 도메인의 계층적 element omission 정식화. Design-to-Code 선행 연구에서 개별 요소 단위로 보고된 element omission이 슬라이드 도메인에서는 시각 계층(layer) 단위로 통째 누락되는 형태로 나타나는 현상을 정식화한다 (§3). 이는 현상의 이름이며, 메커니즘은 생성 단계의 capacity allocation 문제로 가설화된다 (§7.1, 가설 수준).
 
-2. Method — LayerAgent framework. DesignSpec blackboard + vision-grounded specialists + style normalization + text insertion 분리를 포함한 multi-agent layer decomposition 프레임워크 (§4). 본 논문은 DesignSpec blackboard (D₄, N=50 다면적 평가에서 8개 지표 중 7개 악화)와 Text Inserter (D₂, CCR Δ=0.69) 두 mechanism의 인과 효과를 격리 측정한다 (§6.5).
+2. Method — LayerAgent framework. DesignSpec blackboard + vision-grounded specialists + style normalization + text insertion 분리를 포함한 multi-agent layer decomposition 프레임워크 (§4). 본 논문은 DesignSpec blackboard (D₄, N=50 다면적 평가에서 8개 지표 중 7개 악화)와 Text Inserter (D₂, N=50 main_eval CCR Δ=0.343 / 다층 디자인 subset CCR Δ=0.687) 두 mechanism의 인과 효과를 격리 측정한다 (§6.5).
 
 3. Evaluation & Finding — 다면적 평가를 통한 효과 범위 규명. Method-specific class name이나 사전 정의된 layer vocabulary에 의존하지 않는 평가 protocol을 구성하고 (DOM 구조 지표 + render-based 시각 유사도 + multimodal LLM-as-judge의 결합·정렬, §5.3), 그 위에서 LayerAgent의 효과 범위를 측정했다. 그 결과 LayerAgent는 same-model GPT-4o 조건에서 본 연구의 layered slide dataset 전반에서 DOM 구조 지표를 일관되게 개선했으며, 이 구조적 개선은 visual-effect density가 높은 subset에서 render-based 시각 유사도 개선으로도 확장되었다. 다만 종합적 발표 품질(MLLM judge) 차원과 frontier 모델 일괄 생성(GPT-5.4·Claude 4.6 Opus)과의 비교에서는 우세가 관찰되지 않으며 (§8.3 적용 범위 한계 절), 본 연구의 기여는 완성 슬라이드 품질의 전면적 향상이 아니라 편집 가능한 HTML/CSS 계층 구조 복원으로 한정된다.
 
@@ -434,17 +434,17 @@ Table 5. 본 연구가 정착시키는 메트릭 축 분리.
 
 제5절 Ablation
 
-본 절은 두 mechanism의 정량 격리 측정 결과를 보고한다 — Text Inserter 분리(D₂, N=5 pilot)와 DesignSpec blackboard(D₄, N=50 main_eval framework와 N=10 다층 시각 효과 디자인 조건의 다면적 평가 지표).
+본 절은 두 mechanism의 정량 격리 측정 결과를 보고한다 — Text Inserter 분리(D₂)와 DesignSpec blackboard(D₄). 두 ablation 모두 N=50 main_eval과 N=10 다층 시각 효과 디자인 subset에서 측정된다.
 
-D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=5 pilot):
+D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=50 main_eval, Joint Pass threshold: CCR≥0.7 ∧ CSS Richness≥10):
 
 | 조건 | CCR ↑ | CSS Richness ↑ | Joint Pass ↑ |
 |---|:---:|:---:|:---:|
-| D (full) | 0.78 | 54.4 | 0.6 |
-| D₂ (no_text_inserter) | 0.09 | 52.2 | 0.0 |
-| Δ | −0.69 | −2.2 | −0.6 |
+| D (full) | 0.975 | 30.18 | 0.76 |
+| D₂ (no_text_inserter) | 0.632 | 32.44 | 0.16 |
+| Δ (D − D₂) | +0.343 | −2.26 | +0.60 |
 
-Text Inserter를 제거하면 CCR이 0.78에서 0.09로 크게 감소한다. Card Detail Agent가 텍스트 삽입 부담까지 함께 처리할 경우 시각 생성에 attention이 분산되어 콘텐츠가 약 80% 누락되기 때문이다. 반면 CSS Richness는 거의 동일하게 유지되며, 이는 Card Detail이 여전히 시각 생성을 담당하기 때문이다. 이 결과는 시각·콘텐츠 단계 분리가 zero-sum을 구조적으로 줄이는 데 기여함을 시사한다 (N=5 pilot 결과).
+Text Inserter를 제거하면 N=50 평균 CCR이 0.975 → 0.632로 감소(−35%)하며 — 입력 텍스트의 약 1/3이 코드에서 사라진다 — Joint Pass rate(CCR≥0.7 ∧ CSS≥10 동시 만족)는 0.76 → 0.16으로 4.75배 떨어진다. 다층 시각 효과 디자인 subset(N=10 dark_glass)에서는 효과가 훨씬 뚜렷해 CCR이 0.880 → 0.193으로 catastrophic하게 무너지며 (−78%, 텍스트 80% 이상 누락), 개별 design에서는 CCR 1.0 → 0.083(design_10_stats_hero, −92%), 1.0 → 0.125(design_08_roadmap, −88%) 같은 극단적 사례가 관찰된다. 반면 CSS Richness는 거의 동일하거나 (subset에서) 오히려 증가하는데, 이는 Card Detail Agent가 여전히 시각 생성을 담당하기 때문이며, 텍스트 삽입 부담을 동시에 지면 시각 생성에 attention이 분산되지 않기 때문이다. 이 결과는 시각·콘텐츠 단계 분리가 zero-sum을 구조적으로 줄이는 데 기여함을 N=50 규모에서 직접 확인시키며, 효과 강도는 visual-effect density가 높은 디자인에서 가장 강하게 나타난다 (사전등록 가설 H-AblationTextInserter 채택, 부록 A).
 
 D₄ (no_designspec) — DesignSpec blackboard 효과 (N=50 mixed main_eval framework, 다면적 평가 지표):
 
@@ -465,7 +465,7 @@ DesignSpec blackboard를 제거하면 8개 다면적 평가 자동 지표 중 7�
 
 ![Figure 4: D₂ and D₄ ablation impact](results/figures/fig4_ablation.png)
 
-Figure 4. 두 mechanism 격리 측정 시각화. 좌측: D₂ (Text Inserter 분리)를 제거하면 CCR이 0.78 → 0.09로 급감하며(N=5 pilot), 시각·콘텐츠 단계 분리 효과를 보여준다. 우측: D₄ (DesignSpec blackboard)를 제거하면 N=50 다면적 평가 8개 지표 중 7개가 악화되며, 특히 render-based 시각 fidelity(SSIM, CLIP, LPIPS, CRP)에서 큰 차이를 보인다. 막대 위의 숫자는 raw 값(VEC/EDC/CRP는 정수 계열, SSIM/CLIP/LPIPS는 [0,1] 범위)이며, 막대 높이는 metric별 max로 정규화된다.
+Figure 4. 두 mechanism 격리 측정 시각화. 좌측: D₂ (Text Inserter 분리)를 제거하면 N=50 평균 CCR이 0.975 → 0.632로(다층 디자인 subset에서는 0.880 → 0.193으로) 감소하며, 시각·콘텐츠 단계 분리 효과를 보여준다. 우측: D₄ (DesignSpec blackboard)를 제거하면 N=50 다면적 평가 8개 지표 중 7개가 악화되며, 특히 render-based 시각 fidelity(SSIM, CLIP, LPIPS, CRP)에서 큰 차이를 보인다. 막대 위의 숫자는 raw 값(VEC/EDC/CRP는 정수 계열, SSIM/CLIP/LPIPS는 [0,1] 범위)이며, 막대 높이는 metric별 max로 정규화된다.
 
 
 제7장 논의
@@ -546,7 +546,7 @@ GPT-5.4 일괄 생성은 본 표의 자동 지표 6개 모두에서 LayerAgent�
 
 - (Problem) 슬라이드 도메인의 계층적 element omission 정식화 (§3): 같은 VLM이 이미지를 자연어로 기술할 때는 평균 6.6개(범위 5–10)의 layer를 인식하지만, 같은 이미지를 HTML로 변환할 때는 일괄 생성 기준 평균 1.8개의 layer만 HTML/CSS 구조에 반영된다 — 이 perception–generation 격차가 슬라이드 도메인의 시각 계층 단위 element omission 현상이며, 명명 규칙과 무관한 layer count 측정에서도 신뢰성 있게 가시화된다.
 
-- (Method) LayerAgent framework (§4): DesignSpec blackboard, vision-grounded specialist agents, style normalization, text insertion 분리를 포함한 multi-agent layer decomposition framework이다. 본 논문은 DesignSpec blackboard(D₄, N=50 다면적 평가에서 8개 자동 지표 중 7개 악화 — 특히 SSIM Δ=0.174, LPIPS Δ=0.080)와 Text Inserter(D₂, CCR Δ=0.69) 두 mechanism의 인과 효과를 격리 측정한다 (§6.5).
+- (Method) LayerAgent framework (§4): DesignSpec blackboard, vision-grounded specialist agents, style normalization, text insertion 분리를 포함한 multi-agent layer decomposition framework이다. 본 논문은 DesignSpec blackboard(D₄, N=50 다면적 평가에서 8개 자동 지표 중 7개 악화 — 특히 SSIM Δ=0.174, LPIPS Δ=0.080)와 Text Inserter(D₂, N=50 main_eval CCR Δ=0.343, 다층 디자인 subset Δ=0.687) 두 mechanism의 인과 효과를 격리 측정한다 (§6.5).
 
 - (Evaluation & Finding) 다면적 평가 방식과 LayerAgent의 효과 범위 (§5.3, §6): class name이나 사전 정의된 layer vocabulary에 의존하지 않는 평가 protocol(DOM-based 구조 + render-based 시각 유사도 + multimodal LLM-as-judge의 결합·정렬) 위에서 LayerAgent의 상대적 강점은 다음으로 한정된다.
   - (RQ2, Table 1) 본 연구의 layered slide dataset 전반에서 LayerAgent는 DOM 구조 지표(VEC/EDC/VLC/CRP/HD)에서 일괄 생성 대비 1.6–2.6배 일관된 우위를 보인다. 즉 동일 GPT-4o 위에서 분해 전략이 편집 가능한 HTML/CSS 구조의 풍부성을 광범위하게 회복한다. 다만 render-based 시각 유사도(SSIM/CLIP/LPIPS)는 일괄 생성에 밀린다 — 구조적 풍부성 증가가 시각 유사도 향상으로 자동 전이되지는 않는다.
@@ -601,7 +601,7 @@ H-MetricAxisDisagreement (RQ3 part B 평가 축 간 불일치, §6.4) — 채택
 
 H-AblationTextInserter (Text Inserter 분리 효과, §6.5) — 채택
 - 결정 규칙: string-CCR(D) − string-CCR(D₂) ≥ 0.30 AND Layer Recall(D) > Layer Recall(D₂)
-- 측정 결과 (N=5 pilot): string-CCR Δ = 0.69로 채택한다.
+- 측정 결과 (N=50 main_eval): string-CCR Δ = 0.343 (D=0.975 → D₂=0.632), Joint Pass Δ = 0.60 (D=0.76 → D₂=0.16). 다층 디자인 subset(N=10)에서는 string-CCR Δ = 0.687로 더 강하게 나타난다. 채택.
 - 주: CCR은 명명 규칙과 무관한 콘텐츠 보존 메트릭이므로 본 가설 채택은 클래스명 편향과 독립적이다.
 
 H-AblationDesignSpec (DesignSpec cross-agent 합치, §6.5) — 채택 (N=50 다면적 평가), 부분 채택 (N=10 다층 디자인 subset)

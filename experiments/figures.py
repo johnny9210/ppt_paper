@@ -251,18 +251,18 @@ def fig4_ablation() -> None:
     """D₂ (Text Inserter) and D₄ (DesignSpec) ablation impact."""
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
 
-    # Left: D₂ Text Inserter (CCR ↓ when removed)
+    # Left: D₂ Text Inserter (CCR ↓ when removed) — N=50 main_eval
     ax = axes[0]
     cats = ["CCR ↑", "CSS Richness ↑", "Joint Pass ↑"]
-    d_full = [0.78, 54.4, 0.6]
-    d_no_ti = [0.09, 52.2, 0.0]
+    d_full = [0.975, 30.18, 0.76]
+    d_no_ti = [0.632, 32.44, 0.16]
     x = np.arange(len(cats))
     w = 0.36
     ax.bar(x - w/2, d_full, w, label="D (full)", color="#3B82F6")
     ax.bar(x + w/2, d_no_ti, w, label="D2 (no Text Inserter)", color="#94A3B8")
     ax.set_xticks(x)
     ax.set_xticklabels(cats)
-    ax.set_title("D2: Text Inserter ablation (N=5 pilot)", fontsize=10)
+    ax.set_title("D2: Text Inserter ablation (N=50 main_eval)", fontsize=10)
     ax.legend(loc="upper right", fontsize=8)
     for i, (v1, v2) in enumerate(zip(d_full, d_no_ti)):
         ax.text(i - w/2, v1 + max(d_full)*0.02, f"{v1:.2f}" if v1 < 1 else f"{v1:.0f}", ha="center", fontsize=8)

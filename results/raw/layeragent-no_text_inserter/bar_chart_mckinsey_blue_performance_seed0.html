@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container bar_chart_mckinsey_blue_performance" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .bar_chart_mckinsey_blue_performance-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, #012F56, #EAEBEC);
+  }
+</style>
+<div class="bar_chart_mckinsey_blue_performance-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"><div style="position:absolute;left:8.0%;top:58.0%;
+                        width:84.0%;height:37.0%;z-index:8;
+                        display:flex;flex-direction:column;align-items:center;justify-content:center;
+                        padding:2%;">
+  <div style="font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:8px;font-weight:600;">Revenue vs plan by business unit</div>
+  <svg width="600" height="266" viewBox="0 0 600 266">
+      <rect x="22.2" y="206.7" width="55.6" height="39.3" fill="#EAEBEC" opacity="0.85" rx="3"/><text x="50.0" y="262" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">BU1</text><rect x="122.2" y="167.3" width="55.6" height="78.7" fill="#EAEBEC" opacity="0.85" rx="3"/><text x="150.0" y="262" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">BU2</text><rect x="222.2" y="128.0" width="55.6" height="118.0" fill="#EAEBEC" opacity="0.85" rx="3"/><text x="250.0" y="262" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">BU3</text><rect x="322.2" y="88.7" width="55.6" height="157.3" fill="#EAEBEC" opacity="0.85" rx="3"/><text x="350.0" y="262" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">BU4</text><rect x="422.2" y="49.3" width="55.6" height="196.7" fill="#EAEBEC" opacity="0.85" rx="3"/><text x="450.0" y="262" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">BU5</text><rect x="522.2" y="10.0" width="55.6" height="236.0" fill="#EAEBEC" opacity="0.85" rx="3"/><text x="550.0" y="262" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">BU6</text>
+    </svg>
+</div></div>
+    
+    
+    <div class="card-wrap-1" style="position:absolute;left:4.0%;top:18.0%;width:13.7%;height:37.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(to bottom, #012F53, #43505B);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    color: #FFFFFF;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background-color: #43505B;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-1 .card-icon {
+    font-size: 1.25rem; /* proportional to small text size */
+    margin-right: 0.5rem;
+  }
+
+  .card-1 .card-value {
+    font-size: 1.25rem; /* proportional to small text size */
+  }
+
+  .card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .card-1 .card-label {
+    font-size: 1rem;
+    color: #A7AFB4;
+  }
+
+  .card-accent {
+    width: 80%;
+    height: 0.25rem;
+    background: linear-gradient(to right, #E8ECED, #A7AFB4);
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+  }
+
+</style>
+
+<div class="card-1">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-chart-line" style="font-size:1.8rem;color:#EAEBEC;"></i></div>
+    <div class="card-value">값자리</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">라벨자리</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-2" style="position:absolute;left:19.7%;top:18.0%;width:13.6%;height:37.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to bottom, #012F53, #43505B);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #E8ECEE;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-2 .card-icon {
+    font-size: 1.25rem; /* Based on smaller text size (16px) */
+    color: #032E51;
+  }
+
+  .card-2 .card-value {
+    font-size: 1.5rem; /* Based on larger text size (18px) */
+    color: #3C4A54;
+  }
+
+  .card-body {
+    width: 100%;
+    background: #ADB4B7;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-2 .card-label {
+    font-size: 0.9rem;
+    color: #3C4A54;
+    text-align: center;
+  }
+
+  .card-accent {
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #7E8284, #032E51);
+    border-radius: 5px;
+  }
+</style>
+
+<div class="card-2">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-building" style="font-size:1.8rem;color:#EAEBEC;"></i></div>
+    <div class="card-value">Value</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">Label</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:35.3%;top:18.0%;width:13.7%;height:37.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, #012F53, #43505B);
+    position: relative;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    background: #A7B4BD;
+    border-radius: 8px;
+    padding: 0.5rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .card-3 .card-icon {
+    width: 2rem;
+    height: 2rem;
+    background: #EBF2F4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-3 .card-value {
+    font-size: 0.98rem; /* 18px */
+    color: #EBF2F4;
+    font-weight: bold;
+  }
+
+  .card-body {
+    background: #546878;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    flex-grow: 1;
+  }
+
+  .card-3 .card-label {
+    font-size: 0.92rem; /* 17px */
+    color: #EBF2F4;
+    margin-top: 0.25rem;
+    text-align: center;
+  }
+
+  .card-accent {
+    width: 100%;
+    height: 0.25rem;
+    background: linear-gradient(to right, #013055, #546878);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<div class="card-3">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-award" style="font-size:1.8rem;color:#EAEBEC;"></i></div>
+    <div class="card-value"></div>
+  </div>
+  <div class="card-body">
+    <div class="card-label"></div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-4" style="position:absolute;left:51.0%;top:18.0%;width:13.7%;height:37.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #F5F5F5;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(145deg, #E9EEF0, #B4B9BB);
+    border-radius: 24px;
+    padding: 10px 20px;
+    margin-bottom: 16px;
+  }
+
+  .card-4 .card-icon {
+    font-size: 1.5rem; /* 24px */
+    color: #012F53;
+    margin-right: 8px;
+  }
+
+  .card-4 .card-value {
+    font-size: 1.125rem; /* 18px */
+    color: #012F53;
+  }
+
+  .card-4 .card-label {
+    font-size: 1rem; /* 16px */
+    color: #888C8E;
+    text-align: center;
+    background-color: #E9EEF0;
+    border-radius: 12px;
+    padding: 4px 12px;
+  }
+
+  .card-accent {
+    position: absolute;
+    bottom: 10px;
+    width: 60%;
+    height: 4px;
+    background: linear-gradient(90deg, #012F53, #3E5262);
+    border-radius: 2px;
+  }
+</style>
+
+<div class="card-4">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-bullseye" style="font-size:1.8rem;color:#EAEBEC;"></i></div>
+    <div class="card-value"></div>
+  </div>
+  <div class="card-label"></div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-5" style="position:absolute;left:66.7%;top:18.0%;width:13.6%;height:37.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-5 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to bottom, #012F53, #43505B);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #EFF2F2 0%, #C2CACE 100%);
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-5 .card-icon {
+    background: #4B5C6A;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+  }
+
+  .card-5 .card-value {
+    color: #EFF2F2;
+    font-size: 1.09rem;
+  }
+
+  .card-body {
+    background: #EFF2F2;
+    border-radius: 8px;
+    padding: 16px;
+    flex-grow: 1;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-5 .card-label {
+    color: #4B5C6A;
+    font-size: 0.76rem;
+    margin-top: 12px;
+  }
+
+  .card-accent {
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(to right, #032F52, #4B5C6A);
+    border-radius: 4px;
+    margin-top: 16px;
+  }
+</style>
+
+<div class="card-5">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#EAEBEC;"></i></div>
+    <div class="card-value"></div>
+  </div>
+  <div class="card-body">
+    <div class="card-label"></div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-6" style="position:absolute;left:82.3%;top:18.0%;width:13.7%;height:37.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-6 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(to bottom, #012F53, #43505B);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #42525F;
+    border-radius: 12px;
+    padding: 8px 16px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-6 .card-icon {
+    font-size: 0.87rem; /* Adjust proportionally */
+    color: #A9B4B9;
+  }
+
+  .card-6 .card-value {
+    font-size: 1.09rem; /* Adjust proportionally */
+    color: #FFFFFF;
+  }
+
+  .card-body {
+    margin: 16px 0;
+    background: linear-gradient(to right, #6A7D8B, #FFFFFF);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-6 .card-label {
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: #6A7D8B;
+    text-align: right;
+  }
+
+  .card-accent {
+    height: 4px;
+    width: 100%;
+    background: #012F54;
+    border-radius: 50px;
+  }
+</style>
+
+<div class="card-6">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-crown" style="font-size:1.8rem;color:#EAEBEC;"></i></div>
+    <div class="card-value">값자리</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">라벨자리</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#60A5FA;letter-spacing:0.08em;text-transform:uppercase;">Q4 revenue exceeded plan by 14% in 7 of 10 business units</div>
+    <div style="font-size:0.75rem;color:#F1F5F9;margin-top:4px;opacity:0.85;">Revenue vs plan by business unit</div>
+</div>
+</div></div>
+</body></html>

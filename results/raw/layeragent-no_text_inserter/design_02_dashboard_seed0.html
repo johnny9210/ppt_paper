@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><div class="slide-container design_02_dashboard" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+    body, html {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    .design_02_dashboard-bg-base {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: linear-gradient(to bottom, #021027 50%, #38859F);
+    }
+</style>
+
+<div class="design_02_dashboard-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+  <defs>
+    <pattern id="p-circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 0,20 L 30,20 L 30,40 L 60,40 L 60,15 L 80,15" stroke="#60A5FA" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <path d="M 10,0 L 10,30 L 50,30 L 50,55 L 75,55 L 75,80" stroke="#60A5FA" stroke-width="0.6" fill="none" opacity="0.18"/>
+      <circle cx="30" cy="20" r="1.5" fill="#60A5FA" opacity="0.18"/>
+      <circle cx="60" cy="40" r="1.5" fill="#60A5FA" opacity="0.18"/>
+      <circle cx="50" cy="30" r="1.5" fill="#60A5FA" opacity="0.18"/>
+      <circle cx="75" cy="55" r="1.5" fill="#60A5FA" opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#p-circuit)"/>
+</svg></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"><style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #021027;
+    overflow: hidden;
+  }
+
+  .design_02_dashboard-atmos {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(56, 133, 159, 0.25) 0%, rgba(2, 16, 39, 0) 70%);
+  }
+
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(2, 16, 39, 0) 30%, #021027 100%);
+  }
+</style>
+<div class="design_02_dashboard-atmos"></div>
+<div class="vignette"></div></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"><style>
+    .design_02_dashboard-decor {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .circle {
+        position: absolute;
+        width: 5%;
+        height: 5%;
+        border-radius: 50%;
+        background-color: rgba(190, 217, 223, 0.5);
+        box-shadow: 0 0 15px 5px #38859F;
+    }
+
+    .circle1 {
+        top: 10%;
+        left: 25%;
+    }
+
+    .circle2 {
+        top: 10%;
+        left: 50%;
+    }
+
+    .circle3 {
+        top: 10%;
+        left: 75%;
+    }
+
+    .line {
+        position: absolute;
+        top: 5%;
+        left: 10%;
+        width: 80%;
+        height: 2px;
+        background-color: rgba(190, 217, 223, 0.5);
+        box-shadow: 0 0 10px 3px #38859F;
+    }
+</style>
+<div class="design_02_dashboard-decor">
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="line"></div>
+</div></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"><div style="position:absolute;left:8.0%;top:55.0%;
+                        width:84.0%;height:40.0%;z-index:8;
+                        display:flex;flex-direction:column;align-items:center;justify-content:center;
+                        padding:2%;">
+  <div style="font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:8px;font-weight:600;">월별 매출 추이</div>
+  <svg width="520" height="140" viewBox="0 0 520 140">
+      <polyline points="0.0,140.0 74.3,118.5 148.6,123.8 222.9,96.9 297.1,80.8 371.4,64.6 445.7,37.7 520.0,0.0" stroke="#38859F" stroke-width="2" fill="none"
+                stroke-linecap="round" stroke-linejoin="round"
+                style="filter:drop-shadow(0 0 3px #38859F88);"/>
+    </svg>
+</div></div>
+    
+    
+    <div class="card-wrap-1" style="position:absolute;left:15.0%;top:15.0%;width:20.0%;height:20.0%;z-index:10;box-shadow:0 3px 0 0 #60A5FA;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(145deg, #031D36, #2E668A);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 30px #14efff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(31, 77, 98, 0.6);
+    border-radius: 20px;
+    padding: 10px 20px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(20, 239, 255, 0.5);
+    margin-bottom: 10px;
+  }
+
+  .card-1 .card-icon {
+    font-size: 1.5rem;
+    color: #14efff;
+    margin-right: 10px;
+  }
+
+  .card-1 .card-value {
+    font-size: 1.5rem;
+    color: #ffffff;
+  }
+
+  .card-body {
+    background: rgba(25, 63, 95, 0.8);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+  }
+
+  .card-1 .card-label {
+    background: linear-gradient(90deg, #5497B8, #3EC8EE);
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0;
+    margin-top: 10px;
+    font-size: 0.875rem;
+  }
+  
+  .card-accent {
+    height: 4px;
+    width: 50%;
+    background: linear-gradient(90deg, #5497B8, transparent);
+    border-radius: 2px;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="card-1">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-chart-line" style="font-size:1.8rem;color:#38859F;"></i></div>
+    <div class="card-value">값자리</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">라벨자리</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-2" style="position:absolute;left:40.0%;top:15.0%;width:20.0%;height:20.0%;z-index:10;box-shadow:0 3px 0 0 #60A5FA;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(145deg, #031D36, #2E668A);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 30px #14efff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #50D5E2, #27627A);
+    border-radius: 30px;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px #50D5E2;
+  }
+
+  .card-2 .card-icon {
+    width: 40px;
+    height: 40px;
+    background: #418FA8;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #418FA8;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-2 .card-value {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px #50D5E2;
+  }
+
+  .card-body {
+    width: 100%;
+    background: rgba(15, 37, 64, 0.5);
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px #27627A;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-2 .card-label {
+    color: #2de5fd;
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .card-accent {
+    width: 60px;
+    height: 10px;
+    background: linear-gradient(to right, #418FA8, #50D5E2);
+    border-radius: 5px;
+    box-shadow: 0 0 10px #418FA8;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="card-2">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-user" style="font-size:1.8rem;color:#38859F;"></i></div>
+    <div class="card-value">값자리</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">라벨자리</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:65.0%;top:15.0%;width:20.0%;height:20.0%;z-index:10;box-shadow:0 3px 0 0 #60A5FA;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(32, 56, 79, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 30px #14efff;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #53DFD5, #397484);
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-3 .card-icon {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-right: 10px;
+  }
+
+  .card-3 .card-value {
+    font-size: 2.5rem;
+    color: #ffffff;
+  }
+
+  .card-3 .card-label {
+    width: 80%;
+    line-height: 1.5;
+    text-align: center;
+    background: linear-gradient(90deg, #53DFD5, #397484);
+    border-radius: 25px;
+    padding: 5px 0;
+    color: #ffffff;
+    margin-top: 15px;
+  }
+
+  .card-accent {
+    width: 60%;
+    height: 8px;
+    background: linear-gradient(90deg, #53DFD5, #397484);
+    border-radius: 4px;
+    margin-top: 20px;
+  }
+</style>
+
+<div class="card-3">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-cloud" style="font-size:1.8rem;color:#38859F;"></i></div>
+    <div class="card-value"></div>
+  </div>
+  <div class="card-label"></div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#60A5FA;letter-spacing:0.08em;text-transform:uppercase;">Q4 2025 비즈니스 성과 대시보드</div>
+    
+</div>
+</div></div>
+</body></html>

@@ -1,0 +1,739 @@
+{
+  "D_full": {
+    "ccr": 0.9746344269765322,
+    "css_richness": 30.18,
+    "joint_pass": 0.76,
+    "n": 50
+  },
+  "D2_no_text_inserter": {
+    "ccr": 0.6319721287484446,
+    "css_richness": 32.44,
+    "joint_pass": 0.16,
+    "n": 50
+  },
+  "delta": {
+    "ccr": 0.3426622982280877,
+    "css_richness": -2.259999999999998,
+    "joint_pass": 0.6
+  },
+  "subset_dark_glass_n10": {
+    "D_full": {
+      "ccr": 0.8803149920255183,
+      "css_richness": 42.2
+    },
+    "D2_no_text_inserter": {
+      "ccr": 0.19333328221486118,
+      "css_richness": 57.3
+    },
+    "delta": {
+      "ccr": 0.6869817098106572,
+      "css_richness": -15.099999999999994
+    }
+  },
+  "per_design": {
+    "layeragent": [
+      {
+        "design_id": "design_01_timeline",
+        "ccr": 1.0,
+        "n_items": 15,
+        "n_found": 15,
+        "css_richness": 18
+      },
+      {
+        "design_id": "design_02_dashboard",
+        "ccr": 0.7272727272727273,
+        "n_items": 11,
+        "n_found": 8,
+        "css_richness": 36
+      },
+      {
+        "design_id": "design_03_comparison_split",
+        "ccr": 1.0,
+        "n_items": 11,
+        "n_found": 11,
+        "css_richness": 78
+      },
+      {
+        "design_id": "design_04_pyramid",
+        "ccr": 0.8333333333333334,
+        "n_items": 18,
+        "n_found": 15,
+        "css_richness": 53
+      },
+      {
+        "design_id": "design_05_hub_spoke",
+        "ccr": 0.625,
+        "n_items": 16,
+        "n_found": 10,
+        "css_richness": 54
+      },
+      {
+        "design_id": "design_06_before_after",
+        "ccr": 0.9333333333333333,
+        "n_items": 15,
+        "n_found": 14,
+        "css_richness": 35
+      },
+      {
+        "design_id": "design_07_feature_grid",
+        "ccr": 0.6842105263157895,
+        "n_items": 19,
+        "n_found": 13,
+        "css_richness": 65
+      },
+      {
+        "design_id": "design_08_roadmap",
+        "ccr": 1.0,
+        "n_items": 16,
+        "n_found": 16,
+        "css_richness": 30
+      },
+      {
+        "design_id": "design_09_layered_stack",
+        "ccr": 1.0,
+        "n_items": 13,
+        "n_found": 13,
+        "css_richness": 13
+      },
+      {
+        "design_id": "design_10_stats_hero",
+        "ccr": 1.0,
+        "n_items": 12,
+        "n_found": 12,
+        "css_richness": 40
+      },
+      {
+        "design_id": "mekko_mckinsey_blue_finance",
+        "ccr": 1.0,
+        "n_items": 11,
+        "n_found": 11,
+        "css_richness": 35
+      },
+      {
+        "design_id": "mekko_bcg_green_market_entry",
+        "ccr": 1.0,
+        "n_items": 9,
+        "n_found": 9,
+        "css_richness": 15
+      },
+      {
+        "design_id": "mekko_bain_red_customer",
+        "ccr": 1.0,
+        "n_items": 9,
+        "n_found": 9,
+        "css_richness": 25
+      },
+      {
+        "design_id": "mekko_minimal_white_industry",
+        "ccr": 1.0,
+        "n_items": 13,
+        "n_found": 13,
+        "css_richness": 34
+      },
+      {
+        "design_id": "mekko_editorial_warm_geography",
+        "ccr": 1.0,
+        "n_items": 11,
+        "n_found": 11,
+        "css_richness": 26
+      },
+      {
+        "design_id": "matrix_2x2_bcg_green_portfolio",
+        "ccr": 1.0,
+        "n_items": 14,
+        "n_found": 14,
+        "css_richness": 45
+      },
+      {
+        "design_id": "matrix_2x2_mckinsey_blue_risk",
+        "ccr": 1.0,
+        "n_items": 14,
+        "n_found": 14,
+        "css_richness": 62
+      },
+      {
+        "design_id": "matrix_2x2_bain_red_competition",
+        "ccr": 1.0,
+        "n_items": 14,
+        "n_found": 14,
+        "css_richness": 70
+      },
+      {
+        "design_id": "matrix_2x2_minimal_white_investment",
+        "ccr": 0.9285714285714286,
+        "n_items": 14,
+        "n_found": 13,
+        "css_richness": 59
+      },
+      {
+        "design_id": "matrix_2x2_editorial_warm_feature",
+        "ccr": 1.0,
+        "n_items": 14,
+        "n_found": 14,
+        "css_richness": 56
+      },
+      {
+        "design_id": "waterfall_mckinsey_blue_finance",
+        "ccr": 1.0,
+        "n_items": 11,
+        "n_found": 11,
+        "css_richness": 23
+      },
+      {
+        "design_id": "waterfall_bcg_green_growth",
+        "ccr": 1.0,
+        "n_items": 13,
+        "n_found": 13,
+        "css_richness": 21
+      },
+      {
+        "design_id": "waterfall_bain_red_cost",
+        "ccr": 1.0,
+        "n_items": 11,
+        "n_found": 11,
+        "css_richness": 40
+      },
+      {
+        "design_id": "waterfall_minimal_white_saas",
+        "ccr": 1.0,
+        "n_items": 11,
+        "n_found": 11,
+        "css_richness": 27
+      },
+      {
+        "design_id": "waterfall_editorial_warm_ebitda",
+        "ccr": 1.0,
+        "n_items": 11,
+        "n_found": 11,
+        "css_richness": 36
+      },
+      {
+        "design_id": "harvey_table_bcg_green_frameworks",
+        "ccr": 1.0,
+        "n_items": 24,
+        "n_found": 24,
+        "css_richness": 10
+      },
+      {
+        "design_id": "harvey_table_minimal_white_tools",
+        "ccr": 1.0,
+        "n_items": 25,
+        "n_found": 25,
+        "css_richness": 13
+      },
+      {
+        "design_id": "harvey_table_editorial_warm_candidates",
+        "ccr": 1.0,
+        "n_items": 7,
+        "n_found": 7,
+        "css_richness": 9
+      },
+      {
+        "design_id": "bar_chart_mckinsey_blue_performance",
+        "ccr": 1.0,
+        "n_items": 15,
+        "n_found": 15,
+        "css_richness": 62
+      },
+      {
+        "design_id": "bar_chart_bcg_green_growth",
+        "ccr": 1.0,
+        "n_items": 13,
+        "n_found": 13,
+        "css_richness": 36
+      },
+      {
+        "design_id": "bar_chart_bain_red_cost",
+        "ccr": 1.0,
+        "n_items": 3,
+        "n_found": 3,
+        "css_richness": 6
+      },
+      {
+        "design_id": "bar_chart_minimal_white_engagement",
+        "ccr": 1.0,
+        "n_items": 15,
+        "n_found": 15,
+        "css_richness": 39
+      },
+      {
+        "design_id": "bar_chart_editorial_warm_satisfaction",
+        "ccr": 1.0,
+        "n_items": 15,
+        "n_found": 15,
+        "css_richness": 55
+      },
+      {
+        "design_id": "line_chart_mckinsey_blue_trend",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 13
+      },
+      {
+        "design_id": "line_chart_bcg_green_competition",
+        "ccr": 1.0,
+        "n_items": 3,
+        "n_found": 3,
+        "css_richness": 8
+      },
+      {
+        "design_id": "line_chart_bain_red_performance",
+        "ccr": 1.0,
+        "n_items": 3,
+        "n_found": 3,
+        "css_richness": 9
+      },
+      {
+        "design_id": "line_chart_minimal_white_saas",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 14
+      },
+      {
+        "design_id": "line_chart_editorial_warm_audience",
+        "ccr": 1.0,
+        "n_items": 0,
+        "n_found": 0,
+        "css_richness": 6
+      },
+      {
+        "design_id": "process_flow_mckinsey_blue_transformation",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 9
+      },
+      {
+        "design_id": "process_flow_bcg_green_go_to_market",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 6
+      },
+      {
+        "design_id": "process_flow_bain_red_ops",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 9
+      },
+      {
+        "design_id": "process_flow_minimal_white_product",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 6
+      },
+      {
+        "design_id": "process_flow_editorial_warm_campaign",
+        "ccr": 1.0,
+        "n_items": 20,
+        "n_found": 20,
+        "css_richness": 42
+      },
+      {
+        "design_id": "pyramid_mckinsey_blue_executive_summary",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 33
+      },
+      {
+        "design_id": "pyramid_bcg_green_recommendation",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 10
+      },
+      {
+        "design_id": "pyramid_bain_red_thesis",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 25
+      },
+      {
+        "design_id": "pyramid_minimal_white_argument",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 35
+      },
+      {
+        "design_id": "pyramid_editorial_warm_narrative",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 38
+      },
+      {
+        "design_id": "harvey_table_bain_red_vendors",
+        "ccr": 1.0,
+        "n_items": 26,
+        "n_found": 26,
+        "css_richness": 11
+      },
+      {
+        "design_id": "harvey_table_mckinsey_blue_options",
+        "ccr": 1.0,
+        "n_items": 37,
+        "n_found": 37,
+        "css_richness": 9
+      }
+    ],
+    "layeragent-no_text_inserter": [
+      {
+        "design_id": "design_01_timeline",
+        "ccr": 0.4,
+        "n_items": 15,
+        "n_found": 6,
+        "css_richness": 75
+      },
+      {
+        "design_id": "design_02_dashboard",
+        "ccr": 0.36363636363636365,
+        "n_items": 11,
+        "n_found": 4,
+        "css_richness": 53
+      },
+      {
+        "design_id": "design_03_comparison_split",
+        "ccr": 0.2727272727272727,
+        "n_items": 11,
+        "n_found": 3,
+        "css_richness": 39
+      },
+      {
+        "design_id": "design_04_pyramid",
+        "ccr": 0.05555555555555555,
+        "n_items": 18,
+        "n_found": 1,
+        "css_richness": 14
+      },
+      {
+        "design_id": "design_05_hub_spoke",
+        "ccr": 0.0625,
+        "n_items": 16,
+        "n_found": 1,
+        "css_richness": 90
+      },
+      {
+        "design_id": "design_06_before_after",
+        "ccr": 0.13333333333333333,
+        "n_items": 15,
+        "n_found": 2,
+        "css_richness": 43
+      },
+      {
+        "design_id": "design_07_feature_grid",
+        "ccr": 0.05263157894736842,
+        "n_items": 19,
+        "n_found": 1,
+        "css_richness": 75
+      },
+      {
+        "design_id": "design_08_roadmap",
+        "ccr": 0.125,
+        "n_items": 16,
+        "n_found": 2,
+        "css_richness": 79
+      },
+      {
+        "design_id": "design_09_layered_stack",
+        "ccr": 0.38461538461538464,
+        "n_items": 13,
+        "n_found": 5,
+        "css_richness": 60
+      },
+      {
+        "design_id": "design_10_stats_hero",
+        "ccr": 0.08333333333333333,
+        "n_items": 12,
+        "n_found": 1,
+        "css_richness": 45
+      },
+      {
+        "design_id": "mekko_mckinsey_blue_finance",
+        "ccr": 0.7272727272727273,
+        "n_items": 11,
+        "n_found": 8,
+        "css_richness": 29
+      },
+      {
+        "design_id": "mekko_bcg_green_market_entry",
+        "ccr": 0.6666666666666666,
+        "n_items": 9,
+        "n_found": 6,
+        "css_richness": 26
+      },
+      {
+        "design_id": "mekko_bain_red_customer",
+        "ccr": 0.7777777777777778,
+        "n_items": 9,
+        "n_found": 7,
+        "css_richness": 19
+      },
+      {
+        "design_id": "mekko_minimal_white_industry",
+        "ccr": 0.6153846153846154,
+        "n_items": 13,
+        "n_found": 8,
+        "css_richness": 35
+      },
+      {
+        "design_id": "mekko_editorial_warm_geography",
+        "ccr": 0.6363636363636364,
+        "n_items": 11,
+        "n_found": 7,
+        "css_richness": 16
+      },
+      {
+        "design_id": "matrix_2x2_bcg_green_portfolio",
+        "ccr": 0.14285714285714285,
+        "n_items": 14,
+        "n_found": 2,
+        "css_richness": 50
+      },
+      {
+        "design_id": "matrix_2x2_mckinsey_blue_risk",
+        "ccr": 0.5714285714285714,
+        "n_items": 14,
+        "n_found": 8,
+        "css_richness": 37
+      },
+      {
+        "design_id": "matrix_2x2_bain_red_competition",
+        "ccr": 0.2857142857142857,
+        "n_items": 14,
+        "n_found": 4,
+        "css_richness": 61
+      },
+      {
+        "design_id": "matrix_2x2_minimal_white_investment",
+        "ccr": 0.5714285714285714,
+        "n_items": 14,
+        "n_found": 8,
+        "css_richness": 56
+      },
+      {
+        "design_id": "matrix_2x2_editorial_warm_feature",
+        "ccr": 0.5714285714285714,
+        "n_items": 14,
+        "n_found": 8,
+        "css_richness": 55
+      },
+      {
+        "design_id": "waterfall_mckinsey_blue_finance",
+        "ccr": 0.6363636363636364,
+        "n_items": 11,
+        "n_found": 7,
+        "css_richness": 20
+      },
+      {
+        "design_id": "waterfall_bcg_green_growth",
+        "ccr": 0.6153846153846154,
+        "n_items": 13,
+        "n_found": 8,
+        "css_richness": 49
+      },
+      {
+        "design_id": "waterfall_bain_red_cost",
+        "ccr": 0.45454545454545453,
+        "n_items": 11,
+        "n_found": 5,
+        "css_richness": 31
+      },
+      {
+        "design_id": "waterfall_minimal_white_saas",
+        "ccr": 0.8181818181818182,
+        "n_items": 11,
+        "n_found": 9,
+        "css_richness": 25
+      },
+      {
+        "design_id": "waterfall_editorial_warm_ebitda",
+        "ccr": 0.9090909090909091,
+        "n_items": 11,
+        "n_found": 10,
+        "css_richness": 44
+      },
+      {
+        "design_id": "harvey_table_bcg_green_frameworks",
+        "ccr": 1.0,
+        "n_items": 24,
+        "n_found": 24,
+        "css_richness": 9
+      },
+      {
+        "design_id": "harvey_table_minimal_white_tools",
+        "ccr": 1.0,
+        "n_items": 25,
+        "n_found": 25,
+        "css_richness": 9
+      },
+      {
+        "design_id": "harvey_table_editorial_warm_candidates",
+        "ccr": 1.0,
+        "n_items": 7,
+        "n_found": 7,
+        "css_richness": 9
+      },
+      {
+        "design_id": "bar_chart_mckinsey_blue_performance",
+        "ccr": 0.6,
+        "n_items": 15,
+        "n_found": 9,
+        "css_richness": 58
+      },
+      {
+        "design_id": "bar_chart_bcg_green_growth",
+        "ccr": 0.6153846153846154,
+        "n_items": 13,
+        "n_found": 8,
+        "css_richness": 39
+      },
+      {
+        "design_id": "bar_chart_bain_red_cost",
+        "ccr": 1.0,
+        "n_items": 3,
+        "n_found": 3,
+        "css_richness": 4
+      },
+      {
+        "design_id": "bar_chart_minimal_white_engagement",
+        "ccr": 0.2,
+        "n_items": 15,
+        "n_found": 3,
+        "css_richness": 41
+      },
+      {
+        "design_id": "bar_chart_editorial_warm_satisfaction",
+        "ccr": 0.6,
+        "n_items": 15,
+        "n_found": 9,
+        "css_richness": 51
+      },
+      {
+        "design_id": "line_chart_mckinsey_blue_trend",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 16
+      },
+      {
+        "design_id": "line_chart_bcg_green_competition",
+        "ccr": 1.0,
+        "n_items": 3,
+        "n_found": 3,
+        "css_richness": 6
+      },
+      {
+        "design_id": "line_chart_bain_red_performance",
+        "ccr": 1.0,
+        "n_items": 3,
+        "n_found": 3,
+        "css_richness": 7
+      },
+      {
+        "design_id": "line_chart_minimal_white_saas",
+        "ccr": 1.0,
+        "n_items": 5,
+        "n_found": 5,
+        "css_richness": 12
+      },
+      {
+        "design_id": "line_chart_editorial_warm_audience",
+        "ccr": 1.0,
+        "n_items": 0,
+        "n_found": 0,
+        "css_richness": 2
+      },
+      {
+        "design_id": "process_flow_mckinsey_blue_transformation",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 6
+      },
+      {
+        "design_id": "process_flow_bcg_green_go_to_market",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 4
+      },
+      {
+        "design_id": "process_flow_bain_red_ops",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 7
+      },
+      {
+        "design_id": "process_flow_minimal_white_product",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 5
+      },
+      {
+        "design_id": "process_flow_editorial_warm_campaign",
+        "ccr": 0.45,
+        "n_items": 20,
+        "n_found": 9,
+        "css_richness": 43
+      },
+      {
+        "design_id": "pyramid_mckinsey_blue_executive_summary",
+        "ccr": 0.4,
+        "n_items": 5,
+        "n_found": 2,
+        "css_richness": 40
+      },
+      {
+        "design_id": "pyramid_bcg_green_recommendation",
+        "ccr": 1.0,
+        "n_items": 2,
+        "n_found": 2,
+        "css_richness": 20
+      },
+      {
+        "design_id": "pyramid_bain_red_thesis",
+        "ccr": 0.6,
+        "n_items": 5,
+        "n_found": 3,
+        "css_richness": 22
+      },
+      {
+        "design_id": "pyramid_minimal_white_argument",
+        "ccr": 0.4,
+        "n_items": 5,
+        "n_found": 2,
+        "css_richness": 27
+      },
+      {
+        "design_id": "pyramid_editorial_warm_narrative",
+        "ccr": 0.8,
+        "n_items": 5,
+        "n_found": 4,
+        "css_richness": 42
+      },
+      {
+        "design_id": "harvey_table_bain_red_vendors",
+        "ccr": 1.0,
+        "n_items": 26,
+        "n_found": 26,
+        "css_richness": 9
+      },
+      {
+        "design_id": "harvey_table_mckinsey_blue_options",
+        "ccr": 1.0,
+        "n_items": 37,
+        "n_found": 37,
+        "css_richness": 8
+      }
+    ]
+  }
+}
