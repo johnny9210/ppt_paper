@@ -148,7 +148,7 @@ Main 측정 — 다면적 평가 방식 (§5.3):
 
 ![Figure 5: LayerAgent architecture](results/figures/layeragent_architecture.png)
 
-Figure 5. LayerAgent 전체 파이프라인. Stage 0 (Analyzer, Design Director)에서 레이아웃과 DesignSpec blackboard를 산출한 뒤, Stage 1의 8개 specialist agent가 병렬로 layer 단편을 생성한다. Stage 2의 Assembler가 결정적 z-index 순서로 조립하고, Style Normalizer가 카드 간 CSS를 통일하며, Text Inserter가 시각 디자인 확정 후 콘텐츠를 주입한다. Overflow Repair와 Visual Critic은 선택 단계이다.
+Figure 5. LayerAgent의 측정 대상 파이프라인. Stage 0 (Analyzer, Design Director)에서 레이아웃과 DesignSpec blackboard를 산출한 뒤, Stage 1의 8개 specialist agent가 병렬로 layer 단편을 생성한다. Stage 2의 Assembler가 결정적 z-index 순서로 조립하고, Style Normalizer가 카드 간 CSS를 통일하며, Text Inserter가 시각 디자인 확정 후 콘텐츠를 주입한다. 본 논문의 모든 측정은 이 6단계 위에서 수행되며, 시스템에 포함된 선택 단계(Overflow Repair, Visual Critic)는 §4.8–§4.9에서 별도 기술된다.
 
 전체 파이프라인은 LangGraph StateGraph로 구현되었으며, 8개 specialist는 Design Director의 출력 이후 병렬로 실행된다.
 
