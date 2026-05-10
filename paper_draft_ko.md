@@ -58,7 +58,7 @@ Element omission이 한 번의 호출 안에서 구조·스타일·콘텐츠가 
 
 - RQ1 (현상 — 계층 반영 격차): GPT-4o 기반 일괄 생성은 perception 단계에서 기술된 평균 6.6개(범위 5–10)의 시각 계층 중 어느 정도를 HTML/CSS 생성 단계에서 반영하지 못하는가? — §3.2·§3.3에서 답한다 (class name이나 사전 정의 layer label에 의존하지 않는 단순 layer 수 측정, 즉 명명 규칙 비의존(class-name-independent) n_layers 기준에서 일괄 생성은 평균 1.8개 layer만 반영).
 - RQ2 (방법 — 동일 모델 분해 효과): 동일 모델 조건(same-model, 즉 모든 비교 메서드가 같은 GPT-4o를 사용하는 조건)에서, LayerAgent의 계층 분해 생성은 본 연구의 layered slide dataset 전반에서 편집 가능한 HTML/CSS 구조 지표를 개선하는가? — §6.1 Table 1·2로 답한다 (Table 1: full N=50 / Table 2: 다층 시각 효과 디자인 subset N=10). 단, 종합적 발표 품질 차원은 RQ3의 평가 축 간 불일치 분석에서 별도 해석한다.
-- RQ3 (적용 범위와 평가 해석): LayerAgent의 효과는 어떤 layout 조건에서 유지되며, 자동 구조·시각 지표와 MLLM judge는 이 효과를 어떻게 다르게 평가하는가? — §6.3–§6.4의 레이아웃 유형별 분석과 평가 축 불일치 분석으로 답한다.
+- RQ3 (적용 범위 — 구조 복원과 종합 품질의 불일치): LayerAgent의 구조 복원 효과는 어떤 디자인 조건에서 종합적 품질 개선으로 이어지며, 어떤 조건에서는 두 축(자동 구조·시각 지표 vs MLLM judge)이 불일치하는가? — §6.3–§6.4의 레이아웃 유형별 분석과 평가 축 불일치 분석으로 답한다.
 
 위 연구 질문에 대응하는 본 논문의 기여는 문제, 방법, 평가·발견의 세 가지로 정리된다.
 
@@ -76,7 +76,7 @@ Element omission이 한 번의 호출 안에서 구조·스타일·콘텐츠가 
 
 Design2Code (Si et al., 2024)는 484 웹페이지 벤치마크로 GPT-4V의 중간 충실도를 보고했다. WebSight (Laurençon et al., 2024)는 200만 합성 image-code pair를 공개했다. Calò & De Russis (PACMHCI 2025)는 GPT-4o의 UI 코드 생성 실패를 element omission · element distortion · element misarrangement의 세 유형으로 분류했다 — 본 연구는 이 중 element omission을 슬라이드 도메인의 시각 계층 단위로 확장하여 분석한다 (§3.1). DCGen (FSE 2025)은 분할 정복으로 페이지를 블록 단위로 분해해 코드를 생성한다. LaTCoder (KDD 2025)는 코드 이전에 레이아웃을 chain-of-thought로 명시화한다. ScreenCoder (arXiv:2507.22827, 2025)는 Grounding → Planning → Generation의 3-stage agent 파이프라인을 채택하고 50K image-code pair로 GRPO 미세조정한다. DesignCoder (arXiv:2506.13663, 2025)는 모바일 UI 도메인에서 UI Grouping → Hierarchy-Aware Generation → post-render Self-Correcting Refinement의 3-stage를 사용한다. UIOrchestra (Findings of EMNLP 2025)는 multi-agent framework로 UI design에서 code로의 변환을 다루며 본 연구와 가장 가까운 선행 연구이다. 다만 LayerAgent의 DesignSpec blackboard, CV grounding, library retrieval을 통합한 구조와는 차별된다.
 
-LayerAgent와의 차별점. ScreenCoder는 image patch reuse(Hungarian matching)로 cross-element 일관성을 다루고, DesignCoder는 post-render iterative refinement로 코드 품질을 다룬다. 본 연구의 Style Normalizer는 pre-render CSS 정규화에 해당하고, Text Inserter는 시각과 콘텐츠 단계의 분리에 해당하며, DesignSpec blackboard는 생성 시점의 cross-agent 스타일 통일에 해당한다. 기존 design-to-code 평가는 주로 단일 metric 또는 분류된 metric 그룹을 보고했으며, 본 연구는 슬라이드 도메인에서 DOM 구조, render 기반 시각 유사도, multimodal LLM-as-judge를 결합하여 동반 보고하는 다면적 평가 방식을 적용한다는 점에서 차별화된다.
+LayerAgent와의 차별점. ScreenCoder는 image patch reuse(Hungarian matching)로 cross-element 일관성을 다루고, DesignCoder는 post-render iterative refinement로 코드 품질을 다룬다. 본 연구의 Style Normalizer는 pre-render CSS 정규화에 해당하고, Text Inserter는 시각과 콘텐츠 단계의 분리에 해당하며, DesignSpec blackboard는 생성 시점의 cross-agent 스타일 통일에 해당한다. 기존 design-to-code 평가는 주로 단일 metric 또는 분류된 metric 그룹을 보고했으며, 본 연구는 슬라이드 도메인에서 DOM 구조, render 기반 시각 유사도, multimodal LLM-as-judge를 결합하여 동반 보고하는 다면적 평가 방식을 적용한다는 점에서 차별화된다. 종합하면, 기존 design-to-code 계열은 image-to-code 품질을 일반적 문제로 다루는 반면, 본 연구는 슬라이드 도메인 특유의 layer 단위 element omission 자체를 직접 문제화하고 layer 단위 생성 분해로 다룬다는 점이 핵심 차이다.
 
 제2절 시각 교정 / 반복 개선
 
@@ -84,11 +84,11 @@ VisRefiner (arXiv:2602.05998, 2026)는 렌더링 결과와 참조 디자인 간 
 
 제3절 프레젠테이션 생성
 
-PPTAgent (Zheng et al., EMNLP 2025)는 LLM 피드백 기반 템플릿 반복 수정을, PreGenie (Xu et al., EMNLP Findings 2025)는 코드 리뷰와 페이지 리뷰의 이중 루프를, SlideCoder (Tang et al., EMNLP 2025)는 CGSeg 세그멘테이션과 계층적 RAG를, AutoPresent (Ge et al., CVPR 2025)는 구조화된 시각 설계 원칙을 강조했다. 이들 선행 연구는 주로 템플릿 수정, 코드 리뷰, 세그멘테이션 기반 생성, 구조화된 설계 원칙에 초점을 두었다. 반면 본 연구는 슬라이드의 시각 계층이 HTML/CSS 생성 단계에서 누락되는 현상에 초점을 맞추고, 이를 계층 단위 생성 분해와 다면적 평가의 동반 보고(DOM 구조, render 기반 시각 유사도, multimodal LLM-as-judge)로 분석한다는 점에서 차별화된다.
+PPTAgent (Zheng et al., EMNLP 2025)는 LLM 피드백 기반 템플릿 반복 수정을, PreGenie (Xu et al., EMNLP Findings 2025)는 코드 리뷰와 페이지 리뷰의 이중 루프를, SlideCoder (Tang et al., EMNLP 2025)는 CGSeg 세그멘테이션과 계층적 RAG를, AutoPresent (Ge et al., CVPR 2025)는 구조화된 시각 설계 원칙을 강조했다. 이들 선행 연구는 주로 템플릿 수정, 코드 리뷰, 세그멘테이션 기반 생성, 구조화된 설계 원칙에 초점을 두었다. 반면 본 연구는 슬라이드의 시각 계층이 HTML/CSS 생성 단계에서 누락되는 현상에 초점을 맞추고, 이를 계층 단위 생성 분해와 다면적 평가의 동반 보고(DOM 구조, render 기반 시각 유사도, multimodal LLM-as-judge)로 분석한다는 점에서 차별화된다. 종합하면, 기존 발표자료 생성 계열은 템플릿·콘텐츠·슬라이드 단위 생성 자체를 다루는 반면, 본 연구는 HTML/CSS 단위의 layer fidelity를 핵심 문제로 직접 다룬다는 점이 핵심 차이다.
 
 제4절 멀티에이전트 코드 생성
 
-MetaGPT (Hong et al., ICLR 2024), ChatDev (Qian et al., ACL 2024), CAMEL (Li et al., NeurIPS 2023), AutoGen (Wu et al., COLM 2024)은 소프트웨어 개발 프로세스(설계, 구현, 테스트의 순서) 또는 대화형 multi-agent conversation으로 agent를 분담한다. LayerAgent는 (a) 개발 프로세스가 아니라 출력의 시각 계층(layer) 구조(배경, 카드, 텍스트, 아이콘의 순서)에 따라 분담하며, (b) agent 간 통신을 자연어나 코드가 아니라 DesignSpec JSON과 bounding box JSON으로 구성된 typed blackboard로 수행하여 truncation과 해석 오류를 구조적으로 제거한다.
+MetaGPT (Hong et al., ICLR 2024), ChatDev (Qian et al., ACL 2024), CAMEL (Li et al., NeurIPS 2023), AutoGen (Wu et al., COLM 2024)은 소프트웨어 개발 프로세스(설계, 구현, 테스트의 순서) 또는 대화형 multi-agent conversation으로 agent를 분담한다. LayerAgent는 (a) 개발 프로세스가 아니라 출력의 시각 계층(layer) 구조(배경, 카드, 텍스트, 아이콘의 순서)에 따라 분담하며, (b) agent 간 통신을 자연어나 코드가 아니라 DesignSpec JSON과 bounding box JSON으로 구성된 typed blackboard로 수행하여 truncation과 해석 오류를 구조적으로 제거한다. 종합하면, 기존 multi-agent code generation은 역할·개발 프로세스·대화 흐름에 따른 분업이지만, LayerAgent는 출력의 시각 계층(layer)에 따른 분업이라는 점이 본질적 차이다.
 
 제5절 Design-to-Code 평가
 
@@ -293,6 +293,18 @@ Legacy sanity check — Class-name-aligned (참고용, main claim 외):
 
 Render guard 점검에서 모든 메서드가 Playwright로 100% 정상 렌더링됨을 확인했다.
 
+독자용 메트릭 지도. 본 연구는 메트릭 수가 많아 §6 이후 표에서 반복적으로 등장하므로, 각 지표군이 답하는 직관적 질문을 다음 표로 한 번 정리한다 (정확한 정의는 위 §5.3 본문 참조).
+
+| 지표군 | 직관적 의미 (한 줄 요약) | 본 연구 내 위치 |
+|---|---|---|
+| VEC / EDC / VLC / CRP / HD | 코드가 얼마나 많은 시각 요소와 스타일 계층을 보존했는가 | DOM 구조 (main, 축 ①) |
+| SSIM / CLIP / LPIPS | 렌더링 결과가 원본 이미지와 얼마나 비슷한가 | 렌더 기반 시각 유사도 (main, 축 ②) |
+| MLLM judge (VF·LS·CC·DQ 4-criteria) | 사람이 보기에도 발표 슬라이드로 괜찮은가 | 종합적 발표 품질 (main, 축 ③) |
+| CCR | 입력 텍스트가 코드에 살아남았는가 (시각 가시성 미반영) | 콘텐츠 (auxiliary, 축 ④) |
+| LTED / Layer Recall | layer 단위 매칭 — 단, LayerAgent class name에 정렬되어 클래스명 편향 위험 | 보조 진단·sanity check (auxiliary, 축 ⑤) |
+
+본 지도는 메트릭의 분류가 아니라 답하는 질문의 분류이며, 한 use case가 두 축 이상을 동시에 우선해야 할 경우에는 §6.4 평가 축 분리 표(Table 5)와 §7.2 평가 차원 해석을 함께 참조한다.
+
 
 제4절 실험 인프라
 
@@ -323,7 +335,7 @@ Table 1. 전체 layered slide dataset 자동 지표 (N=50, DOM-based + render-ba
 
 (SC와 zdx 컬럼은 메서드 간 차이가 작아 표에서 생략한다.)
 
-핵심 발견 1 (main result) — LayerAgent는 본 연구의 layered slide dataset 전반에서 DOM 구조 지표(VEC/EDC/VLC/CRP/HD)를 일괄 생성 대비 1.6–2.6배 일관되게 증가시킨다. 즉 동일 GPT-4o 위에서 LayerAgent의 분해 전략은 편집 가능한 HTML/CSS 구조의 풍부성을 광범위하게 회복한다. 그러나 렌더링 기반 시각 유사도(SSIM/CLIP/LPIPS)는 일괄 생성·시각 분석 생성에 밀린다 — 구조적 풍부성 증가가 원본 렌더링과의 픽셀·semantic 유사도 향상으로 자동 전이되지 않으며, 평면 차트형 layout에서는 단순한 구조와 정렬 보존이 더 중요한 평가 요인일 수 있다.
+핵심 발견 1 (main result) — LayerAgent는 본 연구의 layered slide dataset 전반에서 DOM 구조 지표(VEC/EDC/VLC/CRP/HD)를 일괄 생성 대비 1.6–2.6배 일관되게 증가시킨다. 즉 동일 GPT-4o 위에서 LayerAgent의 분해 전략은 편집 가능한 HTML/CSS 구조의 풍부성을 광범위하게 회복한다. 단, 본 연구는 사용자가 실제로 산출 HTML을 얼마나 쉽게 수정할 수 있는지를 직접 측정하지 않았으므로, 본 논문 전반에서 사용되는 "편집 가능한 구조"는 사용자 검증된 편집 용이성이 아니라 DOM 구조 풍부성 지표(VEC/EDC/VLC/CRP/HD)에 기반한 proxy 술어로 해석한다. 그러나 렌더링 기반 시각 유사도(SSIM/CLIP/LPIPS)는 일괄 생성·시각 분석 생성에 밀린다 — 구조적 풍부성 증가가 원본 렌더링과의 픽셀·semantic 유사도 향상으로 자동 전이되지 않으며, 평면 차트형 layout에서는 단순한 구조와 정렬 보존이 더 중요한 평가 요인일 수 있다.
 
 Table 2. 다층 시각 효과 디자인 subset 자동 지표 (N=10 dark_glass, design_01–10).
 
@@ -355,6 +367,10 @@ Table 3. 종합적 발표 품질 — MLLM judge (GPT-5.4, 4 criteria, 1–7 scal
 MLLM judge에서는 일괄 생성이 평균적으로 우세하며(3.37 vs LayerAgent 2.65), LayerAgent는 Layer Structure 축에서만 좁은 차이로 우세하다(3.62 vs 3.52).
 
 Table 1·2·3을 함께 읽으면, LayerAgent의 효과는 완성 슬라이드의 종합적 품질 향상이라기보다 편집 가능한 시각 계층 구조의 코드상 복원에 가깝다. 전체 dataset에서 자동 DOM 지표 우위는 안정적으로 유지되며(Table 1), high visual-effect-density subset에서는 render-based 시각 유사도(CLIP·LPIPS)까지 부분 확장된다(Table 2). 그러나 종합적 발표 품질로의 자동 전이는 일어나지 않는다(Table 3). 따라서 LayerAgent의 기여는 GPT-4o 동일 모델 조건에서의 계층 구조 복원, 즉 중간 표현(intermediate representation)의 회복으로 해석되어야 하며, 완성 슬라이드 품질의 전면적 향상으로 해석되어서는 안 된다. 여기서 중간 표현은 최종 발표 품질 자체가 아니라, 이후 편집·정렬·품질 개선 단계에서 활용 가능한 HTML/CSS 계층 구조를 의미한다. 효과의 layout 의존성은 §6.3 per-layout breakdown에서, 두 축의 차이는 §6.4 평가 축 간 불일치 분석에서, frontier 모델 대비 적용 경계는 §8.3에서 다룬다.
+
+![Figure 6: Qualitative structural fidelity comparison](results/figures/fig6_qualitative.png)
+
+Figure 6. 4개 multi-layer 디자인의 정성적 3-way 비교 (reference / single_pass / LayerAgent, 동일 GPT-4o). 위에서부터 design_03 comparison_split (좌우 blue/purple 색 split + 중앙 VS divider), design_05 hub_spoke (중앙 hub + 6 spoke 카드 + atmospheric glow), design_06 before_after (좌 orange / 우 teal 분할 + 중앙 portal), design_09 layered_stack (3D 사다리꼴 4-layer stack). 네 사례 모두에서 LayerAgent는 reference의 핵심 시각 구조 — 좌우 색 분할, 중앙 atmospheric portal, 3D layered stacking, glassmorphism 카드 재질 — 를 single_pass보다 더 정확하게 재현하며, single_pass는 동일 reference에 대해 색 split을 평면 다크 배경으로 단순화하거나 atmospheric portal을 제거하는 경향을 보인다. 이는 Table 3의 Layer Structure 축 우위(3.62 vs 3.52)와 Table 2의 다층 디자인 subset CLIP +0.042 / LPIPS −0.064 결과의 정성적 근거이다. 한편 동일 figure 안에서 LayerAgent는 카드 안 텍스트가 카드 경계를 넘어 overflow되거나 세로로 분리되는 현상을 동반하며, 이는 Table 3의 Content Completeness 격차(2.48 vs 3.92) 및 §7.2·§8.3에서 future work로 명시한 "보다 보수적인 Text Inserter"의 필요성과 직접 정렬되는 시각적 증거이다. 따라서 LayerAgent의 holistic 품질 저하는 layer structure 회복 실패라기보다는, 텍스트 배치와 overflow 제어를 포함한 downstream assembly 단계에서 상당 부분 발생하는 것으로 해석할 수 있다 (단, 본 정성 관찰은 단일 component를 holistic 패배의 단독 원인으로 인과적으로 입증하는 증거는 아니며, §6.5의 D₂ ablation은 CCR 차원에 한정해 인과 효과를 격리 측정한다).
 
 (class-name-aligned 보조 metric인 Layer Recall과 LTED의 N=50 main_eval 결과 및 Figure 2는 클래스명 편향 위험을 고려해 부록 B로 옮겨 수록한다.)
 
