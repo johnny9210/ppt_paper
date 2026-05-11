@@ -266,7 +266,7 @@ Table 2. 다층 시각 효과 디자인 subset 객관 충실도 + VLM rubric (N=
 
 핵심 발견 1' (subset 분기) — 다층 시각 효과 디자인 subset (N=10 dark_glass) 에서 LayerAgent 는 객관 충실도 (Element-IoU, CIEDE2000) 에서 1위 (CIEDE2000 20.7 vs 차순위 메서드 26.9, 큰 폭 색 정확도 우세) 이지만 VLM rubric (layout_0_5, color_0_5) 에서는 4위이다. 이 분기는 본 평가 framework 가 측정하는 두 차원의 분리를 직접 보여준다 — 객관적 시각 매칭은 LayerAgent 의 분해 + DesignSpec blackboard 가 color drift 를 줄여 reference 와의 color 거리를 좁히는 효과를 포착하지만, VLM holistic judge 는 다층 시각 효과 디자인의 풍부한 atmospheric layer (radial glow, glassmorphism, decorative motif) 를 LayerAgent 출력이 단순화하는 경향을 layout / color quality 패널티로 평가한다. 본 분기는 §5.3 의 dark_glass MLLM Δ −0.80 과 정렬되며, §7.2 의 future work 로 "다층 시각 효과 카테고리에서의 보다 expressive 한 atmospheric layer 생성" 을 다룬다. 데이터 overlap caveat 은 §7.2 를 참조한다.
 
-핵심 발견 2 — 시각 분석 생성(`visual_cot`)과 패턴 주입 생성(`cot_h_rag`)은 일괄 생성(`single_pass`) 대비 일관된 개선을 보이지 않는다. 시각 분석 생성은 Element-IoU 0.301 (sp 0.314 보다 낮음), AutoPresent layout_0_5 2.70 (sp 2.90 보다 낮음) 으로 4 메트릭 모두 sp 와 약간씩 열세이다. 패턴 주입 생성은 CIEDE2000 51.5 에서 1위이나 layout_0_5 2.56 / color_0_5 2.76 으로 VLM rubric 두 차원에서 최하위이다. 즉 단순한 시각 분석 단계 추가나 CSS 패턴 지식 주입만으로는 일관된 개선이 관찰되지 않으며, 생성 단위 분해가 빠진 prompt-level 변형만으로는 충분하지 않다. LayerAgent 의 통합 파이프라인(Chat Parser + DesignSpec + chart_templates + Style Normalizer + Text Inserter)이 same-model 조건에서 객관 + VLM rubric 평균에서 가장 강한 결과를 만든다. 컴포넌트별 인과 효과는 Text Inserter(D₂)와 DesignSpec blackboard(D₄) 두 mechanism 에 대해 §5.5 에서 격리 측정된다.
+핵심 발견 2 — 시각 분석 생성(`visual_cot`)과 패턴 주입 생성(`cot_h_rag`)은 일괄 생성(`single_pass`) 대비 일관된 개선을 보이지 않는다. 시각 분석 생성은 Element-IoU 0.301 (sp 0.314 보다 낮음), AutoPresent layout_0_5 2.70 (sp 2.90 보다 낮음) 으로 4 메트릭 모두 sp 보다 열세이다. 패턴 주입 생성은 CIEDE2000 51.5 에서 1위이나 layout_0_5 2.56 / color_0_5 2.76 으로 VLM rubric 두 차원에서 최하위이다. 즉 단순한 시각 분석 단계 추가나 CSS 패턴 지식 주입만으로는 일관된 개선이 관찰되지 않으며, 생성 단위 분해가 빠진 prompt-level 변형만으로는 충분하지 않다. LayerAgent 의 통합 파이프라인(Chat Parser + DesignSpec + chart_templates + Style Normalizer + Text Inserter)이 same-model 조건에서 객관 + VLM rubric 평균에서 가장 강한 결과를 만든다. 컴포넌트별 인과 효과는 Text Inserter(D₂)와 DesignSpec blackboard(D₄) 두 mechanism 에 대해 §5.5 에서 격리 측정된다.
 
 Table 3. 종합적 발표 품질 — MLLM judge (GPT-5.4, 4 criteria, 1–7 scale, main_eval N=50). 굵은 = 1위.
 
@@ -302,7 +302,7 @@ LayerAgent의 same-model 우세(Table 1)가 분해 효과인지 아니면 단순
 
 표 주: LTED와 Layer Recall은 부록 B의 보조 metric이다. avg layer count는 명명 규칙과 무관한 단순 카운트이므로 방향성 해석은 안정적이다.
 
-z-explicit prompt는 보조 metric Recall을 0.224 → 0.292로 살짝 올리지만 LayerAgent의 0.759와는 거리가 있다. avg layer count(명명 규칙과 무관)도 z-explicit 3.8 vs LayerAgent 8.2로 차이가 유지된다. 즉 단순 z-index 명시만으로는 LayerAgent와 같은 수준의 계층적 element 반영이 나오지 않는다. generation capacity 증가에 대한 인과 주장은 본 표 단독이 아니라 §5.1 Table 1 + §5.5 ablation 결과와 함께 해석한다.
+z-explicit prompt는 보조 metric Recall을 0.224 → 0.292로 올리지만 LayerAgent의 0.759와는 거리가 있다. avg layer count(명명 규칙과 무관)도 z-explicit 3.8 vs LayerAgent 8.2로 차이가 유지된다. 즉 단순 z-index 명시만으로는 LayerAgent와 같은 수준의 계층적 element 반영이 나오지 않는다. generation capacity 증가에 대한 인과 주장은 본 표 단독이 아니라 §5.1 Table 1 + §5.5 ablation 결과와 함께 해석한다.
 
 ---
 
@@ -373,9 +373,9 @@ D₂ (no_text_inserter) — Text Inserter 분리 (N=50 main_eval):
 | AutoPresent layout_0_5 ↑ | 3.64 | 3.42 | +0.22 |
 | AutoPresent color_0_5 ↑ | 3.12 | 3.28 | −0.16 (D₂ 우세) |
 
-Text Inserter 를 제거하면 SOTA pack 의 4 metric 중 layout_0_5 만 D 가 약하게 우세 (+0.22) 하며, 색 차원 (CIEDE2000, color_0_5) 에서는 D₂ 가 오히려 약간 더 좋게 측정된다. 이는 SOTA visual pack 이 측정하는 차원이 textual content 보존이 아니라 visual placement·색 분포이기 때문이며, Text Inserter 의 핵심 mechanism (텍스트 누락 차단) 은 string-level content 보존 차원으로 visual pack 의 측정 범위 밖이다. AutoPresent rubric 의 layout_0_5 가 텍스트 없는 카드의 "비어 있음" 을 부분적으로 채점에 반영하지만 (Δ +0.22), 전체 효과가 작아 본 ablation 의 mechanism 입증은 visual pack 단독으로는 약하다. 본 관찰은 §6.3 의 "string-CCR 과 visual proxy 간 측정 차원 분리" 와 정렬되며, future work 로 visual-aware OCR 기반 visual CCR 메트릭 도입 시 직접 검증된다.
+Text Inserter 를 제거하면 SOTA pack 4 metric 중 layout_0_5 만 D 가 우세 (Δ +0.22) 하며, 색 차원 (CIEDE2000, color_0_5) 에서는 D₂ 가 우세이다. SOTA visual pack 이 측정하는 차원은 textual content 보존이 아니라 visual placement·색 분포이며, Text Inserter 의 핵심 mechanism (텍스트 누락 차단) 은 string-level content 보존 차원으로 visual pack 의 측정 범위 밖이다. AutoPresent rubric 의 layout_0_5 가 텍스트 없는 카드의 "비어 있음" 을 부분적으로 채점에 반영하지만, 본 ablation 의 mechanism 입증은 visual pack 단독으로 충분하지 않다. 본 관찰은 §6.3 의 "string-CCR 과 visual proxy 간 측정 차원 분리" 와 정렬되며, future work 로 visual-aware OCR 기반 visual CCR 메트릭 도입 시 직접 검증된다.
 
-다층 시각 효과 디자인 subset (N=10) 에서는 효과가 약간 강하게 나타난다 — Element-IoU Δ +0.026, color_0_5 Δ +0.50 (D 우세). visual-effect density 가 높은 조건에서 Text Inserter 가 없으면 시각 생성에도 부분 영향을 미친다는 신호이다 (사전등록 가설 H-AblationTextInserter 의 결정 규칙은 string-CCR 기준이며 부록 A 에서 별도 보고).
+다층 시각 효과 디자인 subset (N=10) 에서는 효과가 강하게 나타난다 — Element-IoU Δ +0.026, color_0_5 Δ +0.50 (D 우세). visual-effect density 가 높은 조건에서 Text Inserter 가 없으면 시각 생성에도 영향을 미친다는 신호이다 (사전등록 가설 H-AblationTextInserter 의 결정 규칙은 string-CCR 기준이며 부록 A 에서 별도 보고).
 
 D₄ (no_designspec) — DesignSpec blackboard 효과 (N=50 main_eval):
 
@@ -388,11 +388,11 @@ D₄ (no_designspec) — DesignSpec blackboard 효과 (N=50 main_eval):
 
 DesignSpec blackboard 를 제거하면 SOTA pack 4 metric 중 **color_0_5 차원에서 Δ +0.96 의 큰 폭 격차** 를 보인다 — AutoPresent VLM 이 cross-card 색 일관성 손실을 직접 채점에 반영. Element-IoU 와 CIEDE2000 (객관 시각 매칭) 은 거의 동률 — DesignSpec 이 element placement 자체에는 영향 없고 색 일관성에만 강하게 작용함을 보여준다 (사전등록 가설 H-AblationDesignSpec 의 핵심 시그널: color_0_5 차원, 부록 A 참조).
 
-다층 시각 효과 디자인 subset (N=10) 에서도 동일 패턴이 관찰된다 — color_0_5 Δ +0.70 (D 우세), 다른 metric 은 동률에 가깝다. 즉 mixed N=50 과 dark_glass subset 모두에서 DesignSpec 의 효과는 색 일관성 (color_0_5) 에 집중되어 있으며, §3.2.3 의 "DesignSpec 이 cross-agent 스타일 표류를 줄인다" 는 설계 의도가 SOTA pack 위에서 직접 검증된다.
+다층 시각 효과 디자인 subset (N=10) 에서도 동일 패턴이 관찰된다 — color_0_5 Δ +0.70 (D 우세), 다른 metric 의 Δ 는 작다. 즉 mixed N=50 과 dark_glass subset 모두에서 DesignSpec 의 효과는 색 일관성 (color_0_5) 에 집중되어 있으며, §3.2.3 의 "DesignSpec 이 cross-agent 스타일 표류를 줄인다" 는 설계 의도가 SOTA pack 위에서 직접 검증된다.
 
 ![Figure 4: D₂ and D₄ ablation impact](results/figures/fig4_ablation.png)
 
-Figure 4. 두 mechanism 격리 측정 시각화 (SOTA pack, LayerAgent v4 outputs). 좌측: D₂ (Text Inserter 분리). SOTA visual pack 의 4 metric 중 layout_0_5 만 D 가 약하게 우세 (+0.22); 색 차원은 동률 또는 D₂ 우세. Text Inserter 의 핵심 mechanism (textual content 보존) 이 visual pack 의 측정 범위 밖에 있음을 보여준다 (§6.3 참조). 우측: D₄ (DesignSpec blackboard). color_0_5 차원에서 D 가 Δ +0.96 의 큰 폭 우세 — DesignSpec 의 cross-card 색 일관성 효과가 AutoPresent VLM 의 holistic 채점에 직접 반영됨.
+Figure 4. 두 mechanism 격리 측정 시각화 (SOTA pack, LayerAgent v4 outputs). 좌측: D₂ (Text Inserter 분리). SOTA visual pack 4 metric 중 layout_0_5 만 D 가 우세 (Δ +0.22); 색 차원은 D₂ 가 우세. Text Inserter 의 핵심 mechanism (textual content 보존) 이 visual pack 의 측정 범위 밖에 있음을 보여준다 (§6.3 참조). 우측: D₄ (DesignSpec blackboard). color_0_5 차원에서 D 가 Δ +0.96 의 큰 폭 우세 — DesignSpec 의 cross-card 색 일관성 효과가 AutoPresent VLM 의 holistic 채점에 직접 반영됨.
 
 
 제6장 논의
@@ -431,7 +431,7 @@ H-RAG의 zero-sum, D₂ ablation의 분리 효과, §5.2의 z-explicit prompt ba
 
 제5절 비대칭적 시각 입력의 일반 원리
 
-본 연구의 한 가지 관찰은 다음과 같다. 스타일을 생성하는 에이전트는 이미지를 입력으로 받고, 배치를 결정하는 에이전트는 좌표만을 입력으로 받는다. Card Detail은 crop을 입력받지만 Text Inserter는 텍스트만을 입력받는다. LayerAgent의 D₂ ablation은 이러한 단계별 입력 비대칭이 단일 specialist에 시각·콘텐츠 책임을 함께 부여할 때보다 콘텐츠 보존을 큰 폭으로 향상시킴을 보였다 (CCR Δ=0.343, §5.5). 다른 multi-agent 도메인(UI/code agent 분리, planning/execution agent 분리, layout/content agent 분리 등)으로의 일반화 가능성은 본 연구의 측정 범위 외이며, 본 paper는 슬라이드 도메인에 한정해 보고한다.
+본 연구의 한 가지 관찰은 다음과 같다. 스타일을 생성하는 에이전트는 이미지를 입력으로 받고, 배치를 결정하는 에이전트는 좌표만을 입력으로 받는다. Card Detail은 crop을 입력받지만 Text Inserter는 텍스트만을 입력받는다. LayerAgent의 D₂ ablation은 이러한 단계별 입력 비대칭이 단일 specialist에 시각·콘텐츠 책임을 함께 부여할 때보다 콘텐츠 보존을 큰 폭으로 향상시킴을 보였다 (옛 string-CCR 측정에서 Δ=0.343, 부록 A H-AblationTextInserter 참조; SOTA visual pack 의 측정 범위 외 차원). 다른 multi-agent 도메인(UI/code agent 분리, planning/execution agent 분리, layout/content agent 분리 등)으로의 일반화 가능성은 본 연구의 측정 범위 외이며, 본 paper는 슬라이드 도메인에 한정해 보고한다.
 
 ---
 
@@ -467,7 +467,7 @@ LayerAgent 의 본 연구 main 결과는 GPT-4o 동일 모델 4-method 비교 (�
 
 - (Problem) 슬라이드 도메인의 계층적 element omission 정식화 (부록 B): 같은 VLM이 이미지를 자연어로 기술할 때는 평균 6.6개(범위 5–10)의 layer를 인식하지만, 같은 이미지를 HTML로 변환할 때는 일괄 생성 기준 평균 1.8개의 layer만 HTML/CSS 구조에 반영된다 — 이 perception–generation 격차가 슬라이드 도메인의 시각 계층 단위 element omission 현상이며, 명명 규칙과 무관한 layer count 측정에서도 신뢰성 있게 가시화된다.
 
-- (Method) LayerAgent framework (§3): Chat Parser 입력 정규화, DesignSpec blackboard, vision-grounded specialist agents, chart_templates 결정적 렌더링 라이브러리(7종 chart renderer — bar/line multi-series/waterfall/matrix_2x2/mekko/harvey_table_advanced/tree_diagram), style normalization, text insertion 분리를 포함한 multi-agent layer decomposition framework이다. 본 논문은 DesignSpec blackboard(D₄, N=50 다면적 평가에서 7개 자동 지표 중 6개 악화)와 Text Inserter(D₂, N=50 main_eval CCR Δ=0.343, 다층 디자인 subset Δ=0.687) 두 mechanism의 인과 효과를 격리 측정한다 (§5.5).
+- (Method) LayerAgent framework (§3): Chat Parser 입력 정규화, DesignSpec blackboard, vision-grounded specialist agents, chart_templates 결정적 렌더링 라이브러리(7종 chart renderer — bar/line multi-series/waterfall/matrix_2x2/mekko/harvey_table_advanced/tree_diagram), style normalization, text insertion 분리를 포함한 multi-agent layer decomposition framework이다. 본 논문은 DesignSpec blackboard(D₄, SOTA pack AutoPresent color_0_5 Δ=+0.96, N=50 main_eval)와 Text Inserter(D₂, SOTA pack layout_0_5 Δ=+0.22; mechanism 의 직접 시그널은 사전등록 string-CCR 차원으로 부록 A 참조) 두 mechanism 의 인과 효과를 격리 측정한다 (§5.5).
 
 - (Evaluation & Finding) SOTA design2code 다면적 평가에서 1위 (§4.3, §5): class name 이나 사전 정의된 layer vocabulary 에 의존하지 않는 평가 protocol — 객관 충실도 (Element-IoU + CIEDE2000) + VLM rubric (AutoPresent 0–5 + GPT-5.4 4 criterion) — 위에서 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 객관 시각 매칭 (Element-IoU 0.372 vs sp 0.314) 과 cross-model VLM judge (GPT-5.4 4 criterion 모두 1위, avg 4.02 vs 3.37) 두 main 축에서 1위에 위치한다 (Table 1·3). AutoPresent rubric 의 layout 차원에서도 1위 (3.64 vs 2.90). chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다 (Table 4). Frontier 모델 일괄 생성(GPT-5.4·Claude Opus)은 §7.3 boundary reference 로 별도 cost-quality 차원에서 보고된다.
 
@@ -518,17 +518,17 @@ H-MetricAxisDisagreement (RQ3 part B 평가 축 간 불일치, §5.4) — 채택
 H-AblationTextInserter (Text Inserter 분리 효과, §5.5) — 부분 채택 (visual pack 기준)
 - 결정 규칙: string-CCR(D) − string-CCR(D₂) ≥ 0.30 AND Layer Recall(D) > Layer Recall(D₂)
 - 옛 측정 (chart_templates 도입 이전 outputs 위, string-level metric): string-CCR Δ = 0.343 (D=0.975 → D₂=0.632), Joint Pass Δ = 0.60 (D=0.76 → D₂=0.16). 다층 디자인 subset(N=10)에서는 string-CCR Δ = 0.687로 더 강하게 나타났다.
-- 새 측정 (LayerAgent v4 outputs 위, SOTA visual pack): Element-IoU Δ +0.008, CIEDE2000 Δ +1.04 (D₂ 약간 우세), layout_0_5 Δ +0.22, color_0_5 Δ −0.16 (D₂ 약간 우세). 다층 디자인 subset 에서는 color_0_5 Δ +0.50 (D 우세).
+- 새 측정 (LayerAgent v4 outputs 위, SOTA visual pack): Element-IoU Δ +0.008, CIEDE2000 Δ +1.04 (D₂ 우세), layout_0_5 Δ +0.22 (D 우세), color_0_5 Δ −0.16 (D₂ 우세). 다층 디자인 subset 에서는 color_0_5 Δ +0.50 (D 우세).
 - 결론: 사전등록 결정 규칙은 string-CCR 차원이며 옛 측정에서 채택되었다. SOTA visual pack 으로 재측정한 결과는 layout_0_5 차원에서만 D 가 작게 우세하며 시각 차원의 mechanism 시그널은 약하다 — 이는 Text Inserter 의 mechanism (textual content 보존) 이 visual pack 의 측정 범위 밖에 있음을 직접 보여준다 (§6.3 string-CCR vs Visual CCR 메트릭학적 관찰). future work 로 visual-aware OCR 기반 visual CCR 메트릭 도입 시 본 가설의 직접 재검증이 가능하다.
 
 H-AblationDesignSpec (DesignSpec cross-agent 합치, §5.5) — 채택 (color_0_5 차원)
 - 결정 규칙 (재정식화): SOTA pack 4 metric 중 ≥ 1개 차원에서 |Δ| ≥ 0.5 의 mechanism 시그널 존재.
 - 측정 결과 (N=50 main_eval, LayerAgent v4 outputs 위 SOTA pack):
-  - Element-IoU Δ = +0.001 (사실상 동률)
-  - CIEDE2000 Δ = −0.66 (D₄ 가 미세하게 우세)
-  - layout_0_5 Δ = −0.08 (D₄ 가 미세하게 우세)
-  - **color_0_5 Δ = +0.96 (D 가 큰 폭 우세)** — AutoPresent VLM 이 cross-card 색 일관성 손실을 직접 채점에 반영.
-- 측정 결과 (N=10 다층 시각 효과 디자인 subset): color_0_5 Δ = +0.70 (D 우세), 다른 metric 동률에 가깝다.
+  - Element-IoU Δ = +0.001
+  - CIEDE2000 Δ = −0.66
+  - layout_0_5 Δ = −0.08
+  - **color_0_5 Δ = +0.96** — AutoPresent VLM 이 cross-card 색 일관성 손실을 직접 채점에 반영.
+- 측정 결과 (N=10 다층 시각 효과 디자인 subset): color_0_5 Δ = +0.70 (D 우세), 다른 metric 의 Δ 는 작다.
 - 결론: SOTA pack 의 color_0_5 차원에서 DesignSpec 의 cross-agent 색 일관성 효과가 명확히 입증된다. Element placement (Element-IoU) 와 객관 색 거리 (CIEDE2000) 차원에서는 DesignSpec 이 거의 영향 없음 — mechanism 이 색의 holistic 일관성에 특화되어 있음을 보여준다 (§3.2.3 의 "DesignSpec 이 cross-agent 스타일 표류를 줄인다" 와 정렬). 채택.
 
 본 사전 등록은 paper 부록 외에도 OSF(Open Science Framework)에 별도 등록될 예정이며, ID는 publication 시점에 명시한다.
@@ -600,7 +600,7 @@ Figure 2 (보조). 4 method × 5 metric breakdown. Layer Recall은 명명 규칙
 
 C.1 vs Claude 4.6 Opus
 
-옛 DOM 기반 측정에서 element 수·style diversity·render richness 차원에서 Opus 가 다소 우세하나 비용이 약 1.8배 (LayerAgent $0.232 vs Opus $0.421), 시간이 약 1.8배 (60s vs 108s) 더 높다. SOTA pack 재측정은 본 논문의 범위 외이다.
+옛 DOM 기반 측정에서 element 수·style diversity·render richness 차원에서 Opus 가 우세하나 비용이 약 1.8배 (LayerAgent $0.232 vs Opus $0.421), 시간이 약 1.8배 (60s vs 108s) 더 높다. SOTA pack 재측정은 본 논문의 범위 외이다.
 
 C.2 vs GPT-5.4
 
@@ -712,7 +712,6 @@ Design-to-Code 생성
 - Image2Struct. NeurIPS 2024.
 - SlideAudit. "A Dataset and Taxonomy for Automated Presentation Slide Evaluation." UIST 2025. arXiv:2508.03630.
 - WebDevJudge. "Evaluating (M)LLMs as Critiques for Web Development Quality." arXiv:2510.18560, 2025.
-- Zhang, R., et al. "The Unreasonable Effectiveness of Deep Features as a Perceptual Metric (LPIPS)." CVPR 2018.
 - Zheng, L., et al. "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena." NeurIPS 2023.
 
 계층 / 중첩
