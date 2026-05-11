@@ -5,7 +5,7 @@ For each method:
   1. Generate HTML (already-generated for v1/v3; otherwise call now)
   2. Render PNG via Playwright
   3. Compute DOM metrics (VEC/EDC/VLC/CRP/HD/SC/ZDX)
-  4. Compute visual metrics (SSIM/CLIP/LPIPS)
+  4. Compute visual metrics (CLIP/LPIPS — SSIM excluded by paper decision)
   5. Print side-by-side table
 
 The McKinsey image has no entry in meta.json, so we bypass load_meta and pass
@@ -225,13 +225,13 @@ def main():
     # 5) Print table
     print("\n=== McKinsey single-image evaluation ===")
     print(f"{'method':<20} {'VEC':>4} {'EDC':>4} {'VLC':>4} {'CRP':>4} {'HD':>3} {'SC':>5} | "
-          f"{'SSIM':>6} {'CLIP':>6} {'LPIPS':>6}")
-    print("-" * 90)
+          f"{'CLIP':>6} {'LPIPS':>6}")
+    print("-" * 80)
     for r in rows:
         print(f"{r['method']:<20} "
               f"{r.get('vec',0):>4} {r.get('edc',0):>4} {r.get('vlc',0):>4} {r.get('crp',0):>4} "
               f"{r.get('hd',0):>3} {r.get('sc',0):>5.2f} | "
-              f"{r.get('ssim',0):>6.3f} {r.get('clip',0):>6.3f} {r.get('lpips',0):>6.3f}")
+              f"{r.get('clip',0):>6.3f} {r.get('lpips',0):>6.3f}")
 
     out_json = OUT_DIR / "metrics.json"
     out_json.write_text(json.dumps(rows, ensure_ascii=False, indent=2))

@@ -4,7 +4,7 @@ Metrics:
   HTML/DOM-based (vocabulary-free):
     VEC, EDC, VLC, CRP, HD, SC, ZDX
   PNG-based (visual fidelity):
-    SSIM, CLIP, LPIPS
+    CLIP, LPIPS  (SSIM removed — not informative for design2code; see paper)
 
 Output:
   results/new_eval/dom_metrics.jsonl
@@ -78,7 +78,7 @@ def run_dom_metrics():
 
 
 def run_visual_metrics():
-    """SSIM + CLIP + LPIPS vs reference PNG."""
+    """CLIP + LPIPS vs reference PNG (SSIM excluded — see module docstring)."""
     from experiments.metrics.visual_similarity import all_visual_metrics
     out_path = OUT / "visual_metrics.jsonl"
     print(f"\n=== Visual metrics → {out_path} ===")
@@ -109,7 +109,7 @@ def run_visual_metrics():
                 rows.append(row)
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
                 f.flush()
-                print(f"  {method:<32} {did:<28} SSIM={m['ssim']:.3f} CLIP={m['clip']:.3f} LPIPS={m['lpips']:.3f} ({elapsed:.1f}s)")
+                print(f"  {method:<32} {did:<28} CLIP={m['clip']:.3f} LPIPS={m['lpips']:.3f} ({elapsed:.1f}s)")
     return rows
 
 
@@ -124,8 +124,8 @@ def aggregate(dom_rows, visual_rows):
         by[r["method"]]["vis"].append(r)
 
     print(f"\n=== Aggregate (N={len(DARK_GLASS)} dark-glass) ===")
-    print(f"{'method':<32} {'VEC':>6} {'EDC':>6} {'VLC':>6} {'CRP':>6} {'HD':>4}  {'SSIM':>6} {'CLIP':>6} {'LPIPS':>6}")
-    print('-' * 95)
+    print(f"{'method':<32} {'VEC':>6} {'EDC':>6} {'VLC':>6} {'CRP':>6} {'HD':>4}  {'CLIP':>6} {'LPIPS':>6}")
+    print('-' * 90)
     summary = {}
     for method in METHODS:
         d = by[method]
@@ -141,13 +141,12 @@ def aggregate(dom_rows, visual_rows):
             "hd":  mean(r["hd"]  for r in d["dom"]),
             "sc":  mean(r["sc"]  for r in d["dom"]),
             "zdx": mean(r["zdx"] for r in d["dom"]),
-            "ssim": mean(r["ssim"] for r in d["vis"]),
             "clip": mean(r["clip"] for r in d["vis"]),
             "lpips": mean(r["lpips"] for r in d["vis"]),
         }
         summary[method] = agg
         print(f"{method:<32} {agg['vec']:>6.1f} {agg['edc']:>6.1f} {agg['vlc']:>6.1f} {agg['crp']:>6.1f} "
-              f"{agg['hd']:>4.1f}  {agg['ssim']:>6.3f} {agg['clip']:>6.3f} {agg['lpips']:>6.3f}")
+              f"{agg['hd']:>4.1f}  {agg['clip']:>6.3f} {agg['lpips']:>6.3f}")
 
     out = OUT / "summary.json"
     out.write_text(json.dumps(summary, ensure_ascii=False, indent=2))

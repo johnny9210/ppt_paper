@@ -1,9 +1,10 @@
 """5-way VLM ranking on McKinsey reference.
 
-Why this exists: SSIM/CLIP/LPIPS rank single_pass > v3 because they reward
-brightness-distribution match (single_pass is "mostly white-blank" like the
-reference's whitespace-dominant gestalt) over actual content fidelity. To
-sanity-check the upgrade we ask a VLM to rank the 5 candidates directly.
+Why this exists: pixel/perceptual metrics (CLIP/LPIPS) rank single_pass > v3
+because they reward brightness-distribution match (single_pass is "mostly
+white-blank" like the reference's whitespace-dominant gestalt) over actual
+content fidelity. To sanity-check the upgrade we ask a VLM to rank the 5
+candidates directly.
 """
 from __future__ import annotations
 

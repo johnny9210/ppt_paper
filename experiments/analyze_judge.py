@@ -114,8 +114,8 @@ def merge_with_main_eval(judge_rows: list[dict]) -> None:
 
     print("\n=== Combined: MLLM-judge × deterministic metrics ===\n")
     methods = sorted({r["method"] for r in judge_rows if "_error" not in r})
-    print(f"{'method':<14}{'LS judge':>10}{'VF judge':>10}{'CC judge':>10}{'DQ judge':>10}{'LTED↓':>10}{'Recall↑':>10}{'SSIM↑':>10}")
-    print("-" * 84)
+    print(f"{'method':<14}{'LS judge':>10}{'VF judge':>10}{'CC judge':>10}{'DQ judge':>10}{'LTED↓':>10}{'Recall↑':>10}")
+    print("-" * 74)
     for m in methods:
         jr = [r for r in judge_rows if r["method"] == m and "_error" not in r]
         ls_scores = [get_score(r, "layer_structure") for r in jr]
@@ -131,14 +131,12 @@ def merge_with_main_eval(judge_rows: list[dict]) -> None:
         lted_vals = [v for v in lted_vals if isinstance(v, (int, float))]
         recall_vals = [r.get("layer_recall") for r in main_rows if r["method"] == m]
         recall_vals = [v for v in recall_vals if isinstance(v, (int, float))]
-        ssim_vals = [r.get("ssim") for r in main_rows if r["method"] == m]
-        ssim_vals = [v for v in ssim_vals if isinstance(v, (int, float))]
 
         def avg(xs):
             return statistics.mean(xs) if xs else float("nan")
         print(f"{m:<14}"
               f"{avg(ls_scores):>10.2f}{avg(vf_scores):>10.2f}{avg(cc_scores):>10.2f}{avg(dq_scores):>10.2f}"
-              f"{avg(lted_vals):>10.3f}{avg(recall_vals):>10.3f}{avg(ssim_vals):>10.3f}")
+              f"{avg(lted_vals):>10.3f}{avg(recall_vals):>10.3f}")
 
 
 def main() -> None:

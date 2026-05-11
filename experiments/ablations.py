@@ -149,7 +149,7 @@ def main() -> None:
             for r in rows:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
         out_csv = ABL_DIR / "eval_summary.csv"
-        headers = ["design_id", "method", "ssim", "block_match", "position",
+        headers = ["design_id", "method", "block_match", "position",
                    "lted", "layer_recall", "render_ok"]
         with out_csv.open("w") as f:
             f.write(",".join(headers) + "\n")

@@ -1,7 +1,13 @@
-"""Visual fidelity metrics: SSIM, CLIP score, LPIPS.
+"""Visual fidelity metrics: CLIP score, LPIPS.
 
 All compare a reference PNG against a generated PNG (rendered output).
 Vocabulary-free, established in Design2Code / SlidesBench / SlideCoder.
+
+NOTE: SSIM was removed from the default metric set after the paper's
+design2code review concluded it is not informative for slide rendering
+(JPEG-noise-era pixel metric, "blank canvas" attack, alignment-brittle).
+The legacy `ssim_score` helper below is kept only for backwards-compat
+with old result-loading code that may still expect the field.
 """
 from __future__ import annotations
 
@@ -74,8 +80,8 @@ def lpips_score(ref_png: Path | str, gen_png: Path | str) -> float:
 
 
 def all_visual_metrics(ref_png: Path | str, gen_png: Path | str) -> dict:
+    """CLIP + LPIPS only. SSIM intentionally excluded — see module docstring."""
     return {
-        "ssim": ssim_score(ref_png, gen_png),
         "clip": clip_score(ref_png, gen_png),
         "lpips": lpips_score(ref_png, gen_png),
     }

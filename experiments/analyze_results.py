@@ -16,8 +16,8 @@ _ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_ROOT))
 
 
-PRIMARY_METRICS = ["ssim", "block_match", "position", "lted", "layer_recall"]
-HIGHER_BETTER = {"ssim": True, "block_match": True, "position": True,
+PRIMARY_METRICS = ["block_match", "position", "lted", "layer_recall"]
+HIGHER_BETTER = {"block_match": True, "position": True,
                  "lted": False, "layer_recall": True}
 
 

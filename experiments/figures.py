@@ -114,9 +114,9 @@ def fig1_perception_generation_gap(rows: list[dict],
 def fig2_methods(rows: list[dict]) -> None:
     """Multi-metric method comparison."""
     methods = ["single_pass", "visual_cot", "cot_h_rag", "layeragent"]
-    metrics = ["ssim", "block_match", "position", "lted", "layer_recall"]
-    metric_labels = ["SSIM", "Block-Match", "Position", "LTED↓", "LayerRecall"]
-    higher_better = [True, True, True, False, True]
+    metrics = ["block_match", "position", "lted", "layer_recall"]
+    metric_labels = ["Block-Match", "Position", "LTED↓", "LayerRecall"]
+    higher_better = [True, True, False, True]
 
     fig, axes = plt.subplots(1, len(metrics), figsize=(14, 3.5), sharey=False)
     for ax, metric, label, hb in zip(axes, metrics, metric_labels, higher_better):
@@ -268,11 +268,11 @@ def fig4_ablation() -> None:
         ax.text(i - w/2, v1 + max(d_full)*0.02, f"{v1:.2f}" if v1 < 1 else f"{v1:.0f}", ha="center", fontsize=8)
         ax.text(i + w/2, v2 + max(d_full)*0.02, f"{v2:.2f}" if v2 < 1 else f"{v2:.0f}", ha="center", fontsize=8)
 
-    # Right: D₄ DesignSpec (8 metrics, N=50)
+    # Right: D₄ DesignSpec (5 metrics, N=50) — SSIM dropped (uninformative for design2code)
     ax = axes[1]
-    metrics = ["VEC", "EDC", "CRP", "SSIM", "CLIP", "LPIPS↓"]
-    d_full_v = [17.0, 8.9, 31.2, 0.582, 0.493, 0.718]
-    d_no_ds = [14.9, 8.5, 26.8, 0.408, 0.466, 0.798]
+    metrics = ["VEC", "EDC", "CRP", "CLIP", "LPIPS↓"]
+    d_full_v = [17.0, 8.9, 31.2, 0.493, 0.718]
+    d_no_ds = [14.9, 8.5, 26.8, 0.466, 0.798]
     # normalize to relative 0-1 for unified bar
     d_norm_full = [v / max(a, b) for v, a, b in zip(d_full_v, d_full_v, d_no_ds)]
     d_norm_ds = [v / max(a, b) for v, a, b in zip(d_no_ds, d_full_v, d_no_ds)]

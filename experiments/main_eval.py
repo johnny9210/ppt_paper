@@ -5,7 +5,7 @@ Four cacheable stages (each restartable):
   Stage 1: Generate HTML  — for each (method, slide) → results/raw/{method}/{sid}_seed0.html
   Stage 2: Render PNG     — for each HTML → results/screenshots/{method}/{sid}.png
   Stage 3: Reference perception — VLM lists layers in each ref image (cached)
-  Stage 4: Compute metrics — CLIP/SSIM/BlockMatch/Position/RenderRate/LTED
+  Stage 4: Compute metrics — CLIP/BlockMatch/Position/RenderRate/LTED  (SSIM removed)
 
 Output:
   results/main_eval/eval_results.jsonl
@@ -34,7 +34,7 @@ from experiments.metrics.lted import lted_from_perception_text
 from experiments.metrics.ocr_blocks import extract_blocks
 from experiments.metrics.position import position_alignment
 from experiments.metrics.render_rate import render_one
-from experiments.metrics.structural import block_match, ssim_similarity
+from experiments.metrics.structural import block_match
 from experiments.probing.layer_tree import PERCEPTION_PROMPT
 from layeragent.utils.common import b64_image, get_image_path, load_active_specs
 
@@ -180,11 +180,7 @@ def stage4_metrics(designs: list[str], methods: list[str],
                 row["render_err"] = "no html"
 
             if png_path.exists() and ref_img.exists():
-                try:
-                    row["ssim"] = ssim_similarity(str(ref_img), str(png_path))
-                except Exception as e:
-                    row["ssim_err"] = str(e)
-
+                # SSIM intentionally not computed — see paper decision (commit 768b0cb).
                 # Position + Block-Match (OCR-based)
                 try:
                     gen_blocks = extract_blocks(png_path)
@@ -218,7 +214,6 @@ def stage4_metrics(designs: list[str], methods: list[str],
 
             rows.append(row)
             print(f"  [metric] {method:>14} / {did}: "
-                  f"SSIM={row.get('ssim', '—')!s:>5}  "
                   f"BM={row.get('block_match', '—')!s:>5}  "
                   f"Pos={row.get('position', '—')!s:>5}  "
                   f"LTED={row.get('lted', '—')!s:>5}  "
@@ -234,7 +229,7 @@ def write_outputs(rows: list[dict]) -> None:
 
     # CSV summary
     out_csv = EVAL_DIR / "eval_summary.csv"
-    headers = ["design_id", "method", "ssim", "block_match", "position",
+    headers = ["design_id", "method", "block_match", "position",
                "lted", "layer_recall", "render_ok", "n_ref_layers", "n_gen_layers"]
     with out_csv.open("w") as f:
         f.write(",".join(headers) + "\n")
