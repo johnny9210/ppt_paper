@@ -60,11 +60,11 @@
     },
     "style": {
       "primary_color": "#1F3864",
-      "accent_color": "#FFFFFF",
+      "accent_color": "#1F3864",
       "background": "#FFFFFF",
       "text_color": "#000000"
     }
   },
   "image_path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/process_flow_mckinsey_blue_transformation.png",
-  "debug_dir": "/Users/jik/Documents/ppt_paper/results/debug/mckinsey_v4"
+  "debug_dir": "/Users/jik/Documents/ppt_paper/results/debug/mckinsey_v5_no_hardcode"
 }

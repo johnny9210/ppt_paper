@@ -311,6 +311,103 @@ def margin_background_hex(
     }
 
 
+def text_ink_colors(
+    image_b64: str,
+    bbox_ratio: tuple[float, float, float, float] | None = None,
+    min_conf: int = 30,
+) -> dict:
+    """Sample modal ink color inside OCR-detected text bboxes.
+
+    For each OCR bbox we 2-means cluster the pixels; the minority cluster is
+    the ink (text), the majority is the local background. Returns the darkest
+    and brightest ink-cluster centers across all detected text — these map to
+    `text_bright` on light bg_primary and to header.text on dark accent
+    panels respectively, both *measured from the image*, no magic hex.
+    """
+    try:
+        import pytesseract
+        from sklearn.cluster import KMeans
+    except ImportError:
+        return {}
+
+    img = _load_image(image_b64)
+    if bbox_ratio:
+        img = _crop_by_bbox(img, bbox_ratio)
+
+    try:
+        data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT, lang="eng+kor")
+    except Exception:
+        try:
+            data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT)
+        except Exception:
+            return {}
+
+    arr = np.array(img)
+    ink_centers: list[np.ndarray] = []
+    n = len(data.get("text", []))
+    for i in range(n):
+        text = (data["text"][i] or "").strip()
+        if not text:
+            continue
+        try:
+            conf = int(data["conf"][i])
+        except Exception:
+            conf = 0
+        if conf < min_conf:
+            continue
+        h = int(data["height"][i]); w = int(data["width"][i])
+        x = int(data["left"][i]); y = int(data["top"][i])
+        if h < 8 or w < 8:
+            continue
+        crop = arr[y:y + h, x:x + w]
+        if crop.size == 0:
+            continue
+        flat = crop.reshape(-1, 3)
+        if len(flat) < 30:
+            continue
+        try:
+            km = KMeans(n_clusters=2, n_init="auto", random_state=0).fit(flat)
+            labels = km.labels_
+            counts = np.bincount(labels, minlength=2)
+            ink_label = int(np.argmin(counts))
+            # Require ink cluster to be a real minority (text is sparse in bbox)
+            if counts[ink_label] / counts.sum() > 0.45:
+                continue
+            ink_centers.append(km.cluster_centers_[ink_label])
+        except Exception:
+            continue
+
+    if not ink_centers:
+        return {}
+
+    def _lum(rgb: np.ndarray) -> float:
+        return float(0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2])
+
+    darkest = min(ink_centers, key=_lum)
+    brightest = max(ink_centers, key=_lum)
+
+    def _hex(rgb: np.ndarray) -> str:
+        r, g, b = (int(c) for c in rgb)
+        return f"#{r:02X}{g:02X}{b:02X}"
+
+    out = {
+        "text_dark_hex": _hex(darkest),
+        "text_light_hex": _hex(brightest),
+        "n_text_bboxes": len(ink_centers),
+    }
+    # If only one cluster is meaningfully separated from white/black extremes,
+    # drop the redundant side so the director isn't pushed toward picking it.
+    if abs(_lum(darkest) - _lum(brightest)) < 30:
+        # Only one ink color found
+        single = darkest if _lum(darkest) < 128 else brightest
+        out = {
+            "text_dark_hex": _hex(single) if _lum(single) < 128 else None,
+            "text_light_hex": _hex(single) if _lum(single) >= 128 else None,
+            "n_text_bboxes": len(ink_centers),
+        }
+    return out
+
+
 def visual_facts(
     image_b64: str,
     bbox_ratio: tuple[float, float, float, float] | None = None,
@@ -322,7 +419,8 @@ def visual_facts(
 
     For full-slide calls (bbox_ratio is None), also include `margin_bg` so the
     director can distinguish the *real* slide background from a panel color
-    that merely happens to dominate the histogram.
+    that merely happens to dominate the histogram, and `text_colors` so text
+    color decisions are image-derived rather than hardcoded.
     """
     out = {
         "palette": extract_palette_hex(image_b64, bbox_ratio, n_colors=n_palette),
@@ -332,6 +430,7 @@ def visual_facts(
     }
     if bbox_ratio is None:
         out["margin_bg"] = margin_background_hex(image_b64)
+        out["text_colors"] = text_ink_colors(image_b64)
     return out
 
 
@@ -363,6 +462,18 @@ def format_facts_as_prompt(facts: dict) -> str:
         lines.append(
             "★ **이 값을 `palette.bg_primary` 로 채택하라.** 위 k-means 지배색은 본문 패널 영역까지 포함해 "
             "패널 색이 배경처럼 잡힐 수 있음. 가장자리 띠가 균일(uniform=True)이면 그 색이 진짜 배경."
+        )
+
+    tc = facts.get("text_colors")
+    if tc:
+        lines.append("\n*이미지에서 측정된 실제 텍스트 잉크 색* (OCR bbox 2-means clustering):")
+        if tc.get("text_dark_hex"):
+            lines.append(f"- 짙은 텍스트 잉크: `{tc['text_dark_hex']}`")
+        if tc.get("text_light_hex"):
+            lines.append(f"- 밝은 텍스트 잉크: `{tc['text_light_hex']}`")
+        lines.append(
+            "★ `palette.text_bright`는 `bg_primary`에 대비되는 측정 잉크를 채택하라 — "
+            "bg가 밝으면 짙은 잉크, bg가 어두우면 밝은 잉크. 하드코딩된 hex 사용 금지, 위 측정값만 사용."
         )
 
     if facts["text_heights"]:

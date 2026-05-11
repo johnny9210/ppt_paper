@@ -10,7 +10,12 @@ DIRECTOR_PROMPT = """너는 디자인 디렉터다. 이 슬라이드 이미지�
 - 슬라이드 *전체*가 어두우면 다크, *전체*가 밝으면 라이트.
 - 카드 헤더 띠, hero 패널, accent 박스 같은 **부분 영역의 색을 슬라이드 배경으로 채택하지 마라**.
 - 위 'CV 측정값'에 *슬라이드 진짜 배경색* 항목이 주어지고 `uniform=True` 면 **반드시** 그 hex 를 `bg_primary` 로 채택. k-means 지배색이 더 어둡더라도 무시.
-- 배경이 밝은 슬라이드(margin이 거의 흰색)에서는 `text_bright`를 **어두운 hex (#1A2230 등)**로 설정하라. 라이트 배경에 라이트 텍스트는 가독성 0.
+
+★★★ **모든 색은 이미지에서 측정된 값만 사용**:
+- 임의의 hex 상수를 만들지 마라. `text_bright`, `bg_secondary`, `accent`, `card_template.header.bg` 등 모든 hex는 위 'CV 측정값'의 k-means palette, `slide 진짜 배경색`, `텍스트 잉크 색` 중에서 골라야 한다.
+- `text_bright`: 위 *텍스트 잉크 색* 측정값이 있으면 `bg_primary`와 대비되는 쪽을 채택. bg가 밝으면 `text_dark_hex`, bg가 어두우면 `text_light_hex`. 측정값이 없을 때만 palette에서 명도 차이가 가장 큰 색을 채택.
+- `bg_secondary`: palette에서 `bg_primary`와 같은 명도대(라이트 bg면 라이트, 다크 bg면 다크)의 두 번째 hex. 반대 명도대를 쓰면 base_bg agent의 gradient가 슬라이드를 지배함.
+- `card_template.header.text`, `card_template.body.text` 등 카드 내부 텍스트 색도 동일 원칙 — 헤더 bg가 어두우면 측정된 `text_light_hex`, 본문 bg가 밝으면 `text_dark_hex`.
 
 **DesignSpec JSON**:
 ```json

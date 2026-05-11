@@ -9,20 +9,57 @@ from ..prompts.director import DIRECTOR_PROMPT
 from ..utils.llm import vision_call
 
 
+def _luma_hex(hex_str: str) -> float:
+    try:
+        r = int(hex_str[1:3], 16); g = int(hex_str[3:5], 16); b = int(hex_str[5:7], 16)
+        return (0.299 * r + 0.587 * g + 0.114 * b) / 255
+    except Exception:
+        return 0.5
+
+
 def _fallback_spec(facts: dict) -> dict:
+    """Build a minimal spec entirely from image-derived facts. No magic hex —
+    if facts cannot supply a color, leave the field empty so downstream agents
+    fail loud rather than render against an arbitrary baseline.
+    """
     palette = facts.get("palette", [])
     margin = facts.get("margin_bg") or {}
-    # Prefer margin-sampled background over modal palette — see cv_extractors.
-    bg_prim = margin.get("hex") or (palette[0]["hex"] if palette else "#0A1530")
-    bg_sec = palette[1]["hex"] if len(palette) > 1 else "#1C2D49"
-    accent = next((p["hex"] for p in palette if p.get("role_guess") == "accent"), "#D4AF37")
+    text_colors = facts.get("text_colors") or {}
+
+    bg_prim = margin.get("hex") or (palette[0]["hex"] if palette else "")
+    bg_luma = _luma_hex(bg_prim) if bg_prim else 0.5
+
+    # Pick a same-tone secondary from palette
+    bg_sec = ""
+    if palette:
+        same_tone = [p for p in palette if abs(_luma_hex(p["hex"]) - bg_luma) < 0.25 and p["hex"] != bg_prim]
+        if same_tone:
+            bg_sec = same_tone[0]["hex"]
+        elif len(palette) > 1:
+            bg_sec = palette[1]["hex"]
+
+    accent = next((p["hex"] for p in palette if p.get("role_guess") == "accent"),
+                  palette[0]["hex"] if palette else "")
+
+    # Image-derived text color: pick the ink color contrasting bg_primary.
+    if bg_luma > 0.5:
+        text_bright = text_colors.get("text_dark_hex") or ""
+    else:
+        text_bright = text_colors.get("text_light_hex") or ""
+    if not text_bright and palette:
+        if bg_luma > 0.5:
+            text_bright = min(palette, key=lambda p: _luma_hex(p["hex"]))["hex"]
+        else:
+            text_bright = max(palette, key=lambda p: _luma_hex(p["hex"]))["hex"]
+
     return {
         "aesthetic_label": "unknown",
         "typography": {"hero_family": "sans-serif", "hero_weight": 800, "hero_style_hint": "normal",
                        "body_family": "sans-serif", "body_weight": 500, "letter_spacing_hint": "normal"},
         "palette": {"bg_primary": bg_prim, "bg_secondary": bg_sec, "accent": accent,
-                    "accent_soft": accent + "55", "frame_color": "rgba(255,255,255,0.15)",
-                    "text_bright": "#F5F5F0", "text_muted": "rgba(200,200,200,0.7)"},
+                    "accent_soft": (accent + "55") if accent else "",
+                    "frame_color": "rgba(255,255,255,0.15)",
+                    "text_bright": text_bright, "text_muted": "rgba(200,200,200,0.7)"},
         "frame_system": {"hero_frame": "subtle glass frame", "card_frame": "1px rgba white border",
                          "bottom_accent_bar": False},
         "decorative_motif": {"style": "minimal", "density": "sparse", "detected_shapes": []},
@@ -41,35 +78,56 @@ def _hex_distance(a: str, b: str) -> float:
     return ((ar[0] - br[0]) ** 2 + (ar[1] - br[1]) ** 2 + (ar[2] - br[2]) ** 2) ** 0.5
 
 
-def _enforce_margin_bg(spec: dict, margin_hex: str | None, is_uniform: bool) -> dict:
+def _enforce_margin_bg(spec: dict, facts: dict) -> dict:
     """If margin sampling shows a uniform border color but the LLM chose a
     far-away bg_primary, override to the margin color. The margin is the most
     reliable evidence for *real* slide background (no panels can leak there).
-    Also: when bg_primary becomes light, force bg_secondary to a near-white
-    so the base_bg agent doesn't render a white→navy gradient.
+
+    All auxiliary colors (bg_secondary, text_bright) are also derived from the
+    image — k-means palette (for same-tone bg_secondary) and OCR-bbox ink
+    measurement (for contrasting text_bright). No hardcoded hex anywhere.
     """
+    margin = facts.get("margin_bg") or {}
+    margin_hex = margin.get("hex")
+    is_uniform = bool(margin.get("is_uniform"))
     if not margin_hex or not is_uniform:
         return spec
+
     pal = spec.setdefault("palette", {})
     chosen = pal.get("bg_primary", "")
-    if not chosen or _hex_distance(chosen, margin_hex) > 60:
-        pal["bg_primary"] = margin_hex
-        try:
-            r = int(margin_hex[1:3], 16); g = int(margin_hex[3:5], 16); b = int(margin_hex[5:7], 16)
-            luma = (0.299 * r + 0.587 * g + 0.114 * b) / 255
-        except Exception:
-            luma = 0.5
-        if luma > 0.65:
-            # Light slide → bg_secondary should also be light (subtle gradient,
-            # not a hard white→dark bleed). Without this, base_bg renders
-            # `linear-gradient(#FFFFFF, #07365C)` which dominates the slide.
-            sec = pal.get("bg_secondary", "")
-            if not sec or _hex_distance(sec, margin_hex) > 60:
-                pal["bg_secondary"] = "#F4F6F8"
-            # Flip text_bright dark for legibility on light bg.
-            pal.setdefault("text_bright", "#1A2230")
-            if pal.get("text_bright", "").upper() in ("#F5F5F0", "#FFFFFF", "#FFF"):
-                pal["text_bright"] = "#1A2230"
+    if chosen and _hex_distance(chosen, margin_hex) <= 60:
+        return spec
+
+    pal["bg_primary"] = margin_hex
+    bg_luma = _luma_hex(margin_hex)
+
+    palette_facts = facts.get("palette", []) or []
+    # bg_secondary: a palette color in the same luma half as bg_primary.
+    sec = pal.get("bg_secondary", "")
+    sec_drift = _hex_distance(sec, margin_hex) > 60 if sec else True
+    sec_wrong_tone = sec and ((bg_luma > 0.5) != (_luma_hex(sec) > 0.5))
+    if (not sec) or sec_drift or sec_wrong_tone:
+        same_tone = [p for p in palette_facts
+                     if p.get("hex") and p["hex"].upper() != margin_hex.upper()
+                     and abs(_luma_hex(p["hex"]) - bg_luma) < 0.25]
+        if same_tone:
+            # Pick the most distinct from bg (max hex distance among same-tone)
+            same_tone.sort(key=lambda p: -_hex_distance(p["hex"], margin_hex))
+            pal["bg_secondary"] = same_tone[0]["hex"]
+
+    # text_bright: image-derived ink color contrasting bg_primary.
+    tc = facts.get("text_colors") or {}
+    if bg_luma > 0.5:
+        measured = tc.get("text_dark_hex")
+    else:
+        measured = tc.get("text_light_hex")
+    if measured:
+        cur = pal.get("text_bright", "")
+        # Override if current text_bright would be illegible on the new bg.
+        cur_luma = _luma_hex(cur) if cur else (1.0 - bg_luma)
+        if not cur or abs(cur_luma - bg_luma) < 0.3:
+            pal["text_bright"] = measured
+
     return spec
 
 
@@ -91,14 +149,15 @@ def run_director(image_b64: str, model: str = "gpt-4o") -> tuple[dict, dict]:
 def design_director(state) -> dict:
     spec, facts = run_director(state["image_b64"], state.get("model", "gpt-4o"))
 
-    # Enforcement #1 — margin-sampled background overrides LLM hallucination.
-    mb = facts.get("margin_bg") or {}
-    spec = _enforce_margin_bg(spec, mb.get("hex"), mb.get("is_uniform", False))
+    # Enforcement #1 — margin-sampled bg + image-derived auxiliary colors
+    # override LLM hallucination.
+    spec = _enforce_margin_bg(spec, facts)
 
     # Enforcement #2 — chat-mode cross-check. If the chat_parser also extracted
     # a background hex from the image and it agrees with the margin sample,
     # treat it as additional confirmation. If the chat-mode background is
     # close to margin and far from director's choice, prefer the chat value.
+    mb = facts.get("margin_bg") or {}
     state_style = state.get("style") or {}
     chat_bg = state_style.get("background")
     pal = spec.setdefault("palette", {})

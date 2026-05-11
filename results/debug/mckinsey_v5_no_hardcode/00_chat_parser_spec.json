@@ -1,0 +1,65 @@
+{
+  "slide_type": "roadmap",
+  "content": {
+    "title": "Five-phase transformation roadmap delivers value in 18 months",
+    "subtitle": "Digital transformation phases, Q1 2026 - Q2 2027",
+    "phases": [
+      {
+        "step": 1,
+        "title": "Diagnose",
+        "quarter": "Q1 2026",
+        "bullets": [
+          "Assess current state, processes & systems",
+          "Identify value pools & pain points",
+          "Define target operating model"
+        ]
+      },
+      {
+        "step": 2,
+        "title": "Design",
+        "quarter": "Q2 2026",
+        "bullets": [
+          "Develop future state blueprints",
+          "Prioritize initiatives & build business cases",
+          "Design technology architecture"
+        ]
+      },
+      {
+        "step": 3,
+        "title": "Pilot",
+        "quarter": "Q3 2026",
+        "bullets": [
+          "Launch MVP in select areas",
+          "Test new processes & tools",
+          "Gather user feedback & iterate"
+        ]
+      },
+      {
+        "step": 4,
+        "title": "Scale",
+        "quarter": "Q4 2026 - Q1 2027",
+        "bullets": [
+          "Roll out solutions across the organization",
+          "Conduct widespread training & change management",
+          "Monitor performance & adjust"
+        ]
+      },
+      {
+        "step": 5,
+        "title": "Sustain",
+        "quarter": "Q2 2027 & beyond",
+        "bullets": [
+          "Embed new ways of working",
+          "Establish continuous improvement loops",
+          "Measure and realize benefits"
+        ]
+      }
+    ]
+  },
+  "style": {
+    "primary_color": "#1F3864",
+    "accent_color": "#1F3864",
+    "background": "#FFFFFF",
+    "text_color": "#000000"
+  }
+}
