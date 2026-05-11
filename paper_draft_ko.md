@@ -722,7 +722,7 @@ Design-to-Code 생성
 
 시각 교정 / 반복 개선
 - VisRefiner. "Learning from Visual Differences for Screenshot-to-Code Generation." arXiv:2602.05998, 2026.
-- Vision-Guided Iterative Refinement. arXiv:2604.05839, 2026.
+- Vision-Guided Iterative Refinement. "Vision-Guided Iterative Refinement for Frontend Code Generation." arXiv:2604.05839, 2026.
 
 프레젠테이션 생성
 - Zheng, H., et al. "PPTAgent: Generating and Evaluating Presentations Beyond Text-to-Slides." EMNLP 2025.
