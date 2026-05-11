@@ -224,8 +224,13 @@ def assembler(state) -> dict:
     # Title — prefer state["style"]["text_color"] for legibility; accent for emphasis.
     title = content.get("title", "")
     desc = content.get("description", "")
+    # Chart slides render their own title inside chart_html — skip the
+    # assembler's overlay title to avoid duplication.
+    from ..libraries.chart_templates import is_chart_slide_type
+    _slide_type_for_title = (state.get("slide_type") or "").lower()
+
     title_div = ""
-    if title:
+    if title and not is_chart_slide_type(_slide_type_for_title):
         typo = spec.get("typography", {})
         family = typo.get("hero_family", "serif")
         text_bright = state_style.get("text_color") or pal.get("text_bright") or "#F5F5F0"

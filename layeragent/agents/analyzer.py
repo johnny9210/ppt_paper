@@ -55,8 +55,9 @@ def _content_card_count(content: dict, slide_type: str) -> int | None:
         return len(content.get("stats", []) or [])
     if st == "cover":
         return 0
-    if st == "table":
-        return 0   # 표는 카드 사용 안 함 — table_agent 가 단독 렌더
+    if st in ("table", "bar_chart", "line_chart", "waterfall", "matrix_2x2",
+              "mekko", "harvey_table_advanced", "tree_diagram"):
+        return 0   # chart/표는 카드 사용 안 함 — 전용 agent 가 단독 렌더
     return None
 
 
@@ -91,12 +92,12 @@ def _card_y_range(slide_type: str, content: dict) -> tuple[float, float]:
 def _align_cards(analysis: dict, content: dict, slide_type: str) -> dict:
     st = (slide_type or "").lower()
 
-    # Table 모드: 카드/히어로/장식 데코레이션을 모두 비워서 표 위에 덧씌워지지 않도록.
-    # Hero 가 z-index 20+ 라 표(z=9) 를 덮는 사고가 발생.
-    if st == "table":
+    # Table / chart 모드: 카드/히어로/장식 데코레이션을 모두 비워서 차트 위에
+    # 덧씌워지지 않도록. Hero 가 z-index 20+ 라 차트(z=8/9) 를 덮는 사고가 발생.
+    if st in ("table", "bar_chart", "line_chart", "waterfall", "matrix_2x2",
+              "mekko", "harvey_table_advanced", "tree_diagram"):
         analysis["cards"] = []
         analysis["hero_blocks"] = []
-        # decorations 는 패턴/배경용으로 남겨두되, "diamond/vs/badge" 류만 제거
         analysis["decorations"] = [
             d for d in (analysis.get("decorations") or [])
             if (d.get("type") or "").lower() not in (

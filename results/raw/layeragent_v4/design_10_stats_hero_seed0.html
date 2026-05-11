@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+.design_10_stats_hero-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, #0A0F29 0%, #141A3C 100%);
+}
+</style>
+<style>
+    .design_10_stats_hero-atmos {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(circle at top left, rgba(175, 146, 102, 0.2), transparent 70%),
+                    radial-gradient(circle at center, rgba(10, 15, 41, 0.5), transparent 80%);
+        filter: blur(15px);
+    }
+</style>
+<style>
+  .design_10_stats_hero-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .design_10_stats_hero-decor::before, 
+  .design_10_stats_hero-decor::after {
+    content: '';
+    position: absolute;
+    border: solid #AF9266;
+    opacity: 0.8;
+    backdrop-filter: blur(2px);
+  }
+
+  .design_10_stats_hero-decor::before {
+    left: 12%;
+    top: 15%;
+    width: 0; 
+    height: 0; 
+    border-width: 0 15px 26px 15px;
+    border-color: transparent transparent #AF9266 transparent;
+  }
+
+  .design_10_stats_hero-decor::after {
+    left: 77%;
+    top: 60%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #AF9266;
+  }
+</style>
+<style>
+  .hero-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #5B6577, #111E3A);
+    border: 2px solid #BE9C69;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+
+  .hero-1 .hero-value {
+    font-size: 3em;
+    color: #EFD292;
+    text-shadow: 0 0 10px #BE9C69;
+    margin-bottom: 10px;
+  }
+
+  .hero-1 .hero-subtitle {
+    font-size: 1em;
+    color: #ffffff;
+    opacity: 0.9;
+  }
+</style>
+<style>
+  body {
+    background-color: #1B2B49;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .card-1 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    max-height: 150px;
+    background: linear-gradient(135deg, #5B6577, #111E3A);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    position: relative;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #1B2B49, #464A57);
+    border-radius: 8px;
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .card-1 .card-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #D3B681;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .card-1 .card-value {
+    color: #D3B681;
+    font-size: 2.5rem; /* Approximately 40px */
+  }
+
+  .card-body {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid #727176;
+    padding-left: 10px;
+  }
+
+  .card-1 .card-label {
+    font-size: 1.3125rem; /* Approximately 21px */
+    color: #A9ACB3;
+  }
+
+  .card-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: #D3B681;
+    border-radius: 0 0 10px 10px;
+  }
+</style>
+<style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(135deg, #5B6577, #111E3A);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: #1e2746;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-2 .card-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #5D616E;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+
+  .card-2 .card-value {
+    color: #CEB88E;
+    font-size: 1.5rem;
+  }
+
+  .card-body {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .card-2 .card-label {
+    color: #CEB88E;
+    font-size: 0.75rem;
+    margin-top: 8px;
+  }
+</style>
+<style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(135deg, #5B6577, #111E3A);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(221, 196, 148, 0.4), rgba(128, 134, 149, 0.2));
+    border-radius: 12px;
+    padding: 10px;
+    flex-grow: 1;
+  }
+
+  .card-3 .card-icon {
+    width: 48px;
+    height: 48px;
+    background: #635E60;
+    border-radius: 50%;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #ffffff;
+  }
+
+  .card-3 .card-value {
+    font-size: 3rem; /* Reduce font-size by approximately 17% */
+    color: #DDC494;
+    font-weight: bold;
+  }
+  
+  .card-body {
+    margin-left: 16px;
+    flex-grow: 2;
+  }
+
+  .card-3 .card-label {
+    font-size: 1.25rem;
+    color: #ffffff;
+    line-height: 1.5;
+  }
+
+  .card-accent {
+    height: 4px;
+    background: linear-gradient(90deg, #DDC494, #635E60);
+    border-radius: 2px;
+    margin-top: 8px;
+  }
+</style>
+<style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(135deg, #5B6577, #111E3A);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  .card-header {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: rgba(32, 39, 54, 0.8);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    margin-right: 10px;
+    padding: 10px;
+  }
+
+  .card-4 .card-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: #737884;
+    border-radius: 50%;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-4 .card-value {
+    color: #EAD398;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+  }
+
+  .card-body {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(50, 60, 74, 0.8);
+    border-radius: 15px;
+  }
+
+  .card-4 .card-label {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .card-accent {
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #A8804F, #EAD398);
+    border-radius: 0 0 15px 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+</style>
+
+<div class="slide-container design_10_stats_hero" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <div class="design_10_stats_hero-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;pointer-events:none;">
+            <defs>
+                <pattern id="p-hex" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+                    <polygon points="30,4 55,18 55,38 30,52 5,38 5,18" stroke="#004080" stroke-width="0.6" fill="none" opacity="0.18" />
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#p-hex)" />
+        </svg>
+    </div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;">
+        <div class="design_10_stats_hero-atmos"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+        <div class="design_10_stats_hero-decor"></div>
+        <div style="position:absolute;left:2.0%;top:10.0%;width:6.0%;height:6.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="50,10 90,90 10,90" stroke="#004080" stroke-width="2" fill="none" opacity="0.15" />
+            </svg>
+        </div>
+        <div style="position:absolute;left:92.0%;top:5.0%;width:5.0%;height:5.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="50,8 88,30 88,70 50,92 12,70 12,30" stroke="#004080" stroke-width="2" fill="none" opacity="0.12" />
+            </svg>
+        </div>
+        <div style="position:absolute;left:0.0%;top:80.0%;width:10.0%;height:10.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="42" stroke="#004080" stroke-width="2" fill="none" opacity="0.12" />
+            </svg>
+        </div>
+        <div style="position:absolute;left:80.0%;top:80.0%;width:7.0%;height:7.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="50,10 90,90 10,90" stroke="#004080" stroke-width="2" fill="none" opacity="0.1" />
+            </svg>
+        </div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    <div class="hero-wrap-1" style="position:absolute;left:5.0%;top:20.0%;width:35.0%;height:40.0%;z-index:20;">
+        <div style="position:absolute;inset:0;">
+            <div class="hero-1">
+                <div class="hero-value"></div>
+                <div class="hero-subtitle"></div>
+            </div>
+        </div>
+        <div style="position:absolute;inset:0;border:1px solid rgba(239, 207, 144, 0.8);opacity:1.0;pointer-events:none;"></div>
+        <div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="5,40 5,5 40,5" stroke="#004080" stroke-width="2" fill="none" opacity="0.7" />
+            </svg>
+        </div>
+    </div>
+    <div class="card-wrap-1" style="position:absolute;left:55.0%;top:25.0%;width:40.0%;height:10.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-1">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-shield-halved" style="font-size:1.8rem;color:#AF9266;"></i></div>
+                    <div class="card-value">XX%</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label"></div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-2" style="position:absolute;left:55.0%;top:40.0%;width:40.0%;height:10.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-2">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-chart-bar" style="font-size:1.8rem;color:#AF9266;"></i></div>
+                    <div class="card-value">XX%</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-3" style="position:absolute;left:55.0%;top:55.0%;width:40.0%;height:10.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-3">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-globe" style="font-size:1.8rem;color:#AF9266;"></i></div>
+                    <div class="card-value">XX%</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label"></div>
+                    <div class="card-accent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-4" style="position:absolute;left:55.0%;top:70.0%;width:40.0%;height:10.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-4">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-handshake" style="font-size:1.8rem;color:#AF9266;"></i></div>
+                    <div class="card-value">XX%</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label"></div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#004080;letter-spacing:0.08em;text-transform:uppercase;">Hero Impact Slide</div>
+    </div>
+</div></div>
+</body></html>

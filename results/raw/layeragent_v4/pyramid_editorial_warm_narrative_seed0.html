@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .pyramid_editorial_warm_narrative-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, #F8EDE6, rgba(255, 255, 255, 0.8));
+  }
+</style>
+
+<style>
+  .pyramid_editorial_warm_narrative-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .triangle-shape {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 15% solid transparent;
+    border-right: 15% solid transparent;
+    border-bottom: 30% solid rgba(179, 78, 30, 0.8);
+    transform: translateX(-50%);
+  }
+</style>
+
+<style>
+  .hero-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #F7F2E6;
+  }
+
+  .hero-1 .hero-value {
+    font-size: 3.1875rem; /* 51px: 15% 축소 */
+    color: #C88348;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .hero-1 .hero-subtitle {
+    font-size: 1.625rem; /* 26px */
+    color: #AB5423;
+    text-align: center;
+  }
+</style>
+
+<style>
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #F7F2E6;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 24px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .card-1 .card-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #ad3f0c;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+
+  .card-1 .card-value {
+    flex-grow: 1;
+    color: #f7f3e6;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .card-body {
+    background: #f7f3e6;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 16px;
+  }
+
+  .card-1 .card-label {
+    color: #7d3d0a;
+    font-size: 0.675rem; /* 25% 축소 */
+    line-height: 1.2;
+  }
+
+  .card-accent {
+    height: 6px;
+    background: linear-gradient(to right, #f4e3c6, #cebb97);
+    border-radius: 12px;
+    margin-top: 16px;
+  }
+</style>
+
+<style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #F7F2E6;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 1rem;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: #AC3D08;
+    border-radius: 20px;
+    padding: 0.25rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-2 .card-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    color: #FCF2DD;
+  }
+
+  .card-2 .card-value {
+    font-size: 1.625rem;
+    color: #FCF2DD;
+  }
+
+  .card-body {
+    margin-top: 0.5rem;
+    width: 100%;
+    background: #E9C5A2;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-2 .card-label {
+    font-size: 0.75rem; /* 25% 축소 */
+    color: #7D3D0A;
+    text-align: center;
+    margin-top: 0.25rem;
+    line-height: 1.2;
+  }
+
+  .card-accent {
+    margin-top: 0.5rem;
+    width: 80%;
+    height: 4px;
+    background: linear-gradient(90deg, #D08A64, #AC3D08);
+    border-radius: 2px;
+  }
+</style>
+
+<style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #F7F2E6;
+    border: 2px solid #D8C5A2;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #AD400D, #B79C76);
+  }
+
+  .card-3 .card-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    background: #B79C76;
+    border-radius: 50%;
+  }
+
+  .card-3 .card-value {
+    color: #914d1c;
+    font-weight: bold;
+  }
+  
+  .card-body {
+    flex-grow: 1;
+    margin-left: 10px;
+  }
+
+  .card-3 .card-label {
+    background: #F8F2E5;
+    color: #7d3d0a;
+    font-size: 0.65625rem; /* 25% 축소 */
+    line-height: 1.2;
+    border-radius: 4px;
+    padding: 5px;
+    border: 1px solid #D8C5A2;
+  }
+</style>
+
+<div class="slide-container pyramid_editorial_warm_narrative" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+<div class="pyramid_editorial_warm_narrative-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;">
+<div class="pyramid_editorial_warm_narrative-decor">
+  <div class="triangle-shape"></div>
+</div><div style="position:absolute;left:2.0%;top:10.0%;width:6.0%;height:6.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,90 10,90" stroke="#D77B42" stroke-width="2" fill="none" opacity="0.15"/></svg></div><div style="position:absolute;left:92.0%;top:5.0%;width:5.0%;height:5.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,8 88,30 88,70 50,92 12,70 12,30" stroke="#D77B42" stroke-width="2" fill="none" opacity="0.12"/></svg></div><div style="position:absolute;left:0.0%;top:80.0%;width:10.0%;height:10.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="42" stroke="#D77B42" stroke-width="2" fill="none" opacity="0.12"/></svg></div><div style="position:absolute;left:80.0%;top:80.0%;width:7.0%;height:7.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,90 10,90" stroke="#D77B42" stroke-width="2" fill="none" opacity="0.1"/></svg></div></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    
+    <div class="hero-wrap-1" style="position:absolute;left:25.0%;top:10.0%;width:50.0%;height:20.0%;z-index:20;">
+  <div style="position:absolute;inset:0;">
+<div class="hero-1">
+  <div class="hero-value">Timeless craftsmanship</div>
+  <div class="hero-subtitle">pyramid</div>
+</div></div>
+  <div style="position:absolute;inset:0;border:1px solid rgba(179, 78, 30, 0.8);opacity:1.0;pointer-events:none;"></div><div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="5,40 5,5 40,5" stroke="#D77B42" stroke-width="2" fill="none" opacity="0.7"/></svg></div>
+</div>
+
+<div class="card-wrap-1" style="position:absolute;left:25.0%;top:35.0%;width:16.0%;height:10.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+<div class="card-1">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-users" style="font-size:1.8rem;color:#C6784D;"></i></div>
+    <div class="card-value">Craftsmanship</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">Legacy programs & workshops<br>Limited-edition archives</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+
+<div class="card-wrap-2" style="position:absolute;left:42.0%;top:35.0%;width:17.0%;height:10.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+<div class="card-2">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-code" style="font-size:1.8rem;color:#C6784D;"></i></div>
+    <div class="card-value">Trust</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">Transparent sourcing & processes<br>Lifetime product warranties</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+
+<div class="card-wrap-3" style="position:absolute;left:60.0%;top:35.0%;width:15.0%;height:10.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+<div class="card-3">
+  <div class="card-header">
+    <div class="card-icon"><i class="fas fa-globe" style="font-size:1.8rem;color:#C6784D;"></i></div>
+    <div class="card-value">Continuity</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">Long-term client partnerships<br>Sustainable material innovation</div>
+  </div>
+</div></div>
+</div>
+
+<div class="card-wrap-4" style="position:absolute;left:20.0%;top:55.0%;width:18.0%;height:10.0%;z-index:10;">
+  <div style="position:absolute;inset:0;">
+<div class="card-4">
+  <div class="card-header">
+    <div class="card-icon"></div>
+    <div class="card-value"></div>
+  </div>
+  <div class="card-body">
+    <div class="card-label"></div>
+  </div>
+</div></div>
+</div>
+
+<div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#D77B42;letter-spacing:0.08em;text-transform:uppercase;">Brand story rests on three values: craftsmanship, trust, and continuity</div>
+</div></div>
+</body></html>

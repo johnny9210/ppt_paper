@@ -1,0 +1,620 @@
+[
+  {
+    "slide_id": "bar_chart_bain_red_cost",
+    "status": "ok",
+    "slide_type": "bar_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 37.1
+  },
+  {
+    "slide_id": "bar_chart_minimal_white_engagement",
+    "status": "ok",
+    "slide_type": "bar_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 38.0
+  },
+  {
+    "slide_id": "bar_chart_editorial_warm_satisfaction",
+    "status": "ok",
+    "slide_type": "bar_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 38.1
+  },
+  {
+    "slide_id": "bar_chart_bcg_green_growth",
+    "status": "ok",
+    "slide_type": "bar_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 38.8
+  },
+  {
+    "slide_id": "bar_chart_mckinsey_blue_performance",
+    "status": "ok",
+    "slide_type": "bar_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 51.0
+  },
+  {
+    "slide_id": "design_01_timeline",
+    "status": "ok",
+    "slide_type": "stats_hero",
+    "content_keys": [
+      "title",
+      "hero_metric",
+      "stats"
+    ],
+    "elapsed": 55.4
+  },
+  {
+    "slide_id": "design_02_dashboard",
+    "status": "ok",
+    "slide_type": "stats_hero",
+    "content_keys": [
+      "title",
+      "hero_metric",
+      "stats"
+    ],
+    "elapsed": 62.8
+  },
+  {
+    "slide_id": "design_03_comparison_split",
+    "status": "ok",
+    "slide_type": "comparison",
+    "content_keys": [
+      "title",
+      "left",
+      "right"
+    ],
+    "elapsed": 65.1
+  },
+  {
+    "slide_id": "design_05_hub_spoke",
+    "status": "ok",
+    "slide_type": "hub_spoke",
+    "content_keys": [
+      "title",
+      "hub",
+      "spokes"
+    ],
+    "elapsed": 126.3
+  },
+  {
+    "slide_id": "design_04_pyramid",
+    "status": "ok",
+    "slide_type": "pyramid",
+    "content_keys": [
+      "title",
+      "levels"
+    ],
+    "elapsed": 131.7
+  },
+  {
+    "slide_id": "harvey_table_bain_red_vendors",
+    "status": "ok",
+    "slide_type": "harvey_table_advanced",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "criteria",
+      "options",
+      "cells",
+      "source"
+    ],
+    "elapsed": 46.8
+  },
+  {
+    "slide_id": "design_08_roadmap",
+    "status": "ok",
+    "slide_type": "timeline",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "items"
+    ],
+    "elapsed": 70.1
+  },
+  {
+    "slide_id": "design_06_before_after",
+    "status": "ok",
+    "slide_type": "before_after",
+    "content_keys": [
+      "title",
+      "before",
+      "after"
+    ],
+    "elapsed": 71.2
+  },
+  {
+    "slide_id": "harvey_table_bcg_green_frameworks",
+    "status": "ok",
+    "slide_type": "harvey_table_advanced",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "criteria",
+      "options",
+      "cells",
+      "source"
+    ],
+    "elapsed": 71.8
+  },
+  {
+    "slide_id": "design_07_feature_grid",
+    "status": "ok",
+    "slide_type": "feature_grid",
+    "content_keys": [
+      "title",
+      "features"
+    ],
+    "elapsed": 96.3
+  },
+  {
+    "slide_id": "design_09_layered_stack",
+    "status": "ok",
+    "slide_type": "layered_stack",
+    "content_keys": [
+      "title",
+      "layers"
+    ],
+    "elapsed": 101.0
+  },
+  {
+    "slide_id": "harvey_table_editorial_warm_candidates",
+    "status": "ok",
+    "slide_type": "harvey_table_advanced",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "criteria",
+      "options",
+      "cells",
+      "source"
+    ],
+    "elapsed": 104.8
+  },
+  {
+    "slide_id": "harvey_table_minimal_white_tools",
+    "status": "ok",
+    "slide_type": "harvey_table_advanced",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "criteria",
+      "options",
+      "cells",
+      "source"
+    ],
+    "elapsed": 111.4
+  },
+  {
+    "slide_id": "harvey_table_mckinsey_blue_options",
+    "status": "ok",
+    "slide_type": "harvey_table_advanced",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "criteria",
+      "options",
+      "cells",
+      "source"
+    ],
+    "elapsed": 114.3
+  },
+  {
+    "slide_id": "design_10_stats_hero",
+    "status": "ok",
+    "slide_type": "stats_hero",
+    "content_keys": [
+      "title",
+      "hero_metric",
+      "stats"
+    ],
+    "elapsed": 216.9
+  },
+  {
+    "slide_id": "matrix_2x2_bcg_green_portfolio",
+    "status": "ok",
+    "slide_type": "matrix_2x2",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "x_axis",
+      "y_axis",
+      "quadrants",
+      "highlight",
+      "source"
+    ],
+    "elapsed": 37.2
+  },
+  {
+    "slide_id": "line_chart_bcg_green_competition",
+    "status": "ok",
+    "slide_type": "line_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "x_axis_label",
+      "points",
+      "source"
+    ],
+    "elapsed": 37.5
+  },
+  {
+    "slide_id": "line_chart_mckinsey_blue_trend",
+    "status": "ok",
+    "slide_type": "line_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "x_axis_label",
+      "points",
+      "source"
+    ],
+    "elapsed": 40.8
+  },
+  {
+    "slide_id": "matrix_2x2_editorial_warm_feature",
+    "status": "ok",
+    "slide_type": "matrix_2x2",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "x_axis",
+      "y_axis",
+      "quadrants",
+      "highlight",
+      "source"
+    ],
+    "elapsed": 41.1
+  },
+  {
+    "slide_id": "matrix_2x2_bain_red_competition",
+    "status": "ok",
+    "slide_type": "matrix_2x2",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "x_axis",
+      "y_axis",
+      "quadrants",
+      "highlight",
+      "source"
+    ],
+    "elapsed": 41.6
+  },
+  {
+    "slide_id": "line_chart_minimal_white_saas",
+    "status": "ok",
+    "slide_type": "line_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "x_axis_label",
+      "points",
+      "source"
+    ],
+    "elapsed": 43.5
+  },
+  {
+    "slide_id": "matrix_2x2_mckinsey_blue_risk",
+    "status": "ok",
+    "slide_type": "matrix_2x2",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "x_axis",
+      "y_axis",
+      "quadrants",
+      "highlight",
+      "source"
+    ],
+    "elapsed": 51.6
+  },
+  {
+    "slide_id": "line_chart_editorial_warm_audience",
+    "status": "ok",
+    "slide_type": "line_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "x_axis_label",
+      "points",
+      "source"
+    ],
+    "elapsed": 58.8
+  },
+  {
+    "slide_id": "matrix_2x2_minimal_white_investment",
+    "status": "ok",
+    "slide_type": "matrix_2x2",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "x_axis",
+      "y_axis",
+      "quadrants",
+      "highlight",
+      "source"
+    ],
+    "elapsed": 58.7
+  },
+  {
+    "slide_id": "line_chart_bain_red_performance",
+    "status": "ok",
+    "slide_type": "line_chart",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "x_axis_label",
+      "points",
+      "source"
+    ],
+    "elapsed": 65.2
+  },
+  {
+    "slide_id": "mekko_bain_red_customer",
+    "status": "ok",
+    "slide_type": "mekko",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "columns",
+      "source"
+    ],
+    "elapsed": 50.5
+  },
+  {
+    "slide_id": "mekko_mckinsey_blue_finance",
+    "status": "ok",
+    "slide_type": "mekko",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "columns",
+      "source"
+    ],
+    "elapsed": 51.0
+  },
+  {
+    "slide_id": "mekko_bcg_green_market_entry",
+    "status": "ok",
+    "slide_type": "mekko",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "columns",
+      "source"
+    ],
+    "elapsed": 52.9
+  },
+  {
+    "slide_id": "mekko_editorial_warm_geography",
+    "status": "ok",
+    "slide_type": "mekko",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "columns",
+      "source"
+    ],
+    "elapsed": 53.8
+  },
+  {
+    "slide_id": "process_flow_bain_red_ops",
+    "status": "ok",
+    "slide_type": "before_after",
+    "content_keys": [
+      "title",
+      "before",
+      "after"
+    ],
+    "elapsed": 55.4
+  },
+  {
+    "slide_id": "mekko_minimal_white_industry",
+    "status": "ok",
+    "slide_type": "mekko",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "columns",
+      "source"
+    ],
+    "elapsed": 56.0
+  },
+  {
+    "slide_id": "process_flow_bcg_green_go_to_market",
+    "status": "ok",
+    "slide_type": "timeline",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "items"
+    ],
+    "elapsed": 59.0
+  },
+  {
+    "slide_id": "process_flow_mckinsey_blue_transformation",
+    "status": "ok",
+    "slide_type": "roadmap",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "phases"
+    ],
+    "elapsed": 59.4
+  },
+  {
+    "slide_id": "process_flow_minimal_white_product",
+    "status": "ok",
+    "slide_type": "timeline",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "items"
+    ],
+    "elapsed": 61.2
+  },
+  {
+    "slide_id": "process_flow_editorial_warm_campaign",
+    "status": "ok",
+    "slide_type": "timeline",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "items"
+    ],
+    "elapsed": 144.1
+  },
+  {
+    "slide_id": "waterfall_minimal_white_saas",
+    "status": "ok",
+    "slide_type": "waterfall",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 46.6
+  },
+  {
+    "slide_id": "waterfall_mckinsey_blue_finance",
+    "status": "ok",
+    "slide_type": "waterfall",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 48.8
+  },
+  {
+    "slide_id": "waterfall_editorial_warm_ebitda",
+    "status": "ok",
+    "slide_type": "waterfall",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 57.1
+  },
+  {
+    "slide_id": "waterfall_bcg_green_growth",
+    "status": "ok",
+    "slide_type": "waterfall",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 57.9
+  },
+  {
+    "slide_id": "pyramid_mckinsey_blue_executive_summary",
+    "status": "ok",
+    "slide_type": "roadmap",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "phases"
+    ],
+    "elapsed": 92.7
+  },
+  {
+    "slide_id": "pyramid_minimal_white_argument",
+    "status": "ok",
+    "slide_type": "layered_stack",
+    "content_keys": [
+      "title",
+      "layers"
+    ],
+    "elapsed": 101.9
+  },
+  {
+    "slide_id": "pyramid_editorial_warm_narrative",
+    "status": "ok",
+    "slide_type": "pyramid",
+    "content_keys": [
+      "title",
+      "levels"
+    ],
+    "elapsed": 106.1
+  },
+  {
+    "slide_id": "waterfall_bain_red_cost",
+    "status": "ok",
+    "slide_type": "waterfall",
+    "content_keys": [
+      "title",
+      "subtitle",
+      "y_axis_label",
+      "bars",
+      "source"
+    ],
+    "elapsed": 125.0
+  },
+  {
+    "slide_id": "pyramid_bain_red_thesis",
+    "status": "ok",
+    "slide_type": "pyramid",
+    "content_keys": [
+      "title",
+      "levels"
+    ],
+    "elapsed": 132.4
+  },
+  {
+    "slide_id": "pyramid_bcg_green_recommendation",
+    "status": "ok",
+    "slide_type": "pyramid",
+    "content_keys": [
+      "title",
+      "levels"
+    ],
+    "elapsed": 192.0
+  }
+]

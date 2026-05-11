@@ -107,14 +107,31 @@ def _extract_numeric_series(content: dict) -> list[float]:
 
 
 def chart_agent(state) -> dict:
-    """Chart regions 감지 후 SVG 생성해서 state['chart_html'] 에 저장."""
+    """Chart regions 감지 후 SVG 생성해서 state['chart_html'] 에 저장.
+
+    Special case: when slide_type is a chart-native type (bar_chart now,
+    line/waterfall/etc later), render the WHOLE slide as a chart from a
+    deterministic template (chart_templates.render_chart_slide) — bypassing
+    card_detail. analyzer empties cards[] for these slide_types so card
+    rendering is naturally skipped.
+    """
     if state.get("ablation") == "no_library":
         return {"chart_html": ""}
 
-    analysis = state.get("analysis", {})
-    content = filter_content(state.get("content", {}))
+    from ..libraries.chart_templates import is_chart_slide_type, render_chart_slide
+
+    slide_type = (state.get("slide_type") or "").lower()
     spec = state.get("design_spec", {})
-    accent = spec.get("palette", {}).get("accent", "#D4AF37")
+    palette = spec.get("palette", {}) or {}
+    content = filter_content(state.get("content", {}))
+
+    # Native-chart slides: full-slide deterministic render, no card pipeline.
+    if is_chart_slide_type(slide_type):
+        chart_html = render_chart_slide(slide_type, content, palette)
+        return {"chart_html": chart_html}
+
+    analysis = state.get("analysis", {})
+    accent = palette.get("accent", "#D4AF37")
 
     regions = _find_chart_regions(analysis, content)
     if not regions:
