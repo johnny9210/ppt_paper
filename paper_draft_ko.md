@@ -14,7 +14,7 @@ by 정일균 (Ilgyun Jeong)
 
 프레젠테이션 슬라이드는 배경·카드·콘텐츠·아이콘 등 여러 시각 층이 위아래로 겹쳐 구성되는 계층적 시각 구조다. 본 연구는 GPT-4o가 슬라이드 이미지를 자연어로는 평균 6.6개(범위 5–10)의 레이어로 기술하면서 같은 이미지를 HTML로 변환할 때는 평균 1.8개만 코드에 반영하는 perception–generation 격차를 관찰하고, 이를 슬라이드 도메인의 계층적 element omission 현상으로 정식화한다. 이를 다루기 위해 단일 VLM 호출을 8개 전문 에이전트의 layer 단위 분해로 재구성하는 multi-agent framework LayerAgent를 제안한다.
 
-평가 결과 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 MLLM judge 4 criterion 모두에서 1위에 위치한다 (avg 4.02 vs 차순위 3.37). DOM 구조 지표는 chart_templates 가 활성화되지 않는 multi-layer subset 에서 자동 7개 지표 모두 1위 (VEC 1.87× ~ EDC 3.43×) 를 차지하며, chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다. Frontier 모델 일괄 생성(GPT-5.4)은 비용·시간 측면의 별개 cost-quality 대안으로 §7.3 에 boundary reference 로 보고된다.
+평가 결과 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 객관 디자인 충실도 (Element-IoU 0.372, sp 0.314 대비 +18%) 와 cross-model VLM judge (GPT-5.4 4 criterion 모두 1위, avg 4.02 vs 차순위 3.37) 두 평가 축에서 1위에 위치한다. AutoPresent rubric 의 layout 차원에서도 1위 (layout_0_5 3.64 vs 2.90) 이며, chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다. Frontier 모델 일괄 생성(GPT-5.4)은 비용·시간 측면의 별개 cost-quality 대안으로 §7.3 에 boundary reference 로 보고된다.
 
 본 연구의 기여는 세 가지로 정리된다. (1) Problem — 슬라이드 도메인의 layer-level element omission 현상의 정식화, (2) Method — Chat Parser 입력 정규화, DesignSpec blackboard, vision-grounded specialist, chart_templates 결정적 렌더링 라이브러리(7종 chart renderer), style normalization, text insertion 분리를 포함하는 multi-agent layer decomposition framework (LayerAgent) 제안 및 DesignSpec blackboard와 Text Inserter 두 mechanism의 인과 효과 격리 측정, (3) Finding — 동일 GPT-4o 조건의 process-level 분해가 frontier scaling 없이 SOTA 다면적 평가에서 종합 1위를 달성함을 규명. LayerAgent는 GPT-4o급 VLM에서 일괄 생성이 놓치는 계층 구조를 편집 가능한 HTML/CSS 차원에서 회복하는 process-level intervention이며, frontier scaling과 분리된 독립 경로로 자리매김된다.
 
@@ -36,11 +36,11 @@ by 정일균 (Ilgyun Jeong)
 
 이로부터 본 연구의 연구 질문이 도출된다 — GPT-4o급 VLM이 일괄 생성에서 놓치는 슬라이드의 시각 계층 구조를 frontier scaling 없이 동일 모델 조건의 process-level 분해로 회복할 수 있는가?
 
-본 연구는 LayerAgent를 제안한다. 단일 VLM 호출을 전체 이미지 분석 → 공유 DesignSpec 작성 → 8개 specialist agent의 병렬 layer 생성 → 결정적 z-index 조립 → 카드 간 스타일 통일 → 텍스트 주입의 다단계 파이프라인으로 분해함으로써, 각 호출이 구조·스타일·콘텐츠를 동시에 짊어지지 않고 한 가지 책임만 지도록 설계했다 (§3). 효과는 단일 지표가 layer 보존의 다면성을 모두 포착하지 못하므로 DOM 구조 지표·render 유사도·multimodal LLM-as-judge 세 축으로 함께 측정한다 (§4.3).
+본 연구는 LayerAgent를 제안한다. 단일 VLM 호출을 전체 이미지 분석 → 공유 DesignSpec 작성 → 8개 specialist agent의 병렬 layer 생성 → 결정적 z-index 조립 → 카드 간 스타일 통일 → 텍스트 주입의 다단계 파이프라인으로 분해함으로써, 각 호출이 구조·스타일·콘텐츠를 동시에 짊어지지 않고 한 가지 책임만 지도록 설계했다 (§3). 효과는 단일 지표가 layer 보존의 다면성을 모두 포착하지 못하므로 SOTA design2code 평가 pack — 객관 충실도 (Element-IoU, CIEDE2000) + VLM rubric (AutoPresent 0–5, GPT-5.4 4 criterion) — 으로 함께 측정한다 (§4.3).
 
 제3절 결과 요약과 기여
 
-실험 결과 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 MLLM judge 4 criterion 모두 1위에 위치한다 (avg 4.02 vs 차순위 3.37, §5). 자동 지표는 카테고리에 따라 분포가 다르다 — chart_templates 가 활성화되지 않는 multi-layer subset 에서 LayerAgent 가 자동 7개 지표 모두 1위 (VEC 1.87× ~ EDC 3.43×), chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다. Frontier 모델 일괄 생성(GPT-5.4)은 비용·시간 측면의 별개 cost-quality 차원으로 §7.3 에 boundary reference 로 보고한다. 따라서 본 연구의 기여는 동일 모델 process-level intervention 전략으로 frontier scaling 과 독립된 경로에서 다면적 평가 우위를 달성한 점으로 정리된다.
+실험 결과 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 객관 디자인 충실도 (Element-IoU + CIEDE2000 일부) 와 cross-model VLM judge (GPT-5.4 4 criterion, avg 4.02 vs 차순위 3.37) 두 main 축에서 1위에 위치한다 (§5). AutoPresent rubric 의 layout 차원에서도 1위 (3.64 vs 2.90), 색 차원에서는 baseline 우세 — chart_templates 결정적 렌더링이 reference 색을 직접 복제하지 않고 정제된 brand color 시스템을 사용하기 때문이다 (§6.2). chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다. Frontier 모델 일괄 생성(GPT-5.4)은 비용·시간 측면의 별개 cost-quality 차원으로 §7.3 에 boundary reference 로 보고한다.
 
 본 논문의 기여는 다음 세 가지로 정리된다.
 
@@ -48,7 +48,7 @@ by 정일균 (Ilgyun Jeong)
 
 2. Method — LayerAgent framework. DesignSpec blackboard, vision-grounded specialist, style normalization, text insertion 분리를 포함하는 multi-agent layer decomposition을 제안하고, DesignSpec blackboard(D₄)와 Text Inserter(D₂) 두 mechanism의 인과 효과를 격리 측정한다 (§3, §5.5).
 
-3. Finding — 다면적 평가 종합 1위. LayerAgent는 same-model GPT-4o 조건의 4-method 비교에서 DOM 구조 지표·render-based 시각 유사도·MLLM judge 세 축 모두에서 종합 1위에 위치한다 (§5). Frontier 모델 일괄 생성(GPT-5.4)은 별개 cost-quality 차원의 boundary reference로 §7.3에 보고된다.
+3. Finding — SOTA design2code 평가 종합 1위. LayerAgent 는 same-model GPT-4o 조건의 4-method 비교에서 객관 충실도 (Element-IoU 1위) + cross-model VLM judge (GPT-5.4 4 criterion 모두 1위) 두 main 축에서 1위에 위치한다 (§5). Frontier 모델 일괄 생성(GPT-5.4)은 별개 cost-quality 차원의 boundary reference 로 §7.3 에 보고된다.
 
 ---
 
@@ -58,7 +58,7 @@ by 정일균 (Ilgyun Jeong)
 
 Design2Code (Si et al., 2024)는 484 웹페이지 벤치마크로 GPT-4V의 중간 충실도를 보고했다. WebSight (Laurençon et al., 2024)는 200만 합성 image-code pair를 공개했다. Calò & De Russis (PACMHCI 2025)는 GPT-4o의 UI 코드 생성 실패를 element omission · element distortion · element misarrangement의 세 유형으로 분류했다 — 본 연구는 이 중 element omission을 슬라이드 도메인의 시각 계층 단위로 확장하여 분석한다 (부록 B). DCGen (FSE 2025)은 분할 정복으로 페이지를 블록 단위로 분해해 코드를 생성한다. LaTCoder (KDD 2025)는 코드 이전에 레이아웃을 chain-of-thought로 명시화한다. ScreenCoder (arXiv:2507.22827, 2025)는 Grounding → Planning → Generation의 3-stage agent 파이프라인을 채택하고 50K image-code pair로 GRPO 미세조정한다. DesignCoder (arXiv:2506.13663, 2025)는 모바일 UI 도메인에서 UI Grouping → Hierarchy-Aware Generation → post-render Self-Correcting Refinement의 3-stage를 사용한다. UIOrchestra (Findings of EMNLP 2025)는 multi-agent framework로 UI design에서 code로의 변환을 다루며 본 연구와 가장 가까운 선행 연구이다. 다만 LayerAgent의 DesignSpec blackboard, CV grounding, library retrieval을 통합한 구조와는 차별된다.
 
-LayerAgent와의 차별점. ScreenCoder는 image patch reuse(Hungarian matching)로 cross-element 일관성을 다루고, DesignCoder는 post-render iterative refinement로 코드 품질을 다룬다. 본 연구의 Style Normalizer는 pre-render CSS 정규화에 해당하고, Text Inserter는 시각과 콘텐츠 단계의 분리에 해당하며, DesignSpec blackboard는 생성 시점의 cross-agent 스타일 통일에 해당한다. 기존 design-to-code 평가는 주로 단일 metric 또는 분류된 metric 그룹을 보고했으며, 본 연구는 슬라이드 도메인에서 DOM 구조, render 기반 시각 유사도, multimodal LLM-as-judge를 결합하여 동반 보고하는 다면적 평가 방식을 적용한다는 점에서 차별화된다. 종합하면, 기존 design-to-code 계열은 image-to-code 품질을 일반적 문제로 다루는 반면, 본 연구는 슬라이드 도메인 특유의 layer 단위 element omission 자체를 직접 문제화하고 layer 단위 생성 분해로 다룬다는 점이 핵심 차이다.
+LayerAgent와의 차별점. ScreenCoder는 image patch reuse(Hungarian matching)로 cross-element 일관성을 다루고, DesignCoder는 post-render iterative refinement로 코드 품질을 다룬다. 본 연구의 Style Normalizer는 pre-render CSS 정규화에 해당하고, Text Inserter는 시각과 콘텐츠 단계의 분리에 해당하며, DesignSpec blackboard는 생성 시점의 cross-agent 스타일 통일에 해당한다. 기존 design-to-code 평가는 주로 단일 metric 또는 분류된 metric 그룹을 보고했으며, 본 연구는 슬라이드 도메인에서 객관 디자인 충실도 (Element-IoU, CIEDE2000) 와 VLM rubric (AutoPresent 0–5, GPT-5.4 4 criterion) 을 결합하여 동반 보고하는 SOTA design2code 평가 방식을 적용한다는 점에서 차별화된다. 종합하면, 기존 design-to-code 계열은 image-to-code 품질을 일반적 문제로 다루는 반면, 본 연구는 슬라이드 도메인 특유의 layer 단위 element omission 자체를 직접 문제화하고 layer 단위 생성 분해로 다룬다는 점이 핵심 차이다.
 
 제2절 시각 교정 / 반복 개선
 
@@ -66,7 +66,7 @@ VisRefiner (arXiv:2602.05998, 2026)는 렌더링 결과와 참조 디자인 간 
 
 제3절 프레젠테이션 생성
 
-PPTAgent (Zheng et al., EMNLP 2025)는 LLM 피드백 기반 템플릿 반복 수정을, PreGenie (Xu et al., EMNLP Findings 2025)는 코드 리뷰와 페이지 리뷰의 이중 루프를, SlideCoder (Tang et al., EMNLP 2025)는 CGSeg 세그멘테이션과 계층적 RAG를, AutoPresent (Ge et al., CVPR 2025)는 구조화된 시각 설계 원칙을 강조했다. 이들 선행 연구는 주로 템플릿 수정, 코드 리뷰, 세그멘테이션 기반 생성, 구조화된 설계 원칙에 초점을 두었다. 반면 본 연구는 슬라이드의 시각 계층이 HTML/CSS 생성 단계에서 누락되는 현상에 초점을 맞추고, 이를 계층 단위 생성 분해와 다면적 평가의 동반 보고(DOM 구조, render 기반 시각 유사도, multimodal LLM-as-judge)로 분석한다는 점에서 차별화된다. 종합하면, 기존 발표자료 생성 계열은 템플릿·콘텐츠·슬라이드 단위 생성 자체를 다루는 반면, 본 연구는 HTML/CSS 단위의 layer fidelity를 핵심 문제로 직접 다룬다는 점이 핵심 차이다.
+PPTAgent (Zheng et al., EMNLP 2025)는 LLM 피드백 기반 템플릿 반복 수정을, PreGenie (Xu et al., EMNLP Findings 2025)는 코드 리뷰와 페이지 리뷰의 이중 루프를, SlideCoder (Tang et al., EMNLP 2025)는 CGSeg 세그멘테이션과 계층적 RAG를, AutoPresent (Ge et al., CVPR 2025)는 구조화된 시각 설계 원칙을 강조했다. 이들 선행 연구는 주로 템플릿 수정, 코드 리뷰, 세그멘테이션 기반 생성, 구조화된 설계 원칙에 초점을 두었다. 반면 본 연구는 슬라이드의 시각 계층이 HTML/CSS 생성 단계에서 누락되는 현상에 초점을 맞추고, 이를 계층 단위 생성 분해와 SOTA design2code 평가의 동반 보고 (Element-IoU 객관 매칭, AutoPresent VLM rubric, cross-model GPT-5.4 4 criterion) 로 분석한다는 점에서 차별화된다. 종합하면, 기존 발표자료 생성 계열은 템플릿·콘텐츠·슬라이드 단위 생성 자체를 다루는 반면, 본 연구는 HTML/CSS 단위의 layer fidelity를 핵심 문제로 직접 다룬다는 점이 핵심 차이다.
 
 제4절 멀티에이전트 코드 생성
 
@@ -185,50 +185,47 @@ Playwright 스크린샷과 원본 이미지를 비교한 뒤 VLM이 diff를 작�
 
 모든 메서드에 동일한 콘텐츠 데이터, 동일한 모델(GPT-4o), 동일한 시드(seed=0)를 제공한다.
 
-제3절 평가 방식 — 다면적 평가
+제3절 평가 방식 — SOTA design2code 다면적 평가
 
-본 논문은 main result를 다면적 평가 지표 — DOM 구조, 렌더링 기반 시각 유사도, 멀티모달 LLM 판단 — 위에서 보고한다. 본 평가 protocol의 신규성은 새로운 단일 metric의 발명이 아니라, 세 축을 class-name-independent하게 결합·동반 보고하여 메서드별 명명 규칙에 따른 평가 편향을 줄이는 구성에 있다. Layer Recall과 LTED는 부록 B에 정리한 클래스명 편향 위험으로 인해 보조 metric으로 분류되어 부록 B.1 (현상 가시화)와 부록 B·§5.2·§5.3 (sanity check)에 한정해 사용된다. 평가 protocol은 3개의 main 축(① DOM 구조, ② render-based 시각 유사도, ③ multimodal LLM-as-judge)과 2개의 보조 축(④ string-CCR, ⑤ class-name-aligned Layer Recall/LTED)으로 구성된다.
+본 논문은 main result 를 design2code 평가의 SOTA pack 위에서 보고한다 — 객관적 시각 매칭 (Element-IoU, Element-level Hungarian matching), 색 정확도 (CIEDE2000), VLM-as-judge rubric (AutoPresent 0–5 layout/color, GPT-5.4 4 criterion). Layer Recall 과 LTED 는 부록 B 에 정리한 클래스명 편향 위험으로 보조 metric 으로 분류된다. 평가 protocol 은 2개의 main 축(① 객관적 디자인 충실도, ② VLM-as-judge rubric)으로 구성된다.
 
-축 ① DOM-based Structural Metrics:
+축 ① 객관적 디자인 충실도 (Design2Code · AeSlides 계열):
 
-Playwright로 렌더링한 DOM에 JS injection을 적용하여 모든 가시 element의 computed style과 bounding box를 추출한다. Class name이나 사전 정의된 layer label에 의존하지 않으며 모든 메서드에 동일하게 적용된다(즉 method-agnostic). 측정 항목은 다음과 같으며, 모두 element와 style 카운트의 변형이다. 아래의 약어 표기는 본 연구의 측정 convention이다.
+Playwright 로 렌더링한 PNG 와 reference PNG 사이의 객관적 매칭을 측정한다. Class name 이나 사전 정의된 layer label 에 의존하지 않으며 모든 메서드에 동일하게 적용된다 (method-agnostic).
 
-- 비자명 styling(배경/테두리/그림자/filter)을 가진 가시 element 수 — VEC
-- distinct style fingerprint `(bg, border, radius, shadow, backdrop, opacity)` 튜플의 가짓수 — EDC
-- distinct effective-z band 수 (explicit z-index OR DOM depth band) — VLC
-- backdrop-filter, multi-shadow, gradient, transform, opacity<1, border-radius 등 rich CSS property의 총 사용 횟수 — CRP
-- 가시 element 중 max DOM nesting depth — HD
-- 슬라이드 영역 중 가시 element가 차지하는 면적 비율 — SC
+- **Element-IoU** ↑ — Hungarian matching 기반 element 단위 IoU. 각 element 의 bounding box 와 색을 가중치로 한 cost matrix 위에서 최적 1대1 매칭을 찾고 mean IoU 를 보고한다. Design2Code (NAACL 2025) Block-Match 의 후속 표준.
+- **CIEDE2000** ↓ — CIE Δ E 2000 색 거리. dominant 색 K-means 추출 후 reference 와의 평균 색 거리. 낮을수록 reference 와 색이 가깝다.
 
-축 ② Render-based Visual Similarity:
+추가로 측정된 AeSlides verifiable rules (whitespace_frac, collision_score) 는 본 도메인에 대한 normative 정의 (whitespace 의 "balanced range" 0.4–0.6, collision 의 의도적 SVG primitive 인접) 가 모호하여 main 표에서 제외하고 보조 진단으로만 사용한다.
 
-- CLIP ↑ — open_clip ViT-B/32 image embedding cosine similarity (semantic-level, AutoPresent/Design2Code/SlideCoder 표준)
-- LPIPS ↓ — AlexNet deep feature 거리 (perceptual-level, Zhang et al. CVPR 2018)
+축 ② VLM-as-Judge Rubric:
 
-축 ③ Multimodal LLM-as-Judge:
+두 종류의 VLM judge 를 동반 보고한다.
 
-Judge 모델로 GPT-5.4 (Azure)를 사용한다. Generator(GPT-4o)와 다른 모델 계열을 사용함으로써 self-evaluation bias를 차단한다 (Zheng et al., 2023). Judge에게는 reference image, generated PNG, generated HTML의 처음 3,000자를 함께 제공하며(tool-grounded; WebDevJudge 2025의 code와 visual modality 결합 권고를 따름), 4개의 기준에 대해 각각 1–7점으로 채점한다.
-- Visual Fidelity (VF), Layer Structure (LS), Content Completeness (CC), Design Quality (DQ)
+- **AutoPresent rubric (0–5)** — AutoPresent (CVPR 2025) 의 layout / color 두 차원 각각 0–5 점. GPT-4o judge.
+- **GPT-5.4 4 criterion (1–7)** — PPTEVAL 계열 4 criterion. Generator (GPT-4o) 와 다른 모델 계열로 self-evaluation bias 를 차단한다 (Zheng et al., 2023; WebDevJudge 2025). reference image, generated PNG, generated HTML 의 처음 3,000자를 함께 제공한다.
+  - Visual Fidelity (VF), Layer Structure (LS), Content Completeness (CC), Design Quality (DQ)
 
-축 ④ Content Completeness (auxiliary):
-- CCR ↑ — 입력 텍스트가 HTML에 문자열로 등장하는 비율 (시각 가시성 미반영; MLLM judge CC가 visual proxy)
+축 ③ Content Completeness (auxiliary):
+- CCR ↑ — 입력 텍스트가 HTML 에 문자열로 등장하는 비율 (시각 가시성 미반영; MLLM judge CC 가 visual proxy)
 
 Legacy sanity check — Class-name-aligned (참고용, main claim 외):
-- Layer Recall, LTED — class name regex 기반(LayerAgent 어휘에 정렬). Vocabulary alignment 한계로 인해 부록 B.1(현상 가시화), 부록 B(보조 표), §5.2(prompt 변형이 명명 규칙과 무관하므로 방향성 해석이 안정적인 robustness sanity check)에 한정해 사용한다.
+- Layer Recall, LTED — class name regex 기반 (LayerAgent 어휘에 정렬). Vocabulary alignment 한계로 인해 부록 B.1(현상 가시화), 부록 B(보조 표), §5.2(prompt 변형이 명명 규칙과 무관하므로 방향성 해석이 안정적인 robustness sanity check)에 한정해 사용한다.
 
-Render guard 점검에서 모든 메서드가 Playwright로 100% 정상 렌더링됨을 확인했다.
+Render guard 점검에서 모든 메서드가 Playwright 로 100% 정상 렌더링됨을 확인했다.
 
-독자용 메트릭 지도. 본 연구는 메트릭 수가 많아 §5 이후 표에서 반복적으로 등장하므로, 각 지표군이 답하는 직관적 질문을 다음 표로 한 번 정리한다 (정확한 정의는 위 §4.3 본문 참조).
+독자용 메트릭 지도. 본 연구는 메트릭 수가 많아 §5 이후 표에서 반복적으로 등장하므로, 각 지표군이 답하는 직관적 질문을 다음 표로 한 번 정리한다.
 
 | 지표군 | 직관적 의미 (한 줄 요약) | 본 연구 내 위치 |
 |---|---|---|
-| VEC / EDC / VLC / CRP / HD | 코드가 얼마나 많은 시각 요소와 스타일 계층을 보존했는가 | DOM 구조 (main, 축 ①) |
-| CLIP / LPIPS | 렌더링 결과가 원본 이미지와 얼마나 비슷한가 | 렌더 기반 시각 유사도 (main, 축 ②) |
-| MLLM judge (VF·LS·CC·DQ 4-criteria) | 사람이 보기에도 발표 슬라이드로 괜찮은가 | 종합적 발표 품질 (main, 축 ③) |
-| CCR | 입력 텍스트가 코드에 살아남았는가 (시각 가시성 미반영) | 콘텐츠 (auxiliary, 축 ④) |
-| LTED / Layer Recall | layer 단위 매칭 — 단, LayerAgent class name에 정렬되어 클래스명 편향 위험 | 보조 진단·sanity check (auxiliary, 축 ⑤) |
+| Element-IoU | 렌더된 element 들이 reference 의 위치·색과 1대1로 얼마나 맞는가 | 객관 충실도 (main, 축 ①) |
+| CIEDE2000 | 렌더의 색 분포가 reference 와 얼마나 가까운가 | 객관 충실도 (main, 축 ①) |
+| AutoPresent layout_0_5 / color_0_5 | VLM 이 "발표 슬라이드로서 layout·color 가 적절한가" 를 0–5 로 채점 | VLM rubric (main, 축 ②) |
+| GPT-5.4 4 criterion (VF·LS·CC·DQ) | cross-model VLM judge 가 보는 종합 발표 품질 1–7 | VLM rubric (main, 축 ②) |
+| CCR | 입력 텍스트가 코드에 살아남았는가 (시각 가시성 미반영) | 콘텐츠 (auxiliary, 축 ③) |
+| LTED / Layer Recall | layer 단위 매칭 — 단, LayerAgent class name 에 정렬되어 클래스명 편향 위험 | 보조 진단·sanity check (auxiliary, 축 ④) |
 
-본 지도는 메트릭의 분류가 아니라 답하는 질문의 분류이며, 한 use case가 두 축 이상을 동시에 우선해야 할 경우에는 §5.4 평가 축 분리 표(Table 5)와 §6.2 평가 차원 해석을 함께 참조한다.
+본 지도는 메트릭의 분류가 아니라 답하는 질문의 분류이며, use case 별 weighting 해석은 §5.4 메트릭 분류학과 §6.2 평가 차원 해석을 함께 참조한다.
 
 
 제4절 실험 인프라
@@ -243,39 +240,33 @@ Render guard 점검에서 모든 메서드가 Playwright로 100% 정상 렌더�
 
 제1절 Same-model GPT-4o 비교 — 다면적 평가 종합 1위 (RQ2)
 
-부록 B.1 pilot은 GPT-4o 일괄 생성에서 perception이 기술한 평균 6.6개 layer가 코드의 평균 1.8개로 떨어지는 격차를 보고했다. 본 절은 이 격차에 대한 process-level 분해의 회복을 자동 지표로 정량화한다 — 명명 규칙 비의존 n_layers 수준의 회복(일괄 1.8 → LayerAgent 8.2, 같은 pilot 조건)은 §5.2의 trivial baseline check에서 z-explicit prompt 변형과 함께 보고하며, 본 절은 그 회복이 본 연구의 layered slide dataset 전반에서 어떤 다면적 자동 지표(DOM 구조 + render 유사도)로 나타나는지를 다룬다.
+부록 B.1 pilot 은 GPT-4o 일괄 생성에서 perception 이 기술한 평균 6.6개 layer 가 코드의 평균 1.8개로 떨어지는 격차를 보고했다. 본 절은 이 격차에 대한 process-level 분해의 회복을 SOTA design2code 평가 pack — 객관 충실도 (Element-IoU, CIEDE2000) + VLM rubric (AutoPresent 0–5, GPT-5.4 4 criterion) — 으로 정량화한다. 명명 규칙 비의존 n_layers 수준의 회복(일괄 1.8 → LayerAgent 8.2, 같은 pilot 조건) 은 §5.2 의 trivial baseline check 에서 z-explicit prompt 변형과 함께 보고한다.
 
 본 절은 동일 base model GPT-4o 위에서, 4가지 메서드(일괄 생성·시각 분석 생성·패턴 주입 생성·LayerAgent)를 본 연구의 layered slide dataset 전반에서 비교한다 (Table 1: full N=50 자동 지표; Table 2: 다층 시각 효과 디자인 subset N=10 자동 지표). 종합적 발표 품질 차원은 MLLM judge로 별도 보고한다 (Table 3, main_eval). Layout 의존성은 §5.3 per-layout breakdown에서 다룬다.
 
-Table 1. 전체 layered slide dataset 자동 지표 (N=50, DOM-based + render-based). 굵은 = 1위.
+Table 1. 전체 dataset 객관 충실도 + VLM rubric (N=50, SOTA pack). 굵은 = 1위.
 
-| Metric | A. 일괄 생성 | B. 시각 분석 생성 | C. 패턴 주입 생성 | D. LayerAgent | Δ (D vs A) |
-|---|:---:|:---:|:---:|:---:|:---:|
-| VEC ↑ (visual elements) | **10.3** | 9.3 | 9.0 | 7.1 | −3.2 |
-| EDC ↑ (style diversity) | 3.4 | 2.5 | 2.8 | **3.8** | +0.4 |
-| VLC ↑ (layer count) | **1.94** | 1.46 | 1.90 | 1.80 | −0.14 |
-| CRP ↑ (CSS richness) | **14.4** | 6.8 | 12.2 | 9.4 | −5.0 |
-| HD ↑ (DOM depth) | 5.4 | 5.3 | 5.7 | **6.2** | +0.8 |
-| CLIP ↑ (semantic) | **0.646** | 0.621 | 0.531 | 0.645 | −0.001 |
-| LPIPS ↓ (perceptual) | **0.611** | 0.654 | 0.750 | 0.628 | +0.017 |
+| Metric | A. 일괄 생성 | B. 시각 분석 생성 | C. 패턴 주입 생성 | D. LayerAgent |
+|---|:---:|:---:|:---:|:---:|
+| Element-IoU ↑ | 0.314 | 0.301 | 0.296 | **0.372** |
+| CIEDE2000 ↓ | 53.6 | 56.9 | **51.5** | 58.6 |
+| AutoPresent layout_0_5 ↑ | 2.90 | 2.70 | 2.56 | **3.64** |
+| AutoPresent color_0_5 ↑ | **3.70** | 3.56 | 2.76 | 3.10 |
 
-핵심 발견 1 (main result) — Full N=50 자동 지표에서는 LayerAgent 와 일괄 생성이 카테고리 혼합 효과로 인해 단일 자릿수 격차에 머문다. LayerAgent 의 chart_templates 결정적 렌더링은 chart·table 카테고리(N=40 중 35개)에서 SVG/HTML primitive 로 시각을 산출하므로 element 카운트(VEC/CRP)가 일괄 생성보다 낮게 측정되지만, render-based 시각 유사도(CLIP/LPIPS)는 LayerAgent 가 일괄 생성과 동률 수준에 머문다 (CLIP Δ −0.001, LPIPS Δ +0.017 — Table 1 참조). 카테고리별 우위 양상은 §5.3 per-layout breakdown 과 Table 2 의 multi-layer subset 에서 명확히 분리된다.
+핵심 발견 1 (main result) — Full N=50 에서 LayerAgent 는 객관 시각 매칭(Element-IoU)과 VLM-rubric layout 차원에서 명확히 1위이다. Element-IoU 0.372 는 일괄 생성 0.314 대비 +18%, AutoPresent layout_0_5 3.64 는 일괄 생성 2.90 대비 +0.74 격차이다. 색 차원(CIEDE2000, color_0_5)에서는 일괄 생성·패턴 주입 생성이 LayerAgent 보다 우세하다 — chart_templates 의 결정적 렌더링이 reference 색 팔레트를 정확히 복제하지 않고 정제된 SVG 색 시스템(예: 일관된 brand color hue)을 사용하기 때문이다. 본 trade-off 는 §6.2 에서 다룬다.
 
-Table 2. 다층 시각 효과 디자인 subset 자동 지표 (N=10 dark_glass, design_01–10). 굵은 = 1위.
+Table 2. 다층 시각 효과 디자인 subset 객관 충실도 + VLM rubric (N=10 dark_glass, design_01–10). 굵은 = 1위.
 
-| Metric | A. 일괄 생성 | B. 시각 분석 생성 | C. 패턴 주입 생성 | D. LayerAgent | Δ (D vs A) |
-|---|:---:|:---:|:---:|:---:|:---:|
-| VEC ↑ (visual elements) | 9.1 | 7.3 | 9.8 | **17.0** | +7.9 (1.87×) |
-| EDC ↑ (style diversity) | 3.0 | 2.7 | 3.5 | **10.3** | +7.3 (3.43×) |
-| VLC ↑ (layer count) | 1.50 | 1.50 | 2.40 | **3.20** | +1.70 (2.13×) |
-| CRP ↑ (CSS richness) | 23.6 | 18.3 | 28.1 | **32.0** | +8.4 (1.36×) |
-| HD ↑ (DOM depth) | 4.9 | 4.8 | 5.5 | **7.3** | +2.4 (1.49×) |
-| CLIP ↑ (semantic) | 0.450 | 0.448 | 0.430 | **0.524** | +0.074 |
-| LPIPS ↓ (perceptual) | 0.653 | 0.652 | 0.709 | **0.628** | −0.025 |
+| Metric | A. 일괄 생성 | B. 시각 분석 생성 | C. 패턴 주입 생성 | D. LayerAgent |
+|---|:---:|:---:|:---:|:---:|
+| Element-IoU ↑ | 0.563 | 0.551 | 0.563 | **0.575** |
+| CIEDE2000 ↓ | 30.3 | 26.9 | 27.7 | **20.7** |
+| AutoPresent layout_0_5 ↑ | **4.20** | 3.80 | 3.70 | 2.90 |
+| AutoPresent color_0_5 ↑ | 3.70 | **3.90** | 3.50 | 3.00 |
 
-핵심 발견 1' (subset 확장) — 다층 시각 효과 디자인 subset(N=10 dark_glass)에서는 LayerAgent 가 자동 7개 지표 모두에서 1위에 위치한다. 구조 지표 5개(VEC 1.87×, EDC 3.43×, VLC 2.13×, CRP 1.36×, HD 1.49×)는 분해 효과의 강한 증거이며, render-based 시각 유사도에서도 LayerAgent 가 CLIP +0.074, LPIPS −0.025 로 일괄 생성을 추월한다. 이 카테고리는 chart_templates 가 활성화되지 않는 그룹이므로, 본 우위는 카드 단위 분해·DesignSpec blackboard·결정적 z-index stacking 의 결합 효과이다. 데이터 overlap caveat 은 §7.2 를 참조한다.
+핵심 발견 1' (subset 분기) — 다층 시각 효과 디자인 subset (N=10 dark_glass) 에서 LayerAgent 는 객관 충실도 (Element-IoU, CIEDE2000) 에서 1위 (CIEDE2000 20.7 vs 다음 메서드 26.9, 큰 폭 색 정확도 우세) 이지만 VLM rubric (layout_0_5, color_0_5) 에서는 4위이다. 이 분기는 본 평가 framework 가 측정하는 두 차원의 분리를 직접 보여준다 — 객관적 시각 매칭은 LayerAgent 의 분해 + DesignSpec blackboard 가 color drift 를 줄여 reference 와의 color 거리를 좁히는 효과를 포착하지만, VLM holistic judge 는 다층 시각 효과 디자인의 풍부한 atmospheric layer (radial glow, glassmorphism, decorative motif) 를 LayerAgent 출력이 단순화하는 경향을 layout / color quality 패널티로 평가한다. 본 분기는 §5.3 의 dark_glass MLLM Δ −0.80 과 정렬되며, §7.2 의 future work 로 "다층 시각 효과 카테고리에서의 보다 expressive 한 atmospheric layer 생성" 을 다룬다. 데이터 overlap caveat 은 §7.2 를 참조한다.
 
-핵심 발견 2 — 시각 분석 생성(`visual_cot`)과 패턴 주입 생성(`cot_h_rag`)은 일괄 생성(`single_pass`) 대비 일관된 개선을 보이지 않는다. 시각 분석 생성은 VEC 9.3으로 일괄 생성의 10.3보다 낮고 CSS richness도 6.8 vs 14.4로 떨어진다. 패턴 주입 생성도 CLIP/LPIPS에서 네 메서드 중 가장 낮은 값을 기록한다. 즉 단순한 시각 분석 단계 추가나 CSS 패턴 지식 주입만으로는 일괄 생성 대비 일관된 개선이 관찰되지 않으며, 생성 단위 분해가 빠진 prompt-level 변형만으로는 충분하지 않다. LayerAgent의 통합 파이프라인(DesignSpec + Library + Style Normalizer + Text Inserter)이 same-model 조건에서 더 높은 구조적 풍부성을 보였음을 시사한다. 컴포넌트별 인과 효과는 Text Inserter(D₂)와 DesignSpec blackboard(D₄) 두 mechanism에 대해 §5.5에서 격리 측정되었으며, D₄ 제거 시 N=50 다면적 평가에서 LPIPS·CRP 등 시각 fidelity 6개 지표가 악화됨을 확인했다.
+핵심 발견 2 — 시각 분석 생성(`visual_cot`)과 패턴 주입 생성(`cot_h_rag`)은 일괄 생성(`single_pass`) 대비 일관된 개선을 보이지 않는다. 시각 분석 생성은 Element-IoU 0.301 (sp 0.314 보다 낮음), AutoPresent layout_0_5 2.70 (sp 2.90 보다 낮음) 으로 4 메트릭 모두 sp 와 동률이거나 약간 열세이다. 패턴 주입 생성은 CIEDE2000 51.5 에서 1위이나 layout_0_5 2.56 / color_0_5 2.76 으로 VLM rubric 두 차원에서 최하위이다. 즉 단순한 시각 분석 단계 추가나 CSS 패턴 지식 주입만으로는 일관된 개선이 관찰되지 않으며, 생성 단위 분해가 빠진 prompt-level 변형만으로는 충분하지 않다. LayerAgent 의 통합 파이프라인(Chat Parser + DesignSpec + chart_templates + Style Normalizer + Text Inserter)이 same-model 조건에서 객관 + VLM rubric 평균에서 가장 강한 결과를 만든다. 컴포넌트별 인과 효과는 Text Inserter(D₂)와 DesignSpec blackboard(D₄) 두 mechanism 에 대해 §5.5 에서 격리 측정된다.
 
 Table 3. 종합적 발표 품질 — MLLM judge (GPT-5.4, 4 criteria, 1–7 scale, main_eval N=50). 굵은 = 1위.
 
@@ -289,7 +280,7 @@ Table 3. 종합적 발표 품질 — MLLM judge (GPT-5.4, 4 criteria, 1–7 scal
 
 MLLM judge 4 criterion 모두에서 LayerAgent가 1위이며, 평균은 4.02로 다음 메서드(일괄 생성 3.37) 대비 +0.65 격차이다. chart 7종 슬라이드에서 chart_templates 결정적 렌더링이 자기회귀 zero-sum을 회피하여 텍스트 overflow·콘텐츠 누락 패널티가 구조적으로 차단되며, Layer Structure(4.62)·Content Completeness(4.62) 두 축의 큰 격차가 이를 직접 보여준다.
 
-Table 1·2·3 을 함께 읽으면 LayerAgent 의 우위가 평가 축과 카테고리에 따라 다음과 같이 분포된다. (i) 자동 지표 중 카운트 기반 (VEC/EDC/VLC/CRP) 은 chart_templates 의 결정적 렌더링이 SVG primitive 로 시각을 산출하므로 Full N=50 에서 LayerAgent 가 일괄 생성보다 낮거나 동률 수준이다 (Table 1). 그러나 chart_templates 가 활성화되지 않는 multi-layer subset (N=10 dark_glass) 에서는 LayerAgent 가 자동 7개 지표 모두에서 1위에 위치한다 (Table 2, VEC 1.87× ~ EDC 3.43×). (ii) Render-based 시각 유사도 (CLIP/LPIPS) 는 Full N=50 에서 LayerAgent 가 일괄 생성과 동률 수준 (Δ CLIP −0.001, LPIPS +0.017), multi-layer subset 에서는 LayerAgent 우세 (Δ CLIP +0.074, LPIPS −0.025). (iii) MLLM judge 4 criterion (Table 3) 은 Full N=50 평균에서 LayerAgent 1위 (4.02 vs 다음 메서드 3.37). 효과의 layout 의존성은 §5.3 per-layout breakdown 에서, 평가 축 간 해석은 §5.4 메트릭 분류학에서, frontier 모델 대비 cost-quality 경계는 §7.3 에서 다룬다.
+Table 1·2·3 을 함께 읽으면 LayerAgent 의 우위가 평가 축과 카테고리에 따라 다음과 같이 분포된다. (i) Full N=50 에서 객관 충실도 (Element-IoU) + VLM rubric layout 차원 (AutoPresent layout_0_5, GPT-5.4 LS·VF) 에서 LayerAgent 1위. 색 차원 (CIEDE2000, color_0_5) 은 일괄 생성·패턴 주입 생성이 reference 의 색을 직접 모방하므로 LayerAgent 보다 우세이다. (ii) Multi-layer subset (N=10 dark_glass) 에서 LayerAgent 는 객관 충실도 (Element-IoU 0.575, CIEDE2000 20.7, 두 메트릭 모두 1위) 에서는 우세하지만 VLM rubric (layout_0_5 2.90, color_0_5 3.00) 에서는 4위이다 — atmospheric layer 의 풍부성 simplification 이 VLM 의 holistic 채점에 패널티를 유발한다. (iii) MLLM judge 4 criterion (Table 3, GPT-5.4) 은 Full N=50 평균에서 LayerAgent 1위 (4.02 vs 다음 메서드 3.37). 종합적으로 LayerAgent 는 객관 충실도 축과 GPT-5.4 holistic 축의 mass center 위치이며, AutoPresent rubric 의 dark_glass 약점은 §7.2 future work 에서 다룬다.
 
 ![Figure 6: Qualitative structural fidelity comparison](results/figures/fig6_qualitative.png)
 
@@ -349,21 +340,21 @@ Figure 3. 9개 layout별 LayerAgent per-layout breakdown (양수=LayerAgent 우�
 
 Table 5. 본 연구가 정착시키는 메트릭 축 분리.
 
-| 평가 축 | 대표 metric | 측정 차원 | Same-model GPT-4o 우승 | Cross-model 비교 | 답하는 질문 |
-|---|---|---|---|---|---|
-| ① DOM-based structural metrics | VEC, EDC, VLC, CRP, HD | 코드 구조 풍부성 | LayerAgent | §7.3 boundary 참조 | "코드가 시각적으로 풍부한 element를 만드는가?" |
-| ② Render-based visual similarity | CLIP, LPIPS | 시각 충실도 | LayerAgent (chart_templates 도입 후 chart 7종까지 회복) | §7.3 boundary 참조 | "렌더된 결과가 reference처럼 보이는가?" |
-| ③ Multimodal LLM-as-judge | GPT-5.4 4-criteria | 시각 usability·legibility·design quality | LayerAgent (chart_templates 도입 후 chart 카테고리 회복) | (미측정) | "출력이 발표 가능한 슬라이드인가?" |
-| ④ Class-name-aligned (보조 sanity check) | LTED, Layer Recall | class name regex 매칭 | LayerAgent | 공정 비교 부적합 (참고용) | 클래스명 편향: "출력이 LayerAgent의 class naming convention에 맞는가?" |
-| ⑤ Content completeness (auxiliary) | CCR | 텍스트 문자열 보존 | LayerAgent | (미측정) | "콘텐츠 문자열이 코드에 살아남는가?" — 시각 가시성 미반영 |
+| 평가 축 | 대표 metric | 측정 차원 | Same-model GPT-4o 우승 | 답하는 질문 |
+|---|---|---|---|---|
+| ① 객관 디자인 충실도 | Element-IoU, CIEDE2000 | element 단위 IoU, 색 거리 | LayerAgent (Element-IoU); 색은 baseline 우세 | "렌더된 결과가 reference 와 element·색에서 얼마나 정확히 일치하는가?" |
+| ② AutoPresent rubric (0–5) | layout_0_5, color_0_5 | GPT-4o judge, layout·color 적절성 | LayerAgent (layout); color 는 baseline 우세 | "발표 슬라이드로서 layout / color 가 적절한가? (0–5)" |
+| ③ GPT-5.4 4 criterion (1–7) | VF·LS·CC·DQ | cross-model VLM judge | LayerAgent (4 criterion 모두) | "출력이 발표 가능한 슬라이드인가? (1–7)" |
+| ④ Class-name-aligned (보조 sanity check) | LTED, Layer Recall | class name regex 매칭 | LayerAgent | 클래스명 편향: "출력이 LayerAgent 의 class naming convention 에 맞는가?" |
+| ⑤ Content completeness (auxiliary) | CCR | 텍스트 문자열 보존 | LayerAgent | "콘텐츠 문자열이 코드에 살아남는가?" — 시각 가시성 미반영 |
 
-평가 축 간 불일치의 의미 (RQ3 답). Design-to-Code use case는 단일하지 않다:
-- (i) 편집 가능한 구조 회복(슬라이드 재편집용 코드 추출) → 축 ① 우선
-- (ii) 참조 이미지 시각 복제(스크린샷 → HTML) → 축 ② 우선  
-- (iii) 발표 가능한 슬라이드 자동 생성 → 축 ③ 우선
+평가 축 간 불일치의 의미 (RQ3 답). Design-to-Code use case 는 단일하지 않다:
+- (i) 참조 이미지 객관 시각 복제 (element 단위 매칭, 색 정확도) → 축 ① 우선
+- (ii) AutoPresent 스타일 0–5 rubric — 발표 가능성 측면 layout·color 적절성 → 축 ② 우선
+- (iii) cross-model VLM judge — holistic 발표 품질 → 축 ③ 우선
 - (iv) 클래스명 편향 진단 → 축 ④ (sanity check 용도로 한정)
 
-선행 ranking의 재해석. Design2Code, SlidesBench, Widget2Code 등이 보고한 method ranking은 축 ①과 ② 위주이며, class-name-aligned metric은 클래스명 편향 위험을 가진다. 본 연구는 DreamHouse 2026(architectural structure 생성에서의 structural-visual orthogonality 발견)과 SlideAudit(UIST 2025, automated vs human axis 분석)의 다면적 평가 패러다임을 슬라이드 design-to-code 도메인으로 확장한다. 본 논문은 DOM-based structural(축 ①), render-based visual similarity(축 ②), multimodal LLM-as-judge(축 ③)의 동반 보고가 Design-to-Code 평가에서 단일 지표보다 더 명확한 해석을 가능하게 함을 보이며, 본 연구의 LayerAgent는 세 축 모두에서 GPT-4o 동일 모델 4-method 비교의 종합 1위에 위치한다.
+선행 ranking 의 재해석. Design2Code (NAACL 2025) Block-Match·SlidesBench element-matching 은 본 연구의 축 ① 의 객관 매칭에 해당하고, AutoPresent (CVPR 2025) 0–5 rubric 은 축 ② 에 해당하며, WebDevJudge (2025) 의 LLM-as-judge protocol 은 축 ③ 에 해당한다. 본 연구는 DreamHouse 2026 (architectural structure 생성에서의 structural-visual orthogonality 발견)과 SlideAudit (UIST 2025, automated vs human axis 분석) 의 다면적 평가 패러다임을 슬라이드 design-to-code 도메인으로 확장하며, LayerAgent 는 GPT-4o 동일 모델 4-method 비교에서 객관 충실도 (Element-IoU 1위) + cross-model VLM judge (GPT-5.4 4 criterion 1위) 두 축에서 명확한 1위에 위치한다.
 
 제5절 Ablation
 
@@ -416,13 +407,13 @@ Figure 4. 두 mechanism 격리 측정 시각화. 좌측: D₂ (Text Inserter 분
 
 제2절 다면적 평가가 측정하는 서로 다른 차원
 
-다면적 평가의 세 축은 서로 다른 차원을 측정하며, LayerAgent는 세 축 모두에서 GPT-4o 동일 모델 4-method 비교의 종합 1위에 위치한다.
+다면적 평가의 세 축은 서로 다른 차원을 측정하며, LayerAgent 는 객관 시각 매칭과 cross-model VLM judge 두 축에서 GPT-4o 동일 모델 4-method 비교의 1위에 위치한다.
 
-- DOM-based structural metrics (VEC/EDC/VLC/CRP/HD)는 가시 element와 distinct style fingerprint의 카운트로, 분해된 출력이 풍부한 element와 다양한 스타일을 코드에 반영할 때 점수가 높게 측정된다. LayerAgent의 8개 specialist가 직접 layer를 채우므로 이 축에서 일관 우세이다.
-- Render-based visual similarity (CLIP, LPIPS)는 image embedding 공간과 perceptual feature 공간에서의 유사도로, 표면 픽셀 배치와 구조 보존을 동시에 평가한다. chart_templates 결정적 렌더링이 chart 7종 슬라이드의 시각 fidelity를 보장하여 이 축에서 평균 우세를 가져온다.
-- Multimodal LLM-as-judge는 "출력이 발표 가능한가"라는 holistic 질문에 답한다. chart 영역의 텍스트 overflow는 chart_templates 결정적 렌더링이 구조적으로 회피하므로 Content Completeness·Design Quality 축의 패널티가 차단된다.
+- **객관 충실도 (Element-IoU, CIEDE2000)** 는 element 단위 Hungarian 매칭과 색 거리로 reference 와의 정확한 시각 일치를 측정한다. LayerAgent 의 chart_templates 결정적 렌더링이 chart·table 카테고리의 element placement 정확도와 다층 시각 효과 디자인의 색 distillation 을 함께 보장하여 Element-IoU Full N=50 1위 (0.372) 이며 dark_glass subset 의 CIEDE2000 도 1위 (20.7) 이다.
+- **AutoPresent rubric (layout_0_5, color_0_5)** 은 GPT-4o judge 의 0–5 발표 가능성 채점이다. LayerAgent 는 Full N=50 layout_0_5 에서 1위 (3.64 vs 2.90) 이나 색 차원에서는 baseline 우세이며, dark_glass subset 에서는 두 차원 모두 4위이다 — atmospheric layer 단순화가 VLM 의 holistic 채점에 패널티를 유발한다 (§5.3·§7.2 참조).
+- **GPT-5.4 4 criterion (1–7)** 은 cross-model VLM judge 의 종합 발표 품질 채점이다. LayerAgent 는 Full N=50 평균에서 4 criterion 모두 1위 (4.02 vs 차순위 3.37).
 
-평가 해석의 원칙. 본 논문은 다면적 평가 세 축을 모두 보고하며 use case별 metric weighting의 가능성을 시사점으로 제시한다. LayerAgent는 (i) 편집 가능한 구조 회복과 (ii) chart_templates 결정적 렌더링 두 메커니즘의 결합으로 (iii) 세 평가 축 모두에서 종합 1위를 달성한다.
+평가 해석의 원칙. 본 논문은 다면적 평가 세 축을 모두 보고하며 use case 별 metric weighting 의 가능성을 시사점으로 제시한다. LayerAgent 는 (i) 객관 충실도 + (ii) cross-model VLM judge 에서 mass-center 우위를 가지며, AutoPresent rubric 의 dark_glass 약점은 atmospheric layer 의 expressive generation 강화로 후속 연구에서 다룬다.
 
 제3절 String-CCR vs Visual CCR — 메트릭학적 후속 제안
 
@@ -456,15 +447,15 @@ H-RAG의 zero-sum, D₂ ablation의 분리 효과, §5.2의 z-explicit prompt ba
 
 제3절 Frontier 모델 boundary reference
 
-LayerAgent의 본 연구 main 결과는 GPT-4o 동일 모델 4-method 비교(§5.1) 위에서 보고된다. 본 절은 LayerAgent의 적용 범위 경계를 명시하기 위해 GPT-5.4 및 Claude 4.6 Opus 기반 일괄 생성을 별개 cost-quality 차원의 reference로 보고한다 (N=10 sample, 가격은 2026 Q1 list price 기준 — GPT-4o $2.5/$10, GPT-5.4 $5/$15, Claude 4.6 Opus $15/$75 per M input/output).
+LayerAgent 의 본 연구 main 결과는 GPT-4o 동일 모델 4-method 비교 (§5.1) 위에서 SOTA design2code pack 으로 보고된다. 본 절은 LayerAgent 의 적용 범위 경계를 명시하기 위해 GPT-5.4 및 Claude 4.6 Opus 기반 일괄 생성을 별개 cost-quality 차원의 reference 로 보고한다 (N=10 sample, 가격은 2026 Q1 list price 기준 — GPT-4o $2.5/$10, GPT-5.4 $5/$15, Claude 4.6 Opus $15/$75 per M input/output). 본 절의 비교 표는 main framework 적용 이전의 DOM 기반 측정값이며, frontier outputs 위의 SOTA pack 재측정은 향후 연구로 다룬다.
 
-| Method | VEC | EDC | CRP | CLIP↑ | LPIPS↓ | Approx. API cost/slide | Time |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| LayerAgent (GPT-4o + 분해, N=10 dark_glass) | 17.0 | 10.3 | 32.0 | 0.524 | 0.628 | $0.232 | 60s |
-| 일괄 생성 (GPT-5.4, N=10) | 37.1 | 16.4 | 135.6 | 0.578 | 0.411 | $0.075 | 85s |
-| 일괄 생성 (Claude 4.6 Opus, N=10) | 27.2 | 14.0 | 68.0 | 0.525 | 0.502 | $0.421 | 108s |
+| Method | element 수 | style diversity | render richness | Approx. API cost/slide | Time |
+|---|:---:|:---:|:---:|:---:|:---:|
+| LayerAgent (GPT-4o + 분해, N=10 dark_glass) | 17.0 | 10.3 | 32.0 | $0.232 | 60s |
+| 일괄 생성 (GPT-5.4, N=10) | 37.1 | 16.4 | 135.6 | $0.075 | 85s |
+| 일괄 생성 (Claude 4.6 Opus, N=10) | 27.2 | 14.0 | 68.0 | $0.421 | 108s |
 
-본 표는 GPT-4o 동일 모델 비교(§5.1·§5.3)와 cross-model boundary 비교가 서로 분리된 차원임을 보여준다. LayerAgent의 main contribution은 same-model process-level intervention이며 — frontier scaling이 제약된 조건(GPT-4o급 lock-in, on-prem 배포, 검사 가능한 생성 과정 요구 등)에 정렬된다 — frontier model upgrade는 별개의 비용·모델 선택 차원에 속한다. 두 경로는 동시에 활용 가능하며 (frontier scaling + process-level 분해의 stack), 후속 연구에서 LayerAgent의 분해 전략을 frontier 모델에 적용한 결합 효과는 §8의 향후 연구로 다룬다. Method-level 상세 비교(자동 지표 breakdown과 비용·시간 분석)는 부록 C에 보고한다.
+본 표는 same-model GPT-4o 비교 (§5.1·§5.3) 와 cross-model boundary 비교가 서로 분리된 차원임을 보여준다. LayerAgent 의 main contribution 은 same-model process-level intervention 이며 frontier scaling 이 제약된 조건(GPT-4o 급 lock-in, on-prem 배포, 검사 가능한 생성 과정 요구 등)에 정렬된다 — frontier model upgrade 는 별개의 비용·모델 선택 차원에 속한다. 두 경로는 동시에 활용 가능하며 (frontier scaling + process-level 분해의 stack), 후속 연구에서 LayerAgent 의 분해 전략을 frontier 모델에 적용한 결합 효과는 §8 의 향후 연구로 다룬다.
 
 ---
 
@@ -476,9 +467,9 @@ LayerAgent의 본 연구 main 결과는 GPT-4o 동일 모델 4-method 비교(§5
 
 - (Method) LayerAgent framework (§3): Chat Parser 입력 정규화, DesignSpec blackboard, vision-grounded specialist agents, chart_templates 결정적 렌더링 라이브러리(7종 chart renderer — bar/line multi-series/waterfall/matrix_2x2/mekko/harvey_table_advanced/tree_diagram), style normalization, text insertion 분리를 포함한 multi-agent layer decomposition framework이다. 본 논문은 DesignSpec blackboard(D₄, N=50 다면적 평가에서 7개 자동 지표 중 6개 악화)와 Text Inserter(D₂, N=50 main_eval CCR Δ=0.343, 다층 디자인 subset Δ=0.687) 두 mechanism의 인과 효과를 격리 측정한다 (§5.5).
 
-- (Evaluation & Finding) 다면적 평가 종합 1위 (§4.3, §5): class name 이나 사전 정의된 layer vocabulary 에 의존하지 않는 평가 protocol(DOM-based 구조 + render-based 시각 유사도 + multimodal LLM-as-judge 의 결합·정렬) 위에서 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 MLLM judge 4 criterion 모두 1위에 위치한다 (Table 3, avg 4.02 vs 차순위 3.37). 자동 지표는 카테고리에 따라 분포가 다르며 — chart_templates 가 활성화되지 않는 multi-layer subset (N=10 dark_glass) 에서는 LayerAgent 가 자동 7개 지표 모두 1위 (Table 2, VEC 1.87×, EDC 3.43×, CRP 1.36×, CLIP +0.074, LPIPS −0.025), chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다. Frontier 모델 일괄 생성(GPT-5.4·Claude Opus)은 §7.3 boundary reference 로 별도 cost-quality 차원에서 보고된다 — LayerAgent 의 적용 범위는 GPT-4o 급 lock-in·on-prem 배포·검사 가능한 생성 과정 요구 등 frontier scaling 이 제약된 조건에 정렬된다.
+- (Evaluation & Finding) SOTA design2code 다면적 평가에서 1위 (§4.3, §5): class name 이나 사전 정의된 layer vocabulary 에 의존하지 않는 평가 protocol — 객관 충실도 (Element-IoU + CIEDE2000) + VLM rubric (AutoPresent 0–5 + GPT-5.4 4 criterion) — 위에서 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 객관 시각 매칭 (Element-IoU 0.372 vs sp 0.314) 과 cross-model VLM judge (GPT-5.4 4 criterion 모두 1위, avg 4.02 vs 3.37) 두 main 축에서 1위에 위치한다 (Table 1·3). AutoPresent rubric 의 layout 차원에서도 1위 (3.64 vs 2.90). chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다 (Table 4). Frontier 모델 일괄 생성(GPT-5.4·Claude Opus)은 §7.3 boundary reference 로 별도 cost-quality 차원에서 보고된다.
 
-최종 정리. LayerAgent 는 GPT-4o 급 VLM 의 일괄 생성에서 누락되는 계층적 시각 구조를 복원하는 process-level intervention 이며, 본 연구의 다면적 평가에서 동일 모델 4-method 비교의 MLLM judge 종합 1위에 위치한다. 측정으로 지지되는 세 가지 주장은 다음과 같다. (i) 동일 GPT-4o 위에서 LayerAgent 는 MLLM judge 4 criterion 모두 1위 (avg 4.02 vs 차순위 3.37). (ii) 자동 지표 우위는 chart_templates 가 활성화되지 않는 multi-layer subset 에서 7 지표 전부 (VEC 1.87× ~ EDC 3.43×). chart·table 카테고리 6종은 chart_templates 결정적 렌더링이 MLLM Δ 의 큰 폭 격차로 이끈다. (iii) Frontier scaling 은 본 논문의 적용 범위 외 별개 cost-quality 차원으로 §7.3 에 boundary reference 로 위치한다.
+최종 정리. LayerAgent 는 GPT-4o 급 VLM 의 일괄 생성에서 누락되는 계층적 시각 구조를 복원하는 process-level intervention 이며, 본 연구의 SOTA design2code 다면적 평가에서 동일 모델 4-method 비교의 객관 충실도 + cross-model VLM judge 두 main 축의 1위에 위치한다. 측정으로 지지되는 세 가지 주장은 다음과 같다. (i) 객관 디자인 충실도 (Element-IoU 0.372 vs sp 0.314, +18%) 와 GPT-5.4 4 criterion 모두 1위 (avg 4.02 vs 3.37). (ii) AutoPresent rubric 의 dark_glass subset 약점은 atmospheric layer 의 expressive generation 강화로 후속 연구에서 다룬다. (iii) Frontier scaling 은 본 논문의 적용 범위 외 별개 cost-quality 차원으로 §7.3 에 boundary reference 로 위치한다.
 
 더 넓은 원리.
 
@@ -518,9 +509,9 @@ H-LayoutScaling (Per-layout RQ3 part A, §5.3) — 기각
 - 기각 — chart·table 카테고리에서 chart_templates 의 효과가 MLLM 축으로는 큰 폭으로 전이되지만 LTED(class-name-aligned 보조 metric) 로는 약하거나 음수로 측정되어 두 축이 서로 다른 dimension 을 측정함을 보여준다. 이는 H-MetricAxisDisagreement 와 정렬되며, paper 의 다면적 평가 동반 보고 권고를 강화한다.
 
 H-MetricAxisDisagreement (RQ3 part B 평가 축 간 불일치, §5.4) — 채택
-- 결정 규칙: N=50 aggregate 에서 CLIP, LTED, MLLM judge 세 축의 1위 메서드가 일치하지 않거나 최소 2개 이상 ranking 차이를 보이는지 여부
-- 측정 결과: CLIP 1위는 일괄 생성(0.646 vs LayerAgent 0.493), LTED·MLLM judge 1위는 LayerAgent(LTED 0.752 가장 낮음·MLLM avg 4.02). 1위 메서드가 두 축으로 분기한다.
-- 채택 — 동일한 출력이라도 평가 축에 따라 서로 다른 ranking 이 산출될 수 있음을 보여준다.
+- 결정 규칙: N=50 aggregate 에서 객관 충실도 (Element-IoU, CIEDE2000), VLM rubric (AutoPresent layout_0_5, color_0_5), GPT-5.4 4 criterion 세 축의 1위 메서드가 일치하지 않거나 최소 2개 이상 ranking 차이를 보이는지 여부
+- 측정 결과: Element-IoU 1위 LayerAgent (0.372), CIEDE2000 1위 cot_h_rag (51.5), layout_0_5 1위 LayerAgent (3.64), color_0_5 1위 일괄 생성 (3.70), GPT-5.4 4 criterion 1위 LayerAgent (avg 4.02). 1위 메서드가 세 메서드 (LayerAgent, cot_h_rag, 일괄 생성) 로 분기한다.
+- 채택 — 동일한 출력이라도 평가 축에 따라 서로 다른 ranking 이 산출되며, 색 차원과 layout 차원, holistic 종합이 서로 다른 메서드를 1위로 평가한다.
 
 H-AblationTextInserter (Text Inserter 분리 효과, §5.5) — 채택
 - 결정 규칙: string-CCR(D) − string-CCR(D₂) ≥ 0.30 AND Layer Recall(D) > Layer Recall(D₂)
@@ -608,22 +599,22 @@ Figure 2 (보조). 4 method × 5 metric breakdown. Layer Recall은 명명 규칙
 
 C.1 vs Claude 4.6 Opus
 
-자동 시각 지표(CLIP·LPIPS)와 시각 풍부성(VEC/EDC/CRP) 차원에서 Opus 가 다소 우세하나 비용이 약 1.8배(LayerAgent $0.232 vs Opus $0.421), 시간이 약 1.8배(60s vs 108s) 더 높다. 별개 cost-quality 차원의 비교이다.
+옛 DOM 기반 측정에서 element 수·style diversity·render richness 차원에서 Opus 가 다소 우세하나 비용이 약 1.8배 (LayerAgent $0.232 vs Opus $0.421), 시간이 약 1.8배 (60s vs 108s) 더 높다. SOTA pack 재측정은 본 논문의 범위 외이다.
 
 C.2 vs GPT-5.4
 
-자동 시각 지표 차원에서 GPT-5.4 일괄 생성이 우세하며 비용도 LayerAgent 의 약 1/3 수준($0.075 vs $0.232) 이다. 본 비교는 LayerAgent (process-level intervention on GPT-4o) 와 frontier model upgrade 가 서로 분리된 cost-quality 차원임을 직접 보여준다. main claim 의 same-model 4-method 비교(§5.1)와는 평가 축이 다르며, LayerAgent 의 분해 전략을 frontier 모델 위에 stack 한 결합 효과는 §8 향후 연구로 다룬다.
+옛 DOM 기반 측정에서 GPT-5.4 일괄 생성이 element/style 카운트에서 우세하며 비용도 LayerAgent 의 약 1/3 수준 ($0.075 vs $0.232) 이다. 본 비교는 LayerAgent (process-level intervention on GPT-4o) 와 frontier model upgrade 가 서로 분리된 cost-quality 차원임을 직접 보여준다. SOTA pack (Element-IoU + AutoPresent + GPT-5.4 4 criterion) 으로 frontier outputs 를 재측정한 결과는 본 논문 범위 외이며 §8 향후 연구로 다룬다.
 
 C.3 운영 참고
 
 운영 조건별 권장:
-- Same-model GPT-4o 위에서 다면적 평가 종합 우위가 필요한 경우 → LayerAgent (본 논문의 main use case).
-- Frontier model API 사용이 가능하고 비용·시간 최소화를 최우선시할 경우 → GPT-5.4 일괄 생성.
-- GPT-4o 일괄 생성($0.015/slide, 10s)은 최저 비용 옵션으로 §7.3 boundary table 상단에 위치한다.
+- Same-model GPT-4o 위에서 SOTA design2code 평가 우위가 필요한 경우 → LayerAgent (본 논문의 main use case).
+- Frontier model API 사용이 가능하고 비용·시간 최소화를 최우선시할 경우 → GPT-5.4 일괄 생성 (단 본 논문의 SOTA pack 으로는 재측정 안 됨).
+- GPT-4o 일괄 생성 ($0.015/slide, 10s) 은 최저 비용 옵션으로 §7.3 boundary table 상단에 위치한다.
 
 C.4 Boundary 종합
 
-본 분석은 LayerAgent (process-level intervention) 와 frontier scaling 이 서로 분리된 두 개선 경로임을 명시하기 위한 boundary reference 이다. LayerAgent 의 main contribution 은 same-model GPT-4o 4-method 비교 위에서 정착되며 (§5.1), frontier model upgrade 는 별개 cost-quality 차원에 속한다.
+본 분석은 LayerAgent (process-level intervention) 와 frontier scaling 이 서로 분리된 두 개선 경로임을 명시하기 위한 boundary reference 이다. LayerAgent 의 main contribution 은 same-model GPT-4o 4-method 비교 위 SOTA pack 평가에서 정착되며 (§5.1), frontier model upgrade 는 별개 cost-quality 차원에 속한다.
 
 ---
 
