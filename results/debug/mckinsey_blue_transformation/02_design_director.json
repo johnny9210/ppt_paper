@@ -1,0 +1,38 @@
+{
+  "aesthetic_label": "professional-elegant-dark-blue",
+  "typography": {
+    "hero_family": "sans-serif",
+    "hero_weight": 700,
+    "hero_style_hint": "normal",
+    "body_family": "sans-serif",
+    "body_weight": 400,
+    "letter_spacing_hint": "normal"
+  },
+  "palette": {
+    "bg_primary": "#07365C",
+    "bg_secondary": "#C1C6CA",
+    "accent": "#6D7B86",
+    "accent_soft": "rgba(105, 129, 139, 0.4)",
+    "frame_color": "rgba(0, 0, 0, 0.2)",
+    "text_bright": "#EBECED",
+    "text_muted": "rgba(152, 157, 161, 0.7)"
+  },
+  "frame_system": {
+    "hero_frame": "Bold, clean header sections with distinct visuals",
+    "card_frame": "Structured boxes with arrows connecting phases",
+    "bottom_accent_bar": true
+  },
+  "decorative_motif": {
+    "style": "geometric-triangles-circles-hexagons",
+    "density": "sparse",
+    "detected_shapes": [
+      "triangle"
+    ]
+  },
+  "atmosphere": {
+    "has_radial_glow": false,
+    "glow_origin": "none",
+    "glow_color": "none",
+    "background_depth": "flat"
+  }
+}

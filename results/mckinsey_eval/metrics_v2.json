@@ -1,0 +1,92 @@
+[
+  {
+    "method": "layeragent_v3",
+    "n_total_visible": 61,
+    "vec": 21,
+    "edc": 5,
+    "vlc": 2,
+    "crp": 1,
+    "hd": 7,
+    "sc": 1,
+    "zdx": 1,
+    "z_index_explicit_count": 13,
+    "tag_distribution": {
+      "div": 21
+    },
+    "ssim": 0.5807244085661056,
+    "clip": 0.7813191413879395,
+    "lpips": 0.610779881477356
+  },
+  {
+    "method": "layeragent_v1",
+    "n_total_visible": 85,
+    "vec": 27,
+    "edc": 11,
+    "vlc": 4,
+    "crp": 52,
+    "hd": 8,
+    "sc": 1,
+    "zdx": 2,
+    "z_index_explicit_count": 14,
+    "tag_distribution": {
+      "div": 27
+    },
+    "ssim": 0.3286801750638244,
+    "clip": 0.4973786771297455,
+    "lpips": 0.6811234951019287
+  },
+  {
+    "method": "single_pass",
+    "n_total_visible": 40,
+    "vec": 6,
+    "edc": 2,
+    "vlc": 2,
+    "crp": 11,
+    "hd": 4,
+    "sc": 1,
+    "zdx": 0,
+    "z_index_explicit_count": 0,
+    "tag_distribution": {
+      "div": 6
+    },
+    "ssim": 0.6353668928544006,
+    "clip": 0.7339508533477783,
+    "lpips": 0.6063635349273682
+  },
+  {
+    "method": "visual_cot",
+    "n_total_visible": 39,
+    "vec": 10,
+    "edc": 2,
+    "vlc": 1,
+    "crp": 0,
+    "hd": 5,
+    "sc": 0.2604166666666667,
+    "zdx": 0,
+    "z_index_explicit_count": 0,
+    "tag_distribution": {
+      "div": 10
+    },
+    "ssim": 0.5858142420395324,
+    "clip": 0.6965786218643188,
+    "lpips": 0.7426766753196716
+  },
+  {
+    "method": "cot_h_rag",
+    "n_total_visible": 39,
+    "vec": 5,
+    "edc": 1,
+    "vlc": 1,
+    "crp": 10,
+    "hd": 4,
+    "sc": 0.34375,
+    "zdx": 0,
+    "z_index_explicit_count": 0,
+    "tag_distribution": {
+      "div": 5
+    },
+    "ssim": 0.6228299554543562,
+    "clip": 0.5584520697593689,
+    "lpips": 0.7039386034011841
+  }
+]

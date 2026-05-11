@@ -1,0 +1,111 @@
+{
+  "layout_type": "horizontal_row",
+  "global_palette": {
+    "bg_primary": "#FFFFFF",
+    "bg_secondary": "#E3E3E3",
+    "accent": "#005780",
+    "text_primary": "#000000",
+    "text_accent": "#000000"
+  },
+  "aesthetic": "clean professional corporate style with directional arrows",
+  "hero_blocks": [],
+  "cards": [
+    {
+      "id": "card_1",
+      "x1": 0.05,
+      "y1": 0.15,
+      "x2": 0.21,
+      "y2": 0.85,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#00436D"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#E3E3E3",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_2",
+      "x1": 0.22,
+      "y1": 0.15,
+      "x2": 0.38,
+      "y2": 0.85,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#00436D"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#E3E3E3",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_3",
+      "x1": 0.39,
+      "y1": 0.15,
+      "x2": 0.55,
+      "y2": 0.85,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#00436D"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#E3E3E3",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_4",
+      "x1": 0.56,
+      "y1": 0.15,
+      "x2": 0.72,
+      "y2": 0.85,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#00436D"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#E3E3E3",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_5",
+      "x1": 0.73,
+      "y1": 0.15,
+      "x2": 0.89,
+      "y2": 0.85,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#00436D"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#E3E3E3",
+        "kind": "date"
+      }
+    }
+  ],
+  "decorations": [],
+  "background": {
+    "primary_color": "#FFFFFF",
+    "gradient_direction": "135deg",
+    "pattern_type": "none"
+  },
+  "cards_have_icons": false
+}

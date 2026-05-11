@@ -1,0 +1,37 @@
+[
+  {
+    "card_idx": 1,
+    "concept": "flag",
+    "fa_class": "flag",
+    "html_snippet": "<i class=\"fas fa-flag\" style=\"font-size:1.8rem;color:#6D7B86;\"></i>",
+    "confidence": 0.85
+  },
+  {
+    "card_idx": 2,
+    "concept": "building",
+    "fa_class": "building",
+    "html_snippet": "<i class=\"fas fa-building\" style=\"font-size:1.8rem;color:#6D7B86;\"></i>",
+    "confidence": 0.9
+  },
+  {
+    "card_idx": 3,
+    "concept": "chart",
+    "fa_class": "chart-line",
+    "html_snippet": "<i class=\"fas fa-chart-line\" style=\"font-size:1.8rem;color:#6D7B86;\"></i>",
+    "confidence": 0.85
+  },
+  {
+    "card_idx": 4,
+    "concept": "network",
+    "fa_class": "network-wired",
+    "html_snippet": "<i class=\"fas fa-network-wired\" style=\"font-size:1.8rem;color:#6D7B86;\"></i>",
+    "confidence": 0.85
+  },
+  {
+    "card_idx": 5,
+    "concept": "trophy",
+    "fa_class": "trophy",
+    "html_snippet": "<i class=\"fas fa-trophy\" style=\"font-size:1.8rem;color:#6D7B86;\"></i>",
+    "confidence": 0.95
+  }
+]

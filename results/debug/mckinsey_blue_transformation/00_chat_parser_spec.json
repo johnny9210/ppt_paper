@@ -1,0 +1,39 @@
+{
+  "slide_type": "roadmap",
+  "content": {
+    "title": "Five-phase transformation roadmap delivers value in 18 months",
+    "phases": [
+      {
+        "name": "Phase 1",
+        "title": "Diagnose",
+        "description": "Q1 2026: Assess state, identify value pools, define model"
+      },
+      {
+        "name": "Phase 2",
+        "title": "Design",
+        "description": "Q2 2026: Develop blueprints, prioritize initiatives, design architecture"
+      },
+      {
+        "name": "Phase 3",
+        "title": "Pilot",
+        "description": "Q3 2026: Launch MVP, test tools, gather feedback"
+      },
+      {
+        "name": "Phase 4",
+        "title": "Scale",
+        "description": "Q4 2026 - Q1 2027: Roll out solutions, conduct training, monitor performance"
+      },
+      {
+        "name": "Phase 5",
+        "title": "Sustain",
+        "description": "Q2 2027 & beyond: Embed new practices, establish loops, measure benefits"
+      }
+    ]
+  },
+  "style": {
+    "primary_color": "#1F3864",
+    "accent_color": "#1F3864",
+    "background": "#FFFFFF",
+    "text_color": "#000000"
+  }
+}

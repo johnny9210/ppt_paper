@@ -36,6 +36,7 @@ from .state import State
 from .utils.common import (
     b64_image, extract_html, get_design_by_id, load_meta, save_run,
 )
+from .utils.debug import with_debug
 
 
 def _noop_director(state) -> dict:
@@ -64,36 +65,36 @@ def build_pipeline(
         use_overflow_repair: overflow_repair stage 포함 여부 (기본 on — v10 P1)
     """
     g = StateGraph(State)
-    g.add_node("analyzer", analyzer)
+    g.add_node("analyzer", with_debug("analyzer", analyzer))
 
     if ablation == "no_designspec":
-        g.add_node("design_director", _noop_director)
+        g.add_node("design_director", with_debug("design_director", _noop_director))
     else:
-        g.add_node("design_director", design_director)
+        g.add_node("design_director", with_debug("design_director", design_director))
 
-    g.add_node("base_bg_agent", base_bg_agent)
-    g.add_node("atmosphere_agent", atmosphere_agent)
-    g.add_node("decoration_agent", decoration_agent)
-    g.add_node("card_detail_agents", card_detail_agents)
-    g.add_node("hero_detail_agents", hero_detail_agents)
-    g.add_node("icon_agent", icon_agent)
+    g.add_node("base_bg_agent", with_debug("base_bg_agent", base_bg_agent))
+    g.add_node("atmosphere_agent", with_debug("atmosphere_agent", atmosphere_agent))
+    g.add_node("decoration_agent", with_debug("decoration_agent", decoration_agent))
+    g.add_node("card_detail_agents", with_debug("card_detail_agents", card_detail_agents))
+    g.add_node("hero_detail_agents", with_debug("hero_detail_agents", hero_detail_agents))
+    g.add_node("icon_agent", with_debug("icon_agent", icon_agent))
 
     # v10 P1: chart_agent
     if ablation == "no_chart_agent":
-        g.add_node("chart_agent", _noop_chart)
+        g.add_node("chart_agent", with_debug("chart_agent", _noop_chart))
     else:
-        g.add_node("chart_agent", chart_agent)
+        g.add_node("chart_agent", with_debug("chart_agent", chart_agent))
 
-    g.add_node("table_agent", table_agent)
+    g.add_node("table_agent", with_debug("table_agent", table_agent))
 
-    g.add_node("assembler", assembler)
-    g.add_node("style_normalizer", style_normalizer)
-    g.add_node("text_inserter", text_inserter)
+    g.add_node("assembler", with_debug("assembler", assembler))
+    g.add_node("style_normalizer", with_debug("style_normalizer", style_normalizer))
+    g.add_node("text_inserter", with_debug("text_inserter", text_inserter))
 
     # v10 P1: overflow_repair (optional toggle)
     repair_enabled = use_overflow_repair and ablation != "no_overflow_repair"
     if repair_enabled:
-        g.add_node("overflow_repair", overflow_repair)
+        g.add_node("overflow_repair", with_debug("overflow_repair", overflow_repair))
 
     if use_visual_critic:
         g.add_node("visual_critic", visual_critic)
@@ -171,6 +172,7 @@ class LayerAgent:
         image_path: str | Path,
         user_message: str,
         slide_id: str = "chat_slide",
+        debug_dir: str | Path | None = None,
     ) -> tuple[str, dict]:
         """자유 텍스트(채팅) + 디자인 이미지 → HTML 1장.
 
@@ -182,6 +184,9 @@ class LayerAgent:
             image_path: 참조 디자인 이미지 경로 (PNG/JPG).
             user_message: 사용자 자연어 브리프.
             slide_id: 결과 식별용 라벨 (저장 파일명에 쓰임).
+            debug_dir: 설정 시 각 layer 의 중간 산출물(HTML/JSON/overlay PNG)을
+                해당 디렉토리에 덤프. 어느 layer 가 fidelity 를 떨어뜨리는지
+                시각적으로 진단할 때 사용.
 
         Returns:
             (html, spec) — 생성된 HTML 본문, chat_parser 가 추출한 spec.
@@ -190,7 +195,7 @@ class LayerAgent:
         image_b64 = base64.b64encode(path.read_bytes()).decode()
         spec = chat_parser(image_b64, user_message, model=self.model)
 
-        result = self._pipeline.invoke({
+        invoke_state = {
             "image_b64": image_b64,
             "slide_id": slide_id,
             "slide_type": spec["slide_type"],
@@ -198,7 +203,17 @@ class LayerAgent:
             "style": spec["style"],
             "model": self.model,
             "ablation": self.ablation,
-        })
+        }
+        if debug_dir is not None:
+            from .utils.debug import ensure_dir, dump_json, dump_image_b64
+            d = ensure_dir(debug_dir)
+            invoke_state["debug_dir"] = str(d)
+            # Persist the input artifacts so the debug directory is self-contained.
+            dump_image_b64(d, "00_source_image", image_b64)
+            dump_json(d, "00_chat_parser_spec", spec)
+            dump_json(d, "00_user_message", {"message": user_message, "slide_id": slide_id})
+
+        result = self._pipeline.invoke(invoke_state)
         return extract_html(result.get("assembled", "")), spec
 
     def run_from_chat_and_save(
@@ -208,12 +223,21 @@ class LayerAgent:
         slide_id: str = "chat_slide",
         seed: int = 0,
         method_name: str | None = None,
+        debug_dir: str | Path | None = None,
     ):
         """run_from_chat + save_run. spec 도 .meta.json 으로 함께 기록."""
-        html, spec = self.run_from_chat(image_path, user_message, slide_id)
+        html, spec = self.run_from_chat(image_path, user_message, slide_id, debug_dir=debug_dir)
         method = method_name or (self._default_method_name() + "-chat")
         meta = {"user_message": user_message, "parsed_spec": spec,
                 "image_path": str(image_path)}
+        if debug_dir is not None:
+            meta["debug_dir"] = str(debug_dir)
+            # Also dump the final wrapped HTML inside debug dir for one-stop inspection.
+            try:
+                from .utils.debug import dump_html as _dh
+                _dh(debug_dir, "99_final", html)
+            except Exception:
+                pass
         return save_run(method, slide_id, seed, html, meta=meta)
 
     def _default_method_name(self) -> str:

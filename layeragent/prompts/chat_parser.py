@@ -34,14 +34,14 @@ Return JSON with exactly these top-level keys:
   Default if unclear → stats_hero.
 
 ▸ "content": dict whose shape depends on slide_type. Use these schemas:
-  • timeline:      {{"title", "description", "items": [{{"step", "emoji", "title", "description"}}]}}
+  • timeline:      {{"title", "subtitle", "items": [{{"step", "title", "quarter", "bullets": ["...","...","..."]}}]}}
   • dashboard:     {{"title", "metrics": [{{"emoji", "title", "value", "change"}}], "chart_title"}}
   • comparison:    {{"title", "left": {{"label", "items": [...]}}, "right": {{"label", "items": [...]}}}}
   • pyramid:       {{"title", "levels": [{{"title", "description"}}]}}
   • hub_spoke:     {{"title", "hub", "spokes": [{{"emoji", "title", "description"}}]}}
   • before_after:  {{"title", "before": {{"label", "items"}}, "after": {{"label", "items"}}}}
   • feature_grid:  {{"title", "features": [{{"emoji", "title", "description"}}]}}
-  • roadmap:       {{"title", "phases": [{{"name", "title", "description"}}]}}
+  • roadmap:       {{"title", "subtitle", "phases": [{{"step", "title", "quarter", "bullets": ["...","...","..."]}}]}}
   • layered_stack: {{"title", "layers": [{{"title", "description"}}]}}
   • stats_hero:    {{"title", "hero_metric": {{"value", "label"}}, "stats": [{{"label", "value"}}]}}
   • cover:         {{"title", "subtitle"}}
@@ -53,6 +53,11 @@ Return JSON with exactly these top-level keys:
    - If the user gives only a topic, infer 3-5 plausible items grounded in that domain.
    - Pick emojis that fit each item (📊 stats, 🚀 growth, ⚠️ risk, etc).
    - Keep titles ≤ 30 chars, descriptions ≤ 80 chars.
+
+   ★ **roadmap / timeline 추출 규칙** (이전 버전이 자주 망가뜨린 부분):
+   - 사용자가 '단계당 N개 불릿'을 주면 그 N개를 각각 별개 문자열로 `bullets` 배열에 보존하라. 한 문자열로 합치면 안 된다.
+   - 'Q1 2026' 같은 분기/시점 라벨은 **`quarter` 필드로 분리**해서 보존하라. `bullets`나 `title` 안에 섞지 마라.
+   - `step` 은 1-based integer (1, 2, 3, ...). `name`/'Phase N' 같은 라벨은 만들지 마라.
 
 ▸ "style": {{"primary_color", "accent_color", "background", "text_color"}}
   Inspect the reference image and pick dominant hex values.

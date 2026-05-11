@@ -202,6 +202,115 @@ def text_box_heights(
 # 4) 한 번에 묶어주는 API
 # ────────────────────────────────────────────
 
+def icon_evidence_score(
+    image_b64: str,
+    bbox_ratio: tuple[float, float, float, float],
+    icon_zone: str = "top",
+) -> dict:
+    """Heuristic for "is there an icon glyph in the expected zone of this card?"
+
+    Strategy: crop a TIGHT top-left corner of the card (≈12%×16% of card) where
+    a leading icon sits *before* any title text. Compare its color variance
+    against a same-sized control crop from the card's body center (which is
+    usually a plain background or text). True icons stand out as a *spike* in
+    the corner relative to the body baseline; pure header bands or text-only
+    designs show similar variance in both places.
+
+    Returns {"variance", "edge_density", "control_variance", "has_icon"}.
+    """
+    img = _load_image(image_b64)
+    W, H = img.size
+    x1 = int(bbox_ratio[0] * W); y1 = int(bbox_ratio[1] * H)
+    x2 = int(bbox_ratio[2] * W); y2 = int(bbox_ratio[3] * H)
+    if x2 <= x1 or y2 <= y1:
+        return {"variance": 0.0, "edge_density": 0.0, "control_variance": 0.0, "has_icon": False}
+
+    bw = x2 - x1; bh = y2 - y1
+    # Tight icon corner: top-left 12% × 16%, with a small inner pad so we don't
+    # catch the card border itself.
+    pad_x = max(2, int(bw * 0.02))
+    pad_y = max(2, int(bh * 0.02))
+    cx1 = x1 + pad_x
+    cy1 = y1 + pad_y
+    cx2 = min(x2, x1 + max(12, int(bw * 0.18)))
+    cy2 = min(y2, y1 + max(14, int(bh * 0.22)))
+
+    # Control: a same-sized crop from the card body's mid-right (away from text-left)
+    cw = cx2 - cx1; ch = cy2 - cy1
+    bx1 = max(x1, x1 + int(bw * 0.55))
+    by1 = max(y1, y1 + int(bh * 0.45))
+    bx2 = min(x2, bx1 + cw)
+    by2 = min(y2, by1 + ch)
+
+    def _stats(c):
+        if c.width < 4 or c.height < 4:
+            return 0.0, 0.0
+        a = np.array(c).astype(np.float32)
+        v = float(a.std(axis=(0, 1)).mean())
+        gx = np.abs(np.diff(a, axis=1)).mean() if a.shape[1] > 1 else 0.0
+        gy = np.abs(np.diff(a, axis=0)).mean() if a.shape[0] > 1 else 0.0
+        return v, float(gx + gy)
+
+    icon_v, icon_e = _stats(img.crop((cx1, cy1, cx2, cy2)))
+    body_v, _ = _stats(img.crop((bx1, by1, bx2, by2)))
+
+    # Icon is "present" only if the corner is meaningfully busier than the body
+    # baseline AND has a hard floor of variance/edge magnitude (avoids declaring
+    # icons on pure-noise crops). The 1.6× multiplier was chosen so that text
+    # headers (high variance from typography but body also has body text /
+    # bullets so similar variance) don't trigger.
+    has_icon = (icon_v > 18 and icon_v > body_v * 1.6) or icon_e > 9.0
+    return {
+        "variance": round(icon_v, 2),
+        "edge_density": round(icon_e, 2),
+        "control_variance": round(body_v, 2),
+        "has_icon": has_icon,
+    }
+
+
+def margin_background_hex(
+    image_b64: str,
+    band_ratio: float = 0.04,
+) -> dict:
+    """Sample the *true slide background* from a thin border band only.
+
+    Why: kmeans over the whole slide returns the modal color, which for slides
+    with large dark panels (e.g., a McKinsey card header strip) can outvote
+    the actual background. The slide's true background, however, is whatever
+    fills the outermost margin where no panels live. Sampling a thin border
+    band (top/bottom/left/right) and taking its mode gives a robust answer.
+
+    Returns: {"hex", "rgb", "stddev", "is_uniform"}.
+    """
+    img = _load_image(image_b64)
+    arr = np.array(img)  # H, W, 3
+    H, W, _ = arr.shape
+    bw = max(2, int(min(H, W) * band_ratio))
+
+    bands = [
+        arr[:bw, :, :].reshape(-1, 3),                # top
+        arr[-bw:, :, :].reshape(-1, 3),               # bottom
+        arr[bw:-bw, :bw, :].reshape(-1, 3),           # left (excluding corners)
+        arr[bw:-bw, -bw:, :].reshape(-1, 3),          # right
+    ]
+    edge = np.concatenate(bands, axis=0)
+    # Mode-ish: pick the densest 8-bit-quantized value (snap to nearest 4).
+    q = (edge // 4) * 4
+    keys, counts = np.unique(q.view(np.dtype((np.void, q.dtype.itemsize * 3))), return_counts=True)
+    top_key = keys[counts.argmax()]
+    top_rgb = np.frombuffer(top_key.tobytes(), dtype=q.dtype).reshape(3)
+    r, g, b = (int(c) for c in top_rgb)
+    # Std across edge gives "is the border uniform" — high std means panels
+    # likely bleed to the edge (e.g. full-bleed photo); low std = clean margin.
+    stddev = float(edge.astype(np.float32).std(axis=0).mean())
+    return {
+        "hex": f"#{r:02X}{g:02X}{b:02X}",
+        "rgb": [r, g, b],
+        "stddev": round(stddev, 2),
+        "is_uniform": stddev < 18,
+    }
+
+
 def visual_facts(
     image_b64: str,
     bbox_ratio: tuple[float, float, float, float] | None = None,
@@ -210,13 +319,20 @@ def visual_facts(
     """bbox 영역에 대한 모든 결정론적 시각 사실을 한 번에 뽑는다.
 
     이 결과를 그대로 프롬프트에 FACT로 주입하면 VLM이 추측 대신 관측값 사용.
+
+    For full-slide calls (bbox_ratio is None), also include `margin_bg` so the
+    director can distinguish the *real* slide background from a panel color
+    that merely happens to dominate the histogram.
     """
-    return {
+    out = {
         "palette": extract_palette_hex(image_b64, bbox_ratio, n_colors=n_palette),
         "hsv": saturation_stats(image_b64, bbox_ratio),
         "text_heights": text_box_heights(image_b64, bbox_ratio),
         "bbox_ratio": list(bbox_ratio) if bbox_ratio else None,
     }
+    if bbox_ratio is None:
+        out["margin_bg"] = margin_background_hex(image_b64)
+    return out
 
 
 def format_facts_as_prompt(facts: dict) -> str:
@@ -237,6 +353,17 @@ def format_facts_as_prompt(facts: dict) -> str:
         f"- 명도 mean={hsv['brightness_mean']}, p10={hsv['brightness_p10']} (bg), p90={hsv['brightness_p90']} (highlight)"
     )
     lines.append(f"- 고채도 영역 점유율: {int(hsv['high_saturation_coverage']*100)}%")
+
+    mb = facts.get("margin_bg")
+    if mb:
+        lines.append(
+            f"\n*슬라이드 진짜 배경색* (가장자리 {int(0.04*100)}% 띠 sampling): "
+            f"`{mb['hex']}` (rgb={mb['rgb']}, stddev={mb['stddev']}, uniform={mb['is_uniform']})"
+        )
+        lines.append(
+            "★ **이 값을 `palette.bg_primary` 로 채택하라.** 위 k-means 지배색은 본문 패널 영역까지 포함해 "
+            "패널 색이 배경처럼 잡힐 수 있음. 가장자리 띠가 균일(uniform=True)이면 그 색이 진짜 배경."
+        )
 
     if facts["text_heights"]:
         lines.append("\n*OCR 감지 텍스트의 실제 픽셀 높이* (큰 순):")

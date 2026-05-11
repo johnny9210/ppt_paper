@@ -1,0 +1,71 @@
+{
+  "aesthetic_label": "classic-business-blue",
+  "typography": {
+    "hero_family": "serif",
+    "hero_weight": 700,
+    "hero_style_hint": "normal",
+    "body_family": "sans-serif",
+    "body_weight": 400,
+    "letter_spacing_hint": "normal"
+  },
+  "palette": {
+    "bg_primary": "#FFFFFF",
+    "bg_secondary": "#07365C",
+    "accent": "#6D7B86",
+    "accent_soft": "rgba(109, 123, 134, 0.2)",
+    "frame_color": "rgba(109, 123, 134, 0.5)",
+    "text_bright": "#000000",
+    "text_muted": "rgba(193, 198, 202, 0.6)"
+  },
+  "frame_system": {
+    "hero_frame": "Large serif font for main title",
+    "card_frame": "Consistent style across multiple cards",
+    "bottom_accent_bar": true
+  },
+  "decorative_motif": {
+    "style": "minimal",
+    "density": "moderate",
+    "detected_shapes": [
+      "triangle"
+    ]
+  },
+  "atmosphere": {
+    "has_radial_glow": false,
+    "glow_origin": "none",
+    "glow_color": "none",
+    "background_depth": "flat"
+  },
+  "card_template": {
+    "enabled": true,
+    "shape": "chevron",
+    "card_bg": "#EBECED",
+    "header": {
+      "bg": "#07365C",
+      "text": "#FCFCFC",
+      "padding": "0.5rem 1rem",
+      "weight": 700,
+      "size_rem": 1.2,
+      "height_pct": 20
+    },
+    "body": {
+      "bg": "#FCFCFC",
+      "text": "#1A2230",
+      "padding": "0.6rem 0.9rem",
+      "size_rem": 0.85,
+      "line_height": 1.35
+    },
+    "footer": {
+      "enabled": true,
+      "bg": "#EBECED",
+      "text": "#1A2230",
+      "content_kind": "quarter",
+      "weight": 400,
+      "size_rem": 0.8,
+      "border_top": "1px solid rgba(109, 123, 134, 0.5)",
+      "height_pct": 12
+    },
+    "bullets_count": 3,
+    "border_radius": "0px",
+    "border": "none"
+  }
+}

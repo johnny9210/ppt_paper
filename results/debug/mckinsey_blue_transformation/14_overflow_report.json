@@ -1,0 +1,14 @@
+[
+  {
+    "selector": ".card-icon",
+    "nth": 1,
+    "horiz_px": 2,
+    "vert_px": 10,
+    "client_w": 20,
+    "client_h": 20,
+    "scroll_w": 22,
+    "scroll_h": 30,
+    "text_sample": "",
+    "current_font_size": "16px"
+  }
+]

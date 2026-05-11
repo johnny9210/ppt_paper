@@ -1,6 +1,13 @@
-"""Card Detail Agents — bbox-highlighted full image + CV facts + DesignSpec."""
+"""Card Detail Agents — bbox-highlighted full image + CV facts + DesignSpec.
+
+When DesignSpec.card_template.enabled is True, skip the per-card vision call
+and render every card deterministically from the template. This eliminates
+style drift across cards (the failure that style_normalizer was patching with
+a most-common heuristic) for uniform-grid layouts.
+"""
 from __future__ import annotations
 
+from ..libraries.card_templates import is_uniform_grid_layout, render_card
 from ..libraries.cv_extractors import visual_facts, format_facts_as_prompt
 from ..prompts.card import CARD_DETAIL_PROMPT
 from ..utils.bbox import draw_bbox_on_image
@@ -17,6 +24,28 @@ def card_detail_agents(state) -> dict:
     palette_global = analysis.get("global_palette", {})
     aesthetic = spec.get("aesthetic_label") or analysis.get("aesthetic", "")
     palette_hint = ", ".join(f"{k}={v}" for k, v in palette_global.items() if v) or "(분석 못함)"
+
+    # Deterministic template path — bypass per-card vision when applicable.
+    template = spec.get("card_template") or {}
+    if template.get("enabled") and is_uniform_grid_layout(
+        analysis.get("layout_type", ""), state.get("slide_type", "")
+    ):
+        card_htmls = []
+        card_positions = []
+        total = len(cards_meta)
+        for i, card in enumerate(cards_meta):
+            card_htmls.append(render_card(
+                idx_one=i + 1, total=total, template=template,
+                has_icon=bool(card.get("has_icon", False)),
+            ))
+            card_positions.append({
+                "card_id": f"card_{i+1}",
+                "left": round(card.get("x1", 0) * 100, 1),
+                "top": round(card.get("y1", 0) * 100, 1),
+                "width": round((card.get("x2", 1) - card.get("x1", 0)) * 100, 1),
+                "height": round((card.get("y2", 1) - card.get("y1", 0)) * 100, 1),
+            })
+        return {"card_htmls": card_htmls, "card_positions": card_positions}
 
     use_cv_facts = state.get("ablation", "none") != "no_cv_facts"
 

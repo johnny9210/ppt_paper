@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformation Roadmap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        .container {
+            width: 1280px;
+            height: 720px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .phases {
+            display: flex;
+            justify-content: space-between;
+        }
+        .phase {
+            width: 18%;
+            padding: 10px;
+            background-color: #1f3a68;
+            color: white;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .phase:before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 20px solid white;
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+        }
+        .phase:last-child:before {
+            display: none;
+        }
+        .phase-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .bullets {
+            font-size: 14px;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+        .bullets li {
+            margin-bottom: 5px;
+        }
+        .quarter {
+            font-size: 14px;
+            text-align: center;
+            border-top: 1px solid white;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Five-phase transformation roadmap delivers value in 18 months</div>
+        <div class="subtitle">Digital transformation phases, Q1 2026 - Q2 2027</div>
+        <div class="phases">
+            <div class="phase">
+                <div class="phase-title">1. Diagnose</div>
+                <ul class="bullets">
+                    <li>Assess current state, processes & systems</li>
+                    <li>Identify value pools & pain points</li>
+                    <li>Define target operating model</li>
+                </ul>
+                <div class="quarter">Q1 2026</div>
+            </div>
+            <div class="phase">
+                <div class="phase-title">2. Design</div>
+                <ul class="bullets">
+                    <li>Develop future state blueprints</li>
+                    <li>Prioritize initiatives & build business cases</li>
+                    <li>Design technology architecture</li>
+                </ul>
+                <div class="quarter">Q2 2026</div>
+            </div>
+            <div class="phase">
+                <div class="phase-title">3. Pilot</div>
+                <ul class="bullets">
+                    <li>Launch MVP in select areas</li>
+                    <li>Test new processes & tools</li>
+                    <li>Gather user feedback & iterate</li>
+                </ul>
+                <div class="quarter">Q3 2026</div>
+            </div>
+            <div class="phase">
+                <div class="phase-title">4. Scale</div>
+                <ul class="bullets">
+                    <li>Roll out solutions across the organization</li>
+                    <li>Conduct widespread training & change management</li>
+                    <li>Monitor performance & adjust</li>
+                </ul>
+                <div class="quarter">Q4 2026 - Q1 2027</div>
+            </div>
+            <div class="phase">
+                <div class="phase-title">5. Sustain</div>
+                <ul class="bullets">
+                    <li>Embed new ways of working</li>
+                    <li>Establish continuous improvement loops</li>
+                    <li>Measure and realize benefits</li>
+                </ul>
+                <div class="quarter">Q2 2027 & beyond</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

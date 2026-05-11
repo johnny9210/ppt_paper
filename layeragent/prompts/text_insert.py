@@ -21,8 +21,11 @@ TEXT_INSERT_PROMPT = """아래 HTML은 슬라이드입니다. Hero와 Card 구�
 - Hero의 큰 숫자/제목 placeholder를 실제 값으로 교체
 
 ★★★ Card 영역 (.card-1 등):
-- content.items/steps/metrics/stats/features 순서대로 매핑
+- content.items/steps/metrics/stats/features/phases/levels/spokes 순서대로 매핑
 - STEP/번호, 이모지, 제목, 설명 배치
+- 카드의 `.card-value` 슬롯에는 그 카드 항목의 `title` (또는 step+title 결합)
+- 카드의 `.card-label` 슬롯이 N개면, 항목의 `bullets` 배열에서 앞 N개를 1:1 분배. bullet 내용을 합치거나 자르지 마라.
+- 항목에 `quarter` (또는 `date`) 가 있고 카드 안에 footer 슬롯(`.card-footer`, `.card-quarter`, 마지막 `.card-label` 중 미사용분)이 있으면 그 슬롯에 quarter 를 넣어라. 슬롯이 없으면 마지막 `.card-label` 에 별도 줄로 추가.
 
 ★★★ 텍스트 색상은 **배경에 맞게 자연스럽게**:
 - Hero 큰 숫자: palette의 accent 사용

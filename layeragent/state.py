@@ -53,3 +53,6 @@ class State(TypedDict, total=False):
 
     # Ablation flags (set by pipeline builder)
     ablation: str                   # "none" | "no_style_norm" | "no_text_inserter" | "no_cv_facts" | "no_designspec" | "no_library" | "no_overflow_repair"
+
+    # Debug — when set, each layer dumps its output to this directory
+    debug_dir: str

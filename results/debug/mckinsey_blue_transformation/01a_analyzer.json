@@ -1,0 +1,84 @@
+{
+  "layout_type": "horizontal_row",
+  "global_palette": {
+    "bg_primary": "#ffffff",
+    "bg_secondary": "#f4f6f7",
+    "accent": "#003d66",
+    "text_primary": "#333333",
+    "text_accent": "#000000"
+  },
+  "aesthetic": "clean corporate blue with arrow connectors",
+  "hero_blocks": [],
+  "cards": [
+    {
+      "id": "card_1",
+      "x1": 0.05,
+      "y1": 0.2,
+      "x2": 0.23,
+      "y2": 0.8
+    },
+    {
+      "id": "card_2",
+      "x1": 0.24,
+      "y1": 0.2,
+      "x2": 0.42,
+      "y2": 0.8
+    },
+    {
+      "id": "card_3",
+      "x1": 0.43,
+      "y1": 0.2,
+      "x2": 0.61,
+      "y2": 0.8
+    },
+    {
+      "id": "card_4",
+      "x1": 0.62,
+      "y1": 0.2,
+      "x2": 0.8,
+      "y2": 0.8
+    },
+    {
+      "id": "card_5",
+      "x1": 0.81,
+      "y1": 0.2,
+      "x2": 0.99,
+      "y2": 0.8
+    }
+  ],
+  "decorations": [
+    {
+      "type": "connector",
+      "subtype": "arrow",
+      "x": 0.2,
+      "y": 0.5,
+      "size": 0.02
+    },
+    {
+      "type": "connector",
+      "subtype": "arrow",
+      "x": 0.42,
+      "y": 0.5,
+      "size": 0.02
+    },
+    {
+      "type": "connector",
+      "subtype": "arrow",
+      "x": 0.61,
+      "y": 0.5,
+      "size": 0.02
+    },
+    {
+      "type": "connector",
+      "subtype": "arrow",
+      "x": 0.8,
+      "y": 0.5,
+      "size": 0.02
+    }
+  ],
+  "background": {
+    "primary_color": "#ffffff",
+    "gradient_direction": "90deg",
+    "pattern_type": "none"
+  }
+}

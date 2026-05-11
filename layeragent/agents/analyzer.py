@@ -38,7 +38,7 @@ def _content_card_count(content: dict, slide_type: str) -> int | None:
     if st == "dashboard":
         return len(content.get("metrics", []) or [])
     if st == "timeline":
-        return len(content.get("items", []) or [])
+        return len(content.get("items", []) or content.get("phases", []) or [])
     if st == "pyramid":
         return len(content.get("levels", []) or [])
     if st == "hub_spoke":
@@ -120,6 +120,18 @@ def _align_cards(analysis: dict, content: dict, slide_type: str) -> dict:
     return analysis
 
 
+def _propagate_slide_level_flags(analysis: dict) -> dict:
+    """Propagate slide-level `cards_have_icons` to each card's `has_icon` if
+    that per-card field wasn't set. Downstream icon_agent reads per-card."""
+    slide_level = analysis.get("cards_have_icons")
+    if slide_level is None:
+        return analysis
+    for c in analysis.get("cards", []) or []:
+        if "has_icon" not in c:
+            c["has_icon"] = bool(slide_level)
+    return analysis
+
+
 def analyzer(state) -> dict:
     raw = vision_call(state["image_b64"], ANALYZER_PROMPT, state.get("model", "gpt-4o"), max_tokens=2500)
     m = re.search(r"\{[\s\S]*\}", raw)
@@ -132,4 +144,5 @@ def analyzer(state) -> dict:
             analysis = _fallback_analysis()
 
     aligned = _align_cards(analysis, state.get("content", {}), state.get("slide_type", ""))
+    aligned = _propagate_slide_level_flags(aligned)
     return {"analysis": aligned}

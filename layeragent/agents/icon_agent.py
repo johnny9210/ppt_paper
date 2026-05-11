@@ -105,6 +105,17 @@ def icon_agent(state) -> dict:
     if not cards:
         return {"card_icons": []}
 
+    # Evidence gate — analyzer's slide-level `cards_have_icons` is the most
+    # reliable signal (a single VLM judgment over the whole slide is more
+    # robust than per-card CV heuristics). If it says false, skip wholesale.
+    if analysis.get("cards_have_icons") is False:
+        return {"card_icons": []}
+    # Per-card fallback in case analyzer didn't set the slide-level flag:
+    # require at least half the cards to have per-card has_icon evidence.
+    icon_evidence = [bool(c.get("has_icon", True)) for c in cards]
+    if not any(icon_evidence) or sum(icon_evidence) * 2 < len(cards):
+        return {"card_icons": []}
+
     spec = state.get("design_spec", {})
     accent = spec.get("palette", {}).get("accent", "#D4AF37")
     full = state["image_b64"]
@@ -118,6 +129,10 @@ def icon_agent(state) -> dict:
 
     # 순차 처리 — 각 카드가 이전 결과를 참조
     for i, card in enumerate(cards):
+        # Per-card skip: if analyzer found no icon evidence in *this* card, don't
+        # invent one. Other cards may legitimately have icons.
+        if not card.get("has_icon", True):
+            continue
         bbox = (card.get("x1", 0), card.get("y1", 0), card.get("x2", 1), card.get("y2", 1))
         res = identify_icon_concept(
             full, bbox, i + 1, model=model,

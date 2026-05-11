@@ -1,0 +1,111 @@
+{
+  "layout_type": "horizontal_row",
+  "global_palette": {
+    "bg_primary": "#ffffff",
+    "bg_secondary": "#f0f0f0",
+    "accent": "#003366",
+    "text_primary": "#333333",
+    "text_accent": "#003366"
+  },
+  "aesthetic": "professional business with chevron cards",
+  "hero_blocks": [],
+  "cards": [
+    {
+      "id": "card_1",
+      "x1": 0.0,
+      "y1": 0.2,
+      "x2": 0.2,
+      "y2": 0.8,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#003366"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#ffffff",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_2",
+      "x1": 0.2,
+      "y1": 0.2,
+      "x2": 0.4,
+      "y2": 0.8,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#003366"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#ffffff",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_3",
+      "x1": 0.4,
+      "y1": 0.2,
+      "x2": 0.6,
+      "y2": 0.8,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#003366"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#ffffff",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_4",
+      "x1": 0.6,
+      "y1": 0.2,
+      "x2": 0.8,
+      "y2": 0.8,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#003366"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#ffffff",
+        "kind": "date"
+      }
+    },
+    {
+      "id": "card_5",
+      "x1": 0.8,
+      "y1": 0.2,
+      "x2": 1.0,
+      "y2": 0.8,
+      "shape": "chevron",
+      "has_icon": false,
+      "header_band": {
+        "present": true,
+        "color": "#003366"
+      },
+      "footer_band": {
+        "present": true,
+        "color": "#ffffff",
+        "kind": "date"
+      }
+    }
+  ],
+  "decorations": [],
+  "background": {
+    "primary_color": "#ffffff",
+    "gradient_direction": "none",
+    "pattern_type": "none"
+  },
+  "cards_have_icons": false
+}

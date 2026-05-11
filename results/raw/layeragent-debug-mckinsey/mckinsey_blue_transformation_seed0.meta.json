@@ -1,0 +1,70 @@
+{
+  "user_message": "5단계 디지털 트랜스포메이션 로드맵 슬라이드. 제목: 'Five-phase transformation roadmap delivers value in 18 months'. 부제: 'Digital transformation phases, Q1 2026 - Q2 2027'. 5개 단계(화살표/chevron 형태로 좌→우 진행):\n1) Diagnose (Q1 2026) — Assess current state, processes & systems / Identify value pools & pain points / Define target operating model\n2) Design (Q2 2026) — Develop future state blueprints / Prioritize initiatives & build business cases / Design technology architecture\n3) Pilot (Q3 2026) — Launch MVP in select areas / Test new processes & tools / Gather user feedback & iterate\n4) Scale (Q4 2026 - Q1 2027) — Roll out solutions across the organization / Conduct widespread training & change management / Monitor performance & adjust\n5) Sustain (Q2 2027 & beyond) — Embed new ways of working / Establish continuous improvement loops / Measure and realize benefits\n스타일: McKinsey blue (짙은 네이비 헤더 #1F3864 + 흰 배경). 각 단계는 상단 다크 블루 헤더, 흰 본문(불릿), 하단 분기 라벨 구조.",
+  "parsed_spec": {
+    "slide_type": "roadmap",
+    "content": {
+      "title": "Five-phase transformation roadmap delivers value in 18 months",
+      "subtitle": "Digital transformation phases, Q1 2026 - Q2 2027",
+      "phases": [
+        {
+          "step": 1,
+          "title": "Diagnose",
+          "quarter": "Q1 2026",
+          "bullets": [
+            "Assess current state, processes & systems",
+            "Identify value pools & pain points",
+            "Define target operating model"
+          ]
+        },
+        {
+          "step": 2,
+          "title": "Design",
+          "quarter": "Q2 2026",
+          "bullets": [
+            "Develop future state blueprints",
+            "Prioritize initiatives & build business cases",
+            "Design technology architecture"
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Pilot",
+          "quarter": "Q3 2026",
+          "bullets": [
+            "Launch MVP in select areas",
+            "Test new processes & tools",
+            "Gather user feedback & iterate"
+          ]
+        },
+        {
+          "step": 4,
+          "title": "Scale",
+          "quarter": "Q4 2026 - Q1 2027",
+          "bullets": [
+            "Roll out solutions across the organization",
+            "Conduct widespread training & change management",
+            "Monitor performance & adjust"
+          ]
+        },
+        {
+          "step": 5,
+          "title": "Sustain",
+          "quarter": "Q2 2027 & beyond",
+          "bullets": [
+            "Embed new ways of working",
+            "Establish continuous improvement loops",
+            "Measure and realize benefits"
+          ]
+        }
+      ]
+    },
+    "style": {
+      "primary_color": "#1F3864",
+      "accent_color": "#FFFFFF",
+      "background": "#FFFFFF",
+      "text_color": "#000000"
+    }
+  },
+  "image_path": "/Users/jik/Documents/ppt_paper/data/eval_dataset/slides/process_flow_mckinsey_blue_transformation.png",
+  "debug_dir": "/Users/jik/Documents/ppt_paper/results/debug/mckinsey_v4"
+}
