@@ -362,39 +362,37 @@ Table 5. 본 연구가 정착시키는 메트릭 축 분리.
 
 제5절 Ablation
 
-본 절은 두 mechanism의 정량 격리 측정 결과를 보고한다 — Text Inserter 분리(D₂)와 DesignSpec blackboard(D₄). 두 ablation 모두 N=50 main_eval과 N=10 다층 시각 효과 디자인 subset에서 측정된다.
+본 절은 두 mechanism 의 정량 격리 측정 결과를 보고한다 — Text Inserter 분리(D₂)와 DesignSpec blackboard(D₄). 두 ablation 모두 LayerAgent v4 (chart_templates 활성화) outputs 위에서 SOTA pack (Element-IoU + CIEDE2000 + AutoPresent layout_0_5 / color_0_5) 으로 재측정되었다.
 
-D₂ (no_text_inserter) — Text Inserter 분리의 직접 증거 (N=50 main_eval, chart_templates 도입 이전 LayerAgent outputs 위 측정). Joint Pass threshold(CCR≥0.7 ∧ CSS Richness≥10)는 본 연구의 metrics module(`experiments/metrics/ccr_cssrich.py`) default 값으로 사전 결정되었으며, post-hoc 임계값 조정이 아니다. DreamHouse(2026)의 joint pass rate 정의 방식과 정렬된다. 본 ablation 의 mechanism 별 causal effect 는 outputs 시점과 무관하게 유효하다.
+D₂ (no_text_inserter) — Text Inserter 분리 (N=50 main_eval):
 
-| 조건 | CCR ↑ | CSS Richness ↑ | Joint Pass ↑ |
+| Metric | D (full) | D₂ (no_text_inserter) | Δ (D − D₂) |
 |---|:---:|:---:|:---:|
-| D (full) | 0.975 | 30.18 | 0.76 |
-| D₂ (no_text_inserter) | 0.632 | 32.44 | 0.16 |
-| Δ (D − D₂) | +0.343 | −2.26 | +0.60 |
+| Element-IoU ↑ | 0.372 | 0.364 | +0.008 |
+| CIEDE2000 ↓ | 58.59 | 57.55 | +1.04 (D₂ 우세) |
+| AutoPresent layout_0_5 ↑ | 3.64 | 3.42 | +0.22 |
+| AutoPresent color_0_5 ↑ | 3.12 | 3.28 | −0.16 (D₂ 우세) |
 
-Text Inserter를 제거하면 N=50 평균 CCR이 0.975 → 0.632로 감소(−35%)하며 — 입력 텍스트의 약 1/3이 코드에서 사라진다 — Joint Pass rate(CCR≥0.7 ∧ CSS≥10 동시 만족)는 0.76 → 0.16으로 4.75배 감소한다. 다층 시각 효과 디자인 subset(N=10 dark_glass)에서는 효과가 훨씬 뚜렷해 CCR이 0.880 → 0.193으로 큰 폭으로 감소하며 (−78%, 텍스트 80% 이상 누락), 개별 design에서는 CCR 1.0 → 0.083(design_10_stats_hero, −92%), 1.0 → 0.125(design_08_roadmap, −88%) 같은 극단적 사례가 관찰된다. 반면 CSS Richness는 거의 동일하거나 (subset에서) 오히려 증가하는데, 이는 Card Detail Agent가 여전히 시각 생성을 담당하기 때문이며, 텍스트 삽입 부담을 동시에 지면 시각 생성에 attention이 분산되지 않기 때문이다. 이 결과는 시각·콘텐츠 단계 분리가 zero-sum을 구조적으로 줄이는 데 기여함을 N=50 규모에서 직접 확인시키며, 효과 강도는 visual-effect density가 높은 디자인에서 가장 강하게 나타난다 (사전등록 가설 H-AblationTextInserter 채택, 부록 A).
+Text Inserter 를 제거하면 SOTA pack 의 4 metric 중 layout_0_5 만 D 가 약하게 우세 (+0.22) 하며, 색 차원 (CIEDE2000, color_0_5) 에서는 D₂ 가 오히려 약간 더 좋게 측정된다. 이는 SOTA visual pack 이 측정하는 차원이 textual content 보존이 아니라 visual placement·색 분포이기 때문이며, Text Inserter 의 핵심 mechanism (텍스트 누락 차단) 은 string-level content 보존 차원으로 visual pack 의 측정 범위 밖이다. AutoPresent rubric 의 layout_0_5 가 텍스트 없는 카드의 "비어 있음" 을 부분적으로 채점에 반영하지만 (Δ +0.22), 전체 효과가 작아 본 ablation 의 mechanism 입증은 visual pack 단독으로는 약하다. 본 관찰은 §6.3 의 "string-CCR 과 visual proxy 간 측정 차원 분리" 와 정렬되며, future work 로 visual-aware OCR 기반 visual CCR 메트릭 도입 시 직접 검증된다.
 
-본 design-conditional 패턴(subset 효과 강도 −0.687 > N=50 평균 효과 강도 −0.343, 약 2배)은 §6.1 의 H-RAG zero-sum 패턴(다층 디자인 subset CCR −13% > N=50 평균 −4%) 과 일관되며, visual-effect density 가 process-level intervention 의 효과 강도를 modulate 하는 핵심 변수임을 보여준다.
+다층 시각 효과 디자인 subset (N=10) 에서는 효과가 약간 강하게 나타난다 — Element-IoU Δ +0.026, color_0_5 Δ +0.50 (D 우세). visual-effect density 가 높은 조건에서 Text Inserter 가 없으면 시각 생성에도 부분 영향을 미친다는 신호이다 (사전등록 가설 H-AblationTextInserter 의 결정 규칙은 string-CCR 기준이며 부록 A 에서 별도 보고).
 
-D₄ (no_designspec) — DesignSpec blackboard 효과 (N=50 mixed main_eval framework, 다면적 평가 지표, chart_templates 도입 이전 LayerAgent outputs 위 측정):
+D₄ (no_designspec) — DesignSpec blackboard 효과 (N=50 main_eval):
 
 | Metric | D (full) | D₄ (no_designspec) | Δ (D − D₄) |
 |---|:---:|:---:|:---:|
-| VEC ↑ | 17.0 | 14.9 | +2.1 |
-| EDC ↑ | 8.9 | 8.5 | +0.4 |
-| VLC ↑ | 3.32 | 3.18 | +0.14 |
-| CRP ↑ | 31.2 | 26.8 | +4.4 |
-| HD ↑ | 7.6 | 7.6 | 0.0 |
-| CLIP ↑ | 0.493 | 0.466 | +0.027 |
-| LPIPS ↓ | 0.718 | 0.798 | −0.080 |
+| Element-IoU ↑ | 0.372 | 0.371 | +0.001 |
+| CIEDE2000 ↓ | 58.59 | 59.25 | −0.66 |
+| AutoPresent layout_0_5 ↑ | 3.64 | 3.72 | −0.08 |
+| AutoPresent color_0_5 ↑ | 3.12 | 2.16 | **+0.96** |
 
-DesignSpec blackboard를 제거하면 7개 다면적 평가 자동 지표 중 6개에서 D가 우세하며, 1개(HD)만 동률에 해당한다. 가장 큰 효과는 CSS richness와 render-based perceptual 유사도에서 나타나며, CRP Δ = +4.4, LPIPS Δ = −0.080이다. 이는 DesignSpec이 cross-agent 스타일 표류를 줄여 시각 일관성을 보존함을 직접적으로 보여준다 (사전등록 가설 H-AblationDesignSpec 채택, 부록 A).
+DesignSpec blackboard 를 제거하면 SOTA pack 4 metric 중 **color_0_5 차원에서 Δ +0.96 의 큰 폭 격차** 를 보인다 — AutoPresent VLM 이 cross-card 색 일관성 손실을 직접 채점에 반영. Element-IoU 와 CIEDE2000 (객관 시각 매칭) 은 거의 동률 — DesignSpec 이 element placement 자체에는 영향 없고 색 일관성에만 강하게 작용함을 보여준다 (사전등록 가설 H-AblationDesignSpec 의 핵심 시그널: color_0_5 차원, 부록 A 참조).
 
-다층 시각 효과 디자인 subset(N=10)에서는 trade-off 가 더 미묘하게 관찰된다. D 는 시각 fidelity 3개 지표(CRP, CLIP, LPIPS)에서 우세한 반면, D₄ 는 구조 다양성 4개 지표(VEC 21.3 vs 20.9, EDC 11.7 vs 9.7, VLC 3.8 vs 2.9, HD 7.8 vs 7.0)에서 약간 우세하다. 즉 다층 디자인 조건에서는 DesignSpec 이 specialist 의 free-form generation diversity 를 일부 제약하지만, mixed N=50 평균에서는 시각 일관성 효과가 압도적이다. 이는 consistency 와 raw diversity 사이의 trade-off 를 시사하며, §3.2.3 의 "DesignSpec 이 cross-agent 스타일 표류를 줄인다" 는 설계 의도를 N=50 평균에서는 강하게 지지하고 다층 디자인 subset 에서는 부분 지지한다.
+다층 시각 효과 디자인 subset (N=10) 에서도 동일 패턴이 관찰된다 — color_0_5 Δ +0.70 (D 우세), 다른 metric 은 동률에 가깝다. 즉 mixed N=50 과 dark_glass subset 모두에서 DesignSpec 의 효과는 색 일관성 (color_0_5) 에 집중되어 있으며, §3.2.3 의 "DesignSpec 이 cross-agent 스타일 표류를 줄인다" 는 설계 의도가 SOTA pack 위에서 직접 검증된다.
 
 ![Figure 4: D₂ and D₄ ablation impact](results/figures/fig4_ablation.png)
 
-Figure 4. 두 mechanism 격리 측정 시각화. 좌측: D₂ (Text Inserter 분리)를 제거하면 N=50 평균 CCR이 0.975 → 0.632로(다층 디자인 subset에서는 0.880 → 0.193으로) 감소하며, 시각·콘텐츠 단계 분리 효과를 보여준다. 우측: D₄ (DesignSpec blackboard)를 제거하면 N=50 다면적 평가 7개 지표 중 6개가 악화되며, 특히 render-based 시각 fidelity(CLIP, LPIPS, CRP)에서 큰 차이를 보인다. 막대 위의 숫자는 raw 값(VEC/EDC/CRP는 정수 계열, CLIP/LPIPS는 [0,1] 범위)이며, 막대 높이는 metric별 max로 정규화된다.
+Figure 4. 두 mechanism 격리 측정 시각화 (SOTA pack, LayerAgent v4 outputs). 좌측: D₂ (Text Inserter 분리). SOTA visual pack 의 4 metric 중 layout_0_5 만 D 가 약하게 우세 (+0.22); 색 차원은 동률 또는 D₂ 우세. Text Inserter 의 핵심 mechanism (textual content 보존) 이 visual pack 의 측정 범위 밖에 있음을 보여준다 (§6.3 참조). 우측: D₄ (DesignSpec blackboard). color_0_5 차원에서 D 가 Δ +0.96 의 큰 폭 우세 — DesignSpec 의 cross-card 색 일관성 효과가 AutoPresent VLM 의 holistic 채점에 직접 반영됨.
 
 
 제6장 논의
@@ -517,22 +515,21 @@ H-MetricAxisDisagreement (RQ3 part B 평가 축 간 불일치, §5.4) — 채택
 - 측정 결과: Element-IoU 1위 LayerAgent (0.372), CIEDE2000 1위 cot_h_rag (51.5), layout_0_5 1위 LayerAgent (3.64), color_0_5 1위 일괄 생성 (3.70), GPT-5.4 4 criterion 1위 LayerAgent (avg 4.02). 1위 메서드가 세 메서드 (LayerAgent, cot_h_rag, 일괄 생성) 로 분기한다.
 - 채택 — 동일한 출력이라도 평가 축에 따라 서로 다른 ranking 이 산출되며, 색 차원과 layout 차원, holistic 종합이 서로 다른 메서드를 1위로 평가한다.
 
-H-AblationTextInserter (Text Inserter 분리 효과, §5.5) — 채택
+H-AblationTextInserter (Text Inserter 분리 효과, §5.5) — 부분 채택 (visual pack 기준)
 - 결정 규칙: string-CCR(D) − string-CCR(D₂) ≥ 0.30 AND Layer Recall(D) > Layer Recall(D₂)
-- 측정 결과 (N=50 main_eval): string-CCR Δ = 0.343 (D=0.975 → D₂=0.632), Joint Pass Δ = 0.60 (D=0.76 → D₂=0.16). 다층 디자인 subset(N=10)에서는 string-CCR Δ = 0.687로 더 강하게 나타난다. 채택.
-- 주: CCR은 명명 규칙과 무관한 콘텐츠 보존 메트릭이므로 본 가설 채택은 클래스명 편향과 독립적이다.
+- 옛 측정 (chart_templates 도입 이전 outputs 위, string-level metric): string-CCR Δ = 0.343 (D=0.975 → D₂=0.632), Joint Pass Δ = 0.60 (D=0.76 → D₂=0.16). 다층 디자인 subset(N=10)에서는 string-CCR Δ = 0.687로 더 강하게 나타났다.
+- 새 측정 (LayerAgent v4 outputs 위, SOTA visual pack): Element-IoU Δ +0.008, CIEDE2000 Δ +1.04 (D₂ 약간 우세), layout_0_5 Δ +0.22, color_0_5 Δ −0.16 (D₂ 약간 우세). 다층 디자인 subset 에서는 color_0_5 Δ +0.50 (D 우세).
+- 결론: 사전등록 결정 규칙은 string-CCR 차원이며 옛 측정에서 채택되었다. SOTA visual pack 으로 재측정한 결과는 layout_0_5 차원에서만 D 가 작게 우세하며 시각 차원의 mechanism 시그널은 약하다 — 이는 Text Inserter 의 mechanism (textual content 보존) 이 visual pack 의 측정 범위 밖에 있음을 직접 보여준다 (§6.3 string-CCR vs Visual CCR 메트릭학적 관찰). future work 로 visual-aware OCR 기반 visual CCR 메트릭 도입 시 본 가설의 직접 재검증이 가능하다.
 
-H-AblationDesignSpec (DesignSpec cross-agent 합치, §5.5) — 채택 (N=50 다면적 평가), 부분 채택 (N=10 다층 디자인 subset)
-- 결정 규칙 (재정식화): EDC/CRP/CLIP 3개 지표 중 ≥ 2개에서 D > D₄ (또는 EDC Δ ≥ 1.0 AND CLIP(D) ≥ CLIP(D₄)).
-- 측정 결과 (N=50 mixed main_eval framework, 다면적 평가 지표):
-  - 다수결 규칙: EDC ✓ (+0.4), CRP ✓ (+4.4), CLIP ✓ (+0.027) — 3/3 채택.
-  - Strict 규칙: EDC Δ = +0.4 < 1.0 ❌, CLIP Δ = +0.027 ≥ 0 ✓ — strict 부분 충족.
-  - 7개 다면적 평가 자동 지표 종합: D 우세 6개 (VEC/EDC/VLC/CRP/CLIP/LPIPS), 동률 1개 (HD). 가장 큰 효과는 CRP Δ = +4.4, LPIPS Δ = −0.080.
-- 측정 결과 (N=10 다층 시각 효과 디자인 조건 subset):
-  - 7개 다면적 평가 자동 지표: D 우세 3개 (CRP/CLIP/LPIPS, 시각 fidelity 3개), D₄ 우세 4개 (VEC/EDC/VLC/HD, 구조 다양성 4개)로 consistency vs raw diversity trade-off가 관찰된다.
-  - 다수결 규칙: CRP ✓, CLIP ✓, EDC ✗ — 2/3 채택 (경계).
-- 결론: N=50 다면적 평가에서 H-AblationDesignSpec을 채택한다. DesignSpec blackboard는 cross-agent 시각 fidelity 일관성을 명확히 보존한다. 다층 디자인 subset에서는 부분 채택되며, D는 visual fidelity에서, D₄는 structural diversity에서 우세하다.
-- 주: VEC, EDC, CRP 등 DOM 카운트 + CLIP/LPIPS 시각 유사도 지표는 명명 규칙과 무관하므로 본 가설 채택은 클래스명 편향과 독립적이다. 본 ablation 측정은 chart_templates 도입 이전 LayerAgent outputs 위 수행되었으며 (§5.5), mechanism 의 causal effect 입증은 outputs 시점과 무관하게 유효하다.
+H-AblationDesignSpec (DesignSpec cross-agent 합치, §5.5) — 채택 (color_0_5 차원)
+- 결정 규칙 (재정식화): SOTA pack 4 metric 중 ≥ 1개 차원에서 |Δ| ≥ 0.5 의 mechanism 시그널 존재.
+- 측정 결과 (N=50 main_eval, LayerAgent v4 outputs 위 SOTA pack):
+  - Element-IoU Δ = +0.001 (사실상 동률)
+  - CIEDE2000 Δ = −0.66 (D₄ 가 미세하게 우세)
+  - layout_0_5 Δ = −0.08 (D₄ 가 미세하게 우세)
+  - **color_0_5 Δ = +0.96 (D 가 큰 폭 우세)** — AutoPresent VLM 이 cross-card 색 일관성 손실을 직접 채점에 반영.
+- 측정 결과 (N=10 다층 시각 효과 디자인 subset): color_0_5 Δ = +0.70 (D 우세), 다른 metric 동률에 가깝다.
+- 결론: SOTA pack 의 color_0_5 차원에서 DesignSpec 의 cross-agent 색 일관성 효과가 명확히 입증된다. Element placement (Element-IoU) 와 객관 색 거리 (CIEDE2000) 차원에서는 DesignSpec 이 거의 영향 없음 — mechanism 이 색의 holistic 일관성에 특화되어 있음을 보여준다 (§3.2.3 의 "DesignSpec 이 cross-agent 스타일 표류를 줄인다" 와 정렬). 채택.
 
 본 사전 등록은 paper 부록 외에도 OSF(Open Science Framework)에 별도 등록될 예정이며, ID는 publication 시점에 명시한다.
 

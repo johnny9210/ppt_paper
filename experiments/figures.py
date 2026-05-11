@@ -248,46 +248,49 @@ def fig3_layouts(main_rows: list[dict], judge_rows: list[dict]) -> None:
 
 
 def fig4_ablation() -> None:
-    """D₂ (Text Inserter) and D₄ (DesignSpec) ablation impact."""
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
-
-    # Left: D₂ Text Inserter (CCR ↓ when removed) — N=50 main_eval
-    ax = axes[0]
-    cats = ["CCR ↑", "CSS Richness ↑", "Joint Pass ↑"]
-    d_full = [0.975, 30.18, 0.76]
-    d_no_ti = [0.632, 32.44, 0.16]
-    x = np.arange(len(cats))
+    """D₂ (Text Inserter) and D₄ (DesignSpec) ablation impact, SOTA pack."""
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.2))
     w = 0.36
-    ax.bar(x - w/2, d_full, w, label="D (full)", color="#3B82F6")
-    ax.bar(x + w/2, d_no_ti, w, label="D2 (no Text Inserter)", color="#94A3B8")
-    ax.set_xticks(x)
-    ax.set_xticklabels(cats)
-    ax.set_title("D2: Text Inserter ablation (N=50 main_eval)", fontsize=10)
-    ax.legend(loc="upper right", fontsize=8)
-    for i, (v1, v2) in enumerate(zip(d_full, d_no_ti)):
-        ax.text(i - w/2, v1 + max(d_full)*0.02, f"{v1:.2f}" if v1 < 1 else f"{v1:.0f}", ha="center", fontsize=8)
-        ax.text(i + w/2, v2 + max(d_full)*0.02, f"{v2:.2f}" if v2 < 1 else f"{v2:.0f}", ha="center", fontsize=8)
 
-    # Right: D₄ DesignSpec (5 metrics, N=50) — SSIM dropped (uninformative for design2code)
+    # Left: D₂ Text Inserter — SOTA pack
+    ax = axes[0]
+    metrics = ["Element-IoU↑", "CIEDE2000↓", "layout_0_5↑", "color_0_5↑"]
+    d_full = [0.372, 58.59, 3.64, 3.12]
+    d_no_ti = [0.364, 57.55, 3.42, 3.28]
+    # Per-metric normalize
+    d_norm_full = [v / max(a, b) for v, a, b in zip(d_full, d_full, d_no_ti)]
+    d_norm_d2 = [v / max(a, b) for v, a, b in zip(d_no_ti, d_full, d_no_ti)]
+    x = np.arange(len(metrics))
+    ax.bar(x - w/2, d_norm_full, w, label="D (full)", color="#3B82F6")
+    ax.bar(x + w/2, d_norm_d2, w, label="D2 (no Text Inserter)", color="#94A3B8")
+    ax.set_xticks(x)
+    ax.set_xticklabels(metrics, fontsize=8)
+    ax.set_ylabel("Normalized to max (per-metric)")
+    ax.set_title("D2: Text Inserter ablation (N=50, SOTA pack)", fontsize=10)
+    ax.legend(loc="lower right", fontsize=8)
+    ax.set_ylim(0, 1.15)
+    for i, (v1, v2) in enumerate(zip(d_full, d_no_ti)):
+        fmt = (lambda v: f"{v:.2f}") if abs(v1) < 5 else (lambda v: f"{v:.1f}")
+        ax.text(i - w/2, d_norm_full[i] + 0.02, fmt(v1), ha="center", fontsize=7)
+        ax.text(i + w/2, d_norm_d2[i] + 0.02, fmt(v2), ha="center", fontsize=7)
+
+    # Right: D₄ DesignSpec — SOTA pack
     ax = axes[1]
-    metrics = ["VEC", "EDC", "CRP", "CLIP", "LPIPS↓"]
-    d_full_v = [17.0, 8.9, 31.2, 0.493, 0.718]
-    d_no_ds = [14.9, 8.5, 26.8, 0.466, 0.798]
-    # normalize to relative 0-1 for unified bar
+    d_full_v = [0.372, 58.59, 3.64, 3.12]
+    d_no_ds = [0.371, 59.25, 3.72, 2.16]
     d_norm_full = [v / max(a, b) for v, a, b in zip(d_full_v, d_full_v, d_no_ds)]
     d_norm_ds = [v / max(a, b) for v, a, b in zip(d_no_ds, d_full_v, d_no_ds)]
     x = np.arange(len(metrics))
     ax.bar(x - w/2, d_norm_full, w, label="D (full)", color="#3B82F6")
     ax.bar(x + w/2, d_norm_ds, w, label="D4 (no DesignSpec)", color="#94A3B8")
     ax.set_xticks(x)
-    ax.set_xticklabels(metrics, fontsize=9)
+    ax.set_xticklabels(metrics, fontsize=8)
     ax.set_ylabel("Normalized to max (per-metric)")
-    ax.set_title("D4: DesignSpec blackboard ablation (N=50)", fontsize=10)
+    ax.set_title("D4: DesignSpec blackboard ablation (N=50, SOTA pack)", fontsize=10)
     ax.legend(loc="lower right", fontsize=8)
     ax.set_ylim(0, 1.15)
-    # raw values as labels
     for i, (v1, v2) in enumerate(zip(d_full_v, d_no_ds)):
-        fmt = (lambda v: f"{v:.2f}") if v1 < 5 else (lambda v: f"{v:.1f}")
+        fmt = (lambda v: f"{v:.2f}") if abs(v1) < 5 else (lambda v: f"{v:.1f}")
         ax.text(i - w/2, d_norm_full[i] + 0.02, fmt(v1), ha="center", fontsize=7)
         ax.text(i + w/2, d_norm_ds[i] + 0.02, fmt(v2), ha="center", fontsize=7)
 
