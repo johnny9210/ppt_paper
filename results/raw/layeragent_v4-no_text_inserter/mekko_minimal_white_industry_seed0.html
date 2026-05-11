@@ -1,0 +1,59 @@
+<style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  .card-1, .card-2, .card-3, .card-4 {
+    font-size: 12.8px; /* Reduced font-size to address vertical overflow */
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  body, html {
+    margin: 0;
+    height: 100%;
+    font-family: sans-serif;
+  }
+  .mekko_minimal_white_industry-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, #F5F7FA, #E3E6EA);
+  }
+</style>
+
+<div class="slide-container mekko_minimal_white_industry" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <div class="mekko_minimal_white_industry-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;">
+        <div style="position:absolute;left:4%;top:4%;right:4%;font-family:Noto Sans KR,sans-serif;">
+            <div style="font-size:1.75rem;font-weight:700;color:#1A1A1A;font-family:Noto Sans KR,sans-serif;line-height:1.25;">
+                Healthcare and Tech Industries
+            </div>
+            <div style="font-size:1rem;color:#6B7280;margin-top:4px;font-family:Noto Sans KR,sans-serif;">
+                Industry × buyer-persona TAM breakdown
+            </div>
+        </div>
+        <div style="position:absolute;left:3%;right:3%;top:22%;bottom:8%;">
+            <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
+                <!-- SVG content remains unchanged -->
+            </svg>
+        </div>
+        <div style="position:absolute;right:3%;bottom:1.5%;font-size:0.7rem;color:#6B7280;font-family:Noto Sans KR,sans-serif;">
+            Source: TAM model v3, Jan 2026
+        </div>
+    </div>
+</div>

@@ -1,0 +1,523 @@
+<style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .pyramid_bain_red_thesis-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, #FFFFFF, rgba(207, 210, 210, 0.5));
+  }
+
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #EFEEEE;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background-color: #B8B4B5;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+  }
+
+  .card-1 .card-icon {
+    background-color: #B11D37;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+
+  .card-1 .card-value {
+    font-size: 1.125rem; /* 18px */
+    color: #343434;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-1 .card-label {
+    font-size: 1rem; /* 16px */
+    color: #786F70;
+  }
+
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #F0EEED;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: #C1AFB3;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.1rem solid #B40825;
+  }
+
+  .card-2 .card-icon {
+    font-size: 0.875rem; /* Reduced to approximately 14px for vertical overflow adjustment */
+    color: #986069;
+  }
+
+  .card-2 .card-value {
+    font-size: 1.125rem;
+    color: #3A3A3A;
+  }
+
+  .card-body {
+    padding: 1rem;
+    background: #F0EEED;
+  }
+
+  .card-2 .card-label {
+    font-size: 0.875rem; /* Approximately 14px */
+    color: #986069;
+  }
+
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    background: #F0EEED;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: #B40825;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #F0EEED;
+    font-size: 1.375rem;
+  }
+
+  .card-body {
+    background: #F0EEED;
+    flex-grow: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-3 .card-icon {
+    background: #C2AFB2;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem; /* Reduced by 20% for vertical overflow adjustment */
+    color: #F0EEED;
+    margin-bottom: 10px;
+  }
+
+  .card-3 .card-value {
+    color: #373737;
+    font-size: 1rem; /* Reduced by 20% for horizontal overflow adjustment */
+  }
+
+  .card-3 .card-label {
+    color: #955E68;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .card-accent {
+    height: 5px;
+    background: linear-gradient(to right, #B40825, #F0EEED);
+  }
+
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #F0EEED;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #B2AFAF;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  .card-header {
+    background: #B81C37;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-4 .card-icon {
+    margin-right: 0.5rem;
+    font-size: 1rem; /* 16px based on 16px OCR */
+    color: #ffffff;
+  }
+
+  .card-4 .card-value {
+    font-size: 1.1875rem; /* 19px based on largest OCR */
+    color: #ffffff;
+  }
+
+  .card-body {
+    padding: 1rem;
+    background: linear-gradient(to bottom, #EFEFEE, #ffffff);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-4 .card-label {
+    font-size: 1rem; /* Adjust based on smallest OCR */
+    color: #796B6C;
+    line-height: 1.5;
+  }
+
+  .card-accent {
+    height: 0.25rem;
+    background: #B81C37;
+  }
+</style>
+
+<div class="slide-container pyramid_bain_red_thesis" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;"><style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .pyramid_bain_red_thesis-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, #FFFFFF, rgba(207, 210, 210, 0.5));
+  }
+</style>
+
+<div class="pyramid_bain_red_thesis-bg-base"></div></div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    
+    
+    <div class="card-wrap-1" style="position:absolute;left:4.0%;top:30.0%;width:21.5%;height:55.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #EFEEEE;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background-color: #B8B4B5;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+  }
+
+  .card-1 .card-icon {
+    background-color: #B11D37;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+
+  .card-1 .card-value {
+    font-size: 1.125rem; /* 18px */
+    color: #343434;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-1 .card-label {
+    font-size: 1rem; /* 16px */
+    color: #786F70;
+  }
+</style>
+
+<div class="card-1">
+  <div class="card-header">
+    <div class="card-icon"></div>
+    <div class="card-value"></div>
+  </div>
+  <div class="card-body">
+    <div class="card-label"></div>
+    <div class="card-label"></div>
+    <div class="card-label"></div>
+  </div>
+</div></div>
+</div>
+<div class="card-wrap-2" style="position:absolute;left:27.5%;top:30.0%;width:21.5%;height:55.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #F0EEED;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: #C1AFB3;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.1rem solid #B40825;
+  }
+
+  .card-2 .card-icon {
+    font-size: 0.875rem; /* Reduced to approximately 14px for vertical overflow adjustment */
+    color: #986069;
+  }
+
+  .card-2 .card-value {
+    font-size: 1.125rem;
+    color: #3A3A3A;
+  }
+
+  .card-body {
+    padding: 1rem;
+    background: #F0EEED;
+  }
+
+  .card-2 .card-label {
+    font-size: 0.875rem; /* Approximately 14px */
+    color: #986069;
+  }
+</style>
+
+<div class="card-2">
+  <div class="card-header">
+    <div class="card-icon">아이콘</div>
+    <div class="card-value">제목</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">설명 텍스트</div>
+  </div>
+</div></div>
+</div>
+<div class="card-wrap-3" style="position:absolute;left:51.0%;top:30.0%;width:21.5%;height:55.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    background: #F0EEED;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: #B40825;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #F0EEED;
+    font-size: 1.375rem;
+  }
+
+  .card-body {
+    background: #F0EEED;
+    flex-grow: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-3 .card-icon {
+    background: #C2AFB2;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem; /* Reduced by 20% for vertical overflow adjustment */
+    color: #F0EEED;
+    margin-bottom: 10px;
+  }
+
+  .card-3 .card-value {
+    color: #373737;
+    font-size: 1rem; /* Reduced by 20% for horizontal overflow adjustment */
+  }
+
+  .card-3 .card-label {
+    color: #955E68;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .card-accent {
+    height: 5px;
+    background: linear-gradient(to right, #B40825, #F0EEED);
+  }
+</style>
+
+<div class="card-3">
+  <div class="card-header">
+    <div class="card-icon">Icon</div>
+    <div class="card-value">CX Drives Advocacy & Referrals</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label"></div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+<div class="card-wrap-4" style="position:absolute;left:74.5%;top:30.0%;width:21.5%;height:55.0%;z-index:10;">
+  <div style="position:absolute;inset:0;"><style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #F0EEED;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #B2AFAF;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  .card-header {
+    background: #B81C37;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-4 .card-icon {
+    margin-right: 0.5rem;
+    font-size: 1rem; /* 16px based on 16px OCR */
+    color: #ffffff;
+  }
+
+  .card-4 .card-value {
+    font-size: 1.1875rem; /* 19px based on largest OCR */
+    color: #ffffff;
+  }
+
+  .card-body {
+    padding: 1rem;
+    background: linear-gradient(to bottom, #EFEFEE, #ffffff);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-4 .card-label {
+    font-size: 1rem; /* Adjust based on smallest OCR */
+    color: #796B6C;
+    line-height: 1.5;
+  }
+
+  .card-accent {
+    height: 0.25rem;
+    background: #B81C37;
+  }
+</style>
+
+<div class="card-4">
+  <div class="card-header">
+    <div class="card-icon">아이콘자리</div>
+    <div class="card-value">값자리</div>
+  </div>
+  <div class="card-body">
+    <div class="card-label">라벨자리</div>
+  </div>
+  <div class="card-accent"></div>
+</div></div>
+</div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:sans-serif;font-size:1.75rem;font-weight:700;color:#BA3627;letter-spacing:0.08em;text-transform:uppercase;">Thesis: customer experience is the highest-leverage growth driver</div>
+    
+</div>
+</div>

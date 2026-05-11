@@ -16,9 +16,9 @@ by 정일균 (Ilgyun Jeong)
 
 평가 결과 LayerAgent 는 동일 GPT-4o 조건의 4-method 비교에서 객관 디자인 충실도 (Element-IoU 0.372, sp 0.314 대비 +18%) 와 cross-model VLM judge (GPT-5.4 4 criterion 모두 1위, avg 4.02 vs 차순위 3.37) 두 평가 축에서 1위에 위치한다. AutoPresent rubric 의 layout 차원에서도 1위 (layout_0_5 3.64 vs 2.90) 이며, chart·table 카테고리 6종은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다. Frontier 모델 일괄 생성(GPT-5.4)은 비용·시간 측면의 별개 cost-quality 대안으로 §7.3 에 boundary reference 로 보고된다.
 
-본 연구의 기여는 세 가지로 정리된다. (1) Problem — 슬라이드 도메인의 layer-level element omission 현상의 정식화, (2) Method — Chat Parser 입력 정규화, DesignSpec blackboard, vision-grounded specialist, chart_templates 결정적 렌더링 라이브러리(7종 chart renderer), style normalization, text insertion 분리를 포함하는 multi-agent layer decomposition framework (LayerAgent) 제안 및 DesignSpec blackboard와 Text Inserter 두 mechanism의 인과 효과 격리 측정, (3) Finding — 동일 GPT-4o 조건의 process-level 분해가 frontier scaling 없이 SOTA 다면적 평가에서 종합 1위를 달성함을 규명. LayerAgent는 GPT-4o급 VLM에서 일괄 생성이 놓치는 계층 구조를 편집 가능한 HTML/CSS 차원에서 회복하는 process-level intervention이며, frontier scaling과 분리된 독립 경로로 자리매김된다.
+본 연구의 기여는 세 가지로 정리된다. (1) Problem — 슬라이드 도메인의 (계층적) element omission 현상의 정식화, (2) Method — Chat Parser 입력 정규화, DesignSpec blackboard, vision-grounded specialist, chart_templates 결정적 렌더링 라이브러리(7종 chart renderer), style normalization, text insertion 분리를 포함하는 multi-agent layer decomposition framework (LayerAgent) 제안 및 DesignSpec blackboard와 Text Inserter 두 mechanism의 인과 효과 격리 측정, (3) Finding — 동일 GPT-4o 조건의 process-level 분해가 frontier scaling 없이 SOTA 다면적 평가에서 종합 1위를 달성함을 규명. LayerAgent는 GPT-4o급 VLM에서 일괄 생성이 놓치는 계층 구조를 편집 가능한 HTML/CSS 차원에서 회복하는 process-level intervention이며, frontier scaling과 분리된 독립 경로로 자리매김된다.
 
-키워드: Element Omission, Layer Decomposition, Multi-Agent, Design-to-Code, Vision Language Models
+키워드: 요소 누락 (Element Omission), 계층 분해 (Layer Decomposition), 멀티에이전트 (Multi-Agent), 디자인-투-코드 (Design-to-Code), 시각 언어 모델 (Vision Language Models)
 
 ---
 
@@ -74,7 +74,7 @@ MetaGPT (Hong et al., ICLR 2024), ChatDev (Qian et al., ACL 2024), CAMEL (Li et 
 
 제5절 Design-to-Code 평가
 
-기존 평가는 전역 유사도(CLIP 등), 구조 매칭(Design2Code의 Block-Match, SlidesBench의 element-matching), 속성 수준(WebRenderBench의 SDA, Widget2Code의 per-property)으로 분류된다. DreamHouse (arXiv:2603.24866, 2026)는 physical generative reasoning(건축 구조물 생성) 도메인에서 structural validity와 visual fidelity가 직교적이며 frontier VLM의 joint pass rate가 7.1%에 불과함을 보였으며, 본 연구는 이 orthogonality finding을 슬라이드 도메인으로 평행하게 적용한다. SlideAudit (UIST 2025)은 슬라이드 quality taxonomy를 정립하고 automated metric과 holistic human judgment 사이의 systematic disagreement를 정량적으로 보였으며, 이는 본 연구의 §5.4 평가 축 간 불일치 관찰과 직접 정렬되는 선행 연구이다. WebDevJudge (2025)는 design-to-code에서 MLLM-as-judge의 best practice(pairwise 평가와 code·visual modality 결합)를 정립했으며, 본 논문은 이를 §7의 single-judge limitation 논의에서 표준 reference로 인용한다. 본 연구는 (a) DreamHouse와 SlideAudit 두 도메인의 metric disagreement 발견을 슬라이드 design-to-code 도메인의 다면적 평가로 확장하고, (b) 기존 render-based 및 DOM-based 평가를 결합하여 class-name-independent하게 정렬한 protocol을 구성함으로써 메서드별 명명 규칙에 따른 평가 편향을 줄인다.
+기존 평가는 전역 유사도, 구조 매칭(Design2Code 의 Block-Match, AutoPresent 의 element-matching), 속성 수준(WebRenderBench 의 SDA, Widget2Code 의 per-property) 으로 분류된다. DreamHouse (arXiv:2603.24866, 2026) 는 physical generative reasoning(건축 구조물 생성) 도메인에서 structural validity 와 visual fidelity 가 직교적이며 frontier VLM 의 joint pass rate 가 7.1% 에 불과함을 보였으며, 본 연구는 이 orthogonality finding 을 슬라이드 도메인으로 평행하게 적용한다. SlideAudit (UIST 2025) 은 슬라이드 quality taxonomy 를 정립하고 automated metric 과 holistic human judgment 사이의 systematic disagreement 를 정량적으로 보였으며, 이는 본 연구의 §5.4 평가 축 간 불일치 관찰과 직접 정렬되는 선행 연구이다. AutoPresent (CVPR 2025) 는 layout·color 두 차원 0–5 rubric 을 정립했으며 본 연구는 이를 main metric 의 한 축으로 사용한다. WebDevJudge (2025) 는 design-to-code 에서 MLLM-as-judge 의 best practice (pairwise 평가와 code·visual modality 결합) 를 정립했으며, 본 논문은 이를 §7 의 single-judge limitation 논의에서 표준 reference 로 인용한다. 본 연구는 (a) DreamHouse 와 SlideAudit 두 도메인의 metric disagreement 발견을 슬라이드 design-to-code 도메인의 다면적 평가로 확장하고, (b) 객관 element-level matching (Element-IoU) 과 색 거리 (CIEDE2000), AutoPresent rubric, cross-model VLM judge 를 결합하여 class-name-independent 하게 정렬한 SOTA design2code 평가 protocol 을 구성함으로써 메서드별 명명 규칙에 따른 평가 편향을 줄인다.
 
 ---
 
@@ -84,7 +84,7 @@ MetaGPT (Hong et al., ICLR 2024), ChatDev (Qian et al., ACL 2024), CAMEL (Li et 
 
 ![Figure 5: LayerAgent architecture](results/figures/layeragent_architecture.png)
 
-Figure 5. LayerAgent의 측정 대상 파이프라인. 입력단의 Chat Parser는 reference 이미지와 자유 형식 사용자 메시지를 typed `slide_spec` JSON으로 정규화한다. 이 spec은 19개 slide_type 어휘 중 하나(timeline, dashboard, comparison, pyramid, hub_spoke, before_after, feature_grid, roadmap, layered_stack, stats_hero, cover, table, bar_chart, line_chart, waterfall, matrix_2x2, mekko, harvey_table_advanced, tree_diagram)로 분기되며, 차트·표 7종은 결정적 SVG/HTML renderer 라이브러리(`chart_templates`)로 우회 처리된다. Stage 0 (Analyzer, Design Director)에서 레이아웃과 DesignSpec blackboard를 산출한 뒤, Stage 1의 specialist agent들이 병렬로 layer 단편을 생성한다. Specialist는 두 그룹으로 나뉜다 — 모든 슬라이드에서 활성화되는 layer specialist 4개(Base BG, Atmosphere, Decoration, Card Detail)와 slide_type·content에 따라 조건부 활성화되는 specialist 4개(Hero Detail, Icon Agent, Chart Agent, Table Agent). 후자 두 specialist는 chart 슬라이드 타입에서 `chart_templates` 라이브러리로 결정적 렌더링을 수행하며 VLM 환각을 차단한다. Stage 2의 Assembler가 결정적 z-index 순서로 조립하고, Style Normalizer가 카드 간 CSS를 통일하며, Text Inserter가 시각 디자인 확정 후 콘텐츠를 주입한다. 본 논문의 모든 측정은 이 파이프라인 위에서 수행되며, 시스템에 포함된 선택 단계(Overflow Repair, Visual Critic)는 §3.5에서 별도 기술된다.
+Figure 5. LayerAgent 의 측정 대상 파이프라인. Chat Parser 가 입력을 typed `slide_spec` JSON 으로 정규화한 뒤, Stage 0 (Analyzer · Design Director) 이 레이아웃과 DesignSpec blackboard 를 산출하고, Stage 1 의 8개 specialist 가 병렬로 layer 단편을 생성하며, Stage 2 의 Assembler · Style Normalizer · Text Inserter 가 결정적 z-index 조립과 카드 간 스타일 통일·텍스트 주입을 수행한다. 19개 slide_type 어휘, specialist 그룹 구성, chart_templates 결정적 렌더링 (chart 슬라이드 우회 처리), 선택 단계(Overflow Repair, Visual Critic) 의 상세는 §3 본문에서 기술된다.
 
 전체 파이프라인은 LangGraph StateGraph로 구현되었으며, 8개 specialist는 Design Director의 출력 이후 병렬로 실행된다. Chat Parser는 그래프 진입 노드로 위치하여 사용자 입력 다양성을 입력 표준화 단계에서 흡수한다.
 
@@ -178,7 +178,7 @@ Playwright 스크린샷과 원본 이미지를 비교한 뒤 VLM이 diff를 작�
 
 | code | 메서드 (논문 표시) | 접근 |
 |---|---|---|
-| A | 일괄 생성 (`single_pass`) | 단일 GPT-4o 호출로 전체 이미지 → HTML |
+| A | 일괄 생성 (`single_pass`, 이하 sp) | 단일 GPT-4o 호출로 전체 이미지 → HTML |
 | B | 시각 분석 생성 (`visual_cot`) | 시각 분석을 자연어로 먼저 수행한 뒤 코드 생성 (2단계) |
 | C | 패턴 주입 생성 (`cot_h_rag`) | 시각 분석 + CSS 효과 패턴 레시피(RAG)를 함께 제공해 코드 생성 |
 | D | LayerAgent (`layeragent`) | 본 연구 — 계층 단위로 생성 책임을 분해하는 multi-agent full pipeline |
@@ -187,7 +187,7 @@ Playwright 스크린샷과 원본 이미지를 비교한 뒤 VLM이 diff를 작�
 
 제3절 평가 방식 — SOTA design2code 다면적 평가
 
-본 논문은 main result 를 design2code 평가의 SOTA pack 위에서 보고한다 — 객관적 시각 매칭 (Element-IoU, Element-level Hungarian matching), 색 정확도 (CIEDE2000), VLM-as-judge rubric (AutoPresent 0–5 layout/color, GPT-5.4 4 criterion). Layer Recall 과 LTED 는 부록 B 에 정리한 클래스명 편향 위험으로 보조 metric 으로 분류된다. 평가 protocol 은 2개의 main 축(① 객관적 디자인 충실도, ② VLM-as-judge rubric)으로 구성된다.
+본 논문은 main result 를 design2code 평가의 SOTA pack 위에서 보고한다 — 객관적 시각 매칭 (Element-IoU; element 단위 Hungarian matching 기반), 색 정확도 (CIEDE2000), VLM-as-judge rubric (AutoPresent 0–5 layout/color, GPT-5.4 4 criterion). Layer Recall 과 LTED 는 부록 B 에 정리한 클래스명 편향 위험으로 보조 metric 으로 분류된다. 평가 protocol 은 2개의 main 축(① 객관적 디자인 충실도, ② VLM-as-judge rubric)으로 구성된다.
 
 축 ① 객관적 디자인 충실도 (Design2Code · AeSlides 계열):
 
@@ -210,7 +210,7 @@ Playwright 로 렌더링한 PNG 와 reference PNG 사이의 객관적 매칭을 
 - CCR ↑ — 입력 텍스트가 HTML 에 문자열로 등장하는 비율 (시각 가시성 미반영; MLLM judge CC 가 visual proxy)
 
 Legacy sanity check — Class-name-aligned (참고용, main claim 외):
-- Layer Recall, LTED — class name regex 기반 (LayerAgent 어휘에 정렬). Vocabulary alignment 한계로 인해 부록 B.1(현상 가시화), 부록 B(보조 표), §5.2(prompt 변형이 명명 규칙과 무관하므로 방향성 해석이 안정적인 robustness sanity check)에 한정해 사용한다.
+- Layer Recall, LTED — class name regex 기반 (LayerAgent 어휘에 정렬). Vocabulary alignment 한계로 인해 부록 B.1 (현상 가시화), 부록 B (보조 표), §5.2 (prompt 변형이 명명 규칙과 무관하므로 방향 해석에 한해 안정적인 robustness sanity check) 에 한정해 사용한다.
 
 Render guard 점검에서 모든 메서드가 Playwright 로 100% 정상 렌더링됨을 확인했다.
 
@@ -264,9 +264,9 @@ Table 2. 다층 시각 효과 디자인 subset 객관 충실도 + VLM rubric (N=
 | AutoPresent layout_0_5 ↑ | **4.20** | 3.80 | 3.70 | 2.90 |
 | AutoPresent color_0_5 ↑ | 3.70 | **3.90** | 3.50 | 3.00 |
 
-핵심 발견 1' (subset 분기) — 다층 시각 효과 디자인 subset (N=10 dark_glass) 에서 LayerAgent 는 객관 충실도 (Element-IoU, CIEDE2000) 에서 1위 (CIEDE2000 20.7 vs 다음 메서드 26.9, 큰 폭 색 정확도 우세) 이지만 VLM rubric (layout_0_5, color_0_5) 에서는 4위이다. 이 분기는 본 평가 framework 가 측정하는 두 차원의 분리를 직접 보여준다 — 객관적 시각 매칭은 LayerAgent 의 분해 + DesignSpec blackboard 가 color drift 를 줄여 reference 와의 color 거리를 좁히는 효과를 포착하지만, VLM holistic judge 는 다층 시각 효과 디자인의 풍부한 atmospheric layer (radial glow, glassmorphism, decorative motif) 를 LayerAgent 출력이 단순화하는 경향을 layout / color quality 패널티로 평가한다. 본 분기는 §5.3 의 dark_glass MLLM Δ −0.80 과 정렬되며, §7.2 의 future work 로 "다층 시각 효과 카테고리에서의 보다 expressive 한 atmospheric layer 생성" 을 다룬다. 데이터 overlap caveat 은 §7.2 를 참조한다.
+핵심 발견 1' (subset 분기) — 다층 시각 효과 디자인 subset (N=10 dark_glass) 에서 LayerAgent 는 객관 충실도 (Element-IoU, CIEDE2000) 에서 1위 (CIEDE2000 20.7 vs 차순위 메서드 26.9, 큰 폭 색 정확도 우세) 이지만 VLM rubric (layout_0_5, color_0_5) 에서는 4위이다. 이 분기는 본 평가 framework 가 측정하는 두 차원의 분리를 직접 보여준다 — 객관적 시각 매칭은 LayerAgent 의 분해 + DesignSpec blackboard 가 color drift 를 줄여 reference 와의 color 거리를 좁히는 효과를 포착하지만, VLM holistic judge 는 다층 시각 효과 디자인의 풍부한 atmospheric layer (radial glow, glassmorphism, decorative motif) 를 LayerAgent 출력이 단순화하는 경향을 layout / color quality 패널티로 평가한다. 본 분기는 §5.3 의 dark_glass MLLM Δ −0.80 과 정렬되며, §7.2 의 future work 로 "다층 시각 효과 카테고리에서의 보다 expressive 한 atmospheric layer 생성" 을 다룬다. 데이터 overlap caveat 은 §7.2 를 참조한다.
 
-핵심 발견 2 — 시각 분석 생성(`visual_cot`)과 패턴 주입 생성(`cot_h_rag`)은 일괄 생성(`single_pass`) 대비 일관된 개선을 보이지 않는다. 시각 분석 생성은 Element-IoU 0.301 (sp 0.314 보다 낮음), AutoPresent layout_0_5 2.70 (sp 2.90 보다 낮음) 으로 4 메트릭 모두 sp 와 동률이거나 약간 열세이다. 패턴 주입 생성은 CIEDE2000 51.5 에서 1위이나 layout_0_5 2.56 / color_0_5 2.76 으로 VLM rubric 두 차원에서 최하위이다. 즉 단순한 시각 분석 단계 추가나 CSS 패턴 지식 주입만으로는 일관된 개선이 관찰되지 않으며, 생성 단위 분해가 빠진 prompt-level 변형만으로는 충분하지 않다. LayerAgent 의 통합 파이프라인(Chat Parser + DesignSpec + chart_templates + Style Normalizer + Text Inserter)이 same-model 조건에서 객관 + VLM rubric 평균에서 가장 강한 결과를 만든다. 컴포넌트별 인과 효과는 Text Inserter(D₂)와 DesignSpec blackboard(D₄) 두 mechanism 에 대해 §5.5 에서 격리 측정된다.
+핵심 발견 2 — 시각 분석 생성(`visual_cot`)과 패턴 주입 생성(`cot_h_rag`)은 일괄 생성(`single_pass`) 대비 일관된 개선을 보이지 않는다. 시각 분석 생성은 Element-IoU 0.301 (sp 0.314 보다 낮음), AutoPresent layout_0_5 2.70 (sp 2.90 보다 낮음) 으로 4 메트릭 모두 sp 와 약간씩 열세이다. 패턴 주입 생성은 CIEDE2000 51.5 에서 1위이나 layout_0_5 2.56 / color_0_5 2.76 으로 VLM rubric 두 차원에서 최하위이다. 즉 단순한 시각 분석 단계 추가나 CSS 패턴 지식 주입만으로는 일관된 개선이 관찰되지 않으며, 생성 단위 분해가 빠진 prompt-level 변형만으로는 충분하지 않다. LayerAgent 의 통합 파이프라인(Chat Parser + DesignSpec + chart_templates + Style Normalizer + Text Inserter)이 same-model 조건에서 객관 + VLM rubric 평균에서 가장 강한 결과를 만든다. 컴포넌트별 인과 효과는 Text Inserter(D₂)와 DesignSpec blackboard(D₄) 두 mechanism 에 대해 §5.5 에서 격리 측정된다.
 
 Table 3. 종합적 발표 품질 — MLLM judge (GPT-5.4, 4 criteria, 1–7 scale, main_eval N=50). 굵은 = 1위.
 
@@ -278,9 +278,13 @@ Table 3. 종합적 발표 품질 — MLLM judge (GPT-5.4, 4 criteria, 1–7 scal
 | Design Quality ↑ | 3.78 | 3.30 | 3.36 | **3.90** |
 | Average ↑ | 3.37 | 3.04 | 2.96 | **4.02** |
 
-MLLM judge 4 criterion 모두에서 LayerAgent가 1위이며, 평균은 4.02로 다음 메서드(일괄 생성 3.37) 대비 +0.65 격차이다. chart 7종 슬라이드에서 chart_templates 결정적 렌더링이 자기회귀 zero-sum을 회피하여 텍스트 overflow·콘텐츠 누락 패널티가 구조적으로 차단되며, Layer Structure(4.62)·Content Completeness(4.62) 두 축의 큰 격차가 이를 직접 보여준다.
+MLLM judge 4 criterion 모두에서 LayerAgent가 1위이며, 평균은 4.02로 차순위 메서드(일괄 생성 3.37) 대비 +0.65 격차이다. chart 7종 슬라이드에서 chart_templates 결정적 렌더링이 자기회귀 zero-sum을 회피하여 텍스트 overflow·콘텐츠 누락 패널티가 구조적으로 차단되며, Layer Structure(4.62)·Content Completeness(4.62) 두 축의 큰 격차가 이를 직접 보여준다.
 
-Table 1·2·3 을 함께 읽으면 LayerAgent 의 우위가 평가 축과 카테고리에 따라 다음과 같이 분포된다. (i) Full N=50 에서 객관 충실도 (Element-IoU) + VLM rubric layout 차원 (AutoPresent layout_0_5, GPT-5.4 LS·VF) 에서 LayerAgent 1위. 색 차원 (CIEDE2000, color_0_5) 은 일괄 생성·패턴 주입 생성이 reference 의 색을 직접 모방하므로 LayerAgent 보다 우세이다. (ii) Multi-layer subset (N=10 dark_glass) 에서 LayerAgent 는 객관 충실도 (Element-IoU 0.575, CIEDE2000 20.7, 두 메트릭 모두 1위) 에서는 우세하지만 VLM rubric (layout_0_5 2.90, color_0_5 3.00) 에서는 4위이다 — atmospheric layer 의 풍부성 simplification 이 VLM 의 holistic 채점에 패널티를 유발한다. (iii) MLLM judge 4 criterion (Table 3, GPT-5.4) 은 Full N=50 평균에서 LayerAgent 1위 (4.02 vs 다음 메서드 3.37). 종합적으로 LayerAgent 는 객관 충실도 축과 GPT-5.4 holistic 축의 mass center 위치이며, AutoPresent rubric 의 dark_glass 약점은 §7.2 future work 에서 다룬다.
+Table 1·2·3 을 함께 읽으면 LayerAgent 의 우위가 평가 축과 카테고리에 따라 다음과 같이 분포된다.
+
+(i) Full N=50 에서 객관 충실도 (Element-IoU) + VLM rubric layout 차원 (AutoPresent layout_0_5, GPT-5.4 LS·VF) 에서 LayerAgent 1위. 색 차원 (CIEDE2000, color_0_5) 은 일괄 생성·패턴 주입 생성이 reference 의 색을 직접 모방하므로 LayerAgent 보다 우세이다. (ii) 다층 시각 효과 디자인 subset (N=10 dark_glass) 에서 LayerAgent 는 객관 충실도 (Element-IoU 0.575, CIEDE2000 20.7, 두 메트릭 모두 1위) 에서는 우세하지만 VLM rubric (layout_0_5 2.90, color_0_5 3.00) 에서는 4위이다 — atmospheric layer 의 풍부성 simplification 이 VLM 의 holistic 채점에 패널티를 유발한다. (iii) MLLM judge 4 criterion (Table 3, GPT-5.4) 은 Full N=50 평균에서 LayerAgent 1위 (4.02 vs 차순위 메서드 3.37).
+
+종합적으로 LayerAgent 는 객관 충실도 축과 GPT-5.4 holistic 축의 mass center 위치이며, AutoPresent rubric 의 dark_glass 약점은 §7.2 future work 에서 다룬다.
 
 ![Figure 6: Qualitative structural fidelity comparison](results/figures/fig6_qualitative.png)
 
@@ -304,7 +308,7 @@ z-explicit prompt는 보조 metric Recall을 0.224 → 0.292로 살짝 올리지
 
 제3절 레이아웃 유형별 효과 범위 분석 (RQ3 part A)
 
-Table 4. 9개 레이아웃 유형별 LayerAgent per-layout 효과 비교. Primary axis는 MLLM judge, 보조 진단은 LTED (부록 B). chart·table 카테고리(pyramid·mekko·process_flow·harvey_table·matrix_2x2·waterfall·line_chart·bar_chart)는 chart_templates 결정적 렌더링 라이브러리(§3.3)로 처리되어 단일 VLM의 자기회귀 zero-sum이 구조적으로 차단된다.
+Table 4. 9개 레이아웃 유형별 LayerAgent per-layout 효과 비교. Primary axis는 MLLM judge, 보조 진단은 LTED (부록 B). 9개 layout 중 다층 시각 효과 디자인과 process_flow 를 제외한 7개 layout (pyramid·mekko·harvey_table·matrix_2x2·waterfall·line_chart·bar_chart) 이 chart_templates 결정적 렌더링 라이브러리(§3.3) 의 7 renderer 에 대응하여 단일 VLM의 자기회귀 zero-sum이 구조적으로 차단되며, 본문 이하에서 "chart·table 6종" 은 이 중 pyramid(tree_diagram renderer)를 제외한 6 layout (mekko·matrix_2x2·waterfall·line_chart·bar_chart·harvey_table) 을 가리킨다.
 - MLLM Δ (primary) = LayerAgent avg − (best baseline avg), 양수 = LayerAgent 우세.
 - LTED Δ (aux) = (best baseline LTED) − (LayerAgent LTED), 양수 = LayerAgent 우세.
 
@@ -354,7 +358,7 @@ Table 5. 본 연구가 정착시키는 메트릭 축 분리.
 - (iii) cross-model VLM judge — holistic 발표 품질 → 축 ③ 우선
 - (iv) 클래스명 편향 진단 → 축 ④ (sanity check 용도로 한정)
 
-선행 ranking 의 재해석. Design2Code (NAACL 2025) Block-Match·SlidesBench element-matching 은 본 연구의 축 ① 의 객관 매칭에 해당하고, AutoPresent (CVPR 2025) 0–5 rubric 은 축 ② 에 해당하며, WebDevJudge (2025) 의 LLM-as-judge protocol 은 축 ③ 에 해당한다. 본 연구는 DreamHouse 2026 (architectural structure 생성에서의 structural-visual orthogonality 발견)과 SlideAudit (UIST 2025, automated vs human axis 분석) 의 다면적 평가 패러다임을 슬라이드 design-to-code 도메인으로 확장하며, LayerAgent 는 GPT-4o 동일 모델 4-method 비교에서 객관 충실도 (Element-IoU 1위) + cross-model VLM judge (GPT-5.4 4 criterion 1위) 두 축에서 명확한 1위에 위치한다.
+선행 ranking 의 재해석. Design2Code (NAACL 2025) Block-Match 는 본 연구의 축 ① 의 객관 매칭에 해당하고, AutoPresent (CVPR 2025) 0–5 rubric 은 축 ② 에 해당하며, WebDevJudge (2025) 의 LLM-as-judge protocol 은 축 ③ 에 해당한다. 본 연구는 DreamHouse 2026 (architectural structure 생성에서의 structural-visual orthogonality 발견)과 SlideAudit (UIST 2025, automated vs human axis 분석) 의 다면적 평가 패러다임을 슬라이드 design-to-code 도메인으로 확장하며, LayerAgent 는 GPT-4o 동일 모델 4-method 비교에서 객관 충실도 (Element-IoU 1위) + cross-model VLM judge (GPT-5.4 4 criterion 1위) 두 축에서 명확한 1위에 위치한다.
 
 제5절 Ablation
 
@@ -423,7 +427,7 @@ String-CCR 은 텍스트가 HTML 에 문자열로 등장하는 비율만을 측�
 
 제4절 단계 분리의 효과 — 다면적 평가에서의 일관성
 
-H-RAG의 zero-sum, D₂ ablation의 분리 효과, §5.2의 z-explicit prompt baseline — 이들이 한 방향을 가리킨다: 단순 prompt 조정만으로는 LayerAgent의 같은 수준 layer 회복이 관찰되지 않으며, 단계 분리·결정적 렌더링·DesignSpec blackboard 의 결합이 본 효과의 핵심이다. Cross-VLM frontier baseline(부록 B.2)에서도 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두 LayerAgent vocabulary 정렬 metric 기준 baseline gap이 0.69–0.78 범위에 분포하여, frontier scaling 단독으로는 layer-level element omission이 완전히 해소되지 않는다는 패턴을 보조적으로 보인다 (단 본 cross-VLM 측정은 보조 metric이므로 frontier 간 상대 비교에 한정해 해석한다).
+H-RAG의 zero-sum, D₂ ablation의 분리 효과, §5.2의 z-explicit prompt baseline — 이들이 한 방향을 가리킨다: 단순 prompt 조정만으로는 LayerAgent의 같은 수준 layer 회복이 관찰되지 않으며, 단계 분리·결정적 렌더링·DesignSpec blackboard 의 결합이 본 효과의 핵심이다. Cross-VLM frontier baseline(부록 B.2)에서도 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두 LayerAgent vocabulary 정렬 metric 기준 baseline gap이 0.69–0.78 범위에 분포하여, frontier scaling 단독으로는 계층적 element omission이 완전히 해소되지 않는다는 패턴을 보조적으로 보인다 (단 본 cross-VLM 측정은 보조 metric이므로 frontier 간 상대 비교에 한정해 해석한다).
 
 본 장의 종합. LayerAgent의 가치는 same-model 조건에서 단계 분리·결정적 렌더링·DesignSpec blackboard 의 결합이 부여하는 구조적 일관성에 있다. chart_templates 라이브러리는 chart 카테고리의 자기회귀 zero-sum을 구조적으로 회피하여 본 연구의 다면적 평가 세 축 모두에서 동일 모델 4-method 비교의 종합 1위를 가져온다. Frontier model upgrade는 별개의 cost-quality 차원이며(§7.3 boundary reference), 본 논문은 이를 적용 범위 경계로 명시한다.
 
@@ -439,7 +443,7 @@ H-RAG의 zero-sum, D₂ ablation의 분리 효과, §5.2의 z-explicit prompt ba
 
 제1절 평가 방법론과 metric의 타당성
 
-(a) String-CCR 은 텍스트의 시각 가시성을 underdetermine 한다 — HTML 에 문자열로 존재하는지만 측정하므로 overflow·occlusion 같은 시각 차원이 빠진다. MLLM judge Content Completeness 가 visual proxy 로 보완하나, visual-aware OCR 기반 visual CCR 메트릭(§6.3) 의 도입이 metric-level 의 정착된 해결이다. (b) Holistic 평가가 GPT-5.4 단일 LLM-as-judge에 의존한다. Claude·Gemini 등 cross-judge 일반화와 인간 anchor 직접 검증(n≥80 pair × 5 raters, MT-Bench·AlpacaEval pairwise 프로토콜)은 수행되지 않았다. WebDevJudge(2026)가 권고하는 표준의 적용이 필요하다.
+(a) String-CCR 은 텍스트의 시각 가시성을 underdetermine 한다 — HTML 에 문자열로 존재하는지만 측정하므로 overflow·occlusion 같은 시각 차원이 빠진다. MLLM judge Content Completeness 가 visual proxy 로 보완하나, visual-aware OCR 기반 visual CCR 메트릭(§6.3) 의 도입이 metric-level 의 정착된 해결이다. (b) Holistic 평가가 GPT-5.4 단일 LLM-as-judge에 의존한다. Claude·Gemini 등 cross-judge 일반화와 인간 anchor 직접 검증(n≥80 pair × 5 raters, MT-Bench·AlpacaEval pairwise 프로토콜)은 수행되지 않았다. WebDevJudge(2025)가 권고하는 표준의 적용이 필요하다.
 
 제2절 통계 검증력과 데이터 구성
 
@@ -473,7 +477,7 @@ LayerAgent 의 본 연구 main 결과는 GPT-4o 동일 모델 4-method 비교 (�
 
 더 넓은 원리.
 
-1. 다면적 평가 동반 보고의 필요성. 본 연구는 DOM-based structural, render-based visual similarity, multimodal LLM-as-judge 세 축의 동시 보고가 Design-to-Code 평가에서 단일 지표보다 더 명확한 해석을 가능하게 함을 보인다. Class-name-aligned regex 기반 metric은 클래스명 편향 위험으로 sanity check 외의 사용을 자제할 것을 권고한다.
+1. 다면적 평가 동반 보고의 필요성. 본 연구는 객관 디자인 충실도(Element-IoU + CIEDE2000), AutoPresent VLM rubric (layout·color 0–5), cross-model GPT-5.4 4 criterion 세 축의 동시 보고가 Design-to-Code 평가에서 단일 지표보다 더 명확한 해석을 가능하게 함을 보인다. Class-name-aligned regex 기반 metric 은 클래스명 편향 위험으로 sanity check 외의 사용을 자제할 것을 권고한다.
 2. Same-model 분해 효과와 frontier scaling은 서로 분리된 두 개선 경로이다. 본 논문은 same-model decomposition을 main RQ로 한정하고 frontier 비교는 적용 범위의 경계를 명시하는 보조 분석으로 분리한다.
 3. 결정적 렌더링과 VLM 생성의 분리. chart_templates 라이브러리가 보여주듯, vectorial structure가 명확한 chart·table 카테고리에서는 데이터 추출만 VLM에 맡기고 시각 자체는 결정적 primitive로 렌더링하는 분리가 자기회귀 zero-sum을 구조적으로 회피하는 효과적 전략이다.
 
@@ -528,7 +532,7 @@ H-AblationDesignSpec (DesignSpec cross-agent 합치, §5.5) — 채택 (N=50 다
   - 7개 다면적 평가 자동 지표: D 우세 3개 (CRP/CLIP/LPIPS, 시각 fidelity 3개), D₄ 우세 4개 (VEC/EDC/VLC/HD, 구조 다양성 4개)로 consistency vs raw diversity trade-off가 관찰된다.
   - 다수결 규칙: CRP ✓, CLIP ✓, EDC ✗ — 2/3 채택 (경계).
 - 결론: N=50 다면적 평가에서 H-AblationDesignSpec을 채택한다. DesignSpec blackboard는 cross-agent 시각 fidelity 일관성을 명확히 보존한다. 다층 디자인 subset에서는 부분 채택되며, D는 visual fidelity에서, D₄는 structural diversity에서 우세하다.
-- 주: VEC, EDC, CRP 등 다면적 평가 DOM·visual 지표는 명명 규칙과 무관하므로 본 가설 채택은 클래스명 편향과 독립적이다.
+- 주: VEC, EDC, CRP 등 DOM 카운트 + CLIP/LPIPS 시각 유사도 지표는 명명 규칙과 무관하므로 본 가설 채택은 클래스명 편향과 독립적이다. 본 ablation 측정은 chart_templates 도입 이전 LayerAgent outputs 위 수행되었으며 (§5.5), mechanism 의 causal effect 입증은 outputs 시점과 무관하게 유효하다.
 
 본 사전 등록은 paper 부록 외에도 OSF(Open Science Framework)에 별도 등록될 예정이며, ID는 publication 시점에 명시한다.
 
@@ -620,7 +624,7 @@ C.4 Boundary 종합
 
 부록 D. DesignSpec schema와 instance 예시
 
-본 부록은 §3.2.2 Design Director가 생성하는 typed JSON `DesignSpec`의 전체 schema와 한 슬라이드의 완결된 instance를 수록한다.
+본 부록은 §3.2.3 Design Director가 생성하는 typed JSON `DesignSpec`의 전체 schema와 한 슬라이드의 완결된 instance를 수록한다.
 
 D.1 Schema (필드 + 타입 + 설명)
 
@@ -678,7 +682,7 @@ D.2 Instance 예시 (design_03 comparison_split 슬라이드)
 }
 ```
 
-이 instance는 §3.2.2 본문에서 언급한 schema의 한 가지 채워진 예시이며, 모든 specialist가 동일 instance를 prompt hint로 받아 cross-agent 스타일 통일을 달성한다.
+이 instance는 §3.2.3 본문에서 언급한 schema의 한 가지 채워진 예시이며, 모든 specialist가 동일 instance를 prompt hint로 받아 cross-agent 스타일 통일을 달성한다.
 
 ---
 

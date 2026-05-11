@@ -1,0 +1,248 @@
+<div class="slide-container design_06_before_after" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+            .design_06_before_after-bg-base {
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+                background: linear-gradient(to right, #000, #888);
+            }
+        </style>
+
+        <div class="design_06_before_after-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    
+    <div class="hero-wrap-1" style="position:absolute;left:40.0%;top:20.0%;width:20.0%;height:60.0%;z-index:20;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .hero-1 {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #AC694F, #73BBCE);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                    backdrop-filter: blur(10px);
+                    font-size: 12px; /* 16px의 25% 감소 */
+                }
+
+                .hero-1 .hero-value {
+                    font-size: 5vw;
+                    color: #DEDECD;
+                    text-shadow: 0 0 10px #AC694F;
+                    margin-bottom: 10px;
+                }
+
+                .hero-1 .hero-subtitle {
+                    font-size: 2.5vw;
+                    color: #DEDECD;
+                    text-shadow: 0 0 5px #73BBCE;
+                }
+            </style>
+
+            <div class="hero-1">
+                <div class="hero-value" style="color: #DEDECD;">Before & After</div>
+                <div class="hero-subtitle">A System Comparison</div>
+            </div>
+        </div>
+        <div style="position:absolute;inset:0;border:1px solid rgba(212,175,55,0.35);opacity:1.0;pointer-events:none;"></div>
+        <div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="5,40 5,5 40,5" stroke="#22A2EE" stroke-width="2" fill="none" opacity="0.7"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="card-wrap-1" style="position:absolute;left:5.0%;top:5.0%;width:30.0%;height:30.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-1 {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    background: linear-gradient(135deg, #AC694F, #73BBCE);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    flex-direction: column;
+                    backdrop-filter: blur(10px);
+                    font-size: 14px; /* 16px의 12.5% 감소 */
+                    line-height: 1.2; /* 추가 */
+                }
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: linear-gradient(145deg, #DC9577, #A65E43);
+                    padding: 10px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                    margin: 10px;
+                }
+
+                .card-1 .card-icon {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background: #83331A;
+                    box-shadow: 0 0 5px #74483C;
+                }
+
+                .card-1 .card-value {
+                    flex-grow: 1;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    padding: 5px;
+                    background: #492010;
+                    border-radius: 8px;
+                    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+                }
+
+                .card-body {
+                    flex-grow: 1;
+                    margin: 10px;
+                    background: linear-gradient(145deg, #74483C, #492010);
+                    border-radius: 10px;
+                    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+                    padding: 10px;
+                }
+
+                .card-1 .card-label {
+                    text-align: center;
+                    color: #ffffff;
+                    margin-top: 10px;
+                    line-height: 14px;
+                }
+
+                .card-accent {
+                    height: 8px;
+                    background: linear-gradient(to right, #DC9577, #A65E43);
+                    border-radius: 4px;
+                    margin: 10px;
+                }
+            </style>
+
+            <div class="card-1">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-circle" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+                    <div class="card-value" style="color: white;">Complex processes</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Data overload</div>
+                    <div class="card-label">Bottleneck issues</div>
+                    <div class="card-label">Security vulnerabilities</div>
+                    <div class="card-label">Inefficient resource use</div>
+                    <div class="card-label">Paper-driven operations</div>
+                    <div class="card-label">Broken links</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-wrap-2" style="position:absolute;left:5.0%;top:40.0%;width:30.0%;height:30.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-2 {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    background: linear-gradient(135deg, #AC694F, #73BBCE);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    flex-direction: column;
+                    padding: 15px;
+                    backdrop-filter: blur(10px);
+                }
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-radius: 10px;
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 10px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+
+                .card-2 .card-icon {
+                    width: 30px;
+                    height: 30px;
+                    background-color: #AF6650;
+                    border-radius: 50%;
+                    box-shadow: 0 0 5px #E19B7B;
+                }
+
+                .card-2 .card-value {
+                    flex-grow: 1;
+                    margin-left: 10px;
+                    background: rgba(255, 255, 255, 0.1);
+                    height: 20px;
+                    border-radius: 5px;
+                    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+                }
+
+                .card-body {
+                    margin-top: 10px;
+                    background: linear-gradient(145deg, #4F1D11, #613F39);
+                    border-radius: 10px;
+                    padding: 10px;
+                    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+                }
+
+                .card-2 .card-label {
+                    background-color: #E19B7B;
+                    width: 80%;
+                    height: 10px; /* 12px의 16.67% 감소 */
+                    border-radius: 6px;
+                    margin-top: 10px;
+                    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+                }
+            </style>
+
+            <div class="card-2">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-clock" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+                    <div class="card-value" style="color: white;">Streamlined processes</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Cloud integration</div>
+                    <div class="card-label">Improved security</div>
+                    <div class="card-label">Efficient resource use</div>
+                    <div class="card-label">Digitized operations</div>
+                    <div class="card-label">Strong connections</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#22A2EE;letter-spacing:0.08em;text-transform:uppercase;">Compare Systems: Before and After</div>
+    </div>
+</div>

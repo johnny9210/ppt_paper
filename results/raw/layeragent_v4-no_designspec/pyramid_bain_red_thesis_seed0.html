@@ -1,0 +1,255 @@
+<style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .pyramid_bain_red_thesis-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+  }
+</style>
+
+<style>
+  .card-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffffff, #F1EFEE);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    position: relative;
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(181, 9, 38, 0.9);
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-1 .card-icon {
+    font-size: 1.125rem; /* 약 18px */
+    color: #FFFFFF;
+    margin-right: 0.5rem;
+  }
+  
+  .card-1 .card-value {
+    font-size: 1.5rem; /* 약 24px */
+    font-weight: bold;
+    color: #FFFFFF;
+  }
+  
+  .card-body {
+    background: #F1EFEE;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .card-1 .card-label {
+    font-size: 0.75rem; /* 축소 후 약 12px */
+    color: #1D1D1D;
+    line-height: 1.2;
+  }
+</style>
+
+<style>
+  .card-2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgba(194, 170, 176, 0.6);
+    background: linear-gradient(135deg, #ffffff, #F1EFEE);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #B40927, #A26F77);
+    padding: 1rem;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .card-2 .card-icon {
+    font-size: 1.125rem;
+    color: #F2EFEE;
+    margin-right: 0.5rem;
+  }
+
+  .card-2 .card-value {
+    font-size: 1.125rem;
+    color: #F2EFEE;
+    font-weight: bold;
+  }
+
+  .card-body {
+    padding: 1rem;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .card-2 .card-label {
+    font-size: 0.75rem; /* 축소 후 약 12px */
+    color: #2D2C2C;
+    line-height: 1.2;
+  }
+
+  .card-accent {
+    height: 4px;
+    background: linear-gradient(90deg, #B40927, #A26F77);
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+
+<style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #F2F0EF;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .card-header {
+    background-color: #B50926;
+    color: #F2F0EF;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem; /* font-size 20px로 축소 */
+    font-weight: bold;
+    text-align: center;
+  }
+  .card-body {
+    background-color: #FFFFFF;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card-3 .card-icon {
+    font-size: 1.125rem; /* Approx. 18px for ">X" */
+    color: #A00000;
+    text-align: center;
+  }
+  .card-3 .card-value {
+    font-size: 1.9375rem; /* Approx. 31px */
+    color: #333332;
+    font-weight: bold;
+    text-align: center;
+  }
+  .card-3 .card-label {
+    font-size: 0.85rem; /* 15% 축소 후 약 13.6px */
+    color: #A9707A;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .card-accent {
+    height: 0.25rem;
+    width: 50%;
+    background: linear-gradient(to right, #B50926, #F2F0EF);
+    border-radius: 4px;
+  }
+</style>
+
+<div class="slide-container pyramid_bain_red_thesis" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <div class="pyramid_bain_red_thesis-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    
+    
+    <div class="card-wrap-1" style="position:absolute;left:12.0%;top:35.0%;width:20.0%;height:20.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-1">
+                <div class="card-header">
+                    <div class="card-icon"></div>
+                    <div class="card-value">CX Increases Retention</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">~15-20% uplift in customer lifetime value (CLV)</div>
+                    <div class="card-label">-10% churn rate reduction annually</div>
+                    <div class="card-label">3x faster growth from loyalists</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-2" style="position:absolute;left:35.0%;top:35.0%;width:30.0%;height:20.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-2">
+                <div class="card-header">
+                    <div class="card-icon"></div>
+                    <div class="card-value">CX Drives Advocacy & Referrals</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">2.5x higher referral rate from promoters</div>
+                    <div class="card-label">80% of new leads from organic word-of-mouth</div>
+                    <div class="card-label">Lower cost of acquisition (CAC) due to referrals</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-3" style="position:absolute;left:68.0%;top:35.0%;width:20.0%;height:20.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-3">
+                <div class="card-header">
+                    <span class="card-value">CX Improves Pricing Power</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-icon"></span>
+                    <span class="card-label">Ability to command +10% premium vs. competitors</span>
+                    <span class="card-label">2x greater price elasticity for top-tier experiences</span>
+                    <span class="card-label">Increased cross-sell/upsell success</span>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#FFFFFF;letter-spacing:0.08em;text-transform:uppercase;">Thesis: customer experience is the highest-leverage growth driver</div>
+    
+    </div>
+</div>

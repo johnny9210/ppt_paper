@@ -1,0 +1,419 @@
+<style>
+  /* 기존 스타일 보존 */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .design_08_roadmap-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(circle, #000 30%, #888);
+  }
+
+  .card-1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(103, 119, 134, 0.8), rgba(135, 154, 166, 0.8));
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 10px;
+    border: 1px solid rgba(135, 154, 166, 0.5);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: linear-gradient(to right, #3396AC, #65E7F6);
+    border-radius: 999px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-1 .card-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #37485A;
+    border-radius: 999px;
+  }
+
+  .card-1 .card-value {
+    flex: 1;
+    margin-left: 10px;
+    color: #FFFFFF;
+    font-size: 0.9rem;
+  }
+
+  .card-body {
+    flex: 1;
+    background: rgba(103, 119, 134, 0.2);
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+  }
+
+  .card-1 .card-label {
+    margin-top: 10px;
+    color: #FFFFFF;
+    font-size: 0.68rem; /* 약 15% 축소 (0.8rem * 85%) */
+    text-align: center;
+    line-height: 1.2; /* 줄 간격 조정 */
+  }
+
+  .card-accent {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #3396AC, #65E7F6);
+    border-radius: 999px;
+    margin-top: 10px;
+  }
+
+  .card-2 {
+    width: 200px;
+    height: 250px;
+    background: linear-gradient(to bottom, rgba(103, 119, 134, 0.8), rgba(135, 154, 166, 0.8));
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid rgba(135, 154, 166, 0.5);
+  }
+
+  .card-header {
+    width: 90%;
+    background: linear-gradient(90deg, #FF8C42, #FF3E1D);
+    border-radius: 15px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .card-2 .card-icon {
+    width: 25px;
+    height: 25px;
+    background-color: #8D96A6;
+    border-radius: 50%;
+  }
+
+  .card-2 .card-value {
+    background-color: #8D96A6;
+    border-radius: 8px;
+    height: 30px;
+    margin-top: 10px;
+    width: 90%;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-2 .card-label {
+    width: 80%;
+    background-color: #606C7D;
+    border-radius: 5px;
+    height: 16px;
+    margin-top: 10px;
+  }
+
+  .card-accent {
+    width: 30px;
+    height: 8px;
+    background: linear-gradient(90deg, #FF8C42, #FF3E1D);
+    border-radius: 5px;
+    margin-top: auto;
+  }
+
+  .card-3 {
+    width: 200px;
+    height: 250px;
+    background: linear-gradient(to bottom, rgba(103, 119, 134, 0.8), rgba(135, 154, 166, 0.8));
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    backdrop-filter: blur(8px);
+    margin: 10px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #B05BD5, #8D89A5);
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .card-3 .card-icon {
+    width: 24px;
+    height: 24px;
+    background: #8D89A5;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  .card-3 .card-value {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    height: 20px;
+  }
+
+  .card-body {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    flex-grow: 1;
+    margin-top: 10px;
+    padding: 8px;
+  }
+
+  .card-3 .card-label {
+    font-size: 0.89rem;
+    color: #F0F0F0;
+    margin-top: 4px;
+    background: linear-gradient(90deg, #B05BD5, #434B66);
+    height: 12px;
+    border-radius: 4px;
+    line-height: 1.2; /* 줄 간격 조정 */
+  }
+
+  .card-accent {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #6A6F87, #B05BD5);
+    border-radius: 6px;
+  }
+
+  .card-4 {
+    width: 220px;
+    background: linear-gradient(to bottom, rgba(103, 119, 134, 0.8), rgba(135, 154, 166, 0.8));
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    padding: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #040D1E;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  }
+
+  .card-4 .card-icon {
+    background: #0E2032;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+  }
+
+  .card-4 .card-value {
+    background: #0E2032;
+    border-radius: 4px;
+    flex-grow: 1;
+    margin-left: 8px;
+    height: 12px;
+  }
+
+  .card-body {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .card-4 .card-label {
+    background: linear-gradient(90deg, #A5F3FC, #828E9D);
+    border-radius: 4px;
+    height: 12px;
+    width: 80%;
+    margin: 8px 0;
+    font-size: 0.85rem; /* 약 5% 축소(0.875rem * 95%) */
+  }
+
+  .card-accent {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 6px;
+    background: #A5F3FC;
+    border-radius: 3px;
+    box-shadow: 0 0 6px #A5F3FC;
+  }
+
+  .card-5 {
+    width: 160px;
+    height: 200px;
+    background-color: rgba(6, 23, 46, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    position: relative;
+  }
+
+  .card-header {
+    width: 80%;
+    height: 24px;
+    background: linear-gradient(to right, #3D5267, #A5F3FC);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .card-5 .card-icon {
+    width: 20px;
+    height: 20px;
+    background-color: #637B8D;
+    border-radius: 50%;
+  }
+
+  .card-body {
+    width: 80%;
+    height: 100px;
+    background-color: rgba(61, 82, 103, 0.2);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-5 .card-label {
+    width: 60%;
+    height: 12px;
+    background-color: rgba(75, 211, 234, 0.3);
+    margin-top: 8px;
+    border-radius: 6px;
+    font-size: 0.68rem; /* 약 15% 축소 (0.8rem * 85%) */
+    line-height: 1.2; /* 줄 간격 조정 */
+  }
+</style>
+
+<div class="slide-container design_08_roadmap" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <div class="design_08_roadmap-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+
+    <div class="card-wrap-1" style="position:absolute;left:5.0%;top:5.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-1">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-image" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+                    <div class="card-value">Initiation</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Define project scope</div>
+                    <div class="card-label">Assemble team</div>
+                    <div class="card-label">Initial stakeholder meeting<br>Q1 2024</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-2" style="position:absolute;left:30.0%;top:70.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-2">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-robot" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+                    <div class="card-value">Planning</div>
+                </div>
+                <div class="card-label">Develop project plan</div>
+                <div class="card-label">Risk assessment</div>
+                <div class="card-label">Resource allocation<br>Q2 2024</div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-3" style="position:absolute;left:45.0%;top:5.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-3">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-trophy" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+                    <div class="card-value">Execution</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Implement plan</div>
+                    <div class="card-label">Monitor progress</div>
+                    <div class="card-label">Quality control<br>Q3 2024</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-4" style="position:absolute;left:60.0%;top:70.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-4">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-network-wired" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+                    <div class="card-value">Monitoring</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Performance review</div>
+                    <div class="card-label">Adjustments</div>
+                    <div class="card-label">Stakeholder updates<br>Q4 2024</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-5" style="position:absolute;left:80.0%;top:5.0%;width:15.0%;height:25.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <div class="card-5">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-crown" style="font-size:1.8rem;color:#D4AF37;"></i></div>
+                    <div class="card-value">Closure</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Finalize documentation</div>
+                    <div class="card-label">Post-project review</div>
+                    <div class="card-label">Celebrate success<br>Q1 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#FB709D;letter-spacing:0.08em;text-transform:uppercase;">
+            Project Timeline
+        </div>
+    </div>
+</div>

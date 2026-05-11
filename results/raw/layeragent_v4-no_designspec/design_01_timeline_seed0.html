@@ -1,0 +1,345 @@
+<style>
+  /* v10 CJK guard — long Korean labels can wrap mid-character */
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+  .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    hyphens: none;
+  }
+  /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+  .card-value, .hero-value {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    hyphens: none;
+  }
+
+  .design_01_timeline-bg-base {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(145deg, #000, #05052b);
+  }
+</style>
+
+<style>
+  body {
+    background-color: #0d1845;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .card-1 {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    background: linear-gradient(145deg, rgba(42, 173, 198, 0.1), rgba(47, 173, 198, 0.4));
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(42, 173, 198, 0.5), inset 0 0 10px rgba(42, 173, 198, 0.3);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(47, 173, 198, 0.5);
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(42, 173, 198, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+  }
+  .card-1 .card-icon {
+    width: 50px;
+    height: 50px;
+    background: #308AAA;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(42, 173, 198, 0.6);
+  }
+  .card-1 .card-value {
+    flex: 1;
+    margin-left: 10px;
+    color: #ffffff;
+    font-size: 1rem;
+  }
+  .card-body {
+    flex: 1;
+    background: rgba(42, 173, 198, 0.1);
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(42, 173, 198, 0.3);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-1 .card-label {
+    width: 80%;
+    height: 12px;
+    background: linear-gradient(90deg, #42ADC6, transparent);
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 12.8px;
+  }
+</style>
+
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #0d1845;
+  }
+
+  .card-2 {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    background: linear-gradient(145deg, rgba(42, 173, 198, 0.1), rgba(47, 173, 198, 0.4));
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(42, 173, 198, 0.5), inset 0 0 10px rgba(42, 173, 198, 0.3);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-header {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(40, 248, 222, 0.15);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-body {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(156, 218, 246, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    margin: 10px 0;
+  }
+
+  .card-accent {
+    width: 60%;
+    height: 6px;
+    background: linear-gradient(90deg, #3D5FB5, #1748A2);
+    border-radius: 10px;
+  }
+  
+  .card-2 .card-label {
+    font-size: 13.6px;
+  }
+</style>
+
+<style>
+  .card-3 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(145deg, rgba(42, 173, 198, 0.1), rgba(47, 173, 198, 0.4));
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(42, 173, 198, 0.5), inset 0 0 10px rgba(42, 173, 198, 0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  .card-header {
+    width: 80%;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(45deg, #41A9CB, #6E85C7);
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(20, 88, 134, 0.2);
+  }
+
+  .card-3 .card-icon, .card-value {
+    color: #ffffff;
+    font-size: 1.2rem;
+    flex-basis: auto;
+  }
+
+  .card-body {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: linear-gradient(135deg, rgba(119, 207, 238, 0.15), rgba(56, 139, 247, 0.15));
+    border-radius: 10px;
+    border: 1px solid rgba(50, 122, 171, 0.3);
+    margin-top: 20px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(20, 88, 134, 0.1);
+  }
+
+  .card-3 .card-label {
+    color: rgba(112, 192, 238, 0.8);
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .card-accent {
+    width: 60%;
+    height: 4px;
+    background: linear-gradient(to right, #41A9CB, #77CFEE);
+    border-radius: 2px;
+    margin-top: 15px;
+  }
+</style>
+
+<style>
+  .card-4 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(42, 173, 198, 0.1), rgba(47, 173, 198, 0.4));
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(42, 173, 198, 0.5), inset 0 0 10px rgba(42, 173, 198, 0.3);
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(90deg, #48367C, #6A61A1);
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(100, 67, 155, 0.6);
+  }
+  
+  .card-body {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(53, 13, 95, 0.8);
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  
+  .card-accent {
+    width: 50%;
+    height: 6px;
+    background: linear-gradient(90deg, #28f8de, #8553BD);
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(53, 13, 95, 0.7);
+  }
+
+  .card-4 .card-label {
+    font-size: 13.6px;
+  }
+</style>
+
+<div class="slide-container design_01_timeline" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+  <div style="position:absolute;inset:0;z-index:0;">
+    <div class="design_01_timeline-bg-base"></div>
+  </div>
+  <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+
+  <div class="card-wrap-1" style="position:absolute;left:15.0%;top:50.0%;width:15.0%;height:25.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <div class="card-1">
+        <div class="card-header">
+          <div class="card-icon">🔗</div>
+          <div class="card-value">Quantum Processing</div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Faster computation with quantum processors.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-wrap-2" style="position:absolute;left:35.0%;top:50.0%;width:15.0%;height:25.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <div class="card-2">
+        <div class="card-header">
+          <div class="card-icon">🔒</div>
+          <div class="card-value">Security Integration</div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Advanced encryption for data safety.</div>
+        </div>
+        <div class="card-accent"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-wrap-3" style="position:absolute;left:55.0%;top:50.0%;width:15.0%;height:25.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <div class="card-3">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <div class="card-value">Lightning Speed</div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">High-speed data transfers across the grid.</div>
+        </div>
+        <div class="card-accent"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-wrap-4" style="position:absolute;left:75.0%;top:50.0%;width:15.0%;height:25.0%;z-index:10;">
+    <div style="position:absolute;inset:0;">
+      <div class="card-4">
+        <div class="card-header">
+          <div class="card-icon">🔧</div>
+          <div class="card-value">Customizable Setup</div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Adaptable configurations for various needs.</div>
+        </div>
+        <div class="card-accent"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+    <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#D437FF;letter-spacing:0.08em;text-transform:uppercase;">Feature Highlights</div>
+  </div>
+</div>

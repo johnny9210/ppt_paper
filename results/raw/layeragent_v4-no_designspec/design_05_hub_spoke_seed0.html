@@ -1,0 +1,560 @@
+<div class="slide-container design_05_hub_spoke" style="width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Noto Sans KR',sans-serif;">
+    <div style="position:absolute;inset:0;z-index:0;">
+        <style>
+            /* v10 CJK guard — long Korean labels can wrap mid-character */
+            .card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8,
+            .card-icon, .card-label, .hero-1, .hero-2, .hero-subtitle {
+                word-break: keep-all;
+                overflow-wrap: anywhere;
+                hyphens: none;
+            }
+            /* 값 토큰은 절대 분해 금지 (예: +180%, 8.5만, ₩128억) */
+            .card-value, .hero-value {
+                word-break: keep-all;
+                overflow-wrap: normal;
+                white-space: nowrap;
+                hyphens: none;
+            }
+            
+            .design_05_hub_spoke-bg-base {
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+                background: linear-gradient(135deg, #000, #888);
+            }
+
+            .card-1 .card-label {
+                font-size: 0.7rem; /* Reduced by ~22% */
+            }
+
+            .card-2 .card-label {
+                font-size: 0.6rem; /* Reduced by ~25% */
+            }
+
+            .card-5 .card-label {
+                font-size: 0.7rem; /* Reduced by ~20% */
+            }
+
+            .card-6 .card-label {
+                font-size: 0.8rem; /* Reduced for vertical overflow */
+                line-height: 1.2;
+            }
+            
+            .card-label {
+                font-size: 0.8rem; /* Reduced for vertical overflow */
+                line-height: 1.2; 
+            }
+        </style>
+        <div class="design_05_hub_spoke-bg-base"></div>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:3;pointer-events:none;">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;">
+            <defs>
+                <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="0.6" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <g filter="url(#neon-glow)">
+                <path d="M50.00,50.00 Q28.93,45.92 10.85,57.50" stroke="#00CBA8" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,50.00 Q36.75,49.05 26.50,57.50" stroke="#00CBA8" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,50.00 Q44.58,52.18 42.15,57.50" stroke="#00CBA8" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,50.00 Q52.42,55.32 57.85,57.50" stroke="#00CBA8" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,50.00 Q60.25,58.45 73.50,57.50" stroke="#00CBA8" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+                <path d="M50.00,50.00 Q68.07,61.58 89.15,57.50" stroke="#00CBA8" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5" />
+            </g>
+        </svg>
+    </div>
+    <div style="position:absolute;inset:0;z-index:4;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;z-index:8;pointer-events:none;"></div>
+    
+    <div style="position:absolute;left:42.0%;top:42.0%;
+                        width:16.0%;aspect-ratio:1;z-index:15;display:flex;
+                        align-items:center;justify-content:center;border-radius:50%;
+                        background:radial-gradient(circle, rgba(74,222,222,0.25) 0%, transparent 70%);
+                        box-shadow:0 0 60px #00CBA855, 0 0 120px #00CBA830, inset 0 0 40px #00CBA844;
+                        border:2px solid #00CBA8;">
+        <i class="fas fa-network-wired" style="font-size:3rem;color:#00CBA8;filter:drop-shadow(0 0 10px #00CBA8);"></i>
+    </div>
+    <div class="hero-wrap-1" style="position:absolute;left:40.0%;top:37.0%;width:20.0%;height:26.0%;z-index:20;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                body {
+                    background-color: #0f172a;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                }
+                .hero-1 {
+                    width: 300px;
+                    height: 300px;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    background: radial-gradient(circle, #34d399 0%, #0C7B8D 70%);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 40px #34d399;
+                }
+                .hero-1 .hero-value {
+                    font-size: 36px;
+                    color: #ffffff;
+                    text-shadow: 0 0 10px #4BF0EF, 0 0 20px #34d399;
+                }
+                .hero-1 .hero-subtitle {
+                    font-size: 16px;
+                    color: #89FAE0;
+                    opacity: 0.85;
+                }
+            </style>
+
+            <div class="hero-1">
+                <div class="hero-value">Central System</div>
+                <div class="hero-subtitle">Technology Integration</div>
+            </div>
+        </div>
+        <div style="position:absolute;inset:0;border:1px solid rgba(212,175,55,0.35);opacity:1.0;pointer-events:none;"></div>
+        <div style="position:absolute;left:0.0%;top:0.0%;width:8.0%;height:8.0%;pointer-events:none;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="5,40 5,5 40,5" stroke="#00CBA8" stroke-width="2" fill="none" opacity="0.7"/>
+            </svg>
+        </div>
+    </div>
+    <div class="card-wrap-1" style="position:absolute;left:4.0%;top:30.0%;width:13.7%;height:55.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-1 {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    background: radial-gradient(circle, #34d399 0%, #0C7B8D 70%);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 40px #34d399;
+                }
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(7, 111, 133, 0.2);
+                    border-radius: 50px;
+                    padding: 10px 20px;
+                    backdrop-filter: blur(5px);
+                }
+
+                .card-1 .card-icon {
+                    width: 40px;
+                    height: 40px;
+                    background-color: #7AD2E0;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+
+                .card-1 .card-value {
+                    font-size: 1.2rem;
+                    color: #ffffff;
+                }
+
+                .card-body {
+                    margin-left: 20px;
+                    flex-grow: 1;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .card-1 .card-label {
+                    font-size: 0.7rem; /* Adjusted */
+                    color: #34d399;
+                    text-align: right;
+                    margin-left: auto;
+                }
+
+                .card-accent {
+                    position: absolute;
+                    bottom: 10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 60px;
+                    height: 6px;
+                    background: linear-gradient(to right, #7AD2E0, #34d399);
+                    border-radius: 3px;
+                }
+            </style>
+
+            <div class="card-1">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-database" style="font-size:1.8rem;color:#D4AF37;"></i>
+                    </div>
+                    <div class="card-value">☁️ Cloud</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Data storage and computing power</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-2" style="position:absolute;left:19.7%;top:30.0%;width:13.6%;height:55.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-2 {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    background: radial-gradient(circle, #34d399 0%, #0C7B8D 70%);
+                    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 40px #34d399;
+                    border-radius: 15px;
+                    overflow: hidden;
+                }
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: 10px;
+                    backdrop-filter: blur(10px);
+                }
+
+                .card-2 .card-icon {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 10px;
+                    background: radial-gradient(circle, #81EDE8, #33BBC8);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 0 15px #33BBC8;
+                }
+
+                .card-2 .card-value {
+                    color: #81EDE8;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+                }
+
+                .card-2 .card-label {
+                    margin-top: 10px;
+                    color: #81EDE8;
+                    font-size: 0.6rem; /* Adjusted */
+                    text-align: center;
+                    width: 100%;
+                }
+            </style>
+
+            <div class="card-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-robot" style="font-size:1.8rem;color:#D4AF37;"></i>
+                    </div>
+                    <div class="card-value">📡 Communication</div>
+                </div>
+                <div class="card-label">Satellite-based data exchange</div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-3" style="position:absolute;left:35.3%;top:30.0%;width:13.7%;height:55.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-3 {
+                    width: 360px;
+                    height: 200px;
+                    background: radial-gradient(circle, #34d399 0%, #0C7B8D 70%);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 40px #34d399;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                }
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(18, 171, 195, 0.2);
+                    width: 80%;
+                    padding: 10px;
+                    border-radius: 10px;
+                    margin-bottom: 20px;
+                    box-shadow: inset 0 0 10px rgba(83, 241, 245, 0.6);
+                }
+
+                .card-3 .card-icon {
+                    font-size: 3rem; /* Icon size */
+                    color: #53F1F5;
+                    margin-right: 10px;
+                }
+
+                .card-3 .card-value {
+                    font-size: 1.5rem; /* Title size */
+                    color: #FFFFFF;
+                }
+
+                .card-3 .card-label {
+                    font-size: 1rem; /* Label size */
+                    color: #34d399;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .card-accent {
+                    position: absolute;
+                    bottom: 10px;
+                    width: 80%;
+                    height: 4px;
+                    background: linear-gradient(90deg, #12ABC3, #53F1F5);
+                    border-radius: 2px;
+                }
+            </style>
+
+            <div class="card-3">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-globe" style="font-size:1.8rem;color:#D4AF37;"></i>
+                    </div>
+                    <div class="card-value">🔒 Security</div>
+                </div>
+                <div class="card-label">Protection against cyber threats</div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-4" style="position:absolute;left:51.0%;top:30.0%;width:13.7%;height:55.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-4 {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    background: radial-gradient(circle, #34d399 0%, #0C7B8D 70%);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 40px #34d399;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    backdrop-filter: blur(10px);
+                }
+
+                .card-header {
+                    background: rgba(15, 23, 42, 0.8);
+                    border-radius: 50px;
+                    padding: 10px 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .card-4 .card-icon {
+                    background: #7CF6D8;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    box-shadow: 0 0 10px rgba(124, 246, 216, 0.5);
+                }
+
+                .card-4 .card-value {
+                    color: #ffffff;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+
+                .card-accent {
+                    position: absolute;
+                    bottom: -5px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: linear-gradient(90deg, #28B6A5, #7CF6D8);
+                    height: 4px;
+                    width: 60%;
+                    border-radius: 50px;
+                    box-shadow: 0 0 20px rgba(40, 182, 165, 0.5);
+                }
+            </style>
+
+            <div class="card-4">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-key" style="font-size:1.8rem;color:#D4AF37;"></i>
+                    </div>
+                    <div class="card-value">🤖 AI</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-5" style="position:absolute;left:66.7%;top:30.0%;width:13.6%;height:55.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-5 {
+                    background: radial-gradient(circle, #34d399 0%, #0C7B8D 70%);
+                    border-radius: 15px;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 40px #34d399;
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: radial-gradient(circle, #50B9AB, #88EDE3);
+                    border-radius: 24px;
+                    padding: 12px;
+                    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+                    margin-bottom: 16px;
+                    width: 80%;
+                }
+
+                .card-5 .card-icon {
+                    font-size: 2rem;
+                    color: #ffffff;
+                }
+
+                .card-5 .card-value {
+                    font-size: 1.25rem;
+                    color: #ffffff;
+                    margin-left: 12px;
+                }
+
+                .card-body {
+                    background: rgba(0, 255, 255, 0.1);
+                    padding: 16px;
+                    border-radius: 12px;
+                    box-shadow: inset 0 1px 5px rgba(255, 255, 255, 0.2);
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .card-5 .card-label {
+                    font-size: 0.7rem; /* Adjusted */
+                    color: #ffffff;
+                    opacity: 0.8;
+                }
+
+                .card-accent {
+                    position: absolute;
+                    bottom: 10px;
+                    height: 4px;
+                    width: 80%;
+                    background: linear-gradient(90deg, #50B9AB, transparent);
+                    border-radius: 4px;
+                }
+            </style>
+
+            <div class="card-5">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line" style="font-size:1.8rem;color:#D4AF37;"></i>
+                    </div>
+                    <div class="card-value">💽 Database</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-label">Structured data storage</div>
+                </div>
+                <div class="card-accent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-wrap-6" style="position:absolute;left:82.3%;top:30.0%;width:13.7%;height:55.0%;z-index:10;">
+        <div style="position:absolute;inset:0;">
+            <style>
+                .card-6 {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    background: radial-gradient(circle, #34d399 0%, #0C7B8D 70%);
+                    border-radius: 15px;
+                    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 40px #34d399;
+                    padding: 20px;
+                    align-items: center;
+                    justify-content: space-between;
+                    backdrop-filter: blur(10px);
+                }
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 10px;
+                    padding: 10px;
+                }
+
+                .card-6 .card-icon {
+                    width: 40px;
+                    height: 40px;
+                    background: #497D7B;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 10px;
+                }
+
+                .card-6 .card-value {
+                    color: #86D2B7;
+                    font-size: 1rem;
+                    flex-grow: 1;
+                }
+
+                .card-6 .card-label {
+                    font-size: 0.8rem; /* Adjusted */
+                    line-height: 1.2;
+                    width: 80%;
+                    height: 12px;
+                    background: linear-gradient(90deg, #86D2B7, #314C5E);
+                    border-radius: 6px;
+                    margin-top: 10px;
+                }
+            </style>
+
+            <div class="card-6">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-file-lines" style="font-size:1.8rem;color:#D4AF37;"></i>
+                    </div>
+                    <div class="card-value">🔧 Hardware</div>
+                </div>
+                <div class="card-label">Physical device integration</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:25;text-align:center;max-width:90%;">
+        <div style="font-family:serif;font-size:1.75rem;font-weight:700;color:#00CBA8;letter-spacing:0.08em;text-transform:uppercase;">Technology Integration</div>
+    </div>
+</div>
