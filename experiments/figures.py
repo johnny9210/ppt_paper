@@ -112,13 +112,13 @@ def fig1_perception_generation_gap(rows: list[dict],
 
 
 def fig2_methods(rows: list[dict]) -> None:
-    """Multi-metric method comparison."""
+    """Class-name-aligned sanity check (boards LTED + LayerRecall)."""
     methods = ["single_pass", "visual_cot", "cot_h_rag", "layeragent"]
-    metrics = ["block_match", "position", "lted", "layer_recall"]
-    metric_labels = ["Block-Match", "Position", "LTED↓", "LayerRecall"]
-    higher_better = [True, True, False, True]
+    metrics = ["lted", "layer_recall"]
+    metric_labels = ["LTED↓ (class-aligned, aux)", "LayerRecall ↑ (class-aligned, aux)"]
+    higher_better = [False, True]
 
-    fig, axes = plt.subplots(1, len(metrics), figsize=(14, 3.5), sharey=False)
+    fig, axes = plt.subplots(1, len(metrics), figsize=(9, 3.8), sharey=False)
     for ax, metric, label, hb in zip(axes, metrics, metric_labels, higher_better):
         means = []
         errs = []

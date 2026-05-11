@@ -1,4 +1,5 @@
 flowchart TB
+    P["<b>Chat Parser</b><br/>이미지 + 자유 메시지 → slide_spec<br/><i>19개 slide_type 어휘</i>"]
     A["<b>Analyzer</b><br/>전체 이미지 → 레이아웃 + bbox"]
     B["<b>Design Director</b><br/>+ CV facts → DesignSpec (blackboard)"]
 
@@ -14,30 +15,39 @@ flowchart TB
         direction TB
         S5["Hero Detail × N<br/><i>crop</i>"]
         S6["Icon Agent<br/><i>library</i>"]
-        S7["Chart Agent<br/><i>type=chart</i>"]
-        S8["Table Agent<br/><i>type=table</i>"]
+        S7["Chart Agent<br/><i>chart_templates</i>"]
+        S8["Table Agent<br/><i>chart_templates</i>"]
     end
+
+    L["<b>chart_templates 라이브러리</b><br/>7개 결정적 SVG/HTML renderer<br/>bar · line(multi-series) · waterfall<br/>matrix_2x2 · mekko · harvey_table · tree"]
 
     C["<b>Assembler</b> · z-index stacking"]
     D["<b>Style Normalizer</b> · cross-card CSS 통일"]
     E["<b>Text Inserter</b> · 완성 시각 → 콘텐츠 주입"]
 
+    P --> A
     A --> B
     B --> G1
     B --> G2
+    G2 -.-> L
     G1 --> C
     G2 --> C
+    L -.-> C
     C --> D
     D --> E
 
+    classDef parser fill:#FFE4E6,stroke:#BE123C,stroke-width:2px,color:#000
     classDef stage0 fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#000
     classDef specAlways fill:#E0E7FF,stroke:#4F46E5,stroke-width:1.5px,color:#000
     classDef specCond fill:#F5F3FF,stroke:#7C3AED,stroke-width:1.5px,stroke-dasharray:4 2,color:#000
+    classDef library fill:#FEF9C3,stroke:#CA8A04,stroke-width:2px,color:#000
     classDef stage2 fill:#D1FAE5,stroke:#059669,stroke-width:2px,color:#000
 
+    class P parser
     class A,B stage0
     class S1,S2,S3,S4 specAlways
     class S5,S6,S7,S8 specCond
+    class L library
     class C,D,E stage2
 
     style G1 fill:#F0F4FF,stroke:#4F46E5,stroke-width:1.5px,color:#000
