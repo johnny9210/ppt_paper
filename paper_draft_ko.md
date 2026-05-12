@@ -44,9 +44,6 @@ RQ3. LayerAgent 의 효과는 레이아웃 유형 (chart·표·다이어그램 �
 
 본 연구는 LayerAgent를 제안한다. 단일 VLM 호출을 전체 이미지 분석 → 공유 DesignSpec 작성 → 8개 전문 에이전트의 병렬 레이어 생성 → 결정적 z-index 조립 → 카드 간 스타일 통일 → 텍스트 주입의 다단계 파이프라인으로 분해함으로써, 각 호출이 구조·스타일·콘텐츠를 동시에 짊어지지 않고 한 가지 책임만 지도록 설계했다 (3장). 효과는 단일 지표가 레이어 보존의 다면성을 모두 포착하지 못하므로 디자인2code 다면적 평가 묶음 — 객관 충실도 (Element-IoU, CIEDE2000) + VLM 루브릭 (AutoPresent 0–5, GPT-5.4 4 기준) — 으로 함께 측정한다 (4.3절).
 
-1.3 본 논문의 구성
-
-본 논문의 나머지는 다음과 같이 구성된다. 2장에서는 Design-to-Code 생성, 시각 교정/반복 개선, 프레젠테이션 생성, 멀티에이전트 코드 생성, Design-to-Code 평가 등 관련 연구를 검토하고 LayerAgent 의 차별점을 정리한다. 3장에서는 LayerAgent 프레임워크의 전체 구조와 Chat Parser 입력 정규화, DesignSpec blackboard, Stage 1 전문 에이전트 8개의 병렬 레이어 생성, chart_templates 결정적 렌더링, Style Normalizer · Text Inserter 의 단계 분리를 기술한다. 4장에서는 N=50 layered slide 평가셋, 4 메서드 비교 설정, 그리고 객관 충실도(Element-IoU, CIEDE2000) + VLM 루브릭(AutoPresent 0–5, GPT-5.4 4 기준)의 디자인2code 다면적 평가 방식을 정의한다. 5장에서는 동일 GPT-4o 조건의 4 메서드 비교 결과를 RQ2 (전체 우위) 와 RQ3 (레이아웃 의존성) 으로 분해하여 보고하고, DesignSpec blackboard 와 Text Inserter 두 메커니즘의 격리 측정을 다룬다. 6장에서는 element omission 의 capacity allocation 가설, 다면적 평가 축이 측정하는 서로 다른 차원, string-CCR 과 visual CCR 의 메트릭학적 후속 제안, 단계 분리의 효과를 논의한다. 7장에서는 평가 방법론·통계 검증력·frontier 모델 경계 참조의 세 한계를 정리하고, 8장에서는 결론과 향후 연구를 제시한다.
 
 ---
 
@@ -82,11 +79,11 @@ MetaGPT (Hong et al., ICLR 2024), ChatDev (Qian et al., ACL 2024), CAMEL (Li et 
 
 ![그림 1: LayerAgent architecture](results/figures/layeragent_architecture.png)
 
-(그림 1) LayerAgent 의 측정 대상 파이프라인. Chat Parser 가 입력을 타입드 `slide_spec` JSON 으로 정규화한 뒤, 단계 0 (Analyzer · Design Director) 이 레이아웃과 DesignSpec blackboard 를 산출하고, 단계 1 의 8개 전문가가 병렬로 레이어 단편을 생성하며, 단계 2 의 Assembler · Style Normalizer · Text Inserter 가 결정적 z-index 조립과 카드 간 스타일 통일·텍스트 주입을 수행한다. 19개 slide_type 어휘, 전문가 그룹 구성, chart_templates 결정적 렌더링 (chart 슬라이드 우회 처리), 선택 단계(Overflow Repair, Visual Critic) 의 상세는 3장 본문에서 기술된다.
+(그림 1) LayerAgent 의 측정 대상 파이프라인. Chat Parser 가 입력을 타입드 `slide_spec` JSON 으로 정규화한 뒤, 입력 분석 단계 (Analyzer · Design Director) 가 레이아웃과 DesignSpec blackboard 를 산출하고, 병렬 레이어 생성 단계의 8개 전문가가 레이어 단편을 생성하며, 조립 단계의 Assembler · Style Normalizer · Text Inserter 가 결정적 z-index 조립과 카드 간 스타일 통일·텍스트 주입을 수행한다. 19개 slide_type 어휘, 전문가 그룹 구성, chart_templates 결정적 렌더링 (chart 슬라이드 우회 처리), 선택 단계(Overflow Repair, Visual Critic) 의 상세는 3장 본문에서 기술된다.
 
 전체 파이프라인은 LangGraph StateGraph로 구현되었으며, 8개 전문가는 Design Director의 출력 이후 병렬로 실행된다. Chat Parser는 그래프 진입 노드로 위치하여 사용자 입력 다양성을 입력 표준화 단계에서 흡수한다.
 
-3.2 단계 0 — 입력 분석
+3.2 입력 분석과 DesignSpec 구축
 
 제1항 Chat Parser — 입력 정규화
 
@@ -104,7 +101,7 @@ MetaGPT (Hong et al., ICLR 2024), ChatDev (Qian et al., ACL 2024), CAMEL (Li et 
 
 CV 그라운딩의 효과. 팔레트는 k-means(k=6)로 추출되어 모델이 색을 환각할 여지를 줄이고, OCR 텍스트 높이는 폰트 크기 결정의 결정적 기준점이 되며, HSV 채도는 flat과 vivid 미학을 구분하는 단서로 작용한다. 이 효과는 `no_cv_facts` 플래그로 격리해 측정할 수 있다.
 
-3.3 단계 1 — Specialist Agents (병렬)
+3.3 전문 에이전트 병렬 레이어 생성
 
 8개 전문가는 Design Director의 출력 이후 병렬로 실행되며, 두 그룹으로 나뉜다 — 모든 슬라이드에서 활성화되는 레이어 전문가 4개와 slide_type·콘텐츠에 따라 조건부 활성화되는 전문가 4개. 본 8개 는 에이전트 유형 기준이며, 그 중 Card Detail 과 Hero Detail 은 Analyzer 가 검출한 요소 수에 따라 동적으로 여러 인스턴스로 실행된다.
 
@@ -114,7 +111,7 @@ CV 그라운딩의 효과. 팔레트는 k-means(k=6)로 추출되어 모델이 �
 - Icon Agent: 카드별 의미 분석 → FontAwesome 클래스 검색 → 실제 `<i class="fa-...">` 태그 주입의 순서로 동작하며, 환각된 아이콘 URL을 구조적으로 차단한다.
 - Chart Agent · Table Agent: 슬라이드 타입이 chart_templates 적용 7종 (bar_chart, line_chart, waterfall, matrix_2x2, mekko, harvey_table_advanced, tree_diagram) 중 하나일 때 `chart_templates` 라이브러리로 슬라이드 전체를 결정적으로 렌더링한다. 라이브러리는 7개 renderer를 노출한다 — `bar_chart` (하이라이트/플랜 점선 지원), `line_chart` (multi-series, 시리즈별 색·하이라이트·주석), `waterfall` (start/positive/negative/total 4-type 막대), `matrix_2x2` (4-사분면 + 축 라벨 + 하이라이트 quadrant), `mekko` (가변폭 컬럼 × stacked 세그먼트), `harvey_table_advanced` (option×기준 그리드 + 0/25/50/75/100 Harvey ball), `tree_diagram` (1 root → N branches → M leaves 계층적 레이아웃). VLM 호출은 chat_parser 단계의 데이터 추출에 한정되며, 시각 자체는 SVG/HTML 프리미티브로 결정적으로 산출되므로 자기회귀 토큰 예산이 시각·콘텐츠 간 zero-sum을 일으키지 않는다 (6.1절).
 
-3.4 단계 2 — 조립과 정규화
+3.4 결정적 조립과 스타일 정규화
 
 제1항 Assembler
 
@@ -140,7 +137,7 @@ CV 그라운딩의 효과. 팔레트는 k-means(k=6)로 추출되어 모델이 �
 
 이 단계의 핵심은 시각 디자인을 먼저 확정한 뒤 텍스트를 주입한다는 순서에 있다. 단일 VLM에서 풍부한 CSS 생성과 정확한 텍스트 배치가 zero-sum 경쟁을 벌이는 현상 (H-RAG 에서 고밀도 시각 효과 부분집합 평균 CCR −13% / CSS +75%, chart·표 계열의 개별 디자인에서는 CCR 1.0 → 0.36–0.55 까지 큰 폭으로 감소) 을 줄이기 위한 설계로 단계 분리가 작동하며, 단계 분리에 의해 해당 zero-sum 이 완화될 수 있다. 이 효과는 `no_text_inserter` 플래그로 격리해 측정할 수 있다.
 
-3.5 선택 단계
+3.5 선택 단계 (Overflow Repair · Visual Critic)
 
 제1항 Overflow Repair
 
@@ -292,19 +289,17 @@ MLLM judge 4 기준 모두에서 LayerAgent가 1위이며, 평균은 4.02로 차
 - MLLM Δ (주요) = LayerAgent 평균 − (최고 베이스라인 평균), 양수 = LayerAgent 우세.
 - LTED Δ (aux) = (최고 베이스라인 LTED) − (LayerAgent LTED), 양수 = LayerAgent 우세.
 
-| 레이아웃 | N | MLLM LayerAgent | MLLM Δ | LTED LayerAgent | LTED Δ | Primary 해석 |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| 고밀도 시각 효과 디자인 | 10 | 3.23 | −0.80 | 0.551 | +0.27 | 베이스라인 우세 (LTED 보조 지표는 LayerAgent 우세) |
-| pyramid | 5 | 3.45 | +0.05 | 0.764 | +0.08 | LayerAgent 우세 (tree_diagram renderer) |
-| mekko | 5 | 5.00 | +1.35 | 0.753 | +0.08 | LayerAgent 우세 (mekko renderer) |
-| process_flow | 5 | 3.25 | −0.65 | 0.818 | +0.06 | 베이스라인 우세 (LTED 보조 지표는 LayerAgent 우세) |
-| harvey_table | 5 | 4.25 | +0.15 | 0.923 | −0.05 | LayerAgent 우세 (harvey_table_advanced renderer) |
-| matrix_2x2 | 5 | 4.40 | +1.90 | 0.917 | +0.00 | LayerAgent 우세 (matrix_2x2 renderer) |
-| waterfall | 5 | 4.50 | +1.70 | 0.662 | −0.03 | LayerAgent 우세 (waterfall renderer) |
-| line_chart | 5 | 4.40 | +1.80 | 0.845 | −0.03 | LayerAgent 우세 (multi-series line_chart renderer) |
-| bar_chart | 5 | 4.50 | +1.50 | 0.733 | −0.09 | LayerAgent 우세 (bar_chart renderer) |
-
-표 주: LTED는 부록 B의 보조 진단 지표이며, 주축은 MLLM judge이다. 9개 레이아웃 중 7개에서 LayerAgent가 MLLM 축의 우세를 차지하며, chart·표 카테고리 6종(mekko·matrix_2x2·waterfall·line_chart·bar_chart·harvey_table)은 chart_templates 결정적 렌더링으로 MLLM Δ +0.15 ~ +1.90 의 큰 폭 격차를 보인다.
+| 레이아웃 | N | MLLM LayerAgent | MLLM Δ | LTED LayerAgent | LTED Δ |
+|---|:---:|:---:|:---:|:---:|:---:|
+| 고밀도 시각 효과 디자인 | 10 | 3.23 | −0.80 | 0.551 | +0.27 |
+| pyramid | 5 | 3.45 | +0.05 | 0.764 | +0.08 |
+| mekko | 5 | 5.00 | +1.35 | 0.753 | +0.08 |
+| process_flow | 5 | 3.25 | −0.65 | 0.818 | +0.06 |
+| harvey_table | 5 | 4.25 | +0.15 | 0.923 | −0.05 |
+| matrix_2x2 | 5 | 4.40 | +1.90 | 0.917 | +0.00 |
+| waterfall | 5 | 4.50 | +1.70 | 0.662 | −0.03 |
+| line_chart | 5 | 4.40 | +1.80 | 0.845 | −0.03 |
+| bar_chart | 5 | 4.50 | +1.50 | 0.733 | −0.09 |
 
 ![그림 3: Per-layout 효과 range (N=50)](results/figures/fig3_layouts.png)
 
@@ -376,7 +371,7 @@ DesignSpec blackboard 를 제거하면 다면적 평가 묶음 4 지표 중 colo
 LayerAgent 우위의 메커니즘 분해 — Layer 분해 대 Deterministic 렌더링. 5장의 결과는 LayerAgent 전체 파이프라인의 단일 효과로 해석되기보다 두 메커니즘으로 분리 귀속되어야 한다.
 
 - (i) Deterministic chart_templates 렌더링 효과 — chart·표 6종 + pyramid 의 큰 폭 우세 (MLLM Δ +0.05 ~ +1.90, 표 4) 의 주된 원인. 본 7 레이아웃에서 VLM 호출은 chat_parser 단계의 데이터 추출에 한정되며 시각 자체는 결정적 SVG/HTML 프리미티브로 산출되므로 자기회귀 zero-sum 자체가 구조적으로 차단된다. 즉 이 카테고리의 격차는 멀티에이전트 레이어 분해의 효과라기보다 deterministic renderer 의 효과에 가깝다.
-- (ii) Layer 분해 효과 — DesignSpec + 단계 1 전문가 + 단계 2 normalizer + Text Inserter 의 결합. 고밀도 시각 효과 디자인 / process_flow / 비차트 일반 레이아웃에서 작동. 고밀도 시각 효과 부분집합 MLLM Δ −0.80, process_flow Δ −0.65 로 베이스라인이 우세 — 레이어 분해 단독 효과는 chart_templates 의 결정적 렌더링 효과만큼 강하지 않다.
+- (ii) Layer 분해 효과 — DesignSpec + 병렬 레이어 생성 단계의 전문가 + 조립 단계의 normalizer + Text Inserter 의 결합. 고밀도 시각 효과 디자인 / process_flow / 비차트 일반 레이아웃에서 작동. 고밀도 시각 효과 부분집합 MLLM Δ −0.80, process_flow Δ −0.65 로 베이스라인이 우세 — 레이어 분해 단독 효과는 chart_templates 의 결정적 렌더링 효과만큼 강하지 않다.
 
 본 confound 의 분리 보고는 LayerAgent 의 결과가 두 메커니즘의 결합으로 발생함을 명시한다 — 두 효과를 스택 한 전체 우위는 동일 모델 분해 프레임워크의 실용적 가치를 보이지만, 메커니즘별 인과 기여는 카테고리에 따라 비균일하다. 시사점 — 벡터 구조가 명확한 카테고리(chart, 표, 다이어그램)에서 데이터 추출만 VLM 에 맡기고 시각 자체는 결정적 프리미티브로 렌더링하는 분리가 zero-sum 을 구조적으로 회피하는 효과적 전략이다 (8장 원리 3 으로 일반화).
 
