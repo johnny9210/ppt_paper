@@ -336,7 +336,7 @@ D₂ (no_text_inserter) — Text Inserter 분리 (N=50 main_eval):
 | AutoPresent layout_0_5 ↑ | 3.64 | 3.42 | +0.22 |
 | AutoPresent color_0_5 ↑ | 3.12 | 3.28 | −0.16 (D₂ 우세) |
 
-Text Inserter 를 제거하면 다면적 평가 묶음 4 지표 중 layout_0_5 만 D 가 우세 (Δ +0.22) 하며, 색 차원 (CIEDE2000, color_0_5) 에서는 D₂ 가 우세이다. 다면적 시각 묶음이 측정하는 차원은 텍스트의 콘텐츠 보존이 아니라 시각 배치·색 분포이며, Text Inserter 의 핵심 메커니즘 (텍스트 누락 차단) 은 문자열 단위 콘텐츠 보존 차원으로 시각 묶음의 측정 범위 밖이다. AutoPresent 루브릭의 layout_0_5 가 텍스트 없는 카드의 "비어 있음" 을 부분적으로 채점에 반영하지만, 본 ablation 의 메커니즘 입증은 시각 묶음 단독으로 충분하지 않다. 본 관찰은 6.3절의 "string-CCR 과 시각 프록시 간 측정 차원 분리" 와 정렬되며, 후속 연구로 시각 인식 OCR 기반 시각 CCR 메트릭 도입 시 직접 검증된다.
+Text Inserter 를 제거하면 다면적 평가 묶음 4 지표 중 layout_0_5 만 D 가 우세 (Δ +0.22) 하며, 색 차원 (CIEDE2000, color_0_5) 에서는 D₂ 가 우세이다. 다면적 시각 묶음이 측정하는 차원은 텍스트의 콘텐츠 보존이 아니라 시각 배치·색 분포이며, Text Inserter 의 핵심 메커니즘 (텍스트 누락 차단) 은 문자열 단위 콘텐츠 보존 차원으로 시각 묶음의 측정 범위 밖이다. AutoPresent 루브릭의 layout_0_5 가 텍스트 없는 카드의 "비어 있음" 을 부분적으로 채점에 반영하지만, 본 ablation 의 메커니즘 입증은 시각 묶음 단독으로 충분하지 않다 — string-CCR 의 시각 가시성 한계 (7.1절) 와 정렬되며, 시각 인식 OCR 기반 시각 CCR 메트릭 도입 시 직접 검증된다.
 
 고밀도 시각 효과 디자인 부분집합 (N=10) 에서는 효과가 강하게 나타난다 — Element-IoU Δ +0.026, color_0_5 Δ +0.50 (D 우세). 시각 효과 밀도가 높은 조건에서 Text Inserter 가 없으면 시각 생성에도 영향을 미친다는 신호이다 (사전등록 가설 H-AblationTextInserter 의 결정 규칙은 string-CCR 기준이며 부록 A 에서 별도 보고).
 
@@ -355,7 +355,7 @@ DesignSpec blackboard 를 제거하면 다면적 평가 묶음 4 지표 중 colo
 
 ![그림 4: D₂ and D₄ ablation impact](results/figures/fig4_ablation.png)
 
-(그림 4) 두 메커니즘 격리 측정 시각화 (다면적 평가 묶음, LayerAgent v4 출력). 좌측: D₂ (Text Inserter 분리). 다면적 시각 묶음 4 지표 중 layout_0_5 만 D 가 우세 (Δ +0.22); 색 차원은 D₂ 가 우세. Text Inserter 의 핵심 메커니즘 (텍스트의 콘텐츠 보존) 이 시각 묶음의 측정 범위 밖에 있음을 보여준다 (6.3절 참조). 우측: D₄ (DesignSpec blackboard). color_0_5 차원에서 D 가 Δ +0.96 의 큰 폭 우세 — DesignSpec 의 카드 간 색 일관성 효과가 AutoPresent VLM 의 종합적 채점에 직접 반영됨.
+(그림 4) 두 메커니즘 격리 측정 시각화 (다면적 평가 묶음, LayerAgent v4 출력). 좌측: D₂ (Text Inserter 분리). 다면적 시각 묶음 4 지표 중 layout_0_5 만 D 가 우세 (Δ +0.22); 색 차원은 D₂ 가 우세. Text Inserter 의 핵심 메커니즘 (텍스트의 콘텐츠 보존) 이 시각 묶음의 측정 범위 밖에 있음을 보여준다 (7.1절 string-CCR 한계 참조). 우측: D₄ (DesignSpec blackboard). color_0_5 차원에서 D 가 Δ +0.96 의 큰 폭 우세 — DesignSpec 의 카드 간 색 일관성 효과가 AutoPresent VLM 의 종합적 채점에 직접 반영됨.
 
 
 제 6 장. 논의
@@ -391,37 +391,9 @@ LayerAgent 우위의 메커니즘 분해 — Layer 분해 대 Deterministic 렌�
 | ④ 클래스명 정렬 (보조 기본 점검) | LTED, Layer Recall | class 이름 정규식 매칭 | LayerAgent | 클래스명 편향: "출력이 LayerAgent 의 class naming convention 에 맞는가?" |
 | ⑤ 콘텐츠 completeness (보조) | CCR | 텍스트 문자열 보존 | LayerAgent | "콘텐츠 문자열이 코드에 살아남는가?" — 시각 가시성 미반영 |
 
-LayerAgent 는 축 ① 객관 시각 매칭과 축 ③ 교차 모델 VLM judge 두 축에서 GPT-4o 동일 모델 4 메서드 비교의 1위에 위치하며, 각 축의 측정 차원과 결과는 다음과 같다.
+LayerAgent 는 동일 GPT-4o 4 메서드 비교에서 축 ① 객관 시각 매칭 (Element-IoU 0.372 대 0.314) 과 축 ③ 교차 모델 VLM judge (GPT-5.4 4 기준 평균 4.02 대 3.37) 에서 1위, AutoPresent 루브릭의 레이아웃 차원에서도 1위 (3.64 대 2.90) 이나, 색 차원과 고밀도 시각 효과 부분집합의 두 차원에서는 베이스라인이 우세하다 — 분위기 레이어 단순화가 VLM 의 종합적 채점에 패널티를 유발한다 (5.2절·7.2절 참조). 객관 충실도 축의 우세 메커니즘은 chart·표 카테고리의 요소 배치 정확도는 chart_templates 결정적 렌더링이, 고밀도 시각 효과 디자인의 색 일관성은 DesignSpec blackboard 와 Card Detail 크롭 분석이 각각 책임진다.
 
-- 객관 충실도 (Element-IoU, CIEDE2000) — 요소 단위 Hungarian 매칭과 색 거리로 참조와의 정확한 시각 일치를 측정한다. chart·표 카테고리의 요소 배치 정확도는 chart_templates 결정적 렌더링이, 고밀도 시각 효과 디자인의 색 일관성은 DesignSpec blackboard 와 Card Detail 크롭 분석이 각각 책임지며, 그 결과 Element-IoU 전체 N=50 1위 (0.372) 이고 고밀도 시각 효과 부분집합의 CIEDE2000 도 1위 (20.7) 이다.
-- AutoPresent 루브릭 (layout_0_5, color_0_5) — GPT-4o judge 의 0–5 발표가능성 채점이다. LayerAgent 는 전체 N=50 layout_0_5 에서 1위 (3.64 대 2.90) 이나 색 차원에서는 베이스라인 우세이며, 고밀도 시각 효과 부분집합에서는 두 차원 모두 4위이다 — 분위기 레이어 단순화가 VLM 의 종합적 채점에 패널티를 유발한다 (5.2절·7.2절 참조).
-- GPT-5.4 4 기준 (1–7) — 교차 모델 VLM judge 의 종합 발표 품질 채점이다. LayerAgent 는 전체 N=50 평균에서 4 기준 모두 1위 (4.02 대 차순위 3.37).
-
-평가 축 간 불일치의 의미. Design-to-Code 활용 사례는 단일하지 않으며, 활용 사례별로 우선 축이 달라진다:
-- (i) 참조 이미지 객관 시각 복제 (요소 단위 매칭, 색 정확도) → 축 ① 우선
-- (ii) AutoPresent 스타일 0–5 루브릭 — 발표가능성 측면 레이아웃·색 적절성 → 축 ② 우선
-- (iii) 교차 모델 VLM judge — 종합적 발표 품질 → 축 ③ 우선
-- (iv) 클래스명 편향 진단 → 축 ④ (기본 점검 용도로 한정)
-
-선행 순위의 재해석. Design2Code (NAACL 2025) Block-Match 는 본 연구의 축 ① 의 객관 매칭에 해당하고, AutoPresent (CVPR 2025) 0–5 루브릭은 축 ② 에 해당하며, WebDevJudge (2025) 의 LLM-as-judge 프로토콜은 축 ③ 에 해당한다. 본 연구는 DreamHouse 2026 (architectural structure 생성에서의 structural-visual 직교성 발견)과 SlideAudit (UIST 2025, 자동화된 대 human 축 분석) 의 다면적 평가 패러다임을 슬라이드 design-to-code 도메인으로 확장하며, LayerAgent 는 GPT-4o 동일 모델 4 메서드 비교에서 축 ① (Element-IoU 1위) + 축 ③ (GPT-5.4 4 기준 1위) 두 축에서 명확한 1위에 위치한다.
-
-평가 해석의 원칙. 본 논문은 다면적 평가 세 축을 모두 보고하며 활용 사례별 지표가중치의 가능성을 시사점으로 제시한다. LayerAgent 는 (i) 객관 충실도 + (iii) 교차 모델 VLM judge 에서 중심 우위를 가지며, AutoPresent 루브릭의 고밀도 시각 효과 부분집합 약점은 분위기 레이어의 expressive 생성 강화로 후속 연구에서 다룬다.
-
-6.3 String-CCR 대 시각 CCR — 메트릭학적 후속 제안
-
-String-CCR 은 텍스트가 HTML 에 문자열로 등장하는 비율만을 측정하므로 시각 가시성(텍스트가 실제로 카드 안에 보이는지·오버플로 되었는지·다른 요소에 가려졌는지)을 과소 결정 한다. Text Inserter (3.4절) 가 텍스트를 카드 영역에 주입했음을 string-CCR 은 확인하지만, 시각 차원의 보존은 MLLM judge 의 Content Completeness 가 보완한다.
-
-본 논문은 시각 CCR — Playwright 렌더링 후 OCR 로 가시 텍스트를 추출해 입력 콘텐츠와 매칭하는 메트릭 — 을 string-CCR 의 후속 지표로 제안한다. 다만 현재 OCR 이 본 도메인(다크 배경, 한국어, blur 조합)에서 무력화되어 있으므로, 시각 인식 OCR(mPLUG-DocOwl, Florence-2 등)의 채택이 선결 조건이다.
-
-6.4 단계 분리의 효과 — 다면적 평가에서의 일관성
-
-H-RAG의 zero-sum, D₂ ablation의 분리 효과, 5.1절의 z 명시 프롬프트 베이스라인 — 이들이 한 방향을 가리킨다: 단순 프롬프트 조정만으로는 LayerAgent의 같은 수준 레이어 회복이 관찰되지 않으며, 단계 분리·결정적 렌더링·DesignSpec blackboard 의 결합이 본 효과의 핵심이다. Cross-VLM 최첨단 베이스라인(부록 B.2)에서도 GPT-4o, GPT-5.4, Claude 4.6 Opus 모두 LayerAgent 어휘 정렬 지표 기준 베이스라인 격차가 0.69–0.78 범위에 분포하여, 최첨단 확장 단독으로는 계층적 요소 누락이 완전히 해소되지 않는다는 패턴을 보조적으로 보인다 (단 본 교차 VLM 측정은 보조 지표이므로 최첨단 간 상대 비교에 한정해 해석한다).
-
-본 장의 종합. LayerAgent의 가치는 동일 모델 조건에서 단계 분리·결정적 렌더링·DesignSpec blackboard 의 결합이 부여하는 구조적 일관성에 있다. chart_templates 라이브러리는 chart 카테고리의 자기회귀 zero-sum을 구조적으로 회피하여 본 연구의 다면적 평가 세 축에서 동일 모델 4 메서드 비교 기준 종합 우위 (객관 충실도 + GPT-5.4 종합적 두 축의 중심) 를 만든다. 최첨단 모델 업그레이드는 별개의 비용-품질 차원이며(7.3절 경계 참조), 본 논문은 이를 적용 범위 경계로 명시한다.
-
-6.5 비대칭적 시각 입력의 일반 원리
-
-본 연구의 한 가지 관찰은 다음과 같다. 스타일을 생성하는 에이전트는 이미지를 입력으로 받고, 배치를 결정하는 에이전트는 좌표만을 입력으로 받는다. Card Detail은 크롭을 입력받지만 Text Inserter는 텍스트만을 입력받는다. LayerAgent의 D₂ ablation은 이러한 단계별 입력 비대칭이 단일 전문가에 시각·콘텐츠 책임을 함께 부여할 때보다 콘텐츠 보존을 큰 폭으로 향상시킴을 보였다 (옛 string-CCR 측정에서 Δ=0.343, 부록 A H-AblationTextInserter 참조; 다면적 시각 묶음의 측정 범위 외 차원). 다른 멀티에이전트 도메인(UI/code 에이전트 분리, planning/execution 에이전트 분리, 레이아웃/콘텐츠에이전트 분리 등)으로의 일반화 가능성은 본 연구의 측정 범위 외이며, 본 논문는 슬라이드 도메인에 한정해 보고한다.
+동일한 출력이 평가 축에 따라 서로 다른 메서드를 1위로 평가한다는 본 발견 (사전등록 가설 H-MetricAxisDisagreement, 부록 A 채택) 은 단일 지표 환원의 위험성을 직접 보여준다. Design2Code (NAACL 2025) Block-Match 는 축 ① 객관 매칭에, AutoPresent (CVPR 2025) 0–5 루브릭은 축 ② 에, WebDevJudge (2025) LLM-as-judge 프로토콜은 축 ③ 에 해당하며, 선행 순위의 분기는 사실상 서로 다른 차원의 측정에서 비롯된 것이다. 본 연구는 DreamHouse (2026) 와 SlideAudit (UIST 2025) 의 다면적 평가 패러다임을 슬라이드 도메인으로 확장하여 세 축을 동반 보고하며, AutoPresent 루브릭의 고밀도 시각 효과 부분집합 약점은 분위기 레이어의 expressive 생성 강화로 후속 연구에서 다룬다.
 
 ---
 
@@ -431,7 +403,7 @@ H-RAG의 zero-sum, D₂ ablation의 분리 효과, 5.1절의 z 명시 프롬프�
 
 7.1 평가 방법론과 지표의 타당성
 
-(a) String-CCR 은 텍스트의 시각 가시성을 과소 결정 한다 — HTML 에 문자열로 존재하는지만 측정하므로 오버플로·폐색 같은 시각 차원이 빠진다. MLLM judge Content Completeness 가 시각 프록시로 보완하나, 시각 인식 OCR 기반 시각 CCR 메트릭(6.3절) 의 도입이 지표 수준의 정착된 해결이다. (b) 종합 평가가 GPT-5.4 단일 LLM-as-judge에 의존한다. Claude·Gemini 등 교차 judge 일반화와 인간 앵커 직접 검증(n≥80 쌍 × 5 평가자, MT-Bench·AlpacaEval 쌍별 프로토콜)은 수행되지 않았다. WebDevJudge(2025)가 제안한 평가 관행의 적용이 필요하다.
+(a) String-CCR 은 텍스트의 시각 가시성을 과소 결정 한다 — HTML 에 문자열로 존재하는지만 측정하므로 오버플로·폐색 같은 시각 차원이 빠진다. MLLM judge Content Completeness 가 시각 프록시로 보완하나, 시각 인식 OCR (mPLUG-DocOwl, Florence-2 등) 기반 시각 CCR 메트릭의 도입 (Playwright 렌더링 후 가시 텍스트 추출과 입력 콘텐츠 매칭) 이 지표 수준의 정착된 해결이다. 다만 현재 OCR 이 본 도메인 (다크 배경, 한국어, blur 조합) 에서 무력화되어 있어 시각 인식 OCR 채택이 선결 조건이다. (b) 종합 평가가 GPT-5.4 단일 LLM-as-judge에 의존한다. Claude·Gemini 등 교차 judge 일반화와 인간 앵커 직접 검증(n≥80 쌍 × 5 평가자, MT-Bench·AlpacaEval 쌍별 프로토콜)은 수행되지 않았다. WebDevJudge(2025)가 제안한 평가 관행의 적용이 필요하다.
 
 7.2 통계 검증력과 데이터 구성
 
@@ -515,7 +487,6 @@ H-AblationTextInserter (Text Inserter 분리 효과, 5.3절) — 부분 채택 (
 - 결정 규칙: string-CCR(D) − string-CCR(D₂) ≥ 0.30 AND Layer Recall(D) > Layer Recall(D₂)
 - 옛 측정 (chart_templates 도입 이전 출력 위, 문자열 단위 지표): string-CCR Δ = 0.343 (D=0.975 → D₂=0.632), Joint Pass Δ = 0.60 (D=0.76 → D₂=0.16). 고밀도 시각 효과 부분집합(N=10)에서는 string-CCR Δ = 0.687로 더 강하게 나타났다.
 - 새 측정 (LayerAgent v4 출력 위, 다면적 시각 묶음): Element-IoU Δ +0.008, CIEDE2000 Δ +1.04 (D₂ 우세), layout_0_5 Δ +0.22 (D 우세), color_0_5 Δ −0.16 (D₂ 우세). 고밀도 시각 효과 부분집합에서는 color_0_5 Δ +0.50 (D 우세).
-- 결론: 사전등록 결정 규칙은 string-CCR 차원이며 옛 측정에서 채택되었다. 다면적 시각 묶음으로 재측정한 결과는 layout_0_5 차원에서만 D 가 작게 우세하며 시각 차원의 메커니즘 시그널은 약하다 — 이는 Text Inserter 의 메커니즘 (텍스트의 콘텐츠 보존) 이 시각 묶음의 측정 범위 밖에 있음을 직접 보여준다 (6.3절 string-CCR 대 시각 CCR 메트릭학적 관찰). 후속 연구로 시각 인식 OCR 기반 시각 CCR 메트릭 도입 시 본 가설의 직접 재검증이 가능하다.
 
 H-AblationDesignSpec (DesignSpec 에이전트 간 합치, 5.3절) — 채택 (color_0_5 차원)
 - 결정 규칙 (재정식화): 다면적 평가 묶음 4 지표 중 ≥ 1개 차원에서 |Δ| ≥ 0.5 의 메커니즘 시그널 존재.
