@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 1280px;
+            height: 720px;
+            background-color: white;
+            padding: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: grey;
+            margin-bottom: 20px;
+        }
+        .regions {
+            display: flex;
+        }
+        .region {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .apac, .nam, .emea, .latam {
+            padding: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        .apac {
+            background-color: #003366;
+            height: 430px;
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .nam, .emea, .latam {
+            background-color: #b0b0b0;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .nam {
+            width: 28%;
+        }
+        .emea {
+            width: 18%;
+        }
+        .latam {
+            width: 9%;
+        }
+        .category {
+            padding: 10px;
+            height: 33%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">APAC retail drove 67% of FY2025 revenue growth, led by China and India</div>
+        <div class="subtitle">Revenue contribution by region × product category</div>
+        <div class="regions">
+            <div class="apac">
+                <div class="category">Apparel $35.2B</div>
+                <div class="category">Electronics $28.8B</div>
+                <div class="category">Home $16.0B</div>
+                <div class="region">APAC <br> 45%</div>
+            </div>
+            <div class="nam">
+                <div class="category">Apparel $12.4B</div>
+                <div class="category">Electronics $11.6B</div>
+                <div class="category">Home $8.0B</div>
+                <div class="region">NAM <br> 28%</div>
+            </div>
+            <div class="emea">
+                <div class="category">Apparel $7.2B</div>
+                <div class="category">Electronics $6.8B</div>
+                <div class="category">Home $4.0B</div>
+                <div class="region">EMEA <br> 18%</div>
+            </div>
+            <div class="latam">
+                <div class="category">Apparel $3.6B</div>
+                <div class="category">Electronics $2.8B</div>
+                <div class="category">Home $1.6B</div>
+                <div class="region">LATAM <br> 9%</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</div></body></html>

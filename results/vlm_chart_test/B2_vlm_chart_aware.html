@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>VLM chart-aware</title>
+<style>body{margin:0;background:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body>
+<div style="width:1280px;height:720px;overflow:hidden;position:relative;background:#fff;">
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mekko Chart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chart-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .source {
+            text-align: right;
+            font-size: 0.8em;
+            margin-top: 10px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-title">APAC retail drove 67% of FY2025 revenue growth, led by China and India</div>
+    <svg width="1280" height="720">
+        <!-- APAC column -->
+        <rect x="0" y="0" width="576" height="326" style="fill:#001E62;" />
+        <text x="10" y="20" fill="white">Apparel $35.2B</text>
+        <rect x="0" y="326" width="576" height="267" style="fill:#003366;" />
+        <text x="10" y="346" fill="white">Electronics $28.8B</text>
+        <rect x="0" y="593" width="576" height="127" style="fill:#004080;" />
+        <text x="10" y="613" fill="white">Home $16.0B</text>
+        <text x="288" y="710" fill="black" font-weight="bold">APAC 45%</text>
+        
+        <!-- NAM column -->
+        <rect x="576" y="0" width="358" height="228" style="fill:#CCCCCC;" />
+        <text x="586" y="20" fill="black">Apparel $12.4B</text>
+        <rect x="576" y="228" width="358" height="213" style="fill:#EEEEEE;" />
+        <text x="586" y="248" fill="black">Electronics $11.6B</text>
+        <rect x="576" y="441" width="358" height="279" style="fill:#DDDDDD;" />
+        <text x="586" y="461" fill="black">Home $8.0B</text>
+        <text x="755" y="710" fill="black" font-weight="bold">NAM 28%</text>
+        
+        <!-- EMEA column -->
+        <rect x="934" y="0" width="230" height="142" style="fill:#BBBBBB;" />
+        <text x="944" y="20" fill="black">Apparel $7.2B</text>
+        <rect x="934" y="142" width="230" height="134" style="fill:#DDDDDD;" />
+        <text x="944" y="162" fill="black">Electronics $6.8B</text>
+        <rect x="934" y="276" width="230" height="444" style="fill:#CCCCCC;" />
+        <text x="944" y="296" fill="black">Home $4.0B</text>
+        <text x="1049" y="710" fill="black" font-weight="bold">EMEA 18%</text>
+        
+        <!-- LATAM column -->
+        <rect x="1164" y="0" width="116" height="71" style="fill:#AAAAAA;" />
+        <text x="1174" y="20" fill="black">Apparel $3.6B</text>
+        <rect x="1164" y="71" width="116" height="110" style="fill:#CCCCCC;" />
+        <text x="1174" y="91" fill="black">Electronics $2.8B</text>
+        <rect x="1164" y="181" width="116" height="539" style="fill:#BBBBBB;" />
+        <text x="1174" y="201" fill="black">Home $1.6B</text>
+        <text x="1222" y="710" fill="black" font-weight="bold">LATAM 9%</text>
+    </svg>
+    <div class="source">Source: Internal financial data, FY2025</div>
+</body>
+</html>
+```
+</div></body></html>
