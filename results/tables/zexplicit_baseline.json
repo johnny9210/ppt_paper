@@ -2,80 +2,70 @@
   "results": [
     {
       "design_id": "design_01_timeline",
-      "lted": 0.8461538461538461,
-      "layer_recall": 0.4,
-      "n_layers_gen": 5,
-      "n_nonzero_z": 4
+      "n_layers_gen": 7,
+      "lted": 0.875,
+      "layer_recall": 0.4
     },
     {
       "design_id": "design_02_dashboard",
-      "lted": 0.9130434782608695,
-      "layer_recall": 0.1111111111111111,
-      "n_layers_gen": 6,
-      "n_nonzero_z": 5
+      "n_layers_gen": 8,
+      "lted": 0.8666666666666667,
+      "layer_recall": 0.2222222222222222
     },
     {
       "design_id": "design_03_comparison_split",
-      "lted": 1.0,
-      "layer_recall": 0.0,
       "n_layers_gen": 0,
-      "n_nonzero_z": 0
+      "lted": 1.0,
+      "layer_recall": 0.0
     },
     {
       "design_id": "design_04_pyramid",
-      "lted": 0.5714285714285714,
-      "layer_recall": 0.5,
-      "n_layers_gen": 4,
-      "n_nonzero_z": 2
+      "n_layers_gen": 6,
+      "lted": 0.7692307692307693,
+      "layer_recall": 0.5
     },
     {
       "design_id": "design_05_hub_spoke",
-      "lted": 0.8857142857142857,
-      "layer_recall": 0.5,
-      "n_layers_gen": 4,
-      "n_nonzero_z": 3
+      "n_layers_gen": 6,
+      "lted": 0.9024390243902439,
+      "layer_recall": 0.5
     },
     {
       "design_id": "design_06_before_after",
-      "lted": 0.8620689655172413,
-      "layer_recall": 0.4,
-      "n_layers_gen": 3,
-      "n_nonzero_z": 1
+      "n_layers_gen": 5,
+      "lted": 0.8571428571428571,
+      "layer_recall": 0.6
     },
     {
       "design_id": "design_07_feature_grid",
-      "lted": 0.7083333333333334,
-      "layer_recall": 0.25,
-      "n_layers_gen": 4,
-      "n_nonzero_z": 3
+      "n_layers_gen": 7,
+      "lted": 0.6060606060606061,
+      "layer_recall": 0.375
     },
     {
       "design_id": "design_08_roadmap",
-      "lted": 0.9130434782608695,
-      "layer_recall": 0.2,
-      "n_layers_gen": 2,
-      "n_nonzero_z": 1
+      "n_layers_gen": 4,
+      "lted": 0.9310344827586207,
+      "layer_recall": 0.2
     },
     {
       "design_id": "design_09_layered_stack",
-      "lted": 0.8461538461538461,
-      "layer_recall": 0.3333333333333333,
-      "n_layers_gen": 3,
-      "n_nonzero_z": 2
+      "n_layers_gen": 5,
+      "lted": 0.92,
+      "layer_recall": 0.3333333333333333
     },
     {
       "design_id": "design_10_stats_hero",
+      "n_layers_gen": 8,
       "lted": 0.8918918918918919,
-      "layer_recall": 0.2222222222222222,
-      "n_layers_gen": 7,
-      "n_nonzero_z": 6
+      "layer_recall": 0.25
     }
   ],
   "aggregate": {
-    "lted_mean": 0.8437831696714755,
-    "lted_std": 0.1206186102776149,
-    "recall_mean": 0.2916666666666667,
-    "recall_std": 0.1648720250269534,
-    "avg_layers": 3.8
+    "lted_mean": 0.8619466298141656,
+    "lted_std": 0.10751126265682626,
+    "recall_mean": 0.33805555555555555,
+    "recall_std": 0.1766362366059256,
+    "avg_layers": 5.6
   }
 }

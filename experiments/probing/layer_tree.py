@@ -21,21 +21,24 @@ from typing import Any
 # Canonical layer types — VLM descriptions and HTML class names normalize to these
 LAYER_TYPES = {
     "background", "atmosphere", "decoration",
-    "card", "panel", "container",
-    "hero", "title", "headline",
-    "content", "text", "label", "value",
+    "card", "panel",
+    "hero", "title",
+    "text", "label", "value",
     "icon", "badge", "image",
-    "chart", "graph", "table",
+    "chart", "table",
     "connector", "line", "arrow",
 }
 
 _TYPE_ALIASES = {
     "bg": "background", "back": "background", "gradient": "background",
     "glass": "card", "tile": "card", "box": "card",
-    "header": "title", "heading": "title",
-    "body": "content", "description": "content", "subtitle": "content",
+    "header": "title", "heading": "title", "headline": "title",
+    "body": "text", "description": "text", "subtitle": "text", "content": "text",
     "metric": "value", "number": "value",
-    "logo": "icon", "symbol": "icon",
+    "logo": "icon", "symbol": "icon", "emoji": "icon", "shape": "icon",
+    "graph": "chart",
+    "container": "panel",
+    "edge": "connector",
 }
 
 
@@ -115,20 +118,25 @@ def parse_perception_response(text: str) -> list[LayerNode]:
 # ─────────────────────────────────────────────────────────────────
 
 # Map common class-name patterns → canonical layer type.
+# Order matters: more specific patterns first (e.g. hero-value → value, not hero).
 _HTML_CLASS_TO_TYPE = [
     (r"bg-base|bg_base|background", "background"),
     (r"atmos|atmosphere|glow", "atmosphere"),
     (r"decor|decoration|pattern", "decoration"),
-    (r"hero", "hero"),
+    (r"card-value|hero-value|value|metric|percent|stat-num", "value"),
+    (r"card-label|hero-subtitle|label|subtitle|tag", "label"),
+    (r"card-icon|icon|fa-|emoji|marker|dot|shape", "icon"),
     (r"card-wrap|card-\d|^card$", "card"),
-    (r"panel|container", "panel"),
-    (r"title|headline", "title"),
-    (r"card-value|hero-value|value", "value"),
-    (r"card-label|hero-subtitle|label|subtitle", "label"),
-    (r"card-icon|icon|fa-", "icon"),
-    (r"chart|svg", "chart"),
+    (r"hero", "hero"),
+    (r"panel|container|box|wrap|slide-|^node$|node-", "panel"),
+    (r"title|headline|header|heading|step-title|feature-title|card-title", "title"),
+    (r"chart|svg|graph", "chart"),
     (r"table|lt-table", "table"),
-    (r"connector|connection|bezier", "connector"),
+    (r"arrow", "arrow"),
+    (r"connector|connection|bezier|edge", "connector"),
+    (r"body|content|description|desc|text|caption|note|detail", "text"),
+    (r"line|stroke", "line"),
+    (r"badge|chip|pill", "badge"),
 ]
 
 
@@ -150,6 +158,16 @@ _STYLE_BLOCK_RE = re.compile(r"<style[^>]*>([\s\S]*?)</style>", re.IGNORECASE)
 _CSS_RULE_RE = re.compile(
     r"\.([\w-]+)[^{}]*\{([^{}]*)\}", re.IGNORECASE,
 )
+
+# SVG-aware extension: rendered charts use <svg>...<rect/><text/><line/>...</svg>.
+# Earlier div-only parser missed these entirely, deflating layer_recall on
+# chart-heavy slides (chart sub-elements invisible while perception sees them).
+_SVG_BLOCK_RE = re.compile(r"<svg\b[^>]*>([\s\S]*?)</svg>", re.IGNORECASE)
+_SVG_OPEN_RE = re.compile(r'<svg\b[^>]*>', re.IGNORECASE)
+_SVG_TEXT_RE = re.compile(r"<text\b", re.IGNORECASE)
+_SVG_LINE_RE = re.compile(r"<(line|polyline|path)\b", re.IGNORECASE)
+_SVG_RECT_RE = re.compile(r"<rect\b", re.IGNORECASE)
+_SVG_CIRCLE_RE = re.compile(r"<circle\b", re.IGNORECASE)
 
 
 def _extract_style_block_z(html: str) -> dict[str, int]:
@@ -173,6 +191,12 @@ def parse_html_tree(html: str) -> list[LayerNode]:
 
     Reads z-index from BOTH inline `style="..."` and `<style>` block CSS rules,
     preferring inline if both are present (CSS specificity proxy).
+
+    Also walks <svg> blocks: an SVG becomes one `chart` node, its <text>
+    descendants contribute `text` nodes, <line>/<polyline>/<path> contribute
+    `line`, <circle> contributes `icon`. Without this, SVG-rendered charts
+    register as a single panel div and the parser sees zero of the visual
+    content the VLM perceives.
     """
     style_block_z = _extract_style_block_z(html)
     by_z_type: dict[tuple[int, str], int] = {}
@@ -186,15 +210,38 @@ def parse_html_tree(html: str) -> list[LayerNode]:
         if z_match:
             z = int(z_match.group(1))
         else:
-            # Fall back to <style> block lookup by class name
             z = 0
             for cn in cls.split():
                 if cn.lower() in style_block_z:
                     z = style_block_z[cn.lower()]
                     break
-        # Bucket by (z, type), increment count
         key = (z, canonical)
         by_z_type[key] = by_z_type.get(key, 0) + 1
+
+    for svg_match in _SVG_BLOCK_RE.finditer(html):
+        svg_full = svg_match.group(0)
+        svg_open = _SVG_OPEN_RE.match(svg_full).group(0)
+        svg_inner = svg_match.group(1)
+        # z from the <svg ...> tag's inline style, else mid-band default
+        # Default to back band (z<10): perception consistently places chart and
+        # its labels at z=1-8, so without inline z-index, classify SVG content
+        # as back-band to align bands across reference and generated trees.
+        z_match = _Z_INDEX_RE.search(svg_open)
+        z = int(z_match.group(1)) if z_match else 5
+
+        by_z_type[(z, "chart")] = by_z_type.get((z, "chart"), 0) + 1
+        text_n = len(_SVG_TEXT_RE.findall(svg_inner))
+        if text_n:
+            by_z_type[(z, "text")] = by_z_type.get((z, "text"), 0) + text_n
+        line_n = len(_SVG_LINE_RE.findall(svg_inner))
+        if line_n:
+            by_z_type[(z, "line")] = by_z_type.get((z, "line"), 0) + line_n
+        circle_n = len(_SVG_CIRCLE_RE.findall(svg_inner))
+        if circle_n:
+            by_z_type[(z, "icon")] = by_z_type.get((z, "icon"), 0) + circle_n
+        rect_n = len(_SVG_RECT_RE.findall(svg_inner))
+        if rect_n:
+            by_z_type[(z, "value")] = by_z_type.get((z, "value"), 0) + rect_n
 
     layers = [LayerNode(z=z, type=t, count=c)
               for (z, t), c in sorted(by_z_type.items())]

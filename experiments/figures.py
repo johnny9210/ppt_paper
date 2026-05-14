@@ -116,10 +116,9 @@ def fig2_methods(rows: list[dict]) -> None:
     methods = ["single_pass", "visual_cot", "cot_h_rag", "layeragent"]
     metrics = ["lted", "layer_recall"]
     metric_labels = ["LTED↓ (class-aligned, aux)", "LayerRecall ↑ (class-aligned, aux)"]
-    higher_better = [False, True]
 
     fig, axes = plt.subplots(1, len(metrics), figsize=(9, 3.8), sharey=False)
-    for ax, metric, label, hb in zip(axes, metrics, metric_labels, higher_better):
+    for ax, metric, label in zip(axes, metrics, metric_labels):
         means = []
         errs = []
         for m in methods:
@@ -136,9 +135,6 @@ def fig2_methods(rows: list[dict]) -> None:
         ax.set_xticks(np.arange(len(methods)))
         ax.set_xticklabels(["A", "B", "C", "F"], fontsize=9)
         ax.set_title(label, fontsize=10)
-        if not hb:
-            ax.set_ylim(top=ax.get_ylim()[1])
-            ax.invert_yaxis()
     fig.tight_layout()
     out = FIG_DIR / "fig2_methods.pdf"
     fig.savefig(out, bbox_inches="tight")
@@ -236,7 +232,7 @@ def fig3_layouts(main_rows: list[dict], judge_rows: list[dict]) -> None:
     axes[1].set_xticks(x)
     axes[1].set_xticklabels(labels, rotation=30, ha="right", fontsize=9)
     axes[1].set_ylabel("LTED Δ (best baseline − LayerAgent)")
-    axes[1].set_title("Aux axis — LTED (class-name aligned)", fontsize=11)
+    axes[1].set_title("Aux axis — LTED (SVG-aware parser)", fontsize=11)
 
     fig.suptitle("Per-layout effect range (positive = LayerAgent advantage)", fontsize=11, y=1.02)
     fig.tight_layout()
