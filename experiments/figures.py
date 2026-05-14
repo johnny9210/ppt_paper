@@ -56,7 +56,7 @@ def fig1_perception_generation_gap(rows: list[dict],
 
     # GPT-4o from main_eval
     methods = ["single_pass", "visual_cot", "cot_h_rag", "layeragent"]
-    method_labels = ["A. Baseline", "B. Visual CoT", "C. CoT+H-RAG", "F. LayerAgent (ours)"]
+    method_labels = ["A. Baseline", "B. Visual CoT", "C. CoT+H-RAG", "D. LayerAgent (ours)"]
 
     if cross_vlm_rows:
         # Plot cross-VLM gap on the left, methods comparison on the right
@@ -115,7 +115,7 @@ def fig2_methods(rows: list[dict]) -> None:
     """Class-name-aligned sanity check (boards LTED + LayerRecall)."""
     methods = ["single_pass", "visual_cot", "cot_h_rag", "layeragent"]
     metrics = ["lted", "layer_recall"]
-    metric_labels = ["LTED↓ (class-aligned, aux)", "LayerRecall ↑ (class-aligned, aux)"]
+    metric_labels = ["LTED↓ (SVG-aware, aux)", "LayerRecall ↑ (SVG-aware, aux)"]
 
     fig, axes = plt.subplots(1, len(metrics), figsize=(9, 3.8), sharey=False)
     for ax, metric, label in zip(axes, metrics, metric_labels):
@@ -133,7 +133,7 @@ def fig2_methods(rows: list[dict]) -> None:
         colors = ["#94A3B8"] * 3 + ["#3B82F6"]
         ax.bar(np.arange(len(methods)), means, yerr=errs, color=colors, capsize=3, width=0.6)
         ax.set_xticks(np.arange(len(methods)))
-        ax.set_xticklabels(["A", "B", "C", "F"], fontsize=9)
+        ax.set_xticklabels(["A", "B", "C", "D"], fontsize=9)
         ax.set_title(label, fontsize=10)
     fig.tight_layout()
     out = FIG_DIR / "fig2_methods.pdf"
